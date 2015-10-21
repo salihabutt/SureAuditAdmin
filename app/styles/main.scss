@@ -3,6 +3,12 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+@import "_global.scss";
+@import "_login.scss";
+
+
+
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -12,6 +18,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 body {
   padding: 0;
+}
+
+html,body{
+  height: 100%;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
