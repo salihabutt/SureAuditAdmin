@@ -1,152 +1,130 @@
-<div class="col-lg-12 col-md-12 home no-padding">
-	<header class="clearfix">
-		<div class="col-lg-2 col-md-12">
-			<img src="/images/img_logo_nav@2x.png" alt="logo">
+
+
+<div class="main-content clearfix" ng-controller="HomeCtrl as home">
+	<div class="col-lg-12 col-md-12 no-padding">
+		<div class="col-lg-6 col-md-6 no-padding">
+			<h2>Admin Console</h2>
 		</div>
-		<div class="col-lg-2 col-md-2 col-lg-offset-8">
-			<div class="col-lg-6 col-md-6 text-right">
-				<img src="/images/ic_settings@2x.png" alt="settings">
-			</div>
-			<div class="col-lg-6 col-md-6 logout">
-				Logout 
-			</div>
-		</div>		
-	</header>
+		<div class="col-lg-6 col-md-6 no-padding text-right">
+			<button class="main-btn-green">General App Settings</button>
+		</div>
+	</div>
 
-	<nav class="clearfix text-right">
-		<ul>
-			<li>Question and Surveys</li>
-			<li>User Groups</li>
-			<li>Subject Groups</li>
-		</ul>
-	</nav>
-
-	<div class="main-content clearfix" ng-controller="HomeCtrl">
-		<div class="col-lg-12 col-md-12 no-padding">
-			<div class="col-lg-6 col-md-6 no-padding">
-				<h2>Admin Console</h2>
+	<div class="col-lg-12 col-md-12 content-section no-padding">
+		<div class="col-lg-12 col-md-12 content-heading">
+			<h3>Questions and Surveys</h3>
+		</div>
+		
+		<div class="col-lg-12 col-md-12 content-box">
+			<!-- survey group -->
+			<div class="col-lg-3 col-md-3 no-padding">
+				<div class="col-lg-12 col-md-12 no-padding">
+					<div class="col-lg-3 col-md-3 no-padding">
+						<img src="/images/thumbnail_section_surveygroups@2x.png" alt="surveyGroup">
+					</div>
+					<div class="col-lg-9 col-md-9 no-padding">
+						<div class="col-lg-12 no-padding box-name">
+							Survey Groups
+						</div>
+						<div  class="col-lg-12 col-md-12 no-padding box-count">
+							{{ home.data.SubjectGroups }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 btn-section-manage">
+					<button class="manage-btn">Manage</button>
+				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 no-padding text-right">
-				<button class="main-btn-green">General App Settings</button>
+
+			<!-- surveys -->
+			<div class="col-lg-3 col-md-3 no-padding">
+				<div class="col-lg-12 col-md-12 no-padding">
+					<div class="col-lg-3 col-md-3 no-padding">
+						<img src="/images/thumbnail_section_surveys@2x.png" alt="surveyGroup">
+					</div>
+					<div class="col-lg-9 col-md-9 no-padding">
+						<div class="col-lg-12 no-padding box-name">
+							Surveys
+						</div>
+						<div  class="col-lg-12 col-md-12 no-padding box-count">
+							{{ home.data.SubjectGroups }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 btn-section-manage">
+					<button class="manage-btn">Manage</button>
+				</div>
+			</div>
+
+			<!-- Master Questions -->
+			<div class="col-lg-3 col-md-3 no-padding">
+				<div class="col-lg-12 col-md-12 no-padding">
+					<div class="col-lg-3 col-md-3 no-padding">
+						<img src="/images/thumbnail_section_questions@2x.png" alt="surveyGroup">
+					</div>
+					<div class="col-lg-9 col-md-9 no-padding">
+						<div class="col-lg-12 no-padding box-name">
+							Master Questions
+						</div>
+						<div  class="col-lg-12 col-md-12 no-padding box-count">
+							{{ home.data.MasterQuestions }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12 btn-section-manage">
+					<button class="manage-btn">Manage</button>
+				</div>
 			</div>
 		</div>
 
-		<div class="col-lg-12 col-md-12 content-section no-padding" ng-model="data">
-			<div class="col-lg-12 col-md-12 content-heading">
-				<h3>Questions and Surveys</h3>
-			</div>
-			
-			<div class="col-lg-12 col-md-12 content-box">
-				<!-- survey group -->
-				<div class="col-lg-3 col-md-3 no-padding">
-					<div class="col-lg-12 col-md-12 no-padding">
-						<div class="col-lg-3 col-md-3 no-padding">
-							<img src="/images/thumbnail_section_surveygroups@2x.png" alt="surveyGroup">
-						</div>
-						<div class="col-lg-9 col-md-9 no-padding">
-							<div class="col-lg-12 no-padding box-name">
-								Survey Groups
-							</div>
-							<div  class="col-lg-12 col-md-12 no-padding box-count">
-								{{ data.SubjectGroups }}
-							</div>
-						</div>
+		<!-- user and subjects section -->
+		<div class="col-lg-12 col-md-12 content-heading">
+			<h3>Users and Subjects</h3>
+		</div>
+
+		<div class="col-lg-12 col-md-12 content-box">
+			<!-- user group -->
+			<div class="col-lg-3 col-md-3 no-padding">
+				<div class="col-lg-12 col-md-12 no-padding">
+					<div class="col-lg-3 col-md-3 no-padding">
+						<img src="/images/thumbnail_section_users@2x.png" alt="surveyGroup">
 					</div>
-					
-					<div class="col-lg-12 col-md-12 btn-section-manage">
-						<button class="manage-btn">Manage</button>
+					<div class="col-lg-9 col-md-9 no-padding">
+						<div class="col-lg-12 no-padding box-name">
+							User Groups
+						</div>
+						<div  class="col-lg-12 col-md-12 no-padding box-count">
+							{{ home.data.UserGroups }}
+						</div>
 					</div>
 				</div>
-
-				<!-- surveys -->
-				<div class="col-lg-3 col-md-3 no-padding">
-					<div class="col-lg-12 col-md-12 no-padding">
-						<div class="col-lg-3 col-md-3 no-padding">
-							<img src="/images/thumbnail_section_surveys@2x.png" alt="surveyGroup">
-						</div>
-						<div class="col-lg-9 col-md-9 no-padding">
-							<div class="col-lg-12 no-padding box-name">
-								Surveys
-							</div>
-							<div  class="col-lg-12 col-md-12 no-padding box-count">
-								3
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-12 col-md-12 btn-section-manage">
-						<button class="manage-btn">Manage</button>
-					</div>
-				</div>
-
-				<!-- Master Questions -->
-				<div class="col-lg-3 col-md-3 no-padding">
-					<div class="col-lg-12 col-md-12 no-padding">
-						<div class="col-lg-3 col-md-3 no-padding">
-							<img src="/images/thumbnail_section_questions@2x.png" alt="surveyGroup">
-						</div>
-						<div class="col-lg-9 col-md-9 no-padding">
-							<div class="col-lg-12 no-padding box-name">
-								Master Questions
-							</div>
-							<div  class="col-lg-12 col-md-12 no-padding box-count">
-								3
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-12 col-md-12 btn-section-manage">
-						<button class="manage-btn">Manage</button>
-					</div>
+				
+				<div class="col-lg-12 col-md-12 btn-section-manage">
+					<button class="manage-btn">Manage</button>
 				</div>
 			</div>
 
-			<!-- user and subjects section -->
-			<div class="col-lg-12 col-md-12 content-heading">
-				<h3>Users and Subjects</h3>
-			</div>
-
-			<div class="col-lg-12 col-md-12 content-box">
-				<!-- user group -->
-				<div class="col-lg-3 col-md-3 no-padding">
-					<div class="col-lg-12 col-md-12 no-padding">
-						<div class="col-lg-3 col-md-3 no-padding">
-							<img src="/images/thumbnail_section_users@2x.png" alt="surveyGroup">
-						</div>
-						<div class="col-lg-9 col-md-9 no-padding">
-							<div class="col-lg-12 no-padding box-name">
-								User Groups
-							</div>
-							<div  class="col-lg-12 col-md-12 no-padding box-count">
-								3
-							</div>
-						</div>
+			<!-- Subject group -->
+			<div class="col-lg-3 col-md-3 no-padding">
+				<div class="col-lg-12 col-md-12 no-padding">
+					<div class="col-lg-3 col-md-3 no-padding">
+						<img src="/images/thumbnail_section_subjects@2x.png" alt="surveyGroup">
 					</div>
-					
-					<div class="col-lg-12 col-md-12 btn-section-manage">
-						<button class="manage-btn">Manage</button>
+					<div class="col-lg-9 col-md-9 no-padding">
+						<div class="col-lg-12 no-padding box-name">
+							Subject Groups
+						</div>
+						<div  class="col-lg-12 col-md-12 no-padding box-count">
+							{{ home.data.SubjectGroups }}
+						</div>
 					</div>
 				</div>
-
-				<!-- Subject group -->
-				<div class="col-lg-3 col-md-3 no-padding">
-					<div class="col-lg-12 col-md-12 no-padding">
-						<div class="col-lg-3 col-md-3 no-padding">
-							<img src="/images/thumbnail_section_subjects@2x.png" alt="surveyGroup">
-						</div>
-						<div class="col-lg-9 col-md-9 no-padding">
-							<div class="col-lg-12 no-padding box-name">
-								Subject Groups
-							</div>
-							<div  class="col-lg-12 col-md-12 no-padding box-count">
-								3
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-lg-12 col-md-12 btn-section-manage">
-						<button class="manage-btn">Manage</button>
-					</div>
+				
+				<div class="col-lg-12 col-md-12 btn-section-manage">
+					<button class="manage-btn">Manage</button>
 				</div>
 			</div>
 		</div>

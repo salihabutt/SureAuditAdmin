@@ -21,17 +21,23 @@ angular
   .config(function($stateProvider, $urlRouterProvider) {
   //
   // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/login");
     //
     // Setting up the states
     $stateProvider
       .state('login', {
-        url: "/",
+        url: "/login",
         templateUrl: "views/login.html"
       })
 
-    .state('home', {
-      url: "/home",
+    .state('main', {
+      abstract: true,
+      url: "/",
+      templateUrl: "views/main.html"
+    })
+
+    .state('main.home', {
+      url: "home",
       templateUrl: "views/home.html"
     });
   });
