@@ -20,9 +20,10 @@
     <![endif]-->
 
 
-      <div ui-view class="height100"></div>
+    <div class="wrapper clearfix">
+      <div ui-view set-height></div>
+    </div>
 
-  
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -49,7 +50,12 @@
         <!-- services -->
         <script src="scripts/services/loginService.js"></script>
         <script src="scripts/services/homeService.js"></script>
-         <script src="scripts/services/authService.js"></script>
+        <script src="scripts/services/authService.js"></script>
+        <script src="scripts/services/authInterceptorService.js"></script>
+
+
+        <!-- directives -->
+        <script src="scripts/directives/setHeight.js"></script>
 
         <!-- endbuild -->
 </body>

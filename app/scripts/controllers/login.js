@@ -1,20 +1,21 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-  .controller('LoginCtrl', function ($scope, authService) {
+  .controller('LoginCtrl', function ($scope, authService, $state) {
     var self = this;
     self.loginData = {
     		userName: '',
     		password: '',
     		customerId: ''
-    }
-    
-    self.login = function(){
-    	debugger;	
+    };
+    self.isError = false;
+    localStorage.setItem('key','saliha');
+    self.login = function(){	
 		authService.login(self.loginData).then(function (response){
-			debugger;
+			self.isError = false;
+			$state.go('home');
 		}, function (err){
-			
+			self.isError = true;
 		});
     };
 

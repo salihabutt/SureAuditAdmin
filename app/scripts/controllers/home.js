@@ -3,7 +3,11 @@
 
 angular.module('sureAuditAdminApp')
 	.controller('HomeCtrl',  function (homeService) {
-		debugger;
-		var data = homeService.getDumydata();
+		var self = this
+		init = function () {
+			var response = homeService.getCounts();
+		}
+		
+		init();
 
 	})

@@ -1,22 +1,18 @@
 "use strict";
 
 angular.module('sureAuditAdminApp')
-	.service('homeService', function ($http) {
+	.service('homeService', function ($http, configurations) {
 		
 		this.getCounts = function(){
 			var request = {
 				method: 'GET',
-				url: 'https://sureaudit-dev.propelics.com/api/v1/Counts',
-				headers: {
-					'Authorization': 'token',
-					'Accept': 'application/json'
-				}
+				url: configurations.sureAudit + configurations.serviceBase + 'Counts'
 			}
 
-	    	$http(request).then(function success(responce){
-		  		console.log(responce);
-		  	},function error(responce){
-		  		console.log(responce);
+	    	$http(request).then(function success(response){
+	    		return response
+		  	},function error(response){
+		  		console.log(response);
 		  	});
 
 		},
