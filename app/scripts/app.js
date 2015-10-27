@@ -19,14 +19,14 @@ var app = angular
     'ui.router'
   ])
   .constant('configurations',{
-	  'custkey':'propelics',
-	  'appkey':'sureaudit',
-	  'devicekey':'tkxel',
-	  'grant_type':'password',
-	  'identity','https://identity-dev.propelics.com',
-	  'serviceBase','https://sureaudit-dev.propelics.com',
-	  'contentType','application/x-www-form-urlencoded',
-	  'acceptType','application/json'
+	  'custKey':'propelics',
+	  'appKey':'sureaudit',
+	  'deviceKey':'tkxel',
+	  'grantType':'password',
+	  'identity':'https://identity-dev.propelics.com',
+	  'serviceBase':'https://sureaudit-dev.propelics.com',
+	  'contentType':'application/x-www-form-urlencoded',
+	  'acceptType':'application/json'
   })
   .config(function($stateProvider, $urlRouterProvider) {
   //
@@ -38,18 +38,16 @@ var app = angular
       .state('login', {
         url: "/",
         templateUrl: "views/login.html"
-      });
+      })
+    .state('home', {
+        url: "/home",
+        templateUrl: "views/home.html"
+      })
   })
-  .run(['$rootScope', '$injector', function($rootScope,$injector){ 
-	  	$injector.get("$http").defaults.transformRequest = function(data, headersGetter){
-	  	 debugger;
-		  if ($rootScope.oauth) {
-			  headersGetter()['Authorization'] = "Bearer "+$rootScope.oauth.access_token; 
-		  }
-		  if (data) { 
-			  return angular.toJson(data);
-		  }
-		}; 		 
-}); 
-		  
-		  
+  .run(['authService', function (authService) {
+    authService.fillAuthData();
+}]);
+
+ 
+		
+

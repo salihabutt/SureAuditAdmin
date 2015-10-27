@@ -13,13 +13,19 @@ app.factory('authService', function ($http, $q, $rootScope,configurations) {
 
     var _login = function (loginData) {
  
-        var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
+        var data = "username=" + loginData.userName + "&password=" + loginData.password +"&grant_type="
+        + configurtions.grantType + "&devicekey=" + configurations.deviceKey + "&appkey=" + configurations.appKey
+        + "&custkey=" + configurations.custKey;
+        
  
         var deferred = $q.defer();
  
-        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
- 
-            localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
+        $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType } })
+        .success(function (response) {
+        	debugger;
+        	$rootScope.authData = {};
+        	$rootScope.authData.token = response.access_token;
+           /// localStorageService.set('authorizationData', { token: response.access_token, userName: loginData.userName });
  
             _authentication.isAuth = true;
             _authentication.userName = loginData.userName;
@@ -34,4 +40,31 @@ app.factory('authService', function ($http, $q, $rootScope,configurations) {
         return deferred.promise;
  
     };
+    
+    var _logOut = function () {
+    	 
+      
+ 
+        _authentication.isAuth = false;
+        _authentication.userName = "";
+ 
+    };
+ 
+    var _fillAuthData = function () {
+ 
+        var authData = $rootScope.authData;
+        if (authData)
+        {
+            _authentication.isAuth = true;
+            _authentication.userName = authData.userName;
+        }
+ 
+    };
+    
+    authServiceFactory.login = _login;
+    authServiceFactory.logOut = _logOut;
+    authServiceFactory.fillAuthData = _fillAuthData;
+    authServiceFactory.authentication = _authentication;
+ 
+    return authServiceFactory;
 });
