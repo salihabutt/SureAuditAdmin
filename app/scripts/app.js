@@ -54,12 +54,12 @@ var app = angular
   
   $httpProvider.interceptors.push('authInterceptorService');
   cfpLoadingBarProvider.includeSpinner = false;
-  localStorageServiceProvider.setStorageType('sessionStorage');
+  localStorageServiceProvider.setStorageType('sesssionStorage');
   })
-.run(['authService', '$rootScope', function (authService, $rootScope) {
+.run(function ($rootScope, authService, errorService) {
     authService.fillAuthData();
     // ALl application errors are store in rootScope
-    $rootScope.errors = {};
-    $rootScope.errors.loginFail='userName or password is invalid';		
-}]);
+    $rootScope.errors = errorService;
+   		
+});
 
