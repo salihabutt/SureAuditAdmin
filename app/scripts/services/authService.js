@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('authService',function ($http, $q, $rootScope,configurations) {
+app.factory('authService',function ($http, $q, $rootScope,configurations, localStorageService) {
 	
 	var autService = configurations.identity;
 	var serviceBase = configurations.serviceBase;
@@ -19,8 +19,7 @@ app.factory('authService',function ($http, $q, $rootScope,configurations) {
     	var deferred = $q.defer();
     	$http.post(autService + serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType, 'Accept': configurations.acceptType } })
     		.success(function (response) {
-    			$rootScope.authData = {};
-    			$rootScope.authData = response;
+    			localStorageService.set('authData',response);
     			_authentication.isAuth = true;
     			_authentication.userName = loginData.userName;
     			deferred.resolve(response);
@@ -33,14 +32,14 @@ app.factory('authService',function ($http, $q, $rootScope,configurations) {
     };
     
     var _logOut = function () {
-    	 delete $rootScope.authData;
+    	localStorageService.remove('authData');
         _authentication.isAuth = false;
         _authentication.userName = "";
  
     };
  
     var _fillAuthData = function () {
-        var authData = $rootScope.authData;
+        var authData = localStorageService.get('authData');
         if (authData!=null)
         {
             _authentication.isAuth = true;

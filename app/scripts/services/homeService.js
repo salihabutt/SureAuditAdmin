@@ -1,39 +1,26 @@
 "use strict";
 
 angular.module('sureAuditAdminApp')
-	.service('homeService', function ($http, configurations) {
+	.factory('homeService', function ($http, $q, configurations) {
 		
-		this.getCounts = function(){
+		var homeServiceFactory = {};
+		var _getCounts = function(){
+			var deferred = $q.defer();
 			var request = {
 				method: 'GET',
 				url: configurations.sureAudit + configurations.serviceBase + 'Counts'
 			}
 
-	    	$http(request).then(function success(response){
-	    		return response
-		  	},function error(response){
-		  		console.log(response);
+	    	$http(request).success( function(response){
+	    		deferred.resolve(response);
+		  	}).error(function(err,status){
+		  		deferred.reject(err);
 		  	});
+			
 
-		},
+		  	return deferred.promise;
+		};
 
-		this.getDumydata = function(){
-
-			var dummyData =	{
-			  "AuditGroups": 2,
-			  "AuditDefinitions": 2,
-			  "AuditResponses": 2,
-			  "MasterQuestions": 11,
-			  "MasterSections": 3,
-			  "PickLists": 2,
-			  "QuestionTypes": 11,
-			  "SubjectGroups": 2,
-			  "Users": 4,
-			  "UserGroups": 3
-			}
-
-			return dummyData ;
-
-		}
-
-	})
+		homeServiceFactory.getCounts = _getCounts;
+		return homeServiceFactory;
+	});

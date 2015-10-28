@@ -16,37 +16,45 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.router'
+    'ui.router',
+    'angular-loading-bar',
+    'LocalStorageModule'
   ])
-  .constant('configurations',{
-	  'custKey':'propelics',
-	  'appKey':'sureaudit',
-	  'deviceKey':'tkxel',
-	  'grantType':'password',
-	  'identity':'https://identity-dev.propelics.com',
-	  'sureAudit':'https://sureaudit-dev.propelics.com',
-	  'serviceBase': '/api/v1/',
-	  'contentType':'application/x-www-form-urlencoded',
-	  'acceptType':'application/json'
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
+	  
+  $stateProvider
+  .state('main', {
+    url: '/',
+    templateUrl: 'views/main.html',
+    abstract: true
   })
-  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-
-  $urlRouterProvider.otherwise("/login");
-
-    // Setting up the states
-    $stateProvider
-      .state('login', {
-        url: "/login",
-        templateUrl: "views/login.html"
-      })
-    .state('home', {
-      url: "/home",
-      templateUrl: "views/home.html"
-    });
+  .state('login', {
+        url: 'login',
+        parent: 'main',
+        views: {
+        	'content': {
+        		templateUrl:'views/login.html'
+        	}
+        }
+   })
+  .state('home', {
+      url: 'home',
+      parent: 'main',
+      views: {
+    	  'header': {
+    		  templateUrl: 'views/header.html'
+    	  },
+    	  'content': {
+    		  templateUrl: 'views/home.html'
+    	  }
+      }
+   });
     
-	 $httpProvider.interceptors.push('authInterceptorService');
+  $urlRouterProvider.otherwise("/login");
+  
+  $httpProvider.interceptors.push('authInterceptorService');
+  cfpLoadingBarProvider.includeSpinner = false;
+  localStorageServiceProvider.setStorageType('sessionStorage');
   })
 .run(['authService', '$rootScope', function (authService, $rootScope) {
     authService.fillAuthData();

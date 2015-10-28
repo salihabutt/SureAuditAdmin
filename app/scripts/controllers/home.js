@@ -3,10 +3,15 @@
 
 angular.module('sureAuditAdminApp')
 	.controller('HomeCtrl',  function (homeService) {
-		var self = this
+		var self = this,
 		init = function () {
-			var response = homeService.getCounts();
-		}
+			homeService.getCounts().then(function (response){
+				self.data = {};
+				self.data = response;
+			}, function (err){
+				
+			});
+		};
 		
 		init();
 

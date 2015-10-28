@@ -1,13 +1,11 @@
 'use strict';
-app.factory('authInterceptorService',function ($q, $rootScope, $injector, configurations) {
+app.factory('authInterceptorService',function ($q, $rootScope, $injector, configurations, localStorageService) {
  
     var authInterceptorServiceFactory = {};
  
     var _request = function (config) {
- 
         config.headers = config.headers || {};
- 
-        var authData = $rootScope.authData;
+        var authData = localStorageService.get('authData');
         if (authData) {
             config.headers.Authorization = 'Bearer ' + authData.access_token;
             config.headers.Accept = configurations.acceptType;

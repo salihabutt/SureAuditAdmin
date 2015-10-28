@@ -9,7 +9,6 @@ angular.module('sureAuditAdminApp')
     		customerId: ''
     };
     self.isError = false;
-    localStorage.setItem('key','saliha');
     self.login = function(){	
 		authService.login(self.loginData).then(function (response){
 			self.isError = false;
