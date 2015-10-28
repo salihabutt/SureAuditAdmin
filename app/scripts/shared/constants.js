@@ -3,7 +3,6 @@
 
 angular.module('sureAuditAdminApp')
  .constant('configurations',{
-	'custKey':'propelics',
 	'appKey':'sureaudit',
 	'deviceKey':'tkxel',
 	'grantType':'password',

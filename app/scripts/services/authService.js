@@ -13,9 +13,8 @@ app.factory('authService',function ($http, $q, $rootScope,configurations, localS
     
 
     var _login = function (loginData) {
-    	var data = "username=" + loginData.userName + "&password=" + loginData.password +"&grant_type="
-    	+ configurations.grantType + "&devicekey=" + configurations.deviceKey + "&appkey=" + configurations.appKey
-    	+ "&custkey=" + configurations.custKey;
+    	var data = "username=" + loginData.userName + "&password=" + loginData.password + "&custkey=" + loginData.customerId
+    	+ "&grant_type=" + configurations.grantType + "&devicekey=" + configurations.deviceKey + "&appkey=" + configurations.appKey;
     	var deferred = $q.defer();
     	$http.post(autService + serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType, 'Accept': configurations.acceptType } })
     		.success(function (response) {
