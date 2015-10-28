@@ -48,6 +48,18 @@ var app = angular
     		  templateUrl: 'views/home.html'
     	  }
       }
+   })
+  .state('profile', {
+      url: 'profile',
+      parent: 'main',
+      views: {
+        'header': {
+          templateUrl: 'views/header.html'
+        },
+        'content': {
+          templateUrl: 'views/profile.html'
+        }
+      }
    });
     
   $urlRouterProvider.otherwise("/login");

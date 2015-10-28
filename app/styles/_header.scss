@@ -1,0 +1,127 @@
+/* header */
+header{
+	height:48px;
+	line-height: 48px;
+	background-color: #292929;
+	width: 100%;
+
+	.logout{
+		color:#fff;
+		font-size: 14px;
+		font-family: helvetica;
+	} 
+}
+
+/* navigation */
+
+nav{
+	background-color: #FFF;
+	border-bottom: 1px solid #cccccc;
+	height: 66px;
+	width: 100%;
+
+	ul{
+		list-style: none;
+		margin: 35px 0 0 0;
+		li{
+			list-style: none;
+			font-family: helvetica;
+			color: #000;
+			font-size: 16px;
+			margin-right: 38px;
+			display: inline-block;
+			position:relative;
+
+			&:hover{
+				div.sub-menu{
+					display:block;
+				}
+			}
+
+			div.sub-menu{
+			   	position: absolute;
+			    top: -26px;
+			    right: -205%;
+			    border-bottom: 1px solid #cccccc;
+			    clear: both;
+			    height: 78px;
+			    display: none;
+			    margin-top: 30px;
+
+				ul{
+					margin: 0;
+					position: absolute;
+					top: 0;
+					right: 143px;
+					line-height: 105px;
+
+					li{
+						cursor: pointer;
+						font-size: 16px;
+						color: #777777;
+						font-family: helvetica;
+						margin: 0 25px;
+					}
+
+					.border-div{
+						display: inline-block;
+					    width: 1px;
+					    height: 30px;
+					    margin: 0;
+					    background-color: #fff;
+					    vertical-align: middle;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* wheel menu */
+
+.wheel-menu-div{
+	position:relative;
+
+	&:hover{
+		.wheel-menu{
+			display:block;
+		}
+	}
+
+	.wheel-menu{
+		position: absolute;
+	    top: 45px;
+	    left: -11px;
+	    background-color: #fff;
+	    width: 142px;
+	    text-align: center;
+	    z-index: 1;
+	    border-radius: 5px;
+	    border: 1px solid #cccccc;
+	    box-shadow: 0px 0px 5px #cccccc;
+	    display: none;
+
+	    ul{
+	    	list-style: none;
+	    	margin: 0;
+	    	padding: 0;
+
+	    	li{
+	    		list-style: none;
+	    		line-height: 35px;
+	    		cursor: pointer;
+	    	}
+	    }
+	    .arrow-up {
+			width: 0;
+			height: 0;
+			border-left: 10px solid transparent;
+			border-right: 10px solid transparent;
+			border-bottom: 10px solid white;
+			position: absolute;
+			left: 42%;
+			top: -10%;
+		}
+	}
+}
