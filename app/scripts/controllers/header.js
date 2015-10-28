@@ -6,7 +6,6 @@ angular.module('sureAuditAdminApp')
 		var self = this;
 		
 		self.getProfile = function(){
-			debugger;
 			$state.go('profile');
 		}
 
