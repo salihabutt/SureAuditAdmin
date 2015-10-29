@@ -1,12 +1,12 @@
-<div class="main-content profile col-lg-12">
+<div class="main-content profile col-lg-12" ng-controller="profileCtrl as pro">
 	<h2>Profile</h2>
 	<div>
 		<h3>Name</h3>
-		<p>abc</p>
+		<p>{{ pro.data.name }}</p>
 	</div>
 	<div>
 		<h3>Contact</h3>
-		<p>abc</p>
-		<p>abc</p>
+		<p>{{ pro.data.contactno }}</p>
+		<p>{{ pro.data.email }}</p>
 	</div>
 </div>
