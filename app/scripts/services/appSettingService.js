@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('sureAuditAdminApp')
-	.factory('profileService', function ($http, $q, configurations) {
+	.factory('appSettingService', function ($http, $q, configurations) {
 		
 		var profileServiceFactory = {};
 		var _getData = function(){
