@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('authService',function ($http, $q, $rootScope,configurations, localStorageService) {
+app.factory('authService',function ($http, $q, $rootScope, $state, configurations, localStorageService) {
 	
 	var autService = configurations.identity;
 	var serviceBase = configurations.serviceBase;
@@ -35,6 +35,7 @@ app.factory('authService',function ($http, $q, $rootScope,configurations, localS
     	localStorageService.remove('userData');
         _authentication.isAuth = false;
         _authentication.userName = "";
+        $state.go('login');
  
     };
  
