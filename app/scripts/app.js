@@ -60,13 +60,25 @@ var app = angular
           templateUrl: 'views/profile.html'
         }
       }
+   })
+  .state('appSetting', {
+      url: 'appsetting',
+      parent: 'main',
+      views: {
+        'header': {
+          templateUrl: 'views/header.html'
+        },
+        'content': {
+          templateUrl: 'views/app-setting.html'
+        }
+      }
    });
     
-  $urlRouterProvider.otherwise("/login");
+  $urlRouterProvider.otherwise("/home");
   
   $httpProvider.interceptors.push('authInterceptorService');
   cfpLoadingBarProvider.includeSpinner = false;
-  localStorageServiceProvider.setStorageType('sesssionStorage');
+  localStorageServiceProvider.setStorageType('localStorage');
   })
 .run(function ($rootScope, authService, errorService) {
     authService.fillAuthData();

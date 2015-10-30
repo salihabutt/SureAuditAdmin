@@ -6,6 +6,7 @@ angular.module('sureAuditAdminApp')
 	'appKey':'sureaudit',
 	'deviceKey':'tkxel',
 	'grantType':'password',
+	'grantType2':'refresh',
 	'identity':'https://identity-dev.propelics.com',
 	'sureAudit':'https://sureaudit-dev.propelics.com',
 	'serviceBase': '/api/v1/',

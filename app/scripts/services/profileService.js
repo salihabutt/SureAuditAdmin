@@ -1,14 +1,14 @@
 "use strict";
 
 angular.module('sureAuditAdminApp')
-	.factory('homeService', function ($http, $q, configurations) {
+	.factory('profileService', function ($http, $q, configurations) {
 		
-		var homeServiceFactory = {};
-		var _getCounts = function () {
+		var profileServiceFactory = {};
+		var _getData = function(){
 			var deferred = $q.defer();
 			var request = {
 				method: 'GET',
-				url: configurations.sureAudit + configurations.serviceBase + 'Counts'
+				//url: configurations.sureAudit + configurations.serviceBase + 'Counts'
 			}
 
 	    	$http(request).success( function(response){
@@ -21,6 +21,6 @@ angular.module('sureAuditAdminApp')
 		  	return deferred.promise;
 		};
 
-		homeServiceFactory.getCounts = _getCounts;
-		return homeServiceFactory;
+		profileServiceFactory.getCounts = _getCounts;
+		return profileServiceFactory;
 	});
