@@ -1,4 +1,4 @@
-<div class="main-content col-lg-12" >
+<div class="main-content col-lg-12" ng-controller="appSettingCtrl as appset">
 	
 	<div class="col-lg-12 col-md-12 no-padding">
 		<div class="col-lg-6 col-md-6 no-padding">
@@ -9,7 +9,7 @@
 
 			<div class="col-lg-12 col-md-12 no-padding">
 				<h3 class="noborder">User Profile</h3>
-				<input class="left showphoto" type="checkbox"> <p class="left">Show User Photo</p>
+				<input class="left showphoto" type="checkbox"> <p class="left">{{ appset.data[0].Label }}</p>
 			</div> 
 			<div class="col-lg-12 col-md-12 no-padding">
 				<h3 class="noborder">Email</h3>
@@ -21,18 +21,20 @@
 				<p class="paddingtop40">App Feedback</p>
 			</div>
 			<div class="col-lg-12 col-md-12 no-padding">
-
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>To: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" id="exampleInputName2" placeholder="JaneDoe@sureaudit.com"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[1].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[1].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>Subject: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" id="exampleInputName2" placeholder="JaneDoe@sureaudit.com"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[2].Label }}</label></div>
+				    <div class="col-lg-9 col-md-9"><input type="text" value="{{ appset.data[2].Value }}" class="form-control" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 			</div>
@@ -41,18 +43,20 @@
 				<p class="paddingtop40">Support</p>
 			</div>
 			<div class="col-lg-12 col-md-12 no-padding">
-
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>To: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" id="exampleInputName2" placeholder="JaneDoe@sureaudit.com"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[5].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[5].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>Subject: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" id="exampleInputName2" placeholder="JaneDoe@sureaudit.com"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[6].Label }}</label></div>
+				    <div class="col-lg-9 col-md-9"><input type="text" value="{{ appset.data[6].Value }}" class="form-control" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 			</div>	
@@ -64,29 +68,37 @@
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>To: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" placeholder="JaneDoe@sureaudit.com"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[7].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[7].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>Cc: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control"  placeholder="Enter Subject"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[8].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[8].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>Bcc: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" placeholder="Enter Subject"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[9].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[9].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 
 				<div class="form-inline col-lg-12 col-md-12 no-padding">
 				  <div class="form-group col-lg-12 col-md-12 no-padding">
-				    <div class="col-lg-2 col-md-2 no-padding"><label>Subject: </label></div>
-				    <div class="col-lg-10 col-md-10"><input type="text" class="form-control" placeholder="Enter Subject"></div>
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.data[10].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" value="{{ appset.data[10].Value }}" placeholder="JaneDoe@sureaudit.com"></div>
 				  </div>
 				</div>
 			</div>

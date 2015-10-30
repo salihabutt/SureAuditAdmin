@@ -21,6 +21,10 @@ angular.module('sureAuditAdminApp')
 		  	return deferred.promise;
 		};
 
+		var _updateData = function () {
+			
+		};
+
 		homeServiceFactory.getCounts = _getCounts;
 		return homeServiceFactory;
 	});

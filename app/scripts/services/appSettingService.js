@@ -3,12 +3,13 @@
 angular.module('sureAuditAdminApp')
 	.factory('appSettingService', function ($http, $q, configurations) {
 		
-		var profileServiceFactory = {};
-		var _getData = function(){
+		var appSettingService = {};
+		
+		var _getSettings = function(){
 			var deferred = $q.defer();
 			var request = {
 				method: 'GET',
-				//url: configurations.sureAudit + configurations.serviceBase + 'Counts'
+				url: configurations.sureAudit + configurations.serviceBase + 'Settings'
 			}
 
 	    	$http(request).success( function(response){
@@ -21,6 +22,7 @@ angular.module('sureAuditAdminApp')
 		  	return deferred.promise;
 		};
 
-		profileServiceFactory.getCounts = _getCounts;
-		return profileServiceFactory;
+		appSettingService.getSettings = _getSettings;
+		
+		return appSettingService;
 	});
