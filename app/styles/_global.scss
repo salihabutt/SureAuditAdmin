@@ -50,7 +50,9 @@ $breakpoint-tablet: 800px;
 .margintop37{
 	margin-top: 37px;
 }
-
+.marginbottom10{ 
+	margin-bottom: 8px;
+}
  /*global buttons and text boxes*/
 
 .main-btn-green{
@@ -82,7 +84,6 @@ $breakpoint-tablet: 800px;
 	border: 0;
 	border-radius: 10px;
 	font-size: 14px;
-	color: #BABABA;
 	padding-left:35px;
 	background-image: url(/images/ic_search@2x.png);
 	background-repeat: no-repeat;

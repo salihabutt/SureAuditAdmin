@@ -1,6 +1,28 @@
 .grid-header{
 	span{
 		font-size: 14px;
-		colo
+		color:$heading-color-grey;
+	}
+}
+
+.grid-body-masterquestion{
+	background-color: $white-color;
+	border: 1px solid #cccccc;
+	border-radius: $border-radius-5;
+
+	.question{
+		div{
+			height: 40px;
+			line-height: 40px;
+			border-bottom: 1px solid #cccccc;
+			font-size: 14px;
+			color: #4C4C4C
+		}
+		
+	}
+	:nth-last-child{
+		div{
+			border:0px;
+		}
 	}
 }
