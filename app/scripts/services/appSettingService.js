@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 angular.module('sureAuditAdminApp')
 	.factory('appSettingService', function ($http, $q, configurations) {
@@ -21,8 +21,24 @@ angular.module('sureAuditAdminApp')
 
 		  	return deferred.promise;
 		};
+		
+		var _updateSettings = function (response) {
+			debugger;
+			var deferred = $q.defer();
+			var request = {
+					method: 'PUT',
+					url: configurations.sureAudit + configurations.serviceBase + 'Settings/' + response.Id,
+					data: JSON.stringify(response)
+			}
+			$http(request).success( function(response){
+	    		deferred.resolve(response);
+		  	}).error(function(err,status){
+		  		deferred.reject(err);
+		  	});
+			return deferred.promise;
+		}
 
 		appSettingService.getSettings = _getSettings;
-		
+		appSettingService.updateSettings = _updateSettings;
 		return appSettingService;
 	});

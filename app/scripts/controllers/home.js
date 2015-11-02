@@ -1,4 +1,4 @@
-	'user strict';
+'user strict';
 
 
 angular.module('sureAuditAdminApp')

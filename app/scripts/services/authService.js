@@ -1,6 +1,7 @@
 'use strict';
 
-app.factory('authService',function ($http, $q, $rootScope, $state, configurations, localStorageService) {
+angular.module('sureAuditAdminApp')
+.factory('authService',function ($http, $q, $rootScope, $state, configurations, localStorageService) {
 	
 	var autService = configurations.identity;
 	var serviceBase = configurations.serviceBase;

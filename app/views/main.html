@@ -1,5 +1,5 @@
 <div ng-controller="MainCtrl">
-	<div ui-view="header"></div>
+	<div ng-include="'views/header.html'"></div>
 	<div style="clear:both"></div>
 	<div ui-view="content" class="content-width" set-height></div>
 </div>
