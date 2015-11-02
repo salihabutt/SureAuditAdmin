@@ -1,0 +1,111 @@
+<div class="main-content col-lg-12" ng-controller="appSettingCtrl as appset">
+	
+	<div class="col-lg-12 col-md-12 no-padding">
+		<div class="col-lg-6 col-md-6 no-padding">
+			<h2>General App Setting</h2>
+			<h3 class="noborder">Forgot Password</h3>
+			<h4 class="margintop22">Enter a brief message to inform the user what to do if they forget their password</h4>
+			<textarea class="general-setting-textarea"></textarea>
+
+			<div class="col-lg-12 col-md-12 no-padding">
+				<h3 class="noborder">User Profile</h3>
+				<input class="left showphoto" type="checkbox"> <p class="left">{{ appset.response.Data[0].Label }}</p>
+			</div> 
+			<div class="col-lg-12 col-md-12 no-padding">
+				<h3 class="noborder">Email</h3>
+				<h4>Separate multiple email addresses with commas</h4>
+				
+			</div>
+
+			<div class="col-lg-12 col-md-12 no-padding">
+				<p class="paddingtop40">App Feedback</p>
+			</div>
+			<div class="col-lg-12 col-md-12 no-padding">
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[1].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[1].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[2].Label }}</label></div>
+				    <div class="col-lg-9 col-md-9"><input type="text" ng-model="appset.response.Data[2].Value" class="form-control" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 no-padding">
+				<p class="paddingtop40">Support</p>
+			</div>
+			<div class="col-lg-12 col-md-12 no-padding">
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[5].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[5].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[6].Label }}</label></div>
+				    <div class="col-lg-9 col-md-9"><input type="text" ng-model="appset.response.Data[6].Value" class="form-control" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+			</div>	
+
+			<div class="col-lg-12 col-md-12 no-padding">
+				<p class="paddingtop40">Share</p> 
+			</div>
+			<div class="col-lg-12 col-md-12 no-padding">
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[7].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[7].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[8].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[8].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[9].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[9].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+
+				<div class="form-inline col-lg-12 col-md-12 no-padding">
+				  <div class="form-group col-lg-12 col-md-12 no-padding">
+				    <div class="col-lg-3 col-md-3 no-padding">
+				    	<label class="margintop8">{{ appset.response.Data[10].Label }} </label>
+				    </div>
+				    <div class="col-lg-9 col-md-9"><input type="text" class="form-control" ng-model="appset.response.Data[10].Value" placeholder="JaneDoe@sureaudit.com"></div>
+				  </div>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-lg-6 col-md-6 no-padding text-right">
+			<button class="main-btn-green"ng-click="appset.updateSettings()">Save</button>
+		</div>
+	</div>
+</div>
