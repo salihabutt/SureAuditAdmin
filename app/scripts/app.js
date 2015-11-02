@@ -19,9 +19,11 @@ var app = angular
     'ui.router',
     'angular-loading-bar',
     'LocalStorageModule',
-    'angular-jwt'
+    'angular-jwt',
+    'blockUI'
   ])
-  .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
+	blockUIConfig.message = 'Please Wait ...';
 
 	  $stateProvider
 	  .state('main', {
@@ -70,7 +72,9 @@ var app = angular
         }
      });
 
-    
+    // change block-ui message
+
+
  // $urlRouterProvider.otherwise("/home");
   
   $httpProvider.interceptors.push('authInterceptorService');
