@@ -18,7 +18,8 @@ var app = angular
     'ngTouch',
     'ui.router',
     'angular-loading-bar',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'angular-jwt'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider) {
 

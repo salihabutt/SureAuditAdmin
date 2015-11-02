@@ -22,5 +22,15 @@ angular.module('sureAuditAdminApp')
 			$state.go('masterQuestion');
 		};
 
-		
+		self.navigate = function (view) {
+			switch (view) {
+			case 'HOME': 
+				$state.go('home');
+				break;
+			case 'MQUESTION':
+				$state.go('masterQuestion');
+				break;
+			}
+		};
+	
 });

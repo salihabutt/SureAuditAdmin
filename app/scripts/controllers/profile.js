@@ -2,13 +2,15 @@
 
 
 angular.module('sureAuditAdminApp')
-	.controller('profileCtrl',  function ($state) {
-		var self = this;
+	.controller('profileCtrl',  function (utilityService) {
+		var self = this,
+		init= function () {
+			self.userProfile = {};
+			self.userProfile = utilityService.getUserProfile();
+			console.log(self.userProfile);
+		};
 		
-		self.data = {
-			'name' : 'testuser',
-			'contactno' : '000-000-0000',
-			'email' : 'testuser@test.com'
-		}
+		
+		init();
 
 	})
