@@ -30,11 +30,28 @@ $breakpoint-tablet: 800px;
 	padding: 0px !important; 
 }
 
+
+.left{
+	float: left
+}
+
+.right{
+	float: right
+}
+
+.noborder{
+	border : 0px !important;
+}
+
 .margintop8{ 
 	margin-top: 8px;
 }
 
- /*global buttons*/
+.margintop37{
+	margin-top: 37px;
+}
+
+ /*global buttons and text boxes*/
 
 .main-btn-green{
 	border-radius: $border-radius-5;
@@ -58,14 +75,16 @@ $breakpoint-tablet: 800px;
 	padding: 9px 20px;	
 }
 
-.left{
-	float: left
-}
 
-.right{
-	float: right
-}
-
-.noborder{
-	border : 0px !important;
+.txt-search{
+	height:24px;
+	width: 260px;
+	border: 0;
+	border-radius: 10px;
+	font-size: 14px;
+	color: #BABABA;
+	padding-left:35px;
+	background-image: url(/images/ic_search@2x.png);
+	background-repeat: no-repeat;
+	background-position: 6px center;	
 }

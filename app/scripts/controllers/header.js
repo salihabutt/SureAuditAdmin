@@ -13,7 +13,14 @@ angular.module('sureAuditAdminApp')
 			authService.logOut();
 		};
 		
-		self.goHome = function(){
+		self.goHome = function () {
 			$state.go('home');
 		};
+
+
+		self.gotoMasterQuestion = function () {
+			$state.go('masterQuestion');
+		};
+
+		
 });

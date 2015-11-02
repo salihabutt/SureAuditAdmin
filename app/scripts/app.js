@@ -72,6 +72,18 @@ var app = angular
           templateUrl: 'views/app-setting.html'
         }
       }
+   })
+  .state('masterQuestion', {
+      url: 'masterQuestion',
+      parent: 'main',
+      views: {
+        'header': {
+          templateUrl: 'views/header.html'
+        },
+        'content': {
+          templateUrl: 'views/masterQuestion.html'
+        }
+      }
    });
     
   $urlRouterProvider.otherwise("/home");

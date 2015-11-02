@@ -23,4 +23,8 @@ angular.module('sureAuditAdminApp')
 			$state.go('home');
 		};
 
+		self.gotoMasterQuestion = function(){
+			$state.go('masterQuestion');
+		};
+
 	});
