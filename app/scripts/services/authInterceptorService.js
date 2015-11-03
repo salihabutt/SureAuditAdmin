@@ -1,6 +1,6 @@
 'use strict';
 angular.module('sureAuditAdminApp')
-.factory('authInterceptorService',function ($q, $injector, configurations, localStorageService) {
+.factory('authInterceptorService',function ($q,$http,  $injector, configurations, localStorageService) {
  
     var authInterceptorServiceFactory = {};
  

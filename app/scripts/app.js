@@ -77,11 +77,12 @@ angular
 
  // $urlRouterProvider.otherwise("/home");
   
-  $httpProvider.interceptors.push('authInterceptorService');
+ 
   cfpLoadingBarProvider.includeSpinner = false;
   localStorageServiceProvider.setStorageType('localStorage');
   })
-.run(function ($rootScope, authService, errorService, $state) {
+.run(function ($rootScope,  $httpProvider, authService, errorService, $state) {
+	 $httpProvider.interceptors.push('authInterceptorService');
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');
