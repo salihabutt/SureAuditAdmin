@@ -20,7 +20,8 @@ angular
     'angular-loading-bar',
     'LocalStorageModule',
     'angular-jwt',
-    'blockUI'
+    'blockUI',
+    'ui.bootstrap'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
