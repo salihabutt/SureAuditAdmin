@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 
 angular.module('sureAuditAdminApp')
@@ -8,8 +8,8 @@ angular.module('sureAuditAdminApp')
 			homeService.getCounts().then(function (response){
 				self.data = {};
 				self.data = response;
-			}, function (err){
-				
+			}, function (){
+				//TODO Error BLOCK
 			});
 		};
 		

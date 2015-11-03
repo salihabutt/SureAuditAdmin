@@ -1,6 +1,6 @@
 'use strict';
 angular.module('sureAuditAdminApp')
-.factory('authInterceptorService',function ($q, $injector, configurations, localStorageService) {
+.factory('authInterceptorService',function ($q,$http, $injector, configurations, localStorageService) {
  
     var authInterceptorServiceFactory = {};
  
@@ -13,7 +13,7 @@ angular.module('sureAuditAdminApp')
         }
  
         return config;
-    }
+    };
  
     var _responseError = function (rejection) {
         if (rejection.status === 401) {
@@ -26,11 +26,10 @@ angular.module('sureAuditAdminApp')
         	$injector.get('$state').go('login');
         }
         return $q.reject(rejection);
-    }
+    };
  
-    var _relogin = function (refreshData) {
-    	var data = 'custkey=' + refreshData.customer_key + '&grant_type2=' + configurations.grantType2 + '&devicekey=' + configurations.deviceKey 
-    	+ '&appkey=' + configurations.appKey + '&refresh_token=' + refreshData.refresh_token;
+    var relogin = function (refreshData) {
+    	var data = 'custkey=' + refreshData.customer_key + '&grant_type2=' + configurations.grantType2 + '&devicekey=' + configurations.deviceKey + '&appkey=' + configurations.appKey + '&refresh_token=' + refreshData.refresh_token;
     	var deferred = $q.defer();
     	$http.post(autService + serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType, 'Accept': configurations.acceptType } })
     		.success(function (response) {
@@ -40,7 +39,6 @@ angular.module('sureAuditAdminApp')
     			_authentication.isAuth = true;
     			deferred.resolve(response);
     		}).error(function (err, status) {
-    			_logOut();
     			deferred.reject(err);
     		});
     };

@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 
 
 angular.module('sureAuditAdminApp')
@@ -9,8 +9,5 @@ angular.module('sureAuditAdminApp')
 			self.userProfile = utilityService.getUserProfile();
 			console.log(self.userProfile);
 		};
-		
-		
 		init();
-
-	})
+});

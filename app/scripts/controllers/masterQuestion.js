@@ -2,17 +2,14 @@
 
 angular.module('sureAuditAdminApp')
   .controller('MasterQuestion', function ($scope, masterQuestionService) {
-  
-  	var self = this,
-  	
-		init = function () {
+	  var self = this,
+  		init = function () {
 			masterQuestionService.getData().then(function (response){
 				self.data = {};
 				self.data = response;
-				console.log(self.data)
-
-			}, function (err){
-				console.log(err);
+				console.log(self.data);
+			}, function (){
+				//TODO ERROR block
 			});
 		};
 

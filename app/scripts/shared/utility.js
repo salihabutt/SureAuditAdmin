@@ -1,6 +1,7 @@
 'use strict';
 
-app.service('utilityService',function (localStorageService, jwtHelper) {
+angular.module('sureAuditAdminApp')
+.service('utilityService',function (localStorageService, jwtHelper) {
 	var utilityFactory = {};
 	  var _isEmpty = function (obj) {
 		   for (var prop in obj) {

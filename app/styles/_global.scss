@@ -3,6 +3,7 @@
 $white-color: #FFFFFF;
 $border-radius-5: 5px;
 $heading-color-grey: #4C4C4C;
+$disable: BABABA;
 
 // breakpoints configuration
 $breakpoint-tablet: 800px;
@@ -88,4 +89,19 @@ $breakpoint-tablet: 800px;
 	background-image: url(/images/ic_search@2x.png);
 	background-repeat: no-repeat;
 	background-position: 6px center;	
+}
+
+@mixin font-family-medium {
+	font-family: Helvetica Neue;
+	font-size: 16px;
+	color: #FFFFFF;
+}
+
+.btn-deactive{
+	@include font-family-medium;
+	border-radius: $border-radius-5;
+	background-color: $disable;
+	border:0;
+	box-shadow: none;
+	padding: 9px 40px;
 }

@@ -9,4 +9,4 @@ angular.module('sureAuditAdminApp')
 				$(iElement).width(totalHeight);
 			}
 		};
-	})
+});

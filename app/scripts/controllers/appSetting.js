@@ -1,30 +1,44 @@
-'user strict';
+'use strict';
 
 
 angular.module('sureAuditAdminApp')
-	.controller('appSettingCtrl',  function (appSettingService) {
+	.controller('appSettingCtrl',  function ($timeout, appSettingService) {
 		var self = this,
-		init = function(){
-			self.response = {};
+		init = function () {
+			self.appSettings = {};
+			self.appSettingClone = {};
+			self.showMessage = false;
+			self.disableSaveBtn = true;
 			self.getSettings();
 		};
 		
 		self.getSettings = function () {
 			appSettingService.getSettings().then(function(response){
-				self.response = response;
-				console.log(JSON.stringify(self.response));
-
+				self.appSettings = response;
+				self.appSettingClone = angular.copy(self.appSettings);
 			}, function(err){
 				console.log(err);
 			});
 		};
 		self.updateSettings = function () {
-			appSettingService.updateSettings(self.response).then(function(response){
+			appSettingService.updateSettings(self.appSettings).then(function(){
+				self.showMessage = true;
+				$timeout(function () {
+					self.showMessage = false;
+					self.disableSaveBtn = true;
+				},3000);
+			}, function () {
 				
-			}, function (err) {
-				
-			})
-		}
+			});
+		};
+		
+		self.updateModel = function () {
+			if (angular.equals(self.appSettingClone.Data,self.appSettings.Data)) {
+	    		self.disableSaveBtn = true;
+	    	}else {
+	    		self.disableSaveBtn = false;
+	    	}
+		};
 		init();
 
-	})
+	});
