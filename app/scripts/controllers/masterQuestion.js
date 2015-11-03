@@ -15,12 +15,12 @@ angular.module('sureAuditAdminApp')
 
 		init();
 
-		$scope.predicate = 'Text';
-		$scope.reverse = false;
+		self.predicate = 'Text';
+		self.reverse = false;
 
-		$scope.order = function(predicate) {
-			$scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : true;
-			$scope.predicate = predicate;
+		self.order = function(predicate) {
+			self.reverse = (self.predicate === predicate) ? !self.reverse : true;
+			self.predicate = predicate;
 	  };
 
   });

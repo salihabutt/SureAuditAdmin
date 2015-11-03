@@ -14,14 +14,14 @@
 
 	<div class="col-lg-12 col-md-12 no-padding margintop37">
 		<div class="col-lg-12 col-md-12 no-padding grid-header marginbottom10">
-			<div class="col-lg-7 col-md-7 col-sm-7 text-left" ng-click="order('Text')">
+			<div class="col-lg-7 col-md-7 col-sm-7 text-left" ng-click="mq.order('Text')">
 				<span><b>Question</b></span>
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-2 text-center" ng-click="order('TypeKey')">
+			<div class="col-lg-2 col-md-2 col-sm-2 text-center" ng-click="mq.order('TypeKey')">
 				<span>Type</span>
 			</div>
 
-			<div class="col-lg-2 col-md-2 col-sm-2 text-center" ng-click="order('ModifiedDate')">
+			<div class="col-lg-2 col-md-2 col-sm-2 text-center" ng-click="mq.order('ModifiedDate')">
 				<span>Last modified</span>
 			</div>
 
@@ -32,7 +32,7 @@
 
 		<div class="col-lg-12 col-md-12 no-padding grid-body-masterquestion marginbottom10">
 			
-			<div class="col-lg-12 col-md-12 no-padding question" ng-repeat="item in mq.data.Data | filter:query | orderBy:predicate:reverse">
+			<div class="col-lg-12 col-md-12 no-padding question" ng-repeat="item in mq.data.Data | filter:query | orderBy:mq.predicate:mq.reverse">
 
 				<div class="col-lg-7 col-md-7 col-sm-7 text-left question-text">
 					<span>{{item.Text}}</span>
