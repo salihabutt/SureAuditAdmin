@@ -14,8 +14,7 @@ angular.module('sureAuditAdminApp')
     
 
     var _login = function (loginData) {
-    	var data = 'username=' + loginData.userName + '&password=' + loginData.password + '&custkey=' + loginData.customerId
-    	+ '&grant_type=' + configurations.grantType + '&devicekey=' + configurations.deviceKey + '&appkey=' + configurations.appKey;
+    	var data = 'username=' + loginData.userName + '&password=' + loginData.password + '&custkey=' + loginData.customerId + '&grant_type=' + configurations.grantType + '&devicekey=' + configurations.deviceKey + '&appkey=' + configurations.appKey;
     	var deferred = $q.defer();
     	$http.post(autService + serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType, 'Accept': configurations.acceptType } })
     		.success(function (response) {
@@ -31,7 +30,7 @@ angular.module('sureAuditAdminApp')
     			_authentication.isAuth = true;
     			_authentication.userName = loginData.userName;
     			deferred.resolve(response);
-    		}).error(function (err, status) {
+    		}).error(function (err) {
     			_logOut();
     			deferred.reject(err);
     		});
@@ -50,7 +49,7 @@ angular.module('sureAuditAdminApp')
  
     var _fillAuthData = function () {
         var authData = localStorageService.get('authData');
-        if (authData!=null)
+        if (authData !== null)
         {
             _authentication.isAuth = true;
             _authentication.userName = authData.userName;

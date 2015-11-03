@@ -9,20 +9,16 @@ angular.module('sureAuditAdminApp')
 			var request = {
 				method: 'GET',
 				url: configurations.sureAudit + configurations.serviceBase + 'Counts'
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);
-		  	}).error(function(err,status){
+		  	}).error(function(err){
 		  		deferred.reject(err);
 		  	});
 			
 
 		  	return deferred.promise;
-		};
-
-		var _updateData = function () {
-			
 		};
 
 		homeServiceFactory.getCounts = _getCounts;

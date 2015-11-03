@@ -9,11 +9,11 @@ angular.module('sureAuditAdminApp')
 			var request = {
 				method: 'GET',
 				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestionSummaries'
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);
-		  	}).error(function(err,status){
+		  	}).error(function(err){
 		  		deferred.reject(err);
 		  	});
 			
