@@ -23,8 +23,6 @@ angular
     'blockUI'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
-	blockUIConfig.message = 'Please Wait ...';
-
 	  $stateProvider
 	  .state('main', {
 		    url: '/',
@@ -72,17 +70,13 @@ angular
         }
      });
 
-    // change block-ui message
-
-
- // $urlRouterProvider.otherwise("/home");
-  
- 
-  cfpLoadingBarProvider.includeSpinner = false;
-  localStorageServiceProvider.setStorageType('localStorage');
+   /* *************************** Other configurations ************************************* */
+	  blockUIConfig.message = 'Please Wait ...';
+	  $httpProvider.interceptors.push('authInterceptorService');
+	  cfpLoadingBarProvider.includeSpinner = false;
+	  localStorageServiceProvider.setStorageType('localStorage');
   })
-.run(function ($rootScope,  $httpProvider, authService, errorService, $state) {
-	 $httpProvider.interceptors.push('authInterceptorService');
+.run(function ($rootScope, authService, errorService, $state) {
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');
