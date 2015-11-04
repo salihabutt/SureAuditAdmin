@@ -56,7 +56,7 @@ $breakpoint-tablet: 800px;
 	margin-top: 8px;
 }
 
-.margintop37{
+.margintop37 {
 	margin-top: 37px;
 }
 .marginbottom10{ 
@@ -64,7 +64,7 @@ $breakpoint-tablet: 800px;
 }
  /*global buttons and text boxes*/
 
-.main-btn-green{
+.main-btn-green {
 	border-radius: $border-radius-5;
 	color: $white-color;
 	font-family: helvetica;
@@ -108,4 +108,12 @@ $breakpoint-tablet: 800px;
 	padding: 9px 40px;
 }
 
+.sub-heading {
+	font-family: Helvetica Neue Medium;
+	font-size: 18px;
+	color: #4C4C4C;
+}
 
+.float-right { 
+	float: right;
+}

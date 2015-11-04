@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 angular.module('sureAuditAdminApp')
 	.factory('masterQuestionService', function ($http, $q, configurations) {
@@ -8,7 +8,7 @@ angular.module('sureAuditAdminApp')
 			var deferred = $q.defer();
 			var request = {
 				method: 'GET',
-				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestionSummaries'
+				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions'
 			};
 
 	    	$http(request).success( function (response) {
