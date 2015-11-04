@@ -1,7 +1,7 @@
 .grid-header{
 	span{
 		font-size: 14px;
-		color:$heading-color-grey;
+		color: $heading-color-grey;
 	}
 }
 
@@ -46,10 +46,38 @@
     	padding: 0
 
     	li{
-    		padding:0;
+    		padding: 0;
     		text-align: right;
     		padding-right: 10px;
 
     	}
     }
+}
+
+.questions-modal .modal-dialog {
+	width: 750px;
+	.modal-body {
+		padding-top: 0px;
+		textarea {
+			@include font-family-medium;
+			color: #000000;
+			width: 720px;
+			height: 160px;
+			background-color: #F6F6F6;
+			resize: none;
+			border-radius: 5px;
+		}
+		
+		.id {
+			width: 50px;
+		}
+	}
+	.close-btn {
+		padding-top: 5px;
+		float: right;
+	}
+	
+	.options {
+		padding-bottom: 5px;
+	}
 }

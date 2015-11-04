@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 angular.module('sureAuditAdminApp')
 	.factory('homeService', function ($http, $q, configurations) {

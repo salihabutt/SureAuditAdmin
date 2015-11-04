@@ -78,6 +78,7 @@ angular
 	  localStorageServiceProvider.setStorageType('localStorage');
   })
 .run(function ($rootScope, authService, errorService, $state) {
+	console.log('run method');
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');
