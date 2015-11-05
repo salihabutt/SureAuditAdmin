@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-  .controller('MasterQuestion', function ($scope, $uibModal, masterQuestionService, deleteMasterQuestionService, lookupService) {
+  .controller('MasterQuestion', function ($http, $uibModal, masterQuestionService, lookupService, configurations) {
 	  var self = this,
   		init = function () {
 		  //initialize lookup data
@@ -9,7 +9,6 @@ angular.module('sureAuditAdminApp')
 			masterQuestionService.getData().then(function (response){
 				self.data = {};
 				self.data = response;
-				console.log(JSON.stringify(self.data));
 			}, function (){
 				//TODO ERROR block
 			});
@@ -44,22 +43,24 @@ angular.module('sureAuditAdminApp')
 			  windowClass: 'questions-modal-delete',
 			  controllerAs: 'qmModal',
 		  }).result.then(function(){
-			 deleteMasterQuestionService.deleteData(id).then(function (response){
-				debugger;
-				console.log(response);
-				if(response.Error == null){
+			 
+		  	var request = {
+				method: 'DELETE',
+				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions/'+ id 
+			};
+			$http(request).success( function (response) {
+	    		if(response.Error == null){
 					//to do : check the performance issue plus cross browser compatibility
 					//var idx = _.chain(self.data.Data).pluck(Id).indexOf(response.Id).value();
 					var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(id);
 					self.data.Data[index].Status = "Deleted";
 				}
-			}, function (){
-				//TODO ERROR block
-			});
+		  	}).error(function(err){
+		  		console.log(err)
+		  	});
 		  });
 	  };
   })
-
   .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, lookupService, masterQuestionModel) {
 
 	  	var self = this,
