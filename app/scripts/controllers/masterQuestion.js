@@ -25,12 +25,17 @@ angular.module('sureAuditAdminApp')
 	  };
 	  
 	  self.addEditMasterQuestion = function () {
-		  var modalInsatance = $uibModal.open({
+		 $uibModal.open({
 			  animation: true,
 			  templateUrl: 'addEditMasterQuestion.html',
 			  controller: 'addEditMasterQuestionCtrl',
 			  windowClass: 'questions-modal',
 			  controllerAs: 'qmModal',
+		  }).result.then(function(data) {
+			  masterQuestionService.saveQuestion(data).then(function (){
+				}, function (){
+					//TODO ERROR block
+				});
 		  });
 	  };
 
@@ -66,14 +71,17 @@ angular.module('sureAuditAdminApp')
 	  	var self = this,
 	  	init = function () {
 	  		self.optionItems = [{orderid:'', label:'', value:''}];
+	  	 	self.masterQuestionModel = masterQuestionModel;
+		  	self.masterQuestionClone = angular.copy(self.masterQuestionModel);
+			self.questionTypes = lookupService.questionTypesObj();
+			self.selectedOption = '';
+			self.disableSaveBtn = true;
 	  	};
 	  	
-	  	self.masterQuestionModel = masterQuestionModel;
-		self.questionTypes = lookupService.questionTypesObj();
-		self.selectedOption = '';
+	 
 	  	
 	  	self.ok = function () {
-		    $uibModalInstance.close();
+		    $uibModalInstance.close(self.masterQuestionModel);
 		  };
 
 		self.cancel = function () {
@@ -84,7 +92,16 @@ angular.module('sureAuditAdminApp')
 			var item = {orderId:'', label:'', value:''};
 			self.optionItems.push(item);
 		};
-		  init();
+		
+		self.updateModel = function () {
+			if ((self.masterQuestionClone.Text !== self.masterQuestionModel.Text) && (self.masterQuestionClone.TypeKey !== self.masterQuestionModel.TypeKey)) {
+	    		self.disableSaveBtn = false;
+	    	}else {
+	    		self.disableSaveBtn = true;
+	    	}
+		};
+		
+		init();
 
 	
   })

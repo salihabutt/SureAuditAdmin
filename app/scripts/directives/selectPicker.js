@@ -1,3 +1,4 @@
+'use strict';
 angular.module('sureAuditAdminApp')
   .directive('selectpicker', ['$parse', function ($parse) {
     return {
@@ -6,10 +7,12 @@ angular.module('sureAuditAdminApp')
         element.selectpicker($parse(attrs.selectpicker)());
         element.selectpicker('refresh');
         
-        scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+        scope.$watch(attrs.ngModel, function (newVal) {
           scope.$parent[attrs.ngModel] = newVal;
           scope.$evalAsync(function () {
-            if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
+            if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) {
+            	element.val(newVal);
+            }
             element.selectpicker('refresh');
           });
         });

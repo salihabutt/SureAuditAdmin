@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-	.factory('masterQuestionModel', function ($http, $q, configurations) {
+	.factory('masterQuestionModel', function (utilityService) {
 		
 		var masterQuestionModel = {
-				  CustomerId: '',
-				  CustomerKey: '',
+				  CustomerId: utilityService.getUserProfile()['p:custid'],
+				  CustomerKey: utilityService.getUserProfile()['p:custkey'],
 				  TypeKey: '',
 				  Key: '',
 				  Name: '',

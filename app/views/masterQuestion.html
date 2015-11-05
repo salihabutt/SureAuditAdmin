@@ -65,9 +65,9 @@
         </div>
         <div class="modal-body col-lg-12">
           	<h3 class="sub-heading">Master Question</h3>
-			<textarea placeholder="Enter master question" ng-model="qmModal.masterQuestionModel.Text"></textarea>
+			<textarea placeholder="Enter master question" ng-model="qmModal.masterQuestionModel.Text" ng-change="qmModal.updateModel()"></textarea>
 			<h3 class="sub-heading">Question Type</h3>
- 			<select selectpicker ng-model="qmModal.masterQuestionModel.TypeKey">
+ 			<select selectpicker ng-model="qmModal.masterQuestionModel.TypeKey" ng-change="qmModal.updateModel()">
             	<option value="">Select</option>
 				<option ng-repeat="option in qmModal.questionTypes.Data" value="{{option.Key}}">{{option.Name}}</option>
             </select>
@@ -94,7 +94,7 @@
 			</div>
         </div>
         <div class="modal-footer">
-            <button class="main-btn-green" type="button" ng-click="qmModal.ok()">Save</button>
+            <button  type="button" ng-class="qmModal.disableSaveBtn? 'btn-deactive':'main-btn-green'" ng-disbale="qmModal.disableSaveBtn" ng-click="qmModal.ok()">Save</button>
         </div>
     </script>
     <script type="text/ng-template" id="deleteMasterQuestion.html">
