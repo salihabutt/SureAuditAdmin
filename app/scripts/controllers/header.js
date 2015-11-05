@@ -14,7 +14,6 @@ angular.module('sureAuditAdminApp')
 		};
 
 		self.navigate = function (view) {
-			debugger;
 			switch (view) {
 			case 'HOME': 
 				$state.go('home');
