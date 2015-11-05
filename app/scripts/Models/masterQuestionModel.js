@@ -8,10 +8,8 @@ angular.module('sureAuditAdminApp')
 				  CustomerKey: utilityService.getUserProfile()['p:custkey'],
 				  TypeKey: '',
 				  Key: '',
-				  Name: '',
-				  Text: '',
-				  Hint: '',
-				  ResponseFormat: ''
+				  AllowableValues:[]
+					  
 		};
 		
 		return masterQuestionModel;
