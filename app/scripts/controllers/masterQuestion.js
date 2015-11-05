@@ -3,6 +3,7 @@
 angular.module('sureAuditAdminApp')
   .controller('MasterQuestion', function ($scope, $uibModal, masterQuestionService, lookupService) {
 	  var self = this,
+	  
   		init = function () {
 		  //initialize lookup data
 		  	lookupService.questionTypes();

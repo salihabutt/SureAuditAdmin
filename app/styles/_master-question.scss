@@ -30,14 +30,15 @@
 
 .gridOptions {    
 	position: absolute !important;
-    top: 0;
-    left: 0;
+    top: 32px;
+    left: -46px;
     background-color: #fff;
     border: 1px solid #cccccc;
     width: 118px;
     height: 80px !important;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #cccccc;
+    z-index:9;
     display: none;
 
     ul{

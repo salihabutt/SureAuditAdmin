@@ -12,17 +12,9 @@ angular.module('sureAuditAdminApp')
 		self.logout = function () {
 			authService.logOut();
 		};
-		
-		self.goHome = function () {
-			$state.go('home');
-		};
-
-
-		self.gotoMasterQuestion = function () {
-			$state.go('masterQuestion');
-		};
 
 		self.navigate = function (view) {
+			debugger;
 			switch (view) {
 			case 'HOME': 
 				$state.go('home');
