@@ -5,24 +5,27 @@ angular.module('sureAuditAdminApp')
 	  var self = this,
   		init = function () {
 		  //initialize lookup data
+			self.data = {};
 		  	lookupService.questionTypes();
+		  	self.getQuestions();
+		};
+
+		
+		self.getQuestions = function () {
 			masterQuestionService.getData().then(function (response){
-				self.data = {};
 				self.data = response;
 			}, function (){
 				//TODO ERROR block
 			});
 		};
-
-		init();
-
+		
 		self.predicate = 'Text';
 		self.reverse = false;
 
 		self.order = function(predicate) {
 			self.reverse = (self.predicate === predicate) ? !self.reverse : true;
 			self.predicate = predicate;
-	  };
+		};
 	  
 	  self.addEditMasterQuestion = function () {
 		 $uibModal.open({
@@ -32,7 +35,10 @@ angular.module('sureAuditAdminApp')
 			  windowClass: 'questions-modal',
 			  controllerAs: 'qmModal',
 		  }).result.then(function(data) {
-			  masterQuestionService.saveQuestion(data).then(function (){
+			  data.Key = "key" + self.data.Data.length +1;
+			  masterQuestionService.saveQuestion(data).then(function (response){
+				  console.log(response);
+				  self.getQuestions();
 				}, function (){
 					//TODO ERROR block
 				});
@@ -65,13 +71,15 @@ angular.module('sureAuditAdminApp')
 		  	});
 		  });
 	  };
+	  
+	  init();
   })
   .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, lookupService, masterQuestionModel) {
 
 	  	var self = this,
 	  	init = function () {
-	  		self.optionItems = [{orderid:'', label:'', value:''}];
-	  	 	self.masterQuestionModel = masterQuestionModel;
+	  		self.optionItems = [{id:'', label:'', value:''}];
+	  	 	self.masterQuestionModel = angular.copy(masterQuestionModel);
 		  	self.masterQuestionClone = angular.copy(self.masterQuestionModel);
 			self.questionTypes = lookupService.questionTypesObj();
 			self.selectedOption = '';
@@ -81,6 +89,13 @@ angular.module('sureAuditAdminApp')
 	 
 	  	
 	  	self.ok = function () {
+	  		for(var i=0; i< self.optionItems.length; i++) {
+	  			var obj = {};
+	  			obj.Key = self.optionItems[i].id;
+	  			obj.Label = self.optionItems[i].label;
+	  			obj.Value = self.optionItems[i].value;
+	  			self.masterQuestionModel.AllowableValues.push(obj);
+	  		}
 		    $uibModalInstance.close(self.masterQuestionModel);
 		  };
 
