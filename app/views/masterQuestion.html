@@ -67,7 +67,7 @@
           	<h3 class="sub-heading">Master Question</h3>
 			<textarea placeholder="Enter master question"></textarea>
 			<h3 class="sub-heading">Question Type</h3>
-			<select name="questionType" ng-model="qmModal.selectedOption">
+			<select ng-model="qmModal.selectedOption" class="selectpicker">
 			<option ng-repeat="option in qmModal.questionTypes.Data" value="{{option.Key}}">{{option.Name}}</option>
 			</select>
 			<div ng-show="qmModal.selectedOption == 'single' || qmModal.selectedOption == 'multiple'">

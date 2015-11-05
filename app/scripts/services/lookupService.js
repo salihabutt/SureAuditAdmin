@@ -19,7 +19,7 @@ angular.module('sureAuditAdminApp')
 	
 	var _getQuestionTypes = function () {
 		return questionTypesObj;
-	}
+	};
 	
 	lookupFactoryService.questionTypes = _questionTypes;
 	lookupFactoryService.questionTypesObj = _getQuestionTypes;
