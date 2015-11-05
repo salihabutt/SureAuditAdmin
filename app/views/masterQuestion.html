@@ -65,12 +65,13 @@
         </div>
         <div class="modal-body col-lg-12">
           	<h3 class="sub-heading">Master Question</h3>
-			<textarea placeholder="Enter master question"></textarea>
+			<textarea placeholder="Enter master question" ng-model="qmModal.masterQuestionModel.Text"></textarea>
 			<h3 class="sub-heading">Question Type</h3>
-			<select ng-model="qmModal.selectedOption" class="selectpicker">
-			<option ng-repeat="option in qmModal.questionTypes.Data" value="{{option.Key}}">{{option.Name}}</option>
-			</select>
-			<div ng-show="qmModal.selectedOption == 'single' || qmModal.selectedOption == 'multiple'">
+ 			<select selectpicker ng-model="qmModal.masterQuestionModel.TypeKey">
+            	<option value="">Select</option>
+				<option ng-repeat="option in qmModal.questionTypes.Data" value="{{option.Key}}">{{option.Name}}</option>
+            </select>
+			<div ng-show="qmModal.masterQuestionModel.TypeKey == 'single' || qmModal.masterQuestionModel.TypeKey == 'multiple'">
 			<h3 class="sub-heading">Enter Options</h3>
 			<div class="col-lg-12 options" ng-repeat="item in qmModal.optionItems">
 				<div class="col-lg-2">

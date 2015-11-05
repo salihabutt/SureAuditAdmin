@@ -3,14 +3,13 @@
 angular.module('sureAuditAdminApp')
   .controller('MasterQuestion', function ($scope, $uibModal, masterQuestionService, lookupService) {
 	  var self = this,
-	  
   		init = function () {
 		  //initialize lookup data
 		  	lookupService.questionTypes();
 			masterQuestionService.getData().then(function (response){
 				self.data = {};
 				self.data = response;
-				console.log(self.data);
+				console.log(JSON.stringify(self.data));
 			}, function (){
 				//TODO ERROR block
 			});
@@ -37,12 +36,14 @@ angular.module('sureAuditAdminApp')
 	  };
 
   })
-  .controller('addEditMasterQuestionCtrl', function ($scope, $uibModalInstance, lookupService) {
+  .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, lookupService, masterQuestionModel) {
 
 	  	var self = this,
 	  	init = function () {
 	  		self.optionItems = [{orderid:'', label:'', value:''}];
 	  	};
+	  	
+	  	self.masterQuestionModel = masterQuestionModel;
 		self.questionTypes = lookupService.questionTypesObj();
 		self.selectedOption = '';
 	  	
@@ -59,5 +60,4 @@ angular.module('sureAuditAdminApp')
 			self.optionItems.push(item);
 		};
 		  init();
-	
   });

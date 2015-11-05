@@ -21,8 +21,7 @@ angular
     'LocalStorageModule',
     'angular-jwt',
     'blockUI',
-    'ui.bootstrap',
-    'angular-bootstrap-select'
+    'ui.bootstrap'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
