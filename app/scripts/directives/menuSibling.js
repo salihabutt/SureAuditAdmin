@@ -6,9 +6,13 @@ angular.module('sureAuditAdminApp')
 			restrict: 'A',
 			link: function (scope, iElement) {
 
-				$(iElement).click(function(event){
-				     $(this).siblings().toggle();
-				});			
+				$(iElement).mouseover(function(event){
+					$(this).children('.gridOptions').show();
+				});
+
+				$(iElement).mouseout(function(event){
+					$(this).children('.gridOptions').hide();
+				});				
 			}
 		};
 });

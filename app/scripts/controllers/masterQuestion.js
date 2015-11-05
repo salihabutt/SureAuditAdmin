@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-  .controller('MasterQuestion', function ($scope, $uibModal, masterQuestionService, lookupService) {
+  .controller('MasterQuestion', function ($scope, $uibModal, masterQuestionService, deleteMasterQuestionService, lookupService) {
 	  var self = this,
   		init = function () {
 		  //initialize lookup data
@@ -35,7 +35,31 @@ angular.module('sureAuditAdminApp')
 		  });
 	  };
 
+	  self.deleteMasterQuestion = function (id) {
+	  	
+		  $uibModal.open({
+			  animation: true,
+			  templateUrl: 'deleteMasterQuestion.html',
+			  controller: 'deleteMasterQuestionCtrl',
+			  windowClass: 'questions-modal-delete',
+			  controllerAs: 'qmModal',
+		  }).result.then(function(){
+			 deleteMasterQuestionService.deleteData(id).then(function (response){
+				debugger;
+				console.log(response);
+				if(response.Error == null){
+					//to do : check the performance issue plus cross browser compatibility
+					//var idx = _.chain(self.data.Data).pluck(Id).indexOf(response.Id).value();
+					var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(id);
+					self.data.Data[index].Status = "Deleted";
+				}
+			}, function (){
+				//TODO ERROR block
+			});
+		  });
+	  };
   })
+
   .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, lookupService, masterQuestionModel) {
 
 	  	var self = this,
@@ -60,4 +84,18 @@ angular.module('sureAuditAdminApp')
 			self.optionItems.push(item);
 		};
 		  init();
+
+	
+  })
+  .controller('deleteMasterQuestionCtrl', function ($uibModalInstance) {
+
+	  	var self = this;
+	  	self.ok = function () {
+		    $uibModalInstance.close();
+		};
+
+		self.cancel = function () {
+		    $uibModalInstance.dismiss('cancel');
+		};
+
   });
