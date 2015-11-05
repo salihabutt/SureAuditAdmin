@@ -32,7 +32,7 @@
 
 		<div class="col-lg-12 col-md-12 no-padding grid-body-masterquestion marginbottom10">
 			
-			<div class="col-lg-12 col-md-12 no-padding question" ng-repeat="item in mq.data.Data | filter:{Text: query} | filter: {Status: '!DELETE'} | orderBy:mq.predicate:mq.reverse">
+			<div class="col-lg-12 col-md-12 no-padding question" ng-repeat="item in mq.data.Data | filter:{Text: query} | filter: {Status: '!Deleted'} | orderBy:mq.predicate:mq.reverse">
 
 				<div class="col-lg-7 col-md-7 col-sm-7 text-left question-text">
 					<span>{{item.Text}}</span>
@@ -44,12 +44,12 @@
 				<div class="col-lg-2 col-md-2 col-sm-2 text-center">
 					<span>{{item.TouchInfo.ModifiedDate}}</span>
 				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 text-center">
-					<img src="/images/ic_more_@2x.png" alt="more" menu-sibling>
+				<div class="col-lg-1 col-md-1 col-sm-1 text-center" menu-sibling>
+					<img src="/images/ic_more_@2x.png" alt="more">
 					<div class="gridOptions">
 						<ul>
 							<li>Edit</li>
-							<li>Delete</li>
+							<li ng-click="mq.deleteMasterQuestion(item.Id)">Delete</li>
 						</ul>
 					</div>
 				</div>
@@ -95,5 +95,17 @@
         <div class="modal-footer">
             <button class="main-btn-green" type="button" ng-click="qmModal.ok()">Save</button>
         </div>
+    </script>
+    <script type="text/ng-template" id="deleteMasterQuestion.html">
+        <div class="modal-body col-lg-12 margintop22">
+        	<p>Are you sure you want to delete the master question? The master question will not be available to use in new audits.</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="qmModal.ok()">OK</button>
+            	<button class="main-btn-grey" type="button" ng-click="qmModal.cancel()">Cancel</button>
+        	</div>
+        </div>
+
     </script>
 </div>
