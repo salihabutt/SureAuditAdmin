@@ -10,7 +10,8 @@ angular.module('sureAuditAdminApp')
 				  Text: '',
 				  TypeKey: '',
 				  Key: '',
-				  AllowableValues:[]
+				  AllowableValues:[],
+				  TouchInfo: {};
 					  
 			};
 	});
