@@ -31,6 +31,9 @@ angular.module('sureAuditAdminApp')
 			case 'MQUESTION':
 				$state.go('masterQuestion');
 				break;
+			case 'SURVEY':
+				$state.go('survey');
+				break;
 			}
 		};
 	

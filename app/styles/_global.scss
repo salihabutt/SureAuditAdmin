@@ -1,8 +1,14 @@
 /* mixins */
 
 @mixin font-family-medium {
-	font-family: Helvetica Neue;
+	font-family: helvetica;
 	font-size: 16px;
+	color: #FFFFFF;
+}
+
+@mixin font-family-small {
+	font-family: helvetica;
+	font-size: 12px;
 	color: #FFFFFF;
 }
 
