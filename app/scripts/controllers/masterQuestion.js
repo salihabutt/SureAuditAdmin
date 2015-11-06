@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-  .controller('MasterQuestion', function ($http, $uibModal, masterQuestionService, lookupService, configurations) {
+  .controller('MasterQuestion', function ($http, $uibModal, masterQuestionService, lookupService) {
 	  var self = this,
   		init = function () {
 		  //initialize lookup data
@@ -43,7 +43,6 @@ angular.module('sureAuditAdminApp')
 				  }
 			  } 
 		  }).result.then(function(mq) {
-			  debugger;
 			  mq.Key = action === 'ADD'? 'key' + (self.data.Data.length +1) : mq.Key;
 			  masterQuestionService.saveUpdateQuestion(mq,action).then(function (response){
 				  if(action === 'ADD'){
@@ -68,8 +67,8 @@ angular.module('sureAuditAdminApp')
 			  windowClass: 'questions-modal-delete',
 			  controllerAs: 'qmModal',
 		  }).result.then(function(){ 
-			masterQuestionService.saveQuestion(id).then(function (response){
-				if(response.Error == null){
+			masterQuestionService.deleteQuestion(id).then(function (response){
+				if(response.Error === null){
 					//to do : check the performance issue plus cross browser compatibility
 					//var idx = _.chain(self.data.Data).pluck(Id).indexOf(response.Id).value();
 					var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(id);
