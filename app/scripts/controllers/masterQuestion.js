@@ -53,22 +53,17 @@ angular.module('sureAuditAdminApp')
 			  controller: 'deleteMasterQuestionCtrl',
 			  windowClass: 'questions-modal-delete',
 			  controllerAs: 'qmModal',
-		  }).result.then(function(){
-			 
-		  	var request = {
-				method: 'DELETE',
-				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions/'+ id 
-			};
-			$http(request).success( function (response) {
-	    		if(response.Error == null){
+		  }).result.then(function(){ 
+			masterQuestionService.saveQuestion(id).then(function (response){
+				if(response.Error == null){
 					//to do : check the performance issue plus cross browser compatibility
 					//var idx = _.chain(self.data.Data).pluck(Id).indexOf(response.Id).value();
 					var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(id);
 					self.data.Data[index].Status = "Deleted";
 				}
-		  	}).error(function(err){
-		  		console.log(err)
-		  	});
+			}, function (){
+				//TODO ERROR block
+			});
 		  });
 	  };
 	  

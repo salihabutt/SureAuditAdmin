@@ -40,7 +40,22 @@ angular.module('sureAuditAdminApp')
 			
 		};
 
+		var _deleteQuestion = function (id) {
+			var deferred = $q.defer();
+			var request = {
+				method: 'DELETE',
+				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions/'+ id 
+			};
+	    	$http(request).success( function (response) {
+	    		deferred.resolve(response);
+		  	}).error(function(err){
+		  		deferred.reject(err);
+		  	});
+		  	return deferred.promise;
+		};
+
 		masterQuestionFactory.getData = _getData;
 		masterQuestionFactory.saveQuestion = _saveQuestion;
+		masterQuestionFactory.deleteQuestion = _deleteQuestion;
 		return masterQuestionFactory;
 	});
