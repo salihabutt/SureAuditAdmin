@@ -79,11 +79,11 @@
 				</div>
 				<div class="col-lg-4">
 					<span>Label</span>
-					<input type="text" placeholder="Enter Subject" ng-model="item.label">
+					<input type="text" placeholder="Enter Subject" ng-model="item.label" ng-change="qmModal.updateModel()">
 				</div>
 				<div class="col-lg-4">
 					<span>Value</span>
-					<input type="text" placeholder="Enter Subject" ng-model="item.value">
+					<input type="text" placeholder="Enter Subject" ng-model="item.value" ng-change="qmModal.updateModel()">
 				</div>
 				<div class="col-lg-2">
 					<a ng-click="qmModal.optionItems.splice($index,1)">Remove</a>
