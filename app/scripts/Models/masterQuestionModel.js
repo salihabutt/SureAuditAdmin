@@ -12,5 +12,5 @@ angular.module('sureAuditAdminApp')
 				  Key: '',
 				  AllowableValues:[]
 					  
-			}
+			};
 	});

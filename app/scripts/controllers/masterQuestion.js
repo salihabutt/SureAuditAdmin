@@ -43,12 +43,12 @@ angular.module('sureAuditAdminApp')
 				  }
 			  } 
 		  }).result.then(function(mq) {
-			  mq.Key = action === 'ADD'? 'key' + self.data.Data.length +1 : mq.Key;
+			  debugger;
+			  mq.Key = action === 'ADD'? 'key' + (self.data.Data.length +1) : mq.Key;
 			  masterQuestionService.saveUpdateQuestion(mq,action).then(function (response){
-				  debugger;
 				  if(action === 'ADD'){
-					  question.Id = response.Id;
-					  self.data.Data.push(question);
+					  mq.Id = response.Id;
+					  self.data.Data.push(mq);
 				  }else{
 					  	var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(mq.Id);
 						self.data.Data[index] = mq;
@@ -88,6 +88,7 @@ angular.module('sureAuditAdminApp')
 	  	var self = this,
 	  	init = function () {
 	  		self.optionItems = [{id:'', label:'', value:''}];
+	  		self.optionsClone = [];
 	  	 	self.masterQuestionModel = angular.copy(masterQuestionModel);
 		  	self.masterQuestionClone = angular.copy(self.masterQuestionModel);
 			self.questionTypes = lookupService.questionTypesObj();
@@ -101,7 +102,7 @@ angular.module('sureAuditAdminApp')
 	  	self.initEditModal = function () {
 	  		self.subject = "Edit Master Question";
 			self.masterQuestionModel = angular.copy(item.question);
-		  	self.masterQuestionClone = angular.copy(self.masterQuestionModel);
+		  	self.masterQuestionClone = angular.copy(item.question);
 		  	if(item.question.AllowableValues.length>0){
 		  		self.optionItems=[];
 		  	}
@@ -112,7 +113,8 @@ angular.module('sureAuditAdminApp')
 		  		temp.value = self.masterQuestionModel.AllowableValues[i].Value;
 		  		self.optionItems.push(temp);
 		  	}
-	  	}
+		  	self.optionsClone = angular.copy(self.optionItems);
+	  	};
 	  	
 	  	self.ok = function () {
 	  		self.optionItems.sort(function(a, b) { return a.id - b.id; });
@@ -137,11 +139,15 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		self.updateModel = function () {
+			self.disableSaveBtn = true;
 			if ((self.masterQuestionClone.Text !== self.masterQuestionModel.Text) && (self.masterQuestionModel.TypeKey !== '')) {
-	    		self.disableSaveBtn = false;
-	    	}else {
-	    		self.disableSaveBtn = true;
-	    	}
+				self.disableSaveBtn = false;
+				}
+	    	if(item.action === 'EDIT') {
+				if(!angular.equals(self.optionsClone,self.optionItems)) {
+					self.disableSaveBtn = false;
+				}
+			}
 		};
 		
 		init();
