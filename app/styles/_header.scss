@@ -125,3 +125,19 @@ nav{
 		}
 	}
 }
+
+.logout-modal .modal-dialog {
+	width: 310px;
+	.modal-body {
+		padding-top: 0px;
+		
+	}
+	.close-btn {
+		padding-top: 5px;
+		float: right;
+	}
+	
+	.options {
+		padding-bottom: 5px;
+	}
+}
