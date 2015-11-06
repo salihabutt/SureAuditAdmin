@@ -62,15 +62,24 @@ angular
 				  }
 			  }
 		  })
-      .state('masterQuestion', {
-        url: 'masterQuestion',
-        parent: 'main',
-        views: {
-          'content': {
-            templateUrl: 'views/masterQuestion.html'
-          }
-        }
-     });
+	      .state('masterQuestion', {
+	        url: 'masterQuestion',
+	        parent: 'main',
+	        views: {
+	          'content': {
+	            templateUrl: 'views/masterQuestion.html'
+	          }
+	        }
+	     })
+		.state('survey', {
+		  url: 'survey',
+		  parent: 'main',
+		  views: {
+			  'content': {
+				templateUrl: 'views/survey.html'
+			  }
+		  }
+		});
 
    /* *************************** Other configurations ************************************* */
 	  blockUIConfig.message = 'Please Wait ...';

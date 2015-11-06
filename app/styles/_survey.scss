@@ -1,0 +1,40 @@
+.survey-box{
+	width:288px;
+	height:160px;
+	background-color: $white-color;
+	text-align: center;
+	border-radius: $border-radius-5;
+	border: 1px solid #cccccc;
+	float:left;
+	margin-right: 25px;
+	margin-bottom: 25px;
+
+	.box-head{
+		background-color: #1B8ECA;
+		color: #ffffff;
+		text-align: center;
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px; 
+		padding: 7px 10px;
+
+		h4{
+			@include font-family-medium;
+			font-weight: bold;
+			margin:0;
+		}
+		span{
+			@include font-family-small;
+		}
+	}
+	.box-body{
+		text-align: center;
+		padding: 20px 10px;
+		p{
+			font-family: helvetica;
+			font-size: 14px;
+			color: #777777;
+
+		}
+		
+	}
+}
