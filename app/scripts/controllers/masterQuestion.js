@@ -47,8 +47,11 @@ angular.module('sureAuditAdminApp')
 			  masterQuestionService.saveUpdateQuestion(mq,action).then(function (response){
 				  if(action === 'ADD'){
 					  mq.Id = response.Id;
+					  mq.TouchInfo.CreatedDate = new Date();
+					  mq.TouchInfo.ModifiedDate = new Date();
 					  self.data.Data.push(mq);
 				  }else{
+					  	mq.TouchInfo.ModifiedDate = new Date();
 					  	var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(mq.Id);
 						self.data.Data[index] = mq;
 				  }
@@ -82,19 +85,25 @@ angular.module('sureAuditAdminApp')
 	  
 	  init();
   })
-  .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, lookupService, masterQuestionModel, item) {
+  .controller('addEditMasterQuestionCtrl', function ($uibModalInstance, $uibModal, lookupService, masterQuestionModel, utilityService, item) {
 
 	  	var self = this,
 	  	init = function () {
 	  		self.optionItems = [{id:'', label:'', value:''}];
 	  		self.optionsClone = [];
+	  		self.action = item.action; // we are using it on html
 	  	 	self.masterQuestionModel = angular.copy(masterQuestionModel);
 		  	self.masterQuestionClone = angular.copy(self.masterQuestionModel);
 			self.questionTypes = lookupService.questionTypesObj();
 			self.disableSaveBtn = true;
+			self.isInSurvey = false;
 			self.subject = "Add New Master Question";
 			if(item.action === 'EDIT') {
 				self.initEditModal();
+				self.masterQuestionModel.TouchInfo.ModifiedByUserId = utilityService.getUserProfile()['p:userid'];
+			}else {
+				self.masterQuestionModel.TouchInfo.CreatedByUserId = utilityService.getUserProfile()['p:userid'];
+				self.masterQuestionModel.TouchInfo.ModifiedByUserId = utilityService.getUserProfile()['p:userid'];
 			}
 	  	};
 	  	
@@ -102,9 +111,10 @@ angular.module('sureAuditAdminApp')
 	  		self.subject = "Edit Master Question";
 			self.masterQuestionModel = angular.copy(item.question);
 		  	self.masterQuestionClone = angular.copy(item.question);
-		  	if(item.question.AllowableValues.length>0){
-		  		self.optionItems=[];
+		  	if(item.question.Status === 'InUse'){
+		  		self.isInSurvey = true;
 		  	}
+		  	self.optionItems=[];
 		  	for(var i=0; i< self.masterQuestionModel.AllowableValues.length; i++) {
 		  		var temp = {};
 		  		temp.id = parseInt(self.masterQuestionModel.AllowableValues[i].Key);
@@ -143,10 +153,22 @@ angular.module('sureAuditAdminApp')
 				self.disableSaveBtn = false;
 				}
 	    	if(item.action === 'EDIT') {
-				if(!angular.equals(self.optionsClone,self.optionItems)) {
+				if(!angular.equals(self.optionsClone,self.optionItems) || self.masterQuestionModel.TypeKey !== self.masterQuestionClone.TypeKey) {
 					self.disableSaveBtn = false;
 				}
 			}
+		};
+		
+		self.showWarning = function () {
+			 $uibModal.open({
+				  animation: false,
+				  templateUrl: 'changesWarning.html',
+				  controller: 'changesWarningCtrl',
+				  windowClass: 'changes-warning-modal',
+				  controllerAs: 'cwModal' 
+			  }).result.then(function () {
+				  $uibModalInstance.dismiss('cancel');
+			  });
 		};
 		
 		init();
@@ -154,6 +176,18 @@ angular.module('sureAuditAdminApp')
 	
   })
   .controller('deleteMasterQuestionCtrl', function ($uibModalInstance) {
+
+	  	var self = this;
+	  	self.ok = function () {
+		    $uibModalInstance.close();
+		};
+
+		self.cancel = function () {
+		    $uibModalInstance.dismiss('cancel');
+		};
+
+  }) 
+   .controller('changesWarningCtrl', function ($uibModalInstance) {
 
 	  	var self = this;
 	  	self.ok = function () {
