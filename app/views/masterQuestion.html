@@ -8,7 +8,7 @@
 			</div>
 		</div>
 		<div class="col-lg-6 col-md-6 no-padding text-right">
-			<button class="main-btn-green" ng-click= "mq.addEditMasterQuestion()">Add New</button>
+			<button class="main-btn-green" ng-click= "mq.addEditMasterQuestion(null,'ADD')">Add New</button>
 		</div>
 	</div>
 
@@ -44,7 +44,7 @@
 					<img src="/images/ic_more_@2x.png" alt="more">
 					<div class="gridOptions">
 						<ul>
-							<li>Edit</li>
+							<li ng-click= "mq.addEditMasterQuestion(item,'EDIT')">Edit</li>
 							<li ng-click="mq.deleteMasterQuestion(item.Id)">Delete</li>
 						</ul>
 					</div>
@@ -57,7 +57,7 @@
 			<img src="/images/ic_close_@2x.png" ng-click="qmModal.cancel()" class="close-btn">
 		</div>
         <div class="modal-header">
-            <h3 class="modal-title">Add New Master Question</h3>
+            <h3 class="modal-title">{{qmModal.subject}}</h3>
         </div>
         <div class="modal-body col-lg-12">
           	<h3 class="sub-heading">Master Question</h3>

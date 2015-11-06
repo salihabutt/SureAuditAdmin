@@ -21,15 +21,35 @@ angular.module('sureAuditAdminApp')
 		  	return deferred.promise;
 		};
 		
-		var _saveQuestion = function (data) {
-			var deferred = $q.defer();
+		var _saveQuestion = function (question) {
 			var request = {
 				method: 'POST',
 				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions',
-				data: JSON.stringify(data)
+				data: JSON.stringify(question)
 			};
-
-	    	$http(request).success( function (response) {
+		  	return request;			
+		};
+		
+		var _updateQuestion = function (question) {
+			var request = {
+				method: 'PUT',
+				url: configurations.sureAudit + configurations.serviceBase + 'MasterQuestions/' + question.Id,
+				data: JSON.stringify(question)
+			};
+	    	return request;			
+		};
+		
+		var _saveUpdateQuestion = function (question,action) {
+			var deferred = $q.defer();
+			var request = {};
+			if(action === 'ADD') {
+				request = _saveQuestion(question);
+				
+			}else {
+				request = _updateQuestion(question);
+			}
+			
+			$http(request).success( function (response) {
 	    		deferred.resolve(response);
 		  	}).error(function(err){
 		  		deferred.reject(err);
@@ -37,7 +57,6 @@ angular.module('sureAuditAdminApp')
 			
 
 		  	return deferred.promise;
-			
 		};
 
 		var _deleteQuestion = function (id) {
@@ -57,5 +76,7 @@ angular.module('sureAuditAdminApp')
 		masterQuestionFactory.getData = _getData;
 		masterQuestionFactory.saveQuestion = _saveQuestion;
 		masterQuestionFactory.deleteQuestion = _deleteQuestion;
+		masterQuestionFactory.updateQuestion = _updateQuestion;
+		masterQuestionFactory.saveUpdateQuestion = _saveUpdateQuestion;
 		return masterQuestionFactory;
 	});
