@@ -23,6 +23,9 @@
 	
 }
 
+
+
+
  /*/*global CSS */
 
 .wrapper{
@@ -69,6 +72,16 @@
 .marginbottom10{ 
 	margin-bottom: 8px;
 }
+
+.marginleft25{
+	margin-left: 35px;
+}
+
+.marginbottom50{
+	margin-bottom: 50px;
+}
+
+
  /*global buttons and text boxes*/
 
 .main-btn-green {
@@ -78,6 +91,14 @@
 
 .main-btn-grey {
 	background-color: $disable;
+	@include btn-common-style;
+}
+
+.box-edit-action-btn {
+	background-color: $white-color;
+	color:#000000 !important;
+	border:1px solid #cccccc !important;
+	padding: 3px 30px !important; 
 	@include btn-common-style;
 }
 

@@ -2,9 +2,14 @@
 
 
 angular.module('sureAuditAdminApp')
-	.controller('SurveyCtrl',  function ($state,homeService) {
+	.controller('SurveyCtrl',  function (surveyService) {
 		var self = this,
 		init = function () {
+			surveyService.getData().then(function(response){
+				self.data = response.Data;
+			},function(err){
+
+			});
 		};
 		
 		init();

@@ -1,6 +1,6 @@
 .survey-box{
 	width:288px;
-	height:160px;
+	height:auto;
 	background-color: $white-color;
 	text-align: center;
 	border-radius: $border-radius-5;
@@ -28,13 +28,32 @@
 	}
 	.box-body{
 		text-align: center;
-		padding: 20px 10px;
+		padding: 20px 10px 0 20px;
 		p{
 			font-family: helvetica;
 			font-size: 14px;
 			color: #777777;
 
 		}
-		
 	}
+	.box-footer{
+			text-align: center;
+			padding: 5px 10px 5px 10px;
+
+			.edit-btn{
+				float: left;
+			    text-align: center;
+			    width: 89%;
+			}
+			.menu-section{
+				position: relative;
+				.gridOptions{
+				    top: 27px !important;
+	    			right: -2px !important;
+	    			left: initial;
+				}
+
+			}
+
+		}
 }
