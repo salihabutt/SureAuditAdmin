@@ -79,6 +79,15 @@ angular
 				templateUrl: 'views/survey.html'
 			  }
 		  }
+		})
+		.state('addSurvey',{
+			url: 'addsurvey',
+			parent: 'main',
+			views: {
+				  'content': {
+					templateUrl: 'views/addSurvey.html'
+				  }
+			  }
 		});
 
    /* *************************** Other configurations ************************************* */

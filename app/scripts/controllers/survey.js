@@ -6,6 +6,8 @@ angular.module('sureAuditAdminApp')
 		var self = this,
 		init = function () {
 		};
-		
+		self.navigate = function () {
+			$state.go('addSurvey')
+		};
 		init();
 	});
