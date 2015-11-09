@@ -12,22 +12,67 @@
 	<div class="col-lg-12 col-md-12 no-padding">
 		<h3>Published</h3>
 
-		<div class="col-lg-12 col-md-12 no-padding">
+		<div class="col-lg-12 col-md-12 no-padding" ng-repeat="item in survey.data | filter: {Published :''} ">
+			
 			<div class="no-padding survey-box">
 				<div class="box-head clearfix">
-					<h4>Survey 01</h4>
-					<span>survey 01 for east region</span>
+					<h4>{{item.Name}}</h4>
+					<span>{{item.SubTitle}}</span>
 				</div>
 				<div class="clearfix"></div>
 				<div class="box-body clearfix">
-					<p>30 Questions</p>
-					<p>Last Modified : date</p>
+					<p>{{item.QuestionCount}} Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="menu-section text-right" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="">Publish</li>
+								<li ng-click="">Dpulicate</li>
+								<li ng-click="">Delete</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
+
+
 		</div>
+
 	</div>
 
 	<div class="col-lg-12 col-md-12 no-padding">
 		<h3>Unpublished</h3>
+		<div class="col-lg-12 col-md-12 no-padding marginbottom50" ng-repeat="item in survey.data | filter: {Published : null} ">
+			<div class="no-padding survey-box">
+				<div class="box-head clearfix">
+					<h4>{{item.Name}}</h4>
+					<span>{{item.SubTitle}}</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>{{item.QuestionCount}} Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="edit-btn">
+						<input type="button" value="Edit" class="box-edit-action-btn marginleft25" >
+					</div>
+					<div class="menu-section" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="">Publish</li>
+								<li ng-click="">Dpulicate</li>
+								<li ng-click="">Delete</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
 	</div>
 </div>
