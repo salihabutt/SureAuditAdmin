@@ -5,14 +5,15 @@
 			<h2>Surveys</h2>
 		</div>
 		<div class="col-lg-6 col-md-6 no-padding text-right">
-			<button class="main-btn-green">Add New</button>
+			<button class="main-btn-green" ng-click="survey.navigate()">Add New</button>
 		</div>
 	</div>
 
 	<div class="col-lg-12 col-md-12 no-padding">
 		<h3>Published</h3>
-		<div class="col-lg-12 col-md-12 no-padding" ng-repeat="item in survey.data | filter: {Published :''} ">
-			<div class="no-padding survey-box">
+		<div class="col-lg-12 col-md-12 no-padding">
+			
+			<div class="no-padding survey-box" ng-if="item.Published!=null && item.Status!='Deleted'" ng-repeat="item in survey.data track by $index">
 				<div class="box-head clearfix">
 					<h4>{{item.Name}}</h4>
 					<span>{{item.SubTitle}}</span>
@@ -27,9 +28,9 @@
 						<img src="/images/ic_more_@2x.png" alt="more">
 						<div class="gridOptions">
 							<ul>
-								<li ng-click="">Publish</li>
-								<li ng-click="">Dpulicate</li>
-								<li ng-click="">Delete</li>
+								<li ng-click="survey.unpublish($index)">Unpublish</li>
+								<li ng-click="survey.duplicate($index)">Duplicate</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
 							</ul>
 						</div>
 					</div>
@@ -40,8 +41,8 @@
 
 	<div class="col-lg-12 col-md-12 no-padding">
 		<h3>Unpublished</h3>
-		<div class="col-lg-12 col-md-12 no-padding marginbottom50" ng-repeat="item in survey.data | filter: {Published : null} ">
-			<div class="no-padding survey-box">
+		<div class="col-lg-12 col-md-12 no-padding marginbottom50" >
+			<div class="no-padding survey-box" ng-if="item.Published==null && item.Status!='Deleted'" ng-repeat="item in survey.data track by $index">
 				<div class="box-head clearfix">
 					<h4>{{item.Name}}</h4>
 					<span>{{item.SubTitle}}</span>
@@ -52,22 +53,43 @@
 					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
 				</div>
 				<div class="box-footer clearfix">
-					<div class="edit-btn">
-						<input type="button" value="Edit" class="box-edit-action-btn marginleft25" >
+					<div class="edit-btn col-lg-8">
+						<input type="button" value="Edit" class="box-edit-action-btn marginleft25" ng-disabled="item.ResponseCount>0">
 					</div>
-					<div class="menu-section" menu-sibling>
+					<div class="menu-section col-lg-1" menu-sibling >
 						<img src="/images/ic_more_@2x.png" alt="more">
 						<div class="gridOptions">
 							<ul>
-								<li ng-click="">Publish</li>
-								<li ng-click="">Dpulicate</li>
-								<li ng-click="">Delete</li>
+								<li ng-click="survey.publish($index)">Publish</li>
+								<li ng-click="survey.duplicate($index)">Duplicate</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
 							</ul>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/ng-template" id="deleteSurveyWarning.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>You cannot delete a survey that has one or more responses.</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dwCtrl.ok()">OK</button>
+        	</div>
+        </div>
+</script>
+
+<script type="text/ng-template" id="surveyDeleteConfirm.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>Are you sure you want to delete the survey?</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dcCtrl.ok()">OK</button>
+            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="dcCtrl.cancel()">Cancel</button>
+        	</div>
+        </div>
+</script>

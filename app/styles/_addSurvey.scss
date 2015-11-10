@@ -1,0 +1,40 @@
+.ae-survey-wrapper {
+	padding-top: 50px;
+	
+	.survey-info-box {
+		background-color: $white-color; 
+		border: 1px solid #cccccc;
+		padding: 10px 25px;
+		
+		p {
+			font: $font-med-small;
+			color: #BABABA;
+			span {
+				color: #777777
+			}
+		}
+		.survey-detail{
+			width: 100%;
+			p {
+				font: $font-medium;
+				color: #4C4C4C;
+			}
+			
+			.heading {
+				font: $font-heading;
+				color: #0DC3F3;
+			}
+		}
+	}
+	.nav-tabs {
+    	border: none !important;
+	}
+	.nav-tabs > li > a {
+    	border: none !important;
+	}
+	
+	.tab-active {
+		font: $font-med-small;
+		color: #000000;
+	}
+}

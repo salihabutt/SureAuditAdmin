@@ -43,7 +43,7 @@
 			.edit-btn{
 				float: left;
 			    text-align: center;
-			    width: 89%;
+			    width: 88%;
 			}
 			.menu-section{
 				position: relative;
@@ -56,4 +56,21 @@
 			}
 
 		}
+}
+
+.survey-warning-modal .modal-dialog {
+	width: 310px;
+
+	.modal-body {
+		padding-top: 0px;
+		
+	}
+	.close-btn {
+		padding-top: 5px;
+		float: right;
+	}
+	
+	.options {
+		padding-bottom: 5px;
+	}
 }

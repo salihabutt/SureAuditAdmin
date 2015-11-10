@@ -71,6 +71,8 @@ angular.module('sureAuditAdminApp')
     			_logOut();
     			deferred.reject(err);
     		});
+    	
+    	return deferred.promise;
     };
 
     
