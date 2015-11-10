@@ -1,4 +1,4 @@
-.survey-wrapper {
+.ae-survey-wrapper {
 	padding-top: 50px;
 	
 	.survey-info-box {
@@ -14,6 +14,7 @@
 			}
 		}
 		.survey-detail{
+			width: 100%;
 			p {
 				font: $font-medium;
 				color: #4C4C4C;

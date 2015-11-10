@@ -17,7 +17,7 @@ angular.module('sureAuditAdminApp')
 		self.unpublish = function (index) {
 			self.data[index].Published = null;
 			var data = self.data[index];
-			data.TouchInfo.TouchInfo = new Date();
+			data.TouchInfo = self.getTouchInfo();
 			surveyService.updateSurvey(data).then(function(response) {			
 				
 			},function () {
@@ -28,7 +28,7 @@ angular.module('sureAuditAdminApp')
 		self.publish = function (index) {
 			self.data[index].Published = new Date();
 			var data = self.data[index];
-			data.TouchInfo.TouchInfo = new Date();
+			data.TouchInfo = self.getTouchInfo();
 			surveyService.updateSurvey(data).then(function (response) {			
 
 			},function () {
@@ -41,7 +41,10 @@ angular.module('sureAuditAdminApp')
 			requestedData.Key = utilityService.guid();
 			requestedData.Published = null;
 			requestedData.Id = null;
-			requestedData.TouchInfo = self.getTouchInfo() ;
+			requestedData.ResponseCount = 0;
+			requestedData.TouchInfo = self.getTouchInfo();
+			requestedData.TouchInfo.CreatedDate = new Date();
+			requestedData.TouchInfo.CreatedByUserId = utilityService.getUserProfile()['p:userid'];
 			surveyService.saveSurvey(requestedData).then(function () {			
 				self.data.push(requestedData);
 			},function () {
@@ -51,47 +54,48 @@ angular.module('sureAuditAdminApp')
 
 		self.getTouchInfo = function () {
 			var touchInfo = {};
-			touchInfo.TouchInfo = new Date();
-			touchInfo.CreatedDate = new Date();
-			touchInfo.CreatedByUserId = utilityService.getUserProfile()['p:userid'];
+			touchInfo.ModifiedDate = new Date();
+			touchInfo.ModifiedByUserId = utilityService.getUserProfile()['p:userid'];
+			return touchInfo;
 		};
 		
 		self.deleteSurvey = function (index) {
+			if(self.data[index].ResponseCount !==null && self.data[index].ResponseCount>0){
 			 $uibModal.open({
 				  animation: true,
 				  templateUrl: 'deleteSurveyWarning.html',
 				  controller: 'deleteWarningCtrl',
 				  windowClass: 'survey-warning-modal',
-				  controllerAs: 'dwCtrl',
-			  }).result.then(function(){ 
+				  controllerAs: 'dwCtrl'
+			  });
+			}else {
 				  $uibModal.open({
 					  animation: true,
 					  templateUrl: 'surveyDeleteConfirm.html',
 					  controller: 'deleteConfirmCtrl',
 					  windowClass: 'survey-warning-modal',
 					  controllerAs: 'dcCtrl',
-				  }).result.then(function(){
-						
-						surveyService.deleteSurvey(self.data[index].Id).then(function(response){
-							self.data[index].Status = 'Deleted';
-						},function(){
-							// error block
-						});
-				  });
-				}, function (){
-				
-				});
+				  }).result.then(function(){						
+						self.deleteSurveyById(index);
+				  });			
+			}
+		};
+		
+		self.deleteSurveyById = function (index) {
+			surveyService.deleteSurvey(self.data[index].Id).then(function(response){
+				self.data[index].Status = 'Deleted';
+			},function(){
+				// error block
+			});
 		};
 		init();
 	})
 	.controller('deleteWarningCtrl', function ($uibModalInstance) {
 		var self = this;
 		self.ok = function () {
-			$uibModalInstance.dismiss('cancel');
+			$uibModalInstance.dismiss('cancel');	
 		};
-		self.cancel = function () {
-			$uibModalInstance.close();
-		};
+
 	})
 	.controller('deleteConfirmCtrl', function ($uibModalInstance) {
 		var self = this;
