@@ -22,7 +22,8 @@ angular
     'angular-jwt',
     'blockUI',
     'ui.bootstrap',
-    'angularMoment'
+    'angularMoment',
+    'xeditable'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -110,9 +111,10 @@ angular
 	  $httpProvider.interceptors.push('authInterceptorService');
 	  cfpLoadingBarProvider.includeSpinner = false;
 	  localStorageServiceProvider.setStorageType('localStorage');
+	  
   })
-.run(function ($rootScope, authService, errorService, $state) {
-	console.log('run method');
+.run(function ($rootScope, authService, errorService, editableOptions, $state) {
+	editableOptions.theme = 'bs3';
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');

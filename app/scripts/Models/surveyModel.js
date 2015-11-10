@@ -8,7 +8,12 @@ angular.module('sureAuditAdminApp')
 				  CustomerKey: utilityService.getUserProfile()['p:custkey'],
 				  Key: '',
 				  Name: '',
-				  Sections: []
+				  QuestionCount: 0,
+				  Sections: [],
+				  TouchInfo: {
+					  CreatedDate:  new Date(),
+					  ModifiedDate: new Date()
+				  }
 					  
 			};
 	});

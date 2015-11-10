@@ -14,7 +14,7 @@
 			}
 		}
 		.survey-detail{
-			width: 100%;
+			display: flex;
 			p {
 				font: $font-medium;
 				color: #4C4C4C;
@@ -23,6 +23,18 @@
 			.heading {
 				font: $font-heading;
 				color: #0DC3F3;
+			}
+			
+			input[type="text"] {
+				width:200px;
+				margin-right: 5px;
+				margin-left:5px;
+			}
+			
+			.btn {
+				font-size: 10px;
+				margin-left: 5px;
+				margin-right: 5px;
 			}
 		}
 	}

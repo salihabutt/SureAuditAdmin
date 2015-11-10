@@ -9,7 +9,6 @@ angular.module('sureAuditAdminApp')
 		if ($stateParams.action === 'add') {
 			self.auditDefinition = angular.copy(surveyModel);
 			self.auditDefinition.Key = utilityService.guid;
-			self.editSurvey = true;
 		}
 	};
 	
