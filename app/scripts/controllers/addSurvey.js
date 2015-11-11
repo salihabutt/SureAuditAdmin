@@ -7,8 +7,11 @@ angular.module('sureAuditAdminApp')
 		self.auditDefinition = {};
 		self.questionList = {};
 		self.editSurvey = false;
+		self.name = '';
 		if ($stateParams.action === 'add') {
-			self.auditDefinition = angular.copy(surveyModel);
+			self.auditDefinition = angular.copy(surveyModel.surevyModel);
+			var section = angular.copy(surveyModel.section);
+			self.auditDefinition.Sections.push(section);
 			self.auditDefinition.Key = utilityService.guid;
 		}
 		
@@ -36,6 +39,38 @@ angular.module('sureAuditAdminApp')
 			}
 		})
 	};
+	
+	self.addSurvey = function () {
+		var section = angular.copy(surveyModel.section);
+		self.auditDefinition.Sections.push(section);
+	};
+	
+	self.orderSection = function (index, action, type) {
+		switch(type){
+		case 'section':
+			if(self.auditDefinition.Sections.length > 1 && action === 'down'){
+				self.sortDown(self.auditDefinition.Sections,index);
+			}
+			else if(self.auditDefinition.Sections.length > 1 && action === 'up'){
+				self.sortUp(self.auditDefinition.Sections,index);
+			}
+			break;
+			
+		}
+	};
+	
+	self.sortUp = function (array,index) {
+		var temp = array[index];
+		array[index] = array[index-1];
+		array[index-1] = temp;
+	};
+	
+	self.sortDown = function (array,index) {
+		var temp = array[index];
+		array[index] = array[index+1];
+		array[index+1] = temp;
+	};
+	
 	init();
 })
 .controller('AddSurveyQuestionCtrl', function ($uibModalInstance, mq){

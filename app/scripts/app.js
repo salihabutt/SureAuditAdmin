@@ -22,7 +22,8 @@ angular
     'angular-jwt',
     'blockUI',
     'ui.bootstrap',
-    'angularMoment'
+    'angularMoment',
+    'xeditable'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -112,7 +113,8 @@ angular
 	  localStorageServiceProvider.setStorageType('localStorage');
 	  
   })
-.run(function ($rootScope, authService, errorService, $state) {
+.run(function ($rootScope, authService, errorService, $state, editableOptions) {
+	editableOptions.theme = 'bs3';
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');
