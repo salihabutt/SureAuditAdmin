@@ -22,8 +22,7 @@ angular
     'angular-jwt',
     'blockUI',
     'ui.bootstrap',
-    'angularMoment',
-    'ngScrollbar'
+    'angularMoment'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
