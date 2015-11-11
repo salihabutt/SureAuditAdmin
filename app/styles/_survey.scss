@@ -6,8 +6,12 @@
 	border-radius: $border-radius-5;
 	border: 1px solid #cccccc;
 	float:left;
-	margin-right: 25px;
+	margin-right: 19px;
 	margin-bottom: 25px;
+
+	&:nth-child(5n){
+		clear:both
+	}
 
 	.box-head{
 		background-color: #1B8ECA;

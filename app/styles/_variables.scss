@@ -5,12 +5,13 @@ $heading-color-grey: #4C4C4C;
 $disable: BABABA;
 $font-medium: Helvetica Neue 16px #FFFFFF;
 
-$font-medium: 16px Helvetica Neue;
-$font-med-small: 14px Helvetica Neue Medium;
-$font-small: 14px Helvetica Neue;
-$font-large: 18px Helvetica Neue Medium;
-$font-heading: 26px Helvetica Neue Medium;
-$font-medium-bold: 14px Helvetica Neue Bold;
-$font-large-bold: 18px Helvetica Neue Bold;
+$font-medium: 16px Helvetica Neue, helvetica;
+$font-medium-bold: 16px Helvetica bold, helvetica;
+$font-med-small: 14px Helvetica Neue Medium, helvetica;
+$font-small: 14px Helvetica Neue, helvetica;
+$font-large: 18px Helvetica Neue Medium, helvetica;
+$font-heading: 26px Helvetica Neue Medium, helvetica;
+$font-medium-bold: 14px Helvetica Neue Bold, helvetica;
+$font-large-bold: 18px Helvetica Neue Bold, helvetica;
 /*breakpoints configuration*/
 $breakpoint-tablet: 800px;
