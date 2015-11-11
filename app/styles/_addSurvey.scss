@@ -3,18 +3,23 @@
 	
 	.survey-info-box {
 		background-color: $white-color; 
-		border: 1px solid #cccccc;
 		padding: 10px 25px;
-		
-		p {
+	
+		.custom-breadcrumbs{
 			font: $font-med-small;
 			color: #BABABA;
 			span {
-				color: #777777
+				color: #777777;
+				margin-right: 20px;
+			}	
+			img{
+				margin-right: 20px;
 			}
 		}
+
 		.survey-detail{
-			display: flex;
+			width: 100%;
+			margin-bottom: 50px;
 			p {
 				font: $font-medium;
 				color: #4C4C4C;
@@ -24,17 +29,8 @@
 				font: $font-heading;
 				color: #0DC3F3;
 			}
-			
-			input[type="text"] {
-				width:200px;
-				margin-right: 5px;
-				margin-left:5px;
-			}
-			
-			.btn {
-				font-size: 10px;
-				margin-left: 5px;
-				margin-right: 5px;
+			.survey-detail-box{
+				border-right: 1px solid #cccccc;
 			}
 		}
 	}
@@ -49,20 +45,64 @@
 		font: $font-med-small;
 		color: #000000;
 	}
-}
 
-.survey-questions-modal .modal-dialog {
-	width: 750px;
-	.modal-body {
-		padding-top: 0px;
+	.total-weight{
+		font: $font-medium-bold;
+		color: #4C4C4C;
+		padding: 50px 0 30px 0;
+		text-align: right;
+	}
 
-	}
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-	
-	.options {
-		padding-bottom: 5px;
+	.section-box{
+		border-radius: $border-radius-5;
+		border: 1px solid #cccccc;
+		background-color: #F1F1F1;
+
+		.section-title{
+			background-color: #1B8ECA;
+			color: #ffffff;
+			height: 50px;
+			line-height: 50px;
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+
+			span{
+				margin-right: 10px;
+			}
+			span.section-title-text{
+				font: $font-large;
+			}
+			span.percent-wrightage{
+				background-color: #F3F3F3;
+				border-radius: 5px;
+				padding: 10px 13px;
+				color: #000;
+			}
+		}
+		.section-body{
+
+			.section-body-head{
+				padding: 10px 0;
+
+				span{
+					margin-right: 10px;
+				}
+				span.total-weight{
+					font: $font-medium-bold;
+					color: #4C4C4C;
+					padding: 50px 0 30px 0;
+					text-align: right;
+				}
+			}
+			.section-body-body{
+				
+			}
+			.section-body-footer{
+				padding: 30px 0;
+
+			}
+
+
+		}
 	}
 }
