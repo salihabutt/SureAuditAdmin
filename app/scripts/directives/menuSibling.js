@@ -15,4 +15,19 @@ angular.module('sureAuditAdminApp')
 				});				
 			}
 		};
+})
+.directive('quesSibling', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement) {
+
+			$(iElement).mouseover(function(event){
+				$(this).children('.quesGridOptions').show();
+			});
+
+			$(iElement).mouseout(function(event){
+				$(this).children('.quesGridOptions').hide();
+			});				
+		}
+	};
 });
