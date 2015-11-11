@@ -1,17 +1,17 @@
 .ae-survey-wrapper {
 	padding-top: 50px;
-	
+
 	.survey-info-box {
-		background-color: $white-color; 
+		background-color: $white-color;
 		padding: 10px 25px;
-	
+
 		.custom-breadcrumbs{
 			font: $font-med-small;
 			color: #BABABA;
 			span {
 				color: #777777;
 				margin-right: 20px;
-			}	
+			}
 			img{
 				margin-right: 20px;
 			}
@@ -24,7 +24,7 @@
 				font: $font-medium;
 				color: #4C4C4C;
 			}
-			
+
 			.heading {
 				font: $font-heading;
 				color: #0DC3F3;
@@ -40,7 +40,7 @@
 	.nav-tabs > li > a {
     	border: none !important;
 	}
-	
+
 	.tab-active {
 		font: $font-med-small;
 		color: #000000;
@@ -95,7 +95,7 @@
 				}
 			}
 			.section-body-body{
-				
+
 			}
 			.section-body-footer{
 				padding: 30px 0;
@@ -106,3 +106,4 @@
 		}
 	}
 }
+

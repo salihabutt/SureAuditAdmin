@@ -23,7 +23,7 @@ angular
     'blockUI',
     'ui.bootstrap',
     'angularMoment',
-    'xeditable'
+    'ngScrollbar'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -113,8 +113,7 @@ angular
 	  localStorageServiceProvider.setStorageType('localStorage');
 	  
   })
-.run(function ($rootScope, authService, errorService, editableOptions, $state) {
-	editableOptions.theme = 'bs3';
+.run(function ($rootScope, authService, errorService, $state) {
     authService.fillAuthData();
     if(authService.authentication.isAuth){
     	$state.go('home');

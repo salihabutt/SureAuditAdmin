@@ -17,6 +17,7 @@ angular.module('sureAuditAdminApp')
  
     var _responseError = function (rejection) {
         if (rejection.status === 401) {
+        	localStorageService.remove('authData');
         	var refreshData = localStorageService.get('refreshData');
         	if(refreshData){
         		$injector.invoke(function(authService) {
