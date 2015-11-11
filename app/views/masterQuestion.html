@@ -62,7 +62,7 @@
         <div class="modal-body col-lg-12">
           	<h3 class="sub-heading">Master Question</h3>
 			<textarea placeholder="Enter master question" ng-model="qmModal.masterQuestionModel.Text" ng-change="qmModal.updateModel()"></textarea>
-<p ng-show="qmModal.isInSurvey">This master question has been added to at least one survey. The question type cannot be modified.</p>
+			<p ng-show="qmModal.isInSurvey">This master question has been added to at least one survey. The question type cannot be modified.</p>
 			<h3 class="sub-heading">Question Type</h3>
  			<select selectpicker ng-model="qmModal.masterQuestionModel.TypeKey" ng-change="qmModal.updateModel()" ng-disabled="qmModal.isInSurvey">
             	<option value="">Select</option>
