@@ -5,7 +5,7 @@ angular.module('sureAuditAdminApp')
 		return {
 			restrict: 'A',
 			link: function (scope, iElement, attrs) {
-				var cls = attrs['toggleClass'];
+				var cls = attrs.toggleClass;
 				$(iElement).click(function(){
 					$(this).toggleClass(cls);
 				});
@@ -13,4 +13,4 @@ angular.module('sureAuditAdminApp')
 								
 			}
 		};
-})
+});

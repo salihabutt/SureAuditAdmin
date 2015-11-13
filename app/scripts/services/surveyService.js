@@ -9,7 +9,7 @@ angular.module('sureAuditAdminApp')
 			var request = {
 				method: 'GET',
 				url: configurations.sureAudit + configurations.serviceBase + 'AuditDefinitions'
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);
@@ -27,7 +27,7 @@ angular.module('sureAuditAdminApp')
 				method: 'POST',
 				url: configurations.sureAudit + configurations.serviceBase + 'AuditDefinitions',
 				data: JSON.stringify(data)
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);
@@ -45,7 +45,7 @@ angular.module('sureAuditAdminApp')
 				method: 'PUT',
 				url: configurations.sureAudit + configurations.serviceBase + 'AuditDefinitions/'+ data.Id,
 				data: JSON.stringify(data)
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);
@@ -60,7 +60,7 @@ angular.module('sureAuditAdminApp')
 			var request = {
 				method: 'DELETE',
 				url: configurations.sureAudit + configurations.serviceBase + 'AuditDefinitions/'+ id,
-			}
+			};
 
 	    	$http(request).success( function(response){
 	    		deferred.resolve(response);

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 angular.module('sureAuditAdminApp')
 .controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel) {
@@ -34,7 +34,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
-		
+		$uibModalInstance.close(self.question);
 	};
 	
 	init();
@@ -50,4 +50,4 @@ angular.module('sureAuditAdminApp')
 		    $uibModalInstance.dismiss('cancel');
 		};
 
-  });;
+  });

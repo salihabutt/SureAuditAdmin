@@ -7,7 +7,7 @@
 		</div>
 		<!-- survey detials -->
 		<div class="col-lg-12">
-			<button type="button" class="main-btn-green float-right">Save</button>
+			<button type="button" class="main-btn-green float-right" ng-click="aeSurvey.saveAuditDef()">Save</button>
 		</div>
 		
 		<div class="col-lg-12 no-padding survey-detail" ng-show="!aeSurvey.editSurvey">
@@ -51,8 +51,8 @@
 	</div>
 
 	
-
-	<div class="col-lg-12 section-box marginbottom50 no-padding" ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-show="aeSurvey.tab == 'ES'">
+<div  ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
+	<div class="col-lg-12 section-box marginbottom50 no-padding">
 	<div class="col-lg-12 text-right total-weight">
 		<span>Total Questions Weight </span>
 		<span> 75%</span>
@@ -95,14 +95,14 @@
 
 			<div class="col-lg-12 section-body-body no-padding">
 			<!-- ng-repear row -->
-				<div class="col-lg-12 no-padding survey-row" >
+				<div class="col-lg-12 no-padding survey-row" ng-repeat="question in item.Questions">
 					<div class="col-lg-1 no-padding text-center">
 						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
 						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
 					</div>
 					<div class="col-lg-9 no-padding">
-						<span>1.</span>
-						<span>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </span>
+						<span>{{question.Label}}</span>
+						<span>{{question.Text}} </span>
 					</div>
 					<div class="col-lg-1">
 						<div class="col-lg-6" ques-sibling>
@@ -127,13 +127,13 @@
 						</div>
 					</div>
 					<div class="col-lg-1 text-center">
-						<div class="point-distribute-box text-right">
-							40.5
-						</div>
+					<span>
+						<input type="text" ng-model="question.PointAllowed" class="percent-weight">
+					</span>
 					</div>
 				</div>
 					<!-- ng-repeat branching row -->
-				<div class="col-lg-12 no-padding survey-row survey-row-branching">
+				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches">
 					<div class="col-lg-1 no-padding"></div>
 					<div class="col-lg-9 no-padding">
 						<div class="col-lg-1 no-padding text-left">
@@ -171,55 +171,18 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- ng-repeat row -->
-				<div class="col-lg-12 no-padding survey-row">
-					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
-					</div>
-					<div class="col-lg-9 no-padding">
-						<span>1.</span>
-						<span>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </span>
-					</div>
-					<div class="col-lg-1">
-						<div class="col-lg-6" ques-sibling>
-						<img src="/images/ic_add@2x.png" alt="add" >
-						<div class="quesGridOptions">
-							<ul>
-							<li>Add Question Above</li>
-							<li>Add Question Below</li>
-							<li>Add Branching Question</li>	
-							</ul>
-						</div>
-						</div>
-						<div class="col-lg-6 text-center" menu-sibling>
-						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
-						<div class="gridOptions">
-							<ul>
-								<li>Edit</li>
-								<li>Delete</li>
-							</ul>
-						</div>
-						</div>
-					</div>
-					<div class="col-lg-1 text-center">
-						<div class="point-distribute-box text-right">
-							40.5
-						</div>
-					</div>
-				</div>
-
 			</div>
 
 			<div class="col-lg-12 section-body-footer">
-				<span class="add-question"><a ng-click="aeSurvey.addQuestion()">ADD QUESTION</a></span>
+				<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex)">ADD QUESTION</a></span>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-12 section-body-footer">
-		<span class="add-question float-right"><a ng-click="aeSurvey.addSection()">ADD SECTION</a></span>
+		<div class="col-lg-12 section-body-footer">
+			<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
+	</div>
+
 
 	<!-- Survey Settings -->
 	<div class="tab-2-SS survey-summary-settings" ng-show="aeSurvey.tab == 'SS'">
