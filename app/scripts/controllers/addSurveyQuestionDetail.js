@@ -34,7 +34,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
-		
+		$uibModalInstance.close(self.question);
 	};
 	
 	init();

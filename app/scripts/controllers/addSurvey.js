@@ -44,7 +44,7 @@ angular.module('sureAuditAdminApp')
 			//TODO ERROR block
 		});
 	}
-	self.addQuestion = function () {
+	self.addQuestion = function (pIndex) {
 		$uibModal.open({
 			animation: true,
 			templateUrl: 'addSurveyQuestion.html',
@@ -56,12 +56,19 @@ angular.module('sureAuditAdminApp')
 					return self.questionList;
 				}
 			}
-		})
+		}).result.then(function(question){
+			self.auditDefinition.Sections[pIndex].Questions.push(question);
+			self.auditDefinition.QuestionCount++;
+		});
 	};
 	
-	self.addSection = function () {
+	self.addSection = function (pIndex) {
 		var section = angular.copy(surveyModel.section);
-		self.auditDefinition.Sections.push(section);
+		if(pIndex == 0 || pIndex == self.auditDefinition.Sections.length-1){
+			self.auditDefinition.Sections.push(section);
+		}else{
+			self.auditDefinition.Sections.splice(pIndex,0,section);
+		}
 	};
 	
 	self.orderSection = function (index, action, type) {
@@ -120,8 +127,8 @@ angular.module('sureAuditAdminApp')
 					return self.selctedQuestion;
 				}
 			}
-		}).result.then(function (){
-
+		}).result.then(function (question){
+			$uibModalInstance.close(question);
 		}, function (){
 			$uibModalInstance.dismiss('cancel');
 		});
