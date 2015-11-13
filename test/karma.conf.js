@@ -42,7 +42,6 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
-      'bower_components/ng-scrollbar/dist/ng-scrollbar.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

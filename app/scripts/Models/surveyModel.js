@@ -33,7 +33,7 @@ angular.module('sureAuditAdminApp')
 
 		};
 		
-		var questions = {
+		var question = {
 				MasterId: null,
 				TypeKey	: '',
 				Id: null,					
@@ -46,11 +46,22 @@ angular.module('sureAuditAdminApp')
 				IsRequired: true,			
 				IsVisible: true,				
 				IsScored: false,
-				Branches: []
+				Branches: [],
+				CommentHint: null,
+				IsCommentRequired: null,
+				IsImagesRequired: null,
+	            DefaultValue: null,
+                UndesireableValue: null,
+                AllowableValues: null,
+                MinImagesAllowed: null,
+                MaxImagesAllowed: null,
+                ResponseRatios: {}
+
 		}
 		
 		surveyModelFactory.surevyModel = surveyModel;
 		surveyModelFactory.section = section;
+		surveyModelFactory.question = question;
 		
 		return surveyModelFactory;
 	});

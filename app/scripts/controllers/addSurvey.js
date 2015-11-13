@@ -40,7 +40,7 @@ angular.module('sureAuditAdminApp')
 		})
 	};
 	
-	self.addSurvey = function () {
+	self.addSection = function () {
 		var section = angular.copy(surveyModel.section);
 		self.auditDefinition.Sections.push(section);
 	};
@@ -73,16 +73,40 @@ angular.module('sureAuditAdminApp')
 	
 	init();
 })
-.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, mq){
+.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq){
 	var self = this,
 	init = function () {
 		self.questions = mq;
-	
+		self.selected = null;
+		self.selctedQuestion = {};
 	};
 	
 	self.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
-	}
+	};
+	
+	self.setSelected = function (item) {
+		self.selctedQuestion = item;
+	};
+	
+	self.next = function () {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'views/addSurveyQuestionDetail.html',
+			controller: 'AddSurveyQuestionDetailCtrl',
+			windowClass: 'survey-questiondetail-modal',
+			controllerAs: 'sqdModal',
+			resolve:{
+				ques: function () {
+					return self.selctedQuestion;
+				}
+			}
+		}).result.then(function (){
+
+		}, function (){
+			$uibModalInstance.dismiss('cancel');
+		});
+	};
 	init();
 	
 });

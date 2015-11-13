@@ -59,8 +59,8 @@
 		<div class="col-lg-12 section-title">
 			<div class="col-lg-6 no-padding">
 					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')"></div>
+						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
 					</div>
 				<span class="section-title-text">
 					{{item.Name}}
@@ -74,11 +74,11 @@
 			</div>
 			<div class="col-lg-6 text-right no-padding">
 				<span class="sort-image">
-					<img src="/images/ic_delete@2x.png" alt="sort" ng-click="aeSurvey.auditDefinition.Sections.splice($index,1)">
+					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.auditDefinition.Sections.splice($index,1)">
 				</span>
 
-				<span class="percent-wrightage">
-					80.5%
+				<span>
+					<input type="text" ng-model="item.weight" class="percent-weight">
 				</span>
 
 			</div>
@@ -118,6 +118,7 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
+								<li>Hide</li>
 								<li>Edit</li>
 								<li>Delete</li>
 							</ul>
@@ -156,6 +157,7 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
+								<li>Hide</li>
 								<li>Edit</li>
 								<li>Delete</li>
 							</ul>
@@ -215,7 +217,7 @@
 		</div>
 	</div>
 	<div class="col-lg-12 section-body-footer">
-		<span class="add-question float-right"><a ng-click="aeSurvey.addSurvey()">ADD SECTION</a></span>
+		<span class="add-question float-right"><a ng-click="aeSurvey.addSection()">ADD SECTION</a></span>
 	</div>
 </div>
 <script type="text/ng-template" id="addSurveyQuestion.html">
@@ -237,7 +239,7 @@
 					<div class="col-lg-12">
 						<div class="radio" ng-repeat = "item in mqModal.questions.Data | filter: {Text: query}" >
   						<label>
-    						<input type="radio"  value="{{item.Text}}">
+    						<input type="radio"  value="{{item.Text}}" ng-model="mqModal.selected" ng-change="mqModal.setSelected(item)">
     							{{item.Text}}
 							<p>Type: <span>{{item.TypeKey}}</span></p>
   						</label>
@@ -248,7 +250,7 @@
 		</div>
         <div class="modal-footer">
         	<div class="col-lg-12 text-right">
-				<button class="main-btn-green" type="button" ng-click="cwModal.ok()">Next</button>
+				<button ng-class="mqModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="mqModal.selected==null" ng-click="mqModal.next()">Next</button>
         	</div>
         </div>
     </script>

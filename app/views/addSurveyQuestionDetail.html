@@ -1,0 +1,92 @@
+<div class="col-lg-12">
+	<img src="/images/ic_close_@2x.png" class="close-btn" ng-click="sqdModal.cancel()">	
+</div>
+<div class="modal-header">
+	<h3 class="modal-title">Add Question to Survey</h3>
+ </div>	
+<div class="modal-body">
+	<h3 class="heading">Master Question</h3>
+	<div class="col-lg-12 section">
+		{{sqdModal.question.Text}}
+		<div class="col-lg-12 subsection scroll-body">
+			<p class="type">Type: <span class="custom-label">{{sqdModal.question.TypeKey}}</span></p>
+			<p class="heading">Edit Question Display Text (Optional)</p>
+			<p class="custom-label">Feel free to make style changes and reword the question without changing its meaning <br/>
+			The question will be associated with the master question for reporting purposes</p>
+			<textarea ng-model="sqdModal.question.Text"></textarea>
+			<div class="section-detail">
+				<label>
+					<input type="checkbox"><span class="custom-label" ng-model="sqdModal.question.IsRequired"> Set Question as Required</span>
+				</label>
+				<div class="col-lg-12 no-padding">
+					<p class="heading">Set Default Response</p>
+					<button ng-repeat="option in sqdModal.defaultRespList" ng-class="sqdModal.question.DefaultValue==option? 'btn-active':'btn-disable'" ng-click="sqdModal.question.DefaultValue=sqdModal.question.DefaultValue==option?null:option">{{option}}
+					</button>
+				</div>
+				<div class="col-lg-12 no-padding">
+					<p class="heading">Set Undesired Response</p>
+					<button ng-repeat="option in sqdModal.undesiredRespList" ng-class="sqdModal.question.UndesireableValue==option? 'btn-active':'btn-disable'" ng-click="sqdModal.question.UndesireableValue=sqdModal.question.UndesireableValue==option?null:option">{{option}}
+					</button>
+				</div>
+				<div class="col-lg-12 no-padding">
+					<p class="heading">Score Response Weight*</p>
+					<span ng-repeat="option in sqdModal.defaultRespList" class="score-section">
+					<button  ng-class="sqdModal.question.DefaultValue==option? 'btn-active':'btn-disable'" ng-disbaled="true">
+					{{option}}
+					</button>
+					<input type="text" ng-disabled> <span>%</span>
+					</span>
+				</div>
+				<div class="col-lg-12 comment-box no-padding">
+				<p class="heading">Comments and Photos</p>
+				<div class="col-lg-6 no-padding">
+					<div class="col-lg-12 no-padding">
+						<label class="custom-label">Text Hint</label><br/>
+						<input type="text" placeholder="Enter Hint">
+					</div>
+					<div class="col-lg-12 no-padding">
+						<label>
+							<input type="checkbox" ng-model="sqdModal.question.IsCommentRequired"><span class="custom-label"> Set Required</span>
+						</label>
+						<label>
+							<input type="checkbox" ng-model="sqdModal.question.IsCommentRequired" ng-disabled="true"><span class="custom-label"> Set Required for Undesired Response</span>
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-6 no-padding">
+					<div class="col-lg-12 no-padding">
+						<label class="custom-label">Max.Photos</label><br/>
+						<input type="text">
+					</div>
+					<div class="col-lg-12 no-padding">
+						<label>
+							<input type="checkbox" ng-model="sqdModal.question.IsImagesRequired"><span class="custom-label"> Set Required</span>
+						</label>
+						<label>
+							<input type="checkbox" ng-model="sqdModal.question.IsImagesRequired" ng-disabled="true"><span class="custom-label"> Set Required for Undesired Response</span>
+						</label>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div class="col-lg-12 text-right">
+		<button class="main-btn-green" type="button" ng-click="sqdModal.cancel()">Back</button>
+		<button class="main-btn-green" type="button" ng-click="sqdModal.ok()">Save</button>
+    </div>
+</div>
+
+  	<script type="text/ng-template" id="changesWarning.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>Are you sure you want to close without adding a question</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="scwModal.ok()">OK</button>
+            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="scwModal.cancel()">Cancel</button>
+        	</div>
+        </div>
+    </script>

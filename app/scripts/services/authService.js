@@ -58,7 +58,7 @@ angular.module('sureAuditAdminApp')
     };
     
     var _relogin = function (refreshData) {
-    	var data = 'custkey=' + refreshData.customer_key + '&grant_type2=' + configurations.grantType2 + '&devicekey=' + configurations.deviceKey + '&appkey=' + configurations.appKey + '&refresh_token=' + refreshData.refresh_token;
+    	var data = 'custkey=' + refreshData.customer_key + '&grant_type=' + configurations.grantType2 + '&devicekey=' + configurations.deviceKey + '&appkey=' + configurations.appKey + '&refresh_token=' + refreshData.refresh_token;
     	var deferred = $q.defer();
     	$http.post(autService + serviceBase + 'token', data, { headers: { 'Content-Type': configurations.contentType, 'Accept': configurations.acceptType } })
     		.success(function (response) {

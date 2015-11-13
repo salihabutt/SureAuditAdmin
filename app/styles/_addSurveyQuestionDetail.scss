@@ -1,0 +1,127 @@
+.survey-questiondetail-modal .modal-dialog {
+	width: 808px;
+	height: 688px;
+	color: #4C4C4C;
+	overflow-y: initial !important;
+	.close-btn {
+		padding-top: 5px;
+		float: right;
+	}
+  	.modal-header{
+    	font: $font-heading; 
+  	}
+	.modal-body{
+		height: 500px;
+		overflow-y: auto;
+		.heading {
+			font: $font-large;		
+		}
+		
+		.section {
+			font:$font-medium;
+			padding-left: 10px !important;
+			color:#777777;
+			
+			.heading{
+				padding: 15px 0px 15px 0px;
+			}
+			.subsection {
+				color: #4C4C4C;
+				
+				.type {
+					font: $font-small;
+				}	
+				label{
+					margin-top: 12px;
+				}
+				.custom-label {
+					font:$font-small;
+					color:#777777;
+					font-weight: normal !important;
+				}
+				
+				textarea {
+					font: $font-medium;
+					color: #4C4C4C;
+					width: 720px;
+					height: 110px;
+					background-color: #F6F6F6;
+					resize: none;
+					border-radius: 5px;
+					border-color: #ccc;
+				}
+				
+				.section-detail {
+					padding-top: 15px;
+					input[type=checkbox] {
+						visibility: hidden;
+						margin-right: 15px;
+					}
+					input[type=checkbox]:before { 
+						visibility: visible;
+						content:""; 
+						display:inline-block; 
+						width:15px; 
+						height:15px; 
+						background:url(../images/ctrl_checkbox_grey_inactive@2x.png); 
+						margin-bottom: 1px;
+					}
+					input[type=checkbox]:checked:before { 
+						visibility: visible;
+						background:url(../images/ctrl_checkbox_active@2x.png); 
+						margin-bottom: 1px;
+					}
+					
+					.btn-disable {
+						font: $font-medium;
+						padding: 9px 10px;
+						margin-right: 25px;
+						color: #BABABA;
+						background-color:$white-color;
+						border: 1px solid #BABABA;
+						border-radius:  $border-radius-5;
+					}
+					
+					.btn-active {
+						font: $font-medium;
+						padding: 9px 10px;
+						margin-right: 25px;
+						color: $white-color;
+						background-color:#1B8ECA;
+						border: 1px solid #BABABA;
+						border-radius:  $border-radius-5;
+					}
+					
+					.score-section {
+						margin-right: 96px;
+						
+						input[type="text"] {
+							width: 50px;
+    						height: 40px;
+    						border-radius: 5px;
+    						box-shadow: none;
+    						font: $font-medium;
+						}
+					}
+					
+					.comment-box {
+						margin-top: 30px;
+						border-top: 1px solid #cccccc;
+						
+						input[type="text"] {
+							width: 258px;
+    						height: 40px;
+    						border-radius: 5px;
+    						box-shadow: none;
+    						font: $font-medium;
+    						color: #000000
+						}
+						
+					}
+	
+				}					
+			}
+		}
+		
+	}
+}
