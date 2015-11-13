@@ -6,11 +6,11 @@ angular.module('sureAuditAdminApp')
 			restrict: 'A',
 			link: function (scope, iElement) {
 
-				$(iElement).mouseover(function(event){
+				$(iElement).mouseover(function(){
 					$(this).children('.gridOptions').show();
 				});
 
-				$(iElement).mouseout(function(event){
+				$(iElement).mouseout(function(){
 					$(this).children('.gridOptions').hide();
 				});				
 			}
@@ -21,11 +21,11 @@ angular.module('sureAuditAdminApp')
 		restrict: 'A',
 		link: function (scope, iElement) {
 
-			$(iElement).mouseover(function(event){
+			$(iElement).mouseover(function(){
 				$(this).children('.quesGridOptions').show();
 			});
 
-			$(iElement).mouseout(function(event){
+			$(iElement).mouseout(function(){
 				$(this).children('.quesGridOptions').hide();
 			});				
 		}

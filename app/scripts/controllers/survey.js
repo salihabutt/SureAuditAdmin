@@ -7,18 +7,18 @@ angular.module('sureAuditAdminApp')
 		init = function () {
 			surveyService.getData().then(function(response){
 				self.data = response.Data;
-			},function(err){
+			},function(){
 
 			});
 		};
 		self.navigate = function () {
-			$state.go('addSurvey')
+			$state.go('addSurvey');
 		};
 		self.unpublish = function (index) {
 			self.data[index].Published = null;
 			var data = self.data[index];
 			data.TouchInfo = self.getTouchInfo();
-			surveyService.updateSurvey(data).then(function(response) {			
+			surveyService.updateSurvey(data).then(function() {			
 				
 			},function () {
 				// ERROR block
@@ -29,7 +29,7 @@ angular.module('sureAuditAdminApp')
 			self.data[index].Published = new Date();
 			var data = self.data[index];
 			data.TouchInfo = self.getTouchInfo();
-			surveyService.updateSurvey(data).then(function (response) {			
+			surveyService.updateSurvey(data).then(function () {			
 
 			},function () {
 				// ERROR block
@@ -82,7 +82,7 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		self.deleteSurveyById = function (index) {
-			surveyService.deleteSurvey(self.data[index].Id).then(function(response){
+			surveyService.deleteSurvey(self.data[index].Id).then(function(){
 				self.data[index].Status = 'Deleted';
 			},function(){
 				// error block

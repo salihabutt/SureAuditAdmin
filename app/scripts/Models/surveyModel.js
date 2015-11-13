@@ -57,7 +57,7 @@ angular.module('sureAuditAdminApp')
                 MaxImagesAllowed: null,
                 ResponseRatios: {}
 
-		}
+		};
 		
 		surveyModelFactory.surevyModel = surveyModel;
 		surveyModelFactory.section = section;

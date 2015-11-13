@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService) {
+.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService) {
 	var self = this,
 	init = function () {
 		self.auditDefinition = {};
@@ -31,11 +31,11 @@ angular.module('sureAuditAdminApp')
 			case 'SmS':
 				self.tab = 'SmS';
 				break;
-			defualt :
+			default:
 				self.tab = 'ES';
 				break;
 		}
-	}
+	};
 	
 	self.getAllQuestion = function () {
 		masterQuestionService.getData().then(function (response){
@@ -43,7 +43,7 @@ angular.module('sureAuditAdminApp')
 		}, function (){
 			//TODO ERROR block
 		});
-	}
+	};
 	self.addQuestion = function (pIndex) {
 		$uibModal.open({
 			animation: true,
@@ -64,7 +64,7 @@ angular.module('sureAuditAdminApp')
 	
 	self.addSection = function (pIndex) {
 		var section = angular.copy(surveyModel.section);
-		if(pIndex == 0 || pIndex == self.auditDefinition.Sections.length-1){
+		if(pIndex === 0 || pIndex === self.auditDefinition.Sections.length-1){
 			self.auditDefinition.Sections.push(section);
 		}else{
 			self.auditDefinition.Sections.splice(pIndex,0,section);
@@ -95,6 +95,14 @@ angular.module('sureAuditAdminApp')
 		var temp = array[index];
 		array[index] = array[index+1];
 		array[index+1] = temp;
+	};
+	
+	self.saveAuditDef = function () {
+		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
+			self.auditDefinition.Id = response.Id;
+		},function () {
+			// ERROR block
+		});
 	};
 	
 	init();
