@@ -1,6 +1,57 @@
 .ae-survey-wrapper {
 	padding-top: 50px;
 
+	.survey-summary-settings{
+		label{
+			font: $font-small;
+			color: #777777;
+
+		}
+
+		textarea{
+			height: 160px;
+			width: 600px;
+		}
+
+		.ampm-select{
+			background-color: #ffffff;
+		    border: 1px solid #cccccc;
+		    height: 30px;
+		    font-size: 14px;
+		    color: #777777;
+		    margin-left: -5px;
+		    padding-left: 5px;
+		}
+
+		.settings-txt{
+			background-color: #ffffff;
+		    border: 1px solid #cccccc;
+		    height: 30px;
+		    font-size: 14px;
+		    color: #777777;
+		    padding-left: 5px;
+		}
+		.summary-txt{
+			background-color: #ffffff;
+		    border: 1px solid #cccccc;
+		    border-radius: 5px;
+		    height: 40px;
+		    font-size: 14px;
+		    color: #777777;
+		    padding-left: 5px;
+		    float: left;
+		    width: 242px;
+		}
+		.by-span{
+			float: left;
+			margin: 8px 30px;
+		}
+
+		.settings-txt-time{
+			width: 74px;
+		}
+	}
+
 	.survey-info-box {
 		background-color: $white-color;
 		padding: 10px 25px;
@@ -43,6 +94,7 @@
 	}
 	.nav-tabs > li > a {
     	border: none !important;
+		cursor: pointer;
 	}
 
 	.tab-active {

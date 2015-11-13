@@ -50,6 +50,10 @@
 }
 
 
+.no-margin{
+	margin: 0px !important; 
+}
+
 .left{
 	float: left
 }
@@ -66,11 +70,19 @@
 	margin-top: 8px;
 }
 
+.margintop5{ 
+	margin-top: 5px;
+}
+
 .margintop37 {
 	margin-top: 37px;
 }
 .marginbottom10{ 
 	margin-bottom: 8px;
+}
+
+.marginbottom18{ 
+	margin-bottom: 18px;
 }
 
 .marginleft25{
@@ -84,6 +96,9 @@
 	margin-bottom: 50px;
 }
 
+.marginleft30{
+	margin-left: 30px;
+}
 
  /*global buttons and text boxes*/
 
