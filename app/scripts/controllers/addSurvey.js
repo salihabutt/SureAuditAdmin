@@ -7,6 +7,7 @@ angular.module('sureAuditAdminApp')
 		self.auditDefinition = {};
 		self.questionList = {};
 		self.editSurvey = false;
+		self.tab = 'ES';
 		self.name = '';
 		if ($stateParams.action === 'add') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
@@ -17,6 +18,24 @@ angular.module('sureAuditAdminApp')
 		
 		self.getAllQuestion();
 	};
+
+	self.selectedTab = function (tab) {
+		switch(tab)
+		{
+			case 'ES':
+				self.tab = 'ES';
+				break;
+			case 'SS':
+				self.tab = 'SS';
+				break;
+			case 'SmS':
+				self.tab = 'SmS';
+				break;
+			defualt :
+				self.tab = 'ES';
+				break;
+		}
+	}
 	
 	self.getAllQuestion = function () {
 		masterQuestionService.getData().then(function (response){
