@@ -15,6 +15,7 @@ angular.module('sureAuditAdminApp')
 		self.question.Label = ques.Label;
 		self.question.Name = ques.Name;
 		self.question.Id = null;
+		self.imageCount = 0;
 	};
 	
 
@@ -34,7 +35,20 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
-		$uibModalInstance.close(self.question);
+		$uibModalInstance.close(self.question,'');
+	};
+	
+	self.updateImageCount = function (action) {
+		if(action === 'down' && self.imageCount>0){
+			self.imageCount--;
+		}
+		else if(action === 'up' && self.imageCount<4){
+			self.imageCount++;
+		}
+	};
+	
+	self.back = function () {
+		$uibModalInstance.close(self.question,'back');
 	};
 	
 	init();
