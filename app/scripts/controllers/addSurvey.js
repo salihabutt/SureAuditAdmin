@@ -135,8 +135,8 @@ angular.module('sureAuditAdminApp')
 					return self.selctedQuestion;
 				}
 			}
-		}).result.then(function (question,action){
-			if(action !== 'back'){
+		}).result.then(function (question){
+			if(question !== null){
 				$uibModalInstance.close(question);
 			}
 		}, function (){

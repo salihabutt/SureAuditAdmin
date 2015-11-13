@@ -35,7 +35,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
-		$uibModalInstance.close(self.question,'');
+		$uibModalInstance.close(self.question);
 	};
 	
 	self.updateImageCount = function (action) {
@@ -47,8 +47,8 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 	
-	self.back = function () {
-		$uibModalInstance.close(self.question,'back');
+	self.bck = function () {
+		$uibModalInstance.close(null);
 	};
 	
 	init();
