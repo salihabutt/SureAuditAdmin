@@ -168,4 +168,16 @@
 	visibility: hidden;
 }
 
+.switch.checked {
+  background: #1B8ECA;
+  border-color: #1B8ECA;
+}
 
+.switch {
+	vertical-align: middle;
+	margin-left: 20px;
+}
+
+.switch.wide{
+	width: 110px;
+}

@@ -23,7 +23,8 @@ angular
     'blockUI',
     'ui.bootstrap',
     'angularMoment',
-    'xeditable'
+    'xeditable',
+    'uiSwitch'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
