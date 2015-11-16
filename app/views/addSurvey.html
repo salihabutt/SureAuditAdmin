@@ -95,10 +95,11 @@
 
 			<div class="col-lg-12 section-body-body no-padding">
 			<!-- ng-repear row -->
-				<div class="col-lg-12 no-padding survey-row" ng-repeat="question in item.Questions">
+				<div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
+				<div class="col-lg-12 no-padding survey-row" >
 					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
+						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'up')"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'down')"></div>
 					</div>
 					<div class="col-lg-9 no-padding">
 						<span>{{question.Label}}</span>
@@ -109,9 +110,9 @@
 						<img src="/images/ic_add@2x.png" alt="add" >
 						<div class="quesGridOptions">
 							<ul>
-							<li>Add Question Above</li>
-							<li>Add Question Below</li>
-							<li>Add Branching Question</li>	
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'above')">Add Question Above</li>
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'below')">Add Question Below</li>
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'branch')">Add Branching Question</li>	
 							</ul>
 						</div>
 						</div>
@@ -133,15 +134,15 @@
 					</div>
 				</div>
 					<!-- ng-repeat branching row -->
-				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches">
+				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" >
 					<div class="col-lg-1 no-padding"></div>
 					<div class="col-lg-9 no-padding">
 						<div class="col-lg-1 no-padding text-left">
-							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
-							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
+							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')"></div>
+							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')"></div>
 						</div>
-						<span>1.</span>
-						<span>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </span>
+						<span>{{branch.Label}}</span>
+						<span>{{branch.Text}} </span>
 					</div>
 					<div class="col-lg-1">
 						<div class="col-lg-6" ques-sibling>
@@ -150,7 +151,6 @@
 							<ul>
 							<li>Add Question Above</li>
 							<li>Add Question Below</li>
-							<li>Add Branching Question</li>	
 							</ul>
 						</div>
 						</div>
@@ -172,15 +172,18 @@
 					</div>
 				</div>
 			</div>
-
+		</div>
 			<div class="col-lg-12 section-body-footer">
-				<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex)">ADD QUESTION</a></span>
+				<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex,null,null)">ADD QUESTION</a></span>
 			</div>
 		</div>
 	</div>
 		<div class="col-lg-12 section-body-footer">
 			<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
+	</div>
+	<div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+			<span><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
 
 
