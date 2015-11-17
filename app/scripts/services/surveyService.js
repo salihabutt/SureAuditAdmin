@@ -69,10 +69,26 @@ angular.module('sureAuditAdminApp')
 		  	});
 			return deferred.promise;
 		};
+		
+		var _getSurvey = function (id) {
+			var deferred = $q.defer();
+			var request = {
+				method: 'GET',
+				url: configurations.sureAudit + configurations.serviceBase + 'AuditDefinitions/'+ id,
+			};
+
+	    	$http(request).success( function(response){
+	    		deferred.resolve(response);
+		  	}).error(function(err){
+		  		deferred.reject(err);
+		  	});
+			return deferred.promise;
+		};
 
 		surveyServiceFactory.getData = _getData;
 		surveyServiceFactory.saveSurvey = _saveSurvey;
 		surveyServiceFactory.updateSurvey = _updateSurvey;
 		surveyServiceFactory.deleteSurvey = _deleteSurvey;
+		surveyServiceFactory.getSurvey = _getSurvey;
 		return surveyServiceFactory;
 	});

@@ -51,139 +51,138 @@
 	</div>
 
 	
-	<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
-		<div class="col-lg-12 section-box marginbottom50 no-padding">
-		<div class="col-lg-12 text-right total-weight">
-			<span>Total Questions Weight </span>
-			<span> 75%</span>
+<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
+	<div class="col-lg-12 section-box marginbottom50 no-padding">
+	<div class="col-lg-12 text-right total-weight">
+		<span>Total Questions Weight </span>
+		<span> 75%</span>
+	</div>
+		<div class="col-lg-12 section-title">
+			<div class="col-lg-6 no-padding">
+					<div class="col-lg-1 no-padding text-center">
+						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
+					</div>
+				<span class="section-title-text">
+					{{item.Name}}
+				</span>
+				<span class="section-title-text" ng-if="item.Name==''">
+					Section Title
+				</span>
+				<span class="edit-image">
+					<a href="#" editable-text="item.Name"><img src="/images/ic_edit@2x.png" alt="edit"></a>
+				</span>
+			</div>
+			<div class="col-lg-6 text-right no-padding">
+				<span class="sort-image">
+					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny(parentIndex,null,null,'section')">
+				</span>
+
+				<span>
+					<input type="text" ng-model="item.weight" class="percent-weight">
+				</span>
+
+			</div>
 		</div>
-			<div class="col-lg-12 section-title">
-				<div class="col-lg-6 no-padding">
-						<div class="col-lg-1 no-padding text-center">
-							<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0"></div>
-							<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
-						</div>
-					<span class="section-title-text">
-						{{item.Name}}
-					</span>
-					<span class="section-title-text" ng-if="item.Name==''">
-						Section Title
-					</span>
-					<span class="edit-image">
-						<a href="#" editable-text="item.Name"><img src="/images/ic_edit@2x.png" alt="edit"></a>
-					</span>
-				</div>
-				<div class="col-lg-6 text-right no-padding">
-					<span class="sort-image">
-						<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.auditDefinition.Sections.splice($index,1)">
-					</span>
 
-					<span>
-						<input type="text" ng-model="item.weight" class="percent-weight">
-					</span>
-
-				</div>
+		<div class="col-lg-12 section-body">
+			<div class="col-lg-12 text-right section-body-head">
+				<span><button class="main-btn-green">Set Equal Points</button></span>
+				<span><button class="main-btn-green">Reset Points</button></span>
+				<span class="total-weight">Total Question Points</span>
+				<span class="total-weight">75.5</span>
 			</div>
 
-			<div class="col-lg-12 section-body">
-				<div class="col-lg-12 text-right section-body-head">
-					<span><button class="main-btn-green">Set Equal Points</button></span>
-					<span><button class="main-btn-green">Reset Points</button></span>
-					<span class="total-weight">Total Question Points</span>
-					<span class="total-weight">75.5</span>
-				</div>
-
-				<div class="col-lg-12 section-body-body no-padding">
-				<!-- ng-repear row -->
-					<div class="col-lg-12 no-padding survey-row" ng-repeat="question in item.Questions">
-						<div class="col-lg-1 no-padding text-center">
-							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
-							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
+			<div class="col-lg-12 section-body-body no-padding">
+			<!-- ng-repear row -->
+				<div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
+				<div class="col-lg-12 no-padding survey-row" >
+					<div class="col-lg-1 no-padding text-center">
+						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'up')"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'down')"></div>
+					</div>
+					<div class="col-lg-9 no-padding">
+						<span>{{question.Label}}</span>
+						<span>{{question.Text}} </span>
+					</div>
+					<div class="col-lg-1">
+						<div class="col-lg-6" ques-sibling>
+						<img src="/images/ic_add@2x.png" alt="add" >
+						<div class="quesGridOptions">
+							<ul>
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'above')">Add Question Above</li>
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'below')">Add Question Below</li>
+							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'branch')">Add Branching Question</li>	
+							</ul>
 						</div>
-						<div class="col-lg-9 no-padding">
-							<span>{{question.Label}}</span>
-							<span>{{question.Text}} </span>
 						</div>
-						<div class="col-lg-1">
-							<div class="col-lg-6" ques-sibling>
-							<img src="/images/ic_add@2x.png" alt="add" >
-							<div class="quesGridOptions">
-								<ul>
-								<li>Add Question Above</li>
-								<li>Add Question Below</li>
-								<li>Add Branching Question</li>	
-								</ul>
-							</div>
-							</div>
-							<div class="col-lg-6 text-center" menu-sibling>
-							<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
-							<div class="gridOptions">
-								<ul>
-									<li>Hide</li>
-									<li>Edit</li>
-									<li>Delete</li>
-								</ul>
-							</div>
-							</div>
+						<div class="col-lg-6 text-center" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
+						<div class="gridOptions">
+							<ul>
+								<li>Hide</li>
+								<li ng-click="aeSurvey.editQuestion(question)">Edit</li>
+								<li ng-click="aeSurvey.deleteAny(parentIndex,childIndex,null,'question')">Delete</li>
+							</ul>
 						</div>
-						<div class="col-lg-1 text-center">
-						<span>
-							<input type="text" ng-model="question.PointAllowed" class="percent-weight">
-						</span>
 						</div>
 					</div>
-						<!-- ng-repeat branching row -->
-					<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches">
-						<div class="col-lg-1 no-padding"></div>
-						<div class="col-lg-9 no-padding">
-							<div class="col-lg-1 no-padding text-left">
-								<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up"></div>
-								<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down"></div>
-							</div>
-							<span>1.</span>
-							<span>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </span>
-						</div>
-						<div class="col-lg-1">
-							<div class="col-lg-6" ques-sibling>
-							<img src="/images/ic_add@2x.png" alt="add" >
-							<div class="quesGridOptions">
-								<ul>
-								<li>Add Question Above</li>
-								<li>Add Question Below</li>
-								<li>Add Branching Question</li>	
-								</ul>
-							</div>
-							</div>
-							<div class="col-lg-6 text-center" menu-sibling>
-							<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
-							<div class="gridOptions">
-								<ul>
-									<li>Hide</li>
-									<li>Edit</li>
-									<li>Delete</li>
-								</ul>
-							</div>
-							</div>
-						</div>
-						<div class="col-lg-1 text-center">
-							<div class="point-distribute-box text-right">
-								40.5
-							</div>
-						</div>
+					<div class="col-lg-1 text-center">
+					<span>
+						<input type="text" ng-model="question.PointAllowed" class="percent-weight">
+					</span>
 					</div>
 				</div>
-
-				<div class="col-lg-12 section-body-footer">
-					<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex)">ADD QUESTION</a></span>
+					<!-- ng-repeat branching row -->
+				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" >
+					<div class="col-lg-1 no-padding"></div>
+					<div class="col-lg-9 no-padding">
+						<div class="col-lg-1 no-padding text-left">
+							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')"></div>
+							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')"></div>
+						</div>
+						<span>{{branch.Label}}</span>
+						<span>{{branch.Text}} </span>
+					</div>
+					<div class="col-lg-1">
+						<div class="col-lg-6" ques-sibling>
+						<img src="/images/ic_add@2x.png" alt="add" >
+						<div class="quesGridOptions">
+							<ul>
+							<li>Add Question Above</li>
+							<li>Add Question Below</li>
+							</ul>
+						</div>
+						</div>
+						<div class="col-lg-6 text-center" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
+						<div class="gridOptions">
+							<ul>
+								<li>Hide</li>
+								<li>Edit</li>
+								<li>Delete</li>
+							</ul>
+						</div>
+						</div>
+					</div>
+					<div class="col-lg-1 text-center">
+						<div class="point-distribute-box text-right">
+							40.5
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 			<div class="col-lg-12 section-body-footer">
-				<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
+				<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex,null,null)">ADD QUESTION</a></span>
+			</div>
 		</div>
 	</div>
-
-	 <div class="col-lg-12" ng-show="aeSurvey.tab == 'ES'" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+		<div class="col-lg-12 section-body-footer">
+			<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
+	</div>
+	</div>
+	<div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
 			<span><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
 
@@ -371,7 +370,7 @@
 			<img src="/images/ic_close_@2x.png" class="close-btn" ng-click="mqModal.cancel()">
 		</div>
         <div class="modal-header">
-            <h3 class="modal-title">Add Question to Survey</h3>
+            <h3 class="modal-title">{{mqModal.subject}}</h3>
         </div>	
 		<div class="modal-body">
 			<div class="col-lg-7">
@@ -385,7 +384,7 @@
 					<div class="col-lg-12">
 						<div class="radio" ng-repeat = "item in mqModal.questions.Data | filter: {Text: query}" >
   						<label>
-    						<input type="radio"  value="{{item.Text}}" ng-model="mqModal.selected" ng-change="mqModal.setSelected(item)">
+    						<input type="radio"  value="{{item.Id}}" ng-model="mqModal.selected" ng-change="mqModal.setSelected(item)" ng-disabled="mqModal.disabled">
     							{{item.Text}}
 							<p>Type: <span>{{item.TypeKey}}</span></p>
   						</label>
@@ -400,3 +399,15 @@
         	</div>
         </div>
     </script>
+   	<script type="text/ng-template" id="delWarning.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>{{dwModal.text}}</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dwModal.ok()">OK</button>
+            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="dwModal.cancel()">Cancel</button>
+        	</div>
+        </div>
+    </script>
+    

@@ -2,7 +2,7 @@
 
 
 angular.module('sureAuditAdminApp')
-	.controller('SurveyCtrl',  function ($state, $uibModal, surveyService, utilityService) {
+	.controller('SurveyCtrl',  function ($state, $uibModal,$stateParams, surveyService, utilityService) {
 		var self = this,
 		init = function () {
 			surveyService.getData().then(function(response){
@@ -13,6 +13,12 @@ angular.module('sureAuditAdminApp')
 		};
 		self.navigate = function () {
 			$state.go('addSurvey');
+		};
+		
+		self.editSurvey = function (id) {
+			$state.go('addSurvey',{
+			      id: id
+		})
 		};
 		self.unpublish = function (index) {
 			self.data[index].Published = null;

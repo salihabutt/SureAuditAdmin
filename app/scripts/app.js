@@ -86,19 +86,7 @@ angular
 			url: 'addsurvey',
 			parent: 'main',
 			params: {
-			    action: 'add',
-			  },
-			views: {
-				  'content': {
-					templateUrl: 'views/addSurvey.html'
-				  }
-			  }
-		})
-		.state('editSurvey',{
-			url: 'editsurvey',
-			parent: 'main',
-			params: {
-			    action: 'edit',
+			    id: '',
 			  },
 			views: {
 				  'content': {
