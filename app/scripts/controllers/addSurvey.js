@@ -8,14 +8,19 @@ angular.module('sureAuditAdminApp')
 		self.questionList = {};
 		self.editSurvey = false;
 		self.tab = 'ES';
-		self.showFlags = false;
-
 		self.name = '';
-		if ($stateParams.action === 'add') {
+		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
 			self.auditDefinition.Key = utilityService.guid;
 		}
-		
+		else if($stateParams.id !== '') {
+			surveyService.getSurvey($stateParams.id).then(function (response) {
+				self.auditDefinition = response;
+			},function () {
+				// ERROR block
+			});
+			
+		}
 		self.getAllQuestion();
 	};
 
@@ -54,6 +59,12 @@ angular.module('sureAuditAdminApp')
 			resolve: {
 				mq: function () {
 					return self.questionList;
+				},
+				action: function () {
+					return 'add';
+				},
+				question: function () {
+					return null;
 				}
 			}
 		}).result.then(function(question){
@@ -77,6 +88,27 @@ angular.module('sureAuditAdminApp')
 			else{
 				self.auditDefinition.Sections[pIndex].Questions.push(question);
 				self.auditDefinition.QuestionCount++;
+			}
+		});
+	};
+	
+	self.editQuestion = function (question) {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'addSurveyQuestion.html',
+			controller: 'AddSurveyQuestionCtrl',
+			windowClass: 'survey-questions-modal',
+			controllerAs: 'mqModal',
+			resolve: {
+				mq: function () {
+					return self.questionList;
+				},
+				question: function () {
+					return question;
+				},
+				action: function () {
+					return 'edit';
+				}
 			}
 		});
 	};
@@ -137,21 +169,72 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
+		debugger;
+		if($stateParams.id === ''){
 		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
 			self.auditDefinition.Id = response.Id;
 		},function () {
 			// ERROR block
 		});
+		}
+		else{
+			surveyService.updateSurvey(self.auditDefinition).then(function (response) {			
+				self.auditDefinition.Id = response.Id;
+			},function () {
+				// ERROR block
+			});
+		}
+	};
+	
+	self.deleteAny = function (pIndex,cIndex,index,type) {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'delWarning.html',
+			controller: 'delWarningCtrl',
+			windowClass: 'changes-warning-modal',
+			controllerAs: 'dwModal',
+			resolve: {
+				msg: function () {
+					var message = '';
+					switch(type){
+					case 'section':
+						message = 'Are you sure you want to delete this section and all question in it?';
+						break;
+					case 'question':
+						message = 'Are you sure you want to delete the question?';
+						break;
+					}
+					return message;
+				}
+			}
+		}).result.then(function(){
+			switch(type){
+			case 'section':
+				self.auditDefinition.Sections.splice(pIndex,1);
+				break;
+			case 'question':
+				self.auditDefinition.Sections[pIndex].Questions.splice(cIndex,1);
+				break;
+			}
+		})
 	};
 	
 	init();
 })
-.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq){
+.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, question){
 	var self = this,
 	init = function () {
 		self.questions = mq;
 		self.selected = null;
 		self.selctedQuestion = {};
+		self.disabled = false;
+		self.subject = 'Add Question to Survey';
+		if(action === 'edit'){
+			self.selctedQuestion = question;
+			self.selected = question.MasterId;
+			self.disabled = true;
+			self.subject = 'Edit Question';
+		}
 	};
 	
 	self.cancel = function () {
@@ -172,6 +255,9 @@ angular.module('sureAuditAdminApp')
 			resolve:{
 				ques: function () {
 					return self.selctedQuestion;
+				},
+				action: function () {
+					return action;
 				}
 			}
 		}).result.then(function (question){
@@ -184,4 +270,19 @@ angular.module('sureAuditAdminApp')
 	};
 	init();
 	
+})
+.controller('delWarningCtrl', function ($uibModalInstance, $uibModal, msg){
+	var self = this;
+	self.text = msg;
+	
+	self.ok = function () {
+		$uibModalInstance.close();
+	};
+	
+	self.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+	
+	
 });
+	

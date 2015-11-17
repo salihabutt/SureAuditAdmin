@@ -57,7 +57,7 @@ angular.module('sureAuditAdminApp')
 				Text: '',		
 				Hint: null,			
 				PointsAllowed: 0.0,					
-				IsRequired: true,			
+				IsRequired: false,			
 				IsVisible: true,				
 				IsScored: false,
 				Branches: [],

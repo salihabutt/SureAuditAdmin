@@ -1,20 +1,15 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel) {
+.controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel, action, utilityService) {
 	var self = this,
 	init = function () {
+		self.subject = 'Add Question to Survey';
 		self.defaultRespList = ['Yes','No'];
 		self.defaultResp = '';
 		self.undesiredRespList = ['Yes','No'];
 		self.undesiredResp = '';
 		self.question = angular.copy(surveyModel.question);
-		self.question.MasterId = ques.Id;
-		self.question.Text = ques.Text;
-		self.question.TypeKey = ques.TypeKey;
-		self.question.Label = ques.Label;
-		self.question.Name = ques.Name;
-		self.question.Id = null;
 		self.imageCount = 1;
 		self.responseRatioOptions = [
 		                             {
@@ -33,9 +28,62 @@ angular.module('sureAuditAdminApp')
 		self.commentsSwitch = false;
 		self.imageSwitch = false;
 		self.imageRequired = false;
-		self.undesiredImgReq  = false;                    
+		self.undesiredImgReq  = false;  
+		
+		if(action === 'edit'){
+			self.editMode();
+		}
+		else if(action === 'add'){
+			self.question.MasterId = ques.Id;
+			self.question.Text = ques.Text;
+			self.question.TypeKey = ques.TypeKey;
+			self.question.Label = ques.Label;
+			self.question.Name = ques.Name;
+			self.question.Id = null;
+		}
 	};
 	
+	self.editMode = function () {
+		self.subject = 'Edit Question';
+		self.question = ques;
+		self.imageCount =  ques.MaxImagesAllowed;
+		for(var i =0;i<ques.ResponseRatios.length;i++){
+			var obj = {};
+			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
+				if(self.responseRatioOptions[0].label === ques.ResponseRatios[i].ValueMatch){
+					self.responseRatioOptions[0].active = true;
+					self.responseRatioOptions[0].value = ques.ResponseRatios[i].Ratio;
+				}
+				else if (self.responseRatioOptions[1].label === ques.ResponseRatios[i].ValueMatch){
+					self.responseRatioOptions[1].active = true;
+					self.responseRatioOptions[1].value = ques.ResponseRatios[i].Ratio;
+				}
+			}
+		}
+		switch(ques.IsCommentRequired){
+		case 1:
+			self.commentRequired = true;
+			self.undesiredReq  = true;
+			self.commentsSwitch = true;
+			break;
+		case 3:
+			self.undesiredReq  = true;
+			self.commentsSwitch = true;
+			break;
+		}
+		
+		switch(ques.IsImagesRequired){
+		case 1:
+			self.imageSwitch = true;
+			self.imageRequired = true;
+			self.undesiredImgReq  = true; 
+			break;
+		case 3:
+			self.imageSwitch = true;
+			self.undesiredImgReq  = true; 
+			break;
+		}
+	}
 
 	
 	self.cancel = function () {
@@ -57,8 +105,8 @@ angular.module('sureAuditAdminApp')
 		for (var i=0;i<self.responseRatioOptions.length;i++){
 			if(self.responseRatioOptions[i].active){
 				var responseRatio = {};
-				responseRatio.ratio = self.responseRatioOptions[i].value;
-				responseRatio.valueMatch = self.responseRatioOptions[i].label;
+				responseRatio.Ratio = self.responseRatioOptions[i].value;
+				responseRatio.ValueMatch = self.responseRatioOptions[i].label;
 				self.question.ResponseRatios.push(responseRatio);
 			}
 		}
