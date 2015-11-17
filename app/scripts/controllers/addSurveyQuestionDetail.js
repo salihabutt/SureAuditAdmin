@@ -15,7 +15,7 @@ angular.module('sureAuditAdminApp')
 		self.question.Label = ques.Label;
 		self.question.Name = ques.Name;
 		self.question.Id = null;
-		self.imageCount = 0;
+		self.imageCount = 1;
 		self.responseRatioOptions = [
 		                             {
 		                            	 label: 'Yes',
@@ -27,7 +27,13 @@ angular.module('sureAuditAdminApp')
 		                            	 active: false,
 		                            	 value: 0
 		                             }];
-		                             
+		
+		self.commentRequired = false;
+		self.undesiredReq  = false;
+		self.commentsSwitch = false;
+		self.imageSwitch = false;
+		self.imageRequired = false;
+		self.undesiredImgReq  = false;                    
 	};
 	
 
@@ -47,6 +53,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
+		// Do processing
 		for (var i=0;i<self.responseRatioOptions.length;i++){
 			if(self.responseRatioOptions[i].active){
 				var responseRatio = {};
@@ -55,9 +62,30 @@ angular.module('sureAuditAdminApp')
 				self.question.ResponseRatios.push(responseRatio);
 			}
 		}
+		// process comments required and image required flags
+		self.processReqChecks();
+		self.question.MaxImagesAllowed = self.imageCount;
+		console.log(self.question);
 		$uibModalInstance.close(self.question);
 	};
 	
+	self.processReqChecks = function () {
+		if(self.commentRequired && self.undesiredReq){
+			self.question.IsCommentRequired = 1;
+		} else if(!self.commentRequired && self.undesiredReq){
+			self.question.IsCommentRequired = 3;
+		} else{
+			self.question.IsCommentRequired = 0;
+		}
+		
+		if(self.imageRequired && self.undesiredImgReq){
+			self.question.IsImagesRequired = 1;
+		} else if(!self.imageRequired && self.undesiredImgReq){
+			self.question.IsImagesRequired = 3;
+		} else{
+			self.question.IsImagesRequired = 0;
+		}
+	}
 	self.updateImageCount = function (action) {
 		if(action === 'down' && self.imageCount>0){
 			self.imageCount--;
@@ -81,6 +109,37 @@ angular.module('sureAuditAdminApp')
 		});
 	};
 
+	self.setCommentsRequired = function(type){
+		if(type == "req" && self.commentRequired){
+			self.undesiredReq = true;
+		}else if(type == "req" && !self.commentRequired){
+			self.undesiredReq = false;
+		}
+	};
+	
+	self.setImageRequired = function(type){
+		if(type === "req" && self.imageRequired){
+			self.undesiredImgReq = true;
+		}else if(type === "req" && !self.imageRequired){
+			self.undesiredImgReq = false;
+		}
+	};
+	
+	self.changeCommentsSwitch = function () {
+		if(!self.commentsSwitch){
+			self.commentRequired  = false;
+			self.undesiredReq = false;
+			self.question.CommentHint = '';
+		}
+	};
+	
+	self.changeImageSwitch = function () {
+		if(!self.commentsSwitch){
+			self.imageRequired  = false;
+			self.undesiredImgReq = false;
+			self.imageCount = 1;
+		}
+	};
 	
 	init();
 })

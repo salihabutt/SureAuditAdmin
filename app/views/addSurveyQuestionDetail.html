@@ -34,7 +34,7 @@
 					<button  class="btn-disable" toggle-class="btn-active" ng-click="option.active=!option.active">
 					{{option.label}}
 					</button>
-					<input type="number" ng-model="option.value" ng-disabled="!option.active" max="100" min="0"> <span>%</span>
+					<input type="number" ng-model="option.value" ng-disabled="!option.active" max="100" min="0" score-check debounce="2000" > <span>%</span>
 					</span>
 				</div>
 				<div class="col-lg-12 comment-box no-padding">
@@ -42,34 +42,34 @@
 
 				<div class="col-lg-6 no-padding">
 					<label>Enable Comments
-						<switch id="enabled" name="enabled" ng-model="sqdModal.question.IsCommentRequired" class="blue">this is working</switch>
+						<switch id="enabled" name="enabled" ng-model="sqdModal.commentsSwitch" class="blue" ng-change="sqdModal.changeCommentsSwitch()">this is working</switch>
 					</label>
 					<br>
 				</div>
 				
 				<div class="col-lg-6 no-padding">
 					<label>Enable Photos
-						<switch id="enabled2" name="enabled2" ng-model="sqdModal.question.IsImagesRequired" class="blue">this is working</switch>
+						<switch id="enabled2" name="enabled2" ng-model="sqdModal.imageSwitch" class="blue" ng-change="sqdModal.changeImageSwitch()">this is working</switch>
 					</label>
 					<br>
 				</div>
 				
 				<div class="col-lg-6 no-padding">
-					<div class="col-lg-12 no-padding"  ng-show="sqdModal.question.IsCommentRequired">
+					<div class="col-lg-12 no-padding"  ng-show="sqdModal.commentsSwitch">
 						<label class="custom-label">Text Hint</label><br/>
-						<input type="text" placeholder="Enter Hint">
+						<input type="text" placeholder="Enter Hint" ng-model="sqdModal.question.CommentHint">
 					</div>
-					<div class="col-lg-12 no-padding" ng-show="sqdModal.question.IsCommentRequired">
+					<div class="col-lg-12 no-padding" ng-show="sqdModal.commentsSwitch">
 						<label>
-							<input type="checkbox" ng-model="sqdModal.question.IsCommentRequired"><span class="custom-label"> Set Required</span>
+							<input type="checkbox" ng-model="sqdModal.commentRequired" ng-click="sqdModal.setCommentsRequired('req')"><span class="custom-label" > Set Required</span>
 						</label>
 						<label>
-							<input type="checkbox" ng-model="sqdModal.question.IsCommentRequired" ng-disabled="true"><span class="custom-label"> Set Required for Undesired Response</span>
+							<input type="checkbox" ng-model="sqdModal.undesiredReq"  ng-click="sqdModal.setCommentsRequired('undes')" ng-disabled="sqdModal.commentRequired"><span class="custom-label"> Set Required for Undesired Response</span>
 						</label>
 					</div>
 				</div>
 				<div class="col-lg-6 no-padding" >
-					<div class="col-lg-12 no-padding" ng-show="sqdModal.question.IsImagesRequired">
+					<div class="col-lg-12 no-padding" ng-show="sqdModal.imageSwitch">
 						<label class="custom-label">Max.Photos</label><br/>
 						<button class="btn-arrow" ng-click="sqdModal.updateImageCount('down')"> 
 							<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> 
@@ -80,12 +80,12 @@
 						</button>
 						
 					</div>
-					<div class="col-lg-12 no-padding" ng-show="sqdModal.question.IsImagesRequired">
+					<div class="col-lg-12 no-padding" ng-show="sqdModal.imageSwitch">
 						<label>
-							<input type="checkbox" ng-model="sqdModal.question.IsImagesRequired"><span class="custom-label"> Set Required</span>
+							<input type="checkbox" ng-model="sqdModal.imageRequired" ng-click="sqdModal.setImageRequired('req')"><span class="custom-label"> Set Required</span>
 						</label>
 						<label>
-							<input type="checkbox" ng-model="sqdModal.question.IsImagesRequired" ng-disabled="true"><span class="custom-label"> Set Required for Undesired Response</span>
+							<input type="checkbox" ng-model="sqdModal.undesiredImgReq" ng-click="sqdModal.setImageRequired('undes')" ng-disabled="sqdModal.imageRequired"><span class="custom-label"> Set Required for Undesired Response</span>
 						</label>
 					</div>
 				</div>
