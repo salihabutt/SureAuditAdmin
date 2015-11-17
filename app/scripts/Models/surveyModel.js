@@ -22,9 +22,33 @@ angular.module('sureAuditAdminApp')
 			        Responses: false,
 			        HistoryInNew: false
 			      },
-			      SummaryDisplayFlags: [
-				        
-				      ],
+			      SummaryDisplayFlags: [],
+			      Signatures: [
+						{
+						  Key: 'surveyor',
+						  Source: 'user',
+						  Description: 'Surveyor must sign.',
+						  Header: 'Surveyor',
+						  Required: true,
+						  CommentRequired: 0
+						},
+						{
+						  Key: 'surveyor',
+						  Source: 'user',
+						  Description: 'Surveyor must sign.',
+						  Header: 'Surveyor',
+						  Required: true,
+						  CommentRequired: 0
+						},
+						{
+						  Key: 'surveyor',
+						  Source: 'user',
+						  Description: 'Surveyor must sign.',
+						  Header: 'Surveyor',
+						  Required: true,
+						  CommentRequired: 0
+						}
+					],
 				  TouchInfo: {
 					  CreatedDate:  new Date(),
 					  ModifiedDate: new Date()

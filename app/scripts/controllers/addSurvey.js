@@ -9,6 +9,7 @@ angular.module('sureAuditAdminApp')
 		self.editSurvey = false;
 		self.tab = 'ES';
 		self.showFlags = false;
+		self.checkSignature = false;
 
 		self.name = '';
 		if ($stateParams.action === 'add') {
@@ -17,6 +18,17 @@ angular.module('sureAuditAdminApp')
 		}
 		
 		self.getAllQuestion();
+	};
+
+	self.pushPullValue = function(item){
+		debugger;
+
+		if(self.auditDefinition.SummaryDisplayFlags.indexOf(item) > -1){
+			self.auditDefinition.SummaryDisplayFlags.splice(self.auditDefinition.SummaryDisplayFlags.indexOf(item),1);
+		}else{
+			self.auditDefinition.SummaryDisplayFlags.push(item);
+		}
+		
 	};
 
 	self.selectedTab = function (tab) {
