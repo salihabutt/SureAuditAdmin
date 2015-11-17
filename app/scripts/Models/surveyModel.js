@@ -69,13 +69,18 @@ angular.module('sureAuditAdminApp')
                 AllowableValues: null,
                 MinImagesAllowed: null,
                 MaxImagesAllowed: null,
-                ResponseRatios: {}
+                ResponseRatios: []
 
+		};
+		
+		var branch = {
+				Questions: []
 		};
 		
 		surveyModelFactory.surevyModel = surveyModel;
 		surveyModelFactory.section = section;
 		surveyModelFactory.question = question;
+		surveyModelFactory.branch = branch;
 		
 		return surveyModelFactory;
 	});

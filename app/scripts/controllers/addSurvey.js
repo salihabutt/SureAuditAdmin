@@ -13,8 +13,6 @@ angular.module('sureAuditAdminApp')
 		self.name = '';
 		if ($stateParams.action === 'add') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
-			var section = angular.copy(surveyModel.section);
-			self.auditDefinition.Sections.push(section);
 			self.auditDefinition.Key = utilityService.guid;
 		}
 		
@@ -46,7 +44,7 @@ angular.module('sureAuditAdminApp')
 			//TODO ERROR block
 		});
 	};
-	self.addQuestion = function (pIndex) {
+	self.addQuestion = function (pIndex,cIndex,action) {
 		$uibModal.open({
 			animation: true,
 			templateUrl: 'addSurveyQuestion.html',
@@ -59,8 +57,27 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function(question){
-			self.auditDefinition.Sections[pIndex].Questions.push(question);
-			self.auditDefinition.QuestionCount++;
+			if(cIndex !== null && action !== null){
+				switch(action) {
+				case 'above':
+					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex,0,question);
+					break;
+				case 'below':
+					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex-1,0,question);
+					break;
+				case 'branch':
+					if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.length <= 0){
+						var branch = angular.copy(surveyModel.branch);
+						self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
+					}
+					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.push(question);
+					break;
+				}
+			}
+			else{
+				self.auditDefinition.Sections[pIndex].Questions.push(question);
+				self.auditDefinition.QuestionCount++;
+			}
 		});
 	};
 	
@@ -84,6 +101,26 @@ angular.module('sureAuditAdminApp')
 			}
 			break;
 			
+		}
+	};
+	
+	self.orderQuestion = function (pIndex,index, action) {
+
+			if(self.auditDefinition.Sections[pIndex].Questions.length > 1 && action === 'down'){
+				self.sortDown(self.auditDefinition.Sections[pIndex].Questions,index);
+			}
+			else if(self.auditDefinition.Sections[pIndex].Questions.length > 1 && action === 'up'){
+				self.sortUp(self.auditDefinition.Sections[pIndex].Questions,index);
+			}
+			
+	};
+	
+	self.orderBranchQues = function (pIndex,cIndex,index,action){
+		if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.length > 1 && action === 'down'){
+			self.sortDown(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions,index);
+		}
+		else if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.length > 1 && action === 'up'){
+			self.sortUp(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions,index);
 		}
 	};
 	
@@ -138,7 +175,9 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function (question){
-			$uibModalInstance.close(question);
+			if(question !== null){
+				$uibModalInstance.close(question);
+			}
 		}, function (){
 			$uibModalInstance.dismiss('cancel');
 		});
