@@ -51,7 +51,7 @@
 	</div>
 
 	
-<div  ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
+<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
 	<div class="col-lg-12 section-box marginbottom50 no-padding">
 	<div class="col-lg-12 text-right total-weight">
 		<span>Total Questions Weight </span>
@@ -195,7 +195,7 @@
 			<div class="col-lg-4 no-padding">
 				<div class="form-group">
 				    <label>Starts</label>
-				    <input type="datetime" class="settings-txt">
+				    <input type="date" class="settings-txt">
 				    <input type="text" class="settings-txt settings-txt-time marginleft30">
 				    <select class="ampm-select">
 				    	<option>AM</option>
@@ -206,7 +206,7 @@
 			<div class="col-lg-6">
 				<div class="form-group">
 				    <label>Ends</label>
-				    <input type="datetime" class="settings-txt">
+				    <input type="date" class="settings-txt">
 				    <input type="text" class="settings-txt settings-txt-time marginleft30">
 				    <select class="ampm-select">
 				    	<option>AM</option>
@@ -218,38 +218,43 @@
 			
 			<div class="col-lg-12 no-padding">
 				<h3 class="margintop37">About Survey</h3>
-				<textarea></textarea>
+				<textarea>{{aeSurvey.auditDefinition.About}}</textarea>
 			</div>
 			
 			<div class="col-lg-12 no-padding">
 				<h3 class="margintop37">General</h3>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Scoring
+						<input type="checkbox" ng-model="aeSurvey.auditDefinition.IsScored"> Scoring
 					</label>
 				</div>
 				<div class="form-group marginleft30">
-				    <span>Total Possible Scores</span>
-				    <input type="number" class="settings-txt">
+				    <span ng-class="!aeSurvey.auditDefinition.IsScored ? 'disable-custom' : ''">Total Possible Scores</span>
+				    <input type="number" class="settings-txt" ng-disabled="!aeSurvey.auditDefinition.IsScored">
 				</div>
 			</div>
 
 			<div class="col-lg-12 margintop8 no-padding">
 				<div class="checkbox marginbottom18">
 					<label>
-						<input type="checkbox"> Show Past Audit Dates 
+						<input type="checkbox" ng-model="aeSurvey.showFlags"> Show Past Audit Dates 
 					</label>
 				</div>
 				<div class="checkbox marginleft30 marginbottom18">
 					<label>
-						<input type="checkbox"> Show Past Audit Scores 
+						<input type="checkbox" ng-disabled="!aeSurvey.showFlags" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.showFlags ? 'disable-custom' : ''">Show Past Audit Scores</span> 
+					</label>
+				</div>
+				<div class="checkbox marginleft30 marginbottom18">
+					<label>
+						<input type="checkbox" ng-disabled="!aeSurvey.showFlags" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses"> <span ng-class="!aeSurvey.showFlags ? 'disable-custom' : ''">Show Past Audit Responces</span> 
 					</label>
 				</div>
 
 
 				<div class="checkbox marginbottom18">
 					<label>
-						<input type="checkbox"> Show Questions Yes/No History on new Audits 
+						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.HistoryInNew"> Show Questions Yes/No History on new Audits 
 					</label>
 				</div>
 
@@ -268,9 +273,9 @@
 		<div class="col-lg-12 profile margintop37 no-padding">
 			<h3>Questions Displayed</h3>
 			<div class="col-lg-12 no-padding">
-				<div class="col-lg-3 no-padding checkbox ">
+				<div class="col-lg-3 no-padding checkbox no-margintop">
 					<label>
-						<input type="checkbox"> Enable General Note 
+						<input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response 
 					</label>
 				</div>
 				<div class="col-lg-3 checkbox ">
@@ -290,7 +295,7 @@
 				</div>
 			</div>
 			<div class="col-lg-12 no-padding">
-				<div class="col-lg-3 no-padding checkbox ">
+				<div class="col-lg-3 no-padding checkbox no-margintop">
 					<label>
 						<input type="checkbox"> Hos Photo 
 					</label>
@@ -320,8 +325,9 @@
 			<div class="col-lg-12 no-padding">
 				<h3>Signatures</h3>
 				<div class="col-lg-4 no-padding checkbox">
-					<label>
-						<input type="checkbox"> Enable Signatures 
+					<label class="no-padding">Enable Signatures 
+					<switch id="enabled" name="enabled" ng-model="enabled" class="blue"></switch>
+						
 					</label>
 				</div>
 			</div>

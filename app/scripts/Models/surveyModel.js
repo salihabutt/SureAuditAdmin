@@ -11,6 +11,20 @@ angular.module('sureAuditAdminApp')
 				  Name: '',
 				  QuestionCount: 0,
 				  Sections: [],
+				  Starts: null,
+				  Ends: null,
+				  About: '',
+				  IsScored: false,
+				  MaxScore: 10.0,
+				  ShowPrevious: {
+			        Comment: false,
+			        Scores: false,
+			        Responses: false,
+			        HistoryInNew: false
+			      },
+			      SummaryDisplayFlags: [
+				        
+				      ],
 				  TouchInfo: {
 					  CreatedDate:  new Date(),
 					  ModifiedDate: new Date()

@@ -8,6 +8,8 @@ angular.module('sureAuditAdminApp')
 		self.questionList = {};
 		self.editSurvey = false;
 		self.tab = 'ES';
+		self.showFlags = false;
+
 		self.name = '';
 		if ($stateParams.action === 'add') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
