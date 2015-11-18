@@ -10,11 +10,15 @@ angular.module('sureAuditAdminApp')
 		self.tab = 'ES';
 		self.showFlags = false;
 		self.checkSignature = false;
+		self.totalQuesWeight = 0;
+		self.totalSectionWeight = 0;
 
 		self.name = '';
 		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
 			self.auditDefinition.Key = utilityService.guid;
+			var section = angular.copy(surveyModel.section);
+			self.auditDefinition.Sections.push(section);
 		}
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
@@ -82,6 +86,7 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function(question){
+			question.Status = "Ok";
 			if(cIndex !== null && action !== null){
 				switch(action) {
 				case 'above':
@@ -231,6 +236,12 @@ angular.module('sureAuditAdminApp')
 				break;
 			}
 		})
+	};
+	
+	self.hideQuestion = function (pIndex,cIndex,index,type) {
+		if(type === 'question'){
+			self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'Inactive';
+		}
 	};
 	
 	init();
