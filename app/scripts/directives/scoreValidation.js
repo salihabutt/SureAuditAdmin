@@ -23,13 +23,24 @@ angular.module('sureAuditAdminApp')
 	    					 sectionId = $(elem).attr('score-check').split('-')[1];
 	    					 var sum = 0.0;
 	    					 var objArray = $('#section-'+ sectionId + ' .percent-weight');	 
-	    					 for(var i=1;i<objArray.length;i++){
+	    					 for(var i=0;i<objArray.length;i++){
 	    						 if(objArray[i].value !== ''){
 	    						 sum = sum + parseFloat(objArray[i].value);
 	    						 }
 	    					 }
 	    					 $('#total-ques-'+ sectionId).text(sum);
 	    				break;	 
+	    				 case 'section':
+	    					 sectionId = $(elem).attr('score-check').split('-')[1];
+	    					 var sum = 0.0;
+	    					 var objArray = $('.section-percent-weight');	 
+	    					 for(var i=0;i<objArray.length;i++){
+	    						 if(objArray[i].value !== ''){
+	    						 sum = sum + parseFloat(objArray[i].value);
+	    						 }
+	    					 }
+	    					 $('#total-section-weight').text(sum);
+	    				break;
 	    				}
 	    			 
 	    		 

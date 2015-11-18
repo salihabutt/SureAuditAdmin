@@ -52,7 +52,7 @@
 
 <div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.auditDefinition.Sections.length>0">
 		<span>Total Sections Weight </span>
-		<span>{{aeSurvey.totalSectionWeight}}</span>
+		<span id="total-section-weight">{{aeSurvey.totalSectionWeight}}</span>
 </div>
 <div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'" id="section-{{$index}}">
 	<div class="col-lg-12 section-box marginbottom50 no-padding">
@@ -74,11 +74,11 @@
 			</div>
 			<div class="col-lg-6 text-right no-padding">
 				<span class="sort-image">
-					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny(parentIndex,null,null,'section')">
+					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny($index,null,null,'section')">
 				</span>
 
 				<span>
-					<input type="text" ng-model="item.weight" class="percent-weight">
+					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-$index">
 				</span>
 
 			</div>

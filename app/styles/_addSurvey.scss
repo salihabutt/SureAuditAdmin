@@ -141,6 +141,18 @@
 				color: #4C4C4C;
 				outline: none;
 			}
+	// do not use this class on other elements since this class is being used for calculating section total weight. can use only on section weight		
+	.section-percent-weight {
+				border: none !important;
+				background-color: #F3F3F3;
+				border-radius: 5px;
+				padding: 10px 13px;
+				width: 60px;
+				height: 28px;
+				font: $font-small;
+				color: #4C4C4C;
+				outline: none;
+	}
 
 	.section-box{
 		border-radius: $border-radius-5;
