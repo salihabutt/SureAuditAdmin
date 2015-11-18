@@ -23,38 +23,27 @@ angular.module('sureAuditAdminApp')
 			        HistoryInNew: false
 			      },
 			      SummaryDisplayFlags: [],
-			      Signatures: [
-						{
-						  Key: 'surveyor',
-						  Source: 'user',
-						  Description: 'Surveyor must sign.',
-						  Header: 'Surveyor',
-						  Required: true,
-						  CommentRequired: 0
-						},
-						{
-						  Key: 'surveyor',
-						  Source: 'user',
-						  Description: 'Surveyor must sign.',
-						  Header: 'Surveyor',
-						  Required: true,
-						  CommentRequired: 0
-						},
-						{
-						  Key: 'surveyor',
-						  Source: 'user',
-						  Description: 'Surveyor must sign.',
-						  Header: 'Surveyor',
-						  Required: true,
-						  CommentRequired: 0
-						}
-					],
+			      Signatures: [],
 				  TouchInfo: {
 					  CreatedDate:  new Date(),
 					  ModifiedDate: new Date()
 				  }
 					  
 			};
+
+
+		var  signature = {
+				  Key: '',
+				  Source: '',
+				  Description: '',
+				  Header: '',
+				  Required: false,
+				  CommentRequired: 0
+				};
+
+
+
+
 		var section = {
 				MasterId: null,
 				Id: null,
@@ -102,6 +91,7 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		surveyModelFactory.surevyModel = surveyModel;
+		surveyModelFactory.signature = signature;
 		surveyModelFactory.section = section;
 		surveyModelFactory.question = question;
 		surveyModelFactory.branch = branch;
