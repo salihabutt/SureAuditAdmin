@@ -182,7 +182,7 @@
 			<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
 	</div>
-	<div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+	<div class="col-lg-12" ng-show="aeSurvey.tab == 'ES'" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
 			<span><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
 
@@ -195,23 +195,23 @@
 			<div class="col-lg-4 no-padding">
 				<div class="form-group">
 				    <label>Starts</label>
-				    <input type="date" class="settings-txt">
-				    <input type="time" class="settings-txt settings-txt-time marginleft30">
-				   <!--  <select class="ampm-select">
+				    <input type="date" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sDate" class="settings-txt">
+				    <input type="text" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30">
+				    <select class="ampm-select" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sAMPM">
 				    	<option>AM</option>
 				    	<option>PM</option>
-				    </select> -->
+				    </select>
 			 	</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="form-group">
 				    <label>Ends</label>
-				    <input type="date" class="settings-txt">
-				    <input type="time" class="settings-txt settings-txt-time marginleft30">
-				    <!-- <select class="ampm-select">
+				    <input type="date" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eDate" class="settings-txt">
+				    <input type="text" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30">
+				    <select class="ampm-select" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eAMPM">
 				    	<option>AM</option>
 				    	<option>PM</option>
-				    </select> -->
+				    </select>
 			 	</div>
 			</div>
 
@@ -237,17 +237,17 @@
 			<div class="col-lg-12 margintop8 no-padding">
 				<div class="checkbox marginbottom18">
 					<label>
-						<input type="checkbox" ng-model="aeSurvey.showFlags"> Show Past Audit Dates 
+						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses"> Show Past Audit Dates 
 					</label>
 				</div>
 				<div class="checkbox marginleft30 marginbottom18">
 					<label>
-						<input type="checkbox" ng-disabled="!aeSurvey.showFlags" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.showFlags ? 'disable-custom' : ''">Show Past Audit Scores</span> 
+						<input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Scores</span> 
 					</label>
 				</div>
 				<div class="checkbox marginleft30 marginbottom18">
 					<label>
-						<input type="checkbox" ng-disabled="!aeSurvey.showFlags" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses"> <span ng-class="!aeSurvey.showFlags ? 'disable-custom' : ''">Show Past Audit Responces</span> 
+						<input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Responces</span> 
 					</label>
 				</div>
 
@@ -317,7 +317,7 @@
 				<h3>Score</h3>
 				<div class="col-lg-4 no-padding checkbox">
 					<label>
-						<input type="checkbox"> Show Score and Score History 
+						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> Show Score and Score History 
 					</label>
 				</div>
 			</div>
@@ -333,29 +333,33 @@
 			</div>
 
 			<div class="signature-section col-lg-12 no-padding marginbottom50" ng-show="aeSurvey.checkSignature">
-				<div class="col-lg-12 no-padding margintop8" ng-repeat="items in aeSurvey.auditDefinition.Signatures">
+				<div class="col-lg-12 no-padding margintop8" ng-repeat="items in aeSurvey.auditDefinition.Signatures track by $index">
 					<div class="col-lg-8 no-padding">
-			    		<input type="text" class="summary-txt" ng-model="aeSurvey.auditDefinition.Signatures.Header" placeholder="Signature Title">
+			    		<input type="text" class="summary-txt" ng-model="items.Header" placeholder="Signature Title">
 						<span class="by-span">by</span>
-			    		<select class="checkbox no-margin summary-txt" ng-model="aeSurvey.auditDefinition.Signatures.Source">
+			    		<select class="checkbox no-margin summary-txt" ng-model="items.Source">
 			    			<option>Logged in User</option>
 			    			<option>Subject Owner</option>
 			    			<option>Subject</option>
 			    			<option>Text Entry</option>
 			    		</select>
-			    		<input type="text" class="summary-txt" placeholder="Enter Name">
+
+			    		<input type="text" class="summary-txt marginleft10" ng-show="items.Source == 'Text Entry'" placeholder="Enter Name" ng-model="aeSurvey.textEntryValue[$index]" ng-value="aeSurvey.textEntryValue[$index]=items.Source == 'Text Entry'?aeSurvey.textEntryValue[$index]:null">
 						
 					</div>
 					<div class="col-lg-1 no-padding margintop5">
-			    		<a href="javascript:void(0)" ng-click="aeSurvey.auditDefinition.Signatures.splice($index,1)">REMOVE</a>
+			    		<a href="javascript:void(0)" ng-click="aeSurvey.auditDefinition.Signatures.splice($index,1);aeSurvey.textEntryValue.splice($index,1)">REMOVE</a>
 					</div>
-					<div class="col-lg-1 no-padding margintop5">
-						<div class="col-lg-12 checkbox">
-							<label>
-								<input type="checkbox" ng-model="aeSurvey.auditDefinition.Signatures.Required" > Set as Required 
-							</label>
-						</div>
+					
+					<div class="col-lg-12 checkbox no-padding">
+						<label>
+							<input type="checkbox" ng-model="items.Required" > Set as Required 
+						</label>
 					</div>
+				</div>
+
+				<div class="col-lg-12 no-padding" style="top:20px">
+					<span><a href="javascript:void(0)" ng-click="aeSurvey.addSignature()">ADD SIGNATURE</a></span>
 				</div>
 			</div>
 		</div>

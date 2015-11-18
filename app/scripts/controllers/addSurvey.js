@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService) {
+.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService, moment) {
 	var self = this,
 	init = function () {
 		self.auditDefinition = {};
@@ -10,8 +10,15 @@ angular.module('sureAuditAdminApp')
 		self.tab = 'ES';
 		self.showFlags = false;
 		self.checkSignature = false;
-
+		self.sDate = null;
+		self.sTime = '00:00:00';
+		self.sAMPM = 'AM';
+		self.eDate = null;
+		self.eTime = '00:00:00';
+		self.eAMPM = 'AM';
+		self.textEntryValue = [] ;
 		self.name = '';
+
 		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
 			self.auditDefinition.Key = utilityService.guid;
@@ -19,17 +26,57 @@ angular.module('sureAuditAdminApp')
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
 				self.auditDefinition = response;
+				self.populateSignatures();
 			},function () {
 				// ERROR block
 			});
 			
 		}
+		self.setDates();
 		self.getAllQuestion();
+		
+	};
+
+	self.populateSignatures = function () {
+		debugger;
+
+		for (var i = 0; i < self.auditDefinition.Signatures.length ; i++) {
+			self.checkSignature = true;
+			if(self.auditDefinition.Signatures[i].Source != 'Logged in User' && 
+				self.auditDefinition.Signatures[i].Source != 'Subject Owner' &&
+				self.auditDefinition.Signatures[i].Source != 'Subject'){
+				self.textEntryValue[i] = self.auditDefinition.Signatures[i].Source;
+				self.auditDefinition.Signatures[i].Source = 'Text Entry';
+			}
+		};
+	}
+
+	self.updateStartDate = function () {
+		var getDate = moment(self.sDate).format('MM/DD/YYYY');
+		var fullStartDate = getDate + 'T' + self.sTime + self.sAMPM;
+		self.auditDefinition.Starts = fullStartDate;
+	};
+
+
+	self.updateEndDate = function () {
+		var getDate = moment(self.eDate).format('MM/DD/YYYY');
+		var fullEndDate = getDate + 'T' + self.eTime + self.eAMPM;
+		self.auditDefinition.Ends = fullEndDate;
+	};
+
+	self.setDates = function(){
+
+		if(self.auditDefinition.Starts != null){
+			self.sDate = moment(self.auditDefinition.Starts).format('MM/DD/YYYY');
+			self.sTime = moment(self.auditDefinition.Starts).format('HH-mm');
+		}
+		if(self.auditDefinition.Ends != null){
+			self.eDate = moment(self.auditDefinition.Ends).format('MM/DD/YYYY');
+			self.eTime = moment(self.auditDefinition.Ends).format('HH-mm');
+		}
 	};
 
 	self.pushPullValue = function(item){
-		debugger;
-
 		if(self.auditDefinition.SummaryDisplayFlags.indexOf(item) > -1){
 			self.auditDefinition.SummaryDisplayFlags.splice(self.auditDefinition.SummaryDisplayFlags.indexOf(item),1);
 		}else{
@@ -135,6 +182,14 @@ angular.module('sureAuditAdminApp')
 			self.auditDefinition.Sections.splice(pIndex,0,section);
 		}
 	};
+
+	self.addSignature = function () {
+
+		var signature = angular.copy(surveyModel.signature);
+		self.auditDefinition.Signatures.push(signature);
+	}
+
+
 	
 	self.orderSection = function (index, action, type) {
 		switch(type){
@@ -183,10 +238,13 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
-		debugger;
+		//survey Settings 
+		self.processSurveySettings();
+
 		if($stateParams.id === ''){
 		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
 			self.auditDefinition.Id = response.Id;
+			console.log(response)
 		},function () {
 			// ERROR block
 		});
@@ -194,10 +252,20 @@ angular.module('sureAuditAdminApp')
 		else{
 			surveyService.updateSurvey(self.auditDefinition).then(function (response) {			
 				self.auditDefinition.Id = response.Id;
+				console.log(response)
 			},function () {
 				// ERROR block
 			});
 		}
+	};
+
+	self.processSurveySettings = function () {
+	
+		for (var i = 0 ; i < self.auditDefinition.Signatures.length ; i++ ) {
+			if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
+				self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
+			}
+		};
 	};
 	
 	self.deleteAny = function (pIndex,cIndex,index,type) {
