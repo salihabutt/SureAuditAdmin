@@ -50,13 +50,12 @@
 		</ul>
 	</div>
 
-	
-<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'">
+<div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.auditDefinition.Sections.length>0">
+		<span>Total Sections Weight </span>
+		<span id="total-section-weight">{{aeSurvey.totalSectionWeight}}</span>
+</div>
+<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'" id="section-{{$index}}">
 	<div class="col-lg-12 section-box marginbottom50 no-padding">
-	<div class="col-lg-12 text-right total-weight">
-		<span>Total Questions Weight </span>
-		<span> 75%</span>
-	</div>
 		<div class="col-lg-12 section-title">
 			<div class="col-lg-6 no-padding">
 					<div class="col-lg-1 no-padding text-center">
@@ -75,11 +74,11 @@
 			</div>
 			<div class="col-lg-6 text-right no-padding">
 				<span class="sort-image">
-					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny(parentIndex,null,null,'section')">
+					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny($index,null,null,'section')">
 				</span>
 
 				<span>
-					<input type="text" ng-model="item.weight" class="percent-weight">
+					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-$index">
 				</span>
 
 			</div>
@@ -90,16 +89,16 @@
 				<span><button class="main-btn-green">Set Equal Points</button></span>
 				<span><button class="main-btn-green">Reset Points</button></span>
 				<span class="total-weight">Total Question Points</span>
-				<span class="total-weight">75.5</span>
+				<span class="total-weight" id="total-ques-{{$index}}">{{aeSurvey.totalQuesWeight}}</span>
 			</div>
 
 			<div class="col-lg-12 section-body-body no-padding">
 			<!-- ng-repear row -->
 				<div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
-				<div class="col-lg-12 no-padding survey-row" >
+				<div class="col-lg-12 no-padding survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
 					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'up')"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion(parentIndex,$index,'down')"></div>
+						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'up')"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'down')"></div>
 					</div>
 					<div class="col-lg-9 no-padding">
 						<span>{{question.Label}}</span>
@@ -107,12 +106,12 @@
 					</div>
 					<div class="col-lg-1">
 						<div class="col-lg-6" ques-sibling>
-						<img src="/images/ic_add@2x.png" alt="add" >
+						<img src="/images/ic_add@2x.png" alt="add">
 						<div class="quesGridOptions">
 							<ul>
-							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'above')">Add Question Above</li>
-							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'below')">Add Question Below</li>
-							<li ng-click="aeSurvey.addQuestion(parentIndex,$index,'branch')">Add Branching Question</li>	
+							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'above')">Add Question Above</li>
+							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'below')">Add Question Below</li>
+							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'branch')">Add Branching Question</li>	
 							</ul>
 						</div>
 						</div>
@@ -120,16 +119,17 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
-								<li>Hide</li>
+								<li ng-click="question.Status='Ok'" ng-if="question.Status=='Inactive'">Show</li>
+								<li ng-click="question.Status='Inactive'" ng-if="question.Status=='Ok'"> Hide</li>
 								<li ng-click="aeSurvey.editQuestion(question)">Edit</li>
-								<li ng-click="aeSurvey.deleteAny(parentIndex,childIndex,null,'question')">Delete</li>
+								<li ng-click="aeSurvey.deleteAny($parent.$index,$index,null,'question')">Delete</li>
 							</ul>
 						</div>
 						</div>
 					</div>
 					<div class="col-lg-1 text-center">
 					<span>
-						<input type="text" ng-model="question.PointAllowed" class="percent-weight">
+						<input type="text" ng-model="question.PointsAllowed" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}">
 					</span>
 					</div>
 				</div>
@@ -174,17 +174,19 @@
 			</div>
 		</div>
 			<div class="col-lg-12 section-body-footer">
-				<span class="add-question"><a ng-click="aeSurvey.addQuestion(parentIndex,null,null)">ADD QUESTION</a></span>
+				<span class="add-question"><a ng-click="aeSurvey.addQuestion($index,null,null)">ADD QUESTION</a></span>
 			</div>
 		</div>
 	</div>
 		<div class="col-lg-12 section-body-footer">
-			<span class="add-question float-right"><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
+			<span class="add-question float-right"><a ng-click="aeSurvey.addSection($index)">ADD SECTION</a></span>
 	</div>
-	</div>
+
 	<div class="col-lg-12" ng-show="aeSurvey.tab == 'ES'" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
-			<span><a ng-click="aeSurvey.addSection(parenIndex)">ADD SECTION</a></span>
 	</div>
+	<!--  <div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+			<span><a ng-click="aeSurvey.addSection(0)">ADD SECTION</a></span>
+	</div>-->
 
 
 	<!-- Survey Settings -->
