@@ -1,419 +1,432 @@
 <div class="col-lg-12 ae-survey-wrapper" ng-controller="AddEditSurveyCtrl as aeSurvey">
-	<div class="col-lg-12 survey-info-box" >	
-		<div class="custom-breadcrumbs">
-			<span>Surveys</span> 
-			<img src="/images/ic_arrow@2x.png"> 
-			<span>{{aeSurvey.auditDefinition.Name}}</span>
-		</div>
-		<!-- survey detials -->
-		<div class="col-lg-12">
-			<button type="button" class="main-btn-green float-right" ng-click="aeSurvey.saveAuditDef()">Save</button>
-		</div>
-		
-		<div class="col-lg-12 no-padding survey-detail" ng-show="!aeSurvey.editSurvey">
-			<div class="col-lg-3 no-padding survey-detail-box">
-				<p class="heading">{{aeSurvey.auditDefinition.Name}} <span ng-if="aeSurvey.auditDefinition.Name==''" class="span-txt">Enter Survey Details</span><img src="/images/ic_edit@2x.png" ng-click="aeSurvey.editSurvey=true"></p>
-				<p>{{aeSurvey.auditDefinition.SubTitle}}</p>
-			</div>
-			<div class="col-lg-3">
-				<p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p><p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
-			</div>
-		</div>
-		<!-- survey edit section -->
-		<div class="col-lg-12 no-padding survey-detail" ng-show="aeSurvey.editSurvey">
-			<div class="col-lg-4 no-padding survey-detail-box">
-			<div class="col-lg-10">
-				<p>
-					<span>
+    <div class="col-lg-12 survey-info-box">
+        <div class="custom-breadcrumbs">
+            <span>Surveys</span>
+            <img src="/images/ic_arrow@2x.png">
+            <span>{{aeSurvey.auditDefinition.Name}}</span>
+        </div>
+        <!-- survey detials -->
+        <div class="col-lg-12">
+            <button type="button" class="main-btn-green float-right" ng-click="aeSurvey.saveAuditDef()">Save</button>
+        </div>
+
+        <div class="col-lg-12 no-padding survey-detail" ng-show="!aeSurvey.editSurvey">
+            <div class="col-lg-3 no-padding survey-detail-box">
+                <p class="heading">{{aeSurvey.auditDefinition.Name}} <span ng-if="aeSurvey.auditDefinition.Name==''" class="span-txt">Enter Survey Details</span><img src="/images/ic_edit@2x.png" ng-click="aeSurvey.editSurvey=true">
+                </p>
+                <p>{{aeSurvey.auditDefinition.SubTitle}}</p>
+            </div>
+            <div class="col-lg-3">
+                <p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p>
+                <p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>
+            </div>
+        </div>
+        <!-- survey edit section -->
+        <div class="col-lg-12 no-padding survey-detail" ng-show="aeSurvey.editSurvey">
+            <div class="col-lg-4 no-padding survey-detail-box">
+                <div class="col-lg-10">
+                    <p>
+                        <span>
 						<input type="text" placeholder="Survey Name" ng-model ="aeSurvey.auditDefinition.Name" class="form-control">
 					</span>
-				</p>
-				<p>
-					<input type ="text" placeholder="Survey Reference" ng-model="aeSurvey.auditDefinition.SubTitle" class="form-control">
-				</p>
-				</div>
-				<div class="col-lg-1">
-			<button type="submit" class="btn btn-primary" ng-click="aeSurvey.editSurvey=false"><span class="glyphicon glyphicon-ok"></span></button>
-			</div>	
-				
-			</div>
-			
-			<div class="col-lg-3">
-				<p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p><p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>				
-			</div>
-		</div>		
+                    </p>
+                    <p>
+                        <input type="text" placeholder="Survey Reference" ng-model="aeSurvey.auditDefinition.SubTitle" class="form-control">
+                    </p>
+                </div>
+                <div class="col-lg-1">
+                    <button type="submit" class="btn btn-primary" ng-click="aeSurvey.editSurvey=false"><span class="glyphicon glyphicon-ok"></span>
+                    </button>
+                </div>
 
-		<ul class="nav nav-tabs" tab-class>
-  			<li class="active tab-active"><a id="ES" ng-click="aeSurvey.selectedTab('ES')">Edit Survey</a></li>
-  			<li><a id="SS" ng-click="aeSurvey.selectedTab('SS')">Survey Settings</a></li>
-  			<li><a id="SmS" ng-click="aeSurvey.selectedTab('SmS')">Summary Settings</a></li>
-		</ul>
-	</div>
+            </div>
 
-<div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.auditDefinition.Sections.length>0">
-		<span>Total Sections Weight </span>
-		<span id="total-section-weight">{{aeSurvey.totalSectionWeight}}</span>
-</div>
-<div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'" id="section-{{$index}}">
-	<div class="col-lg-12 section-box marginbottom50 no-padding">
-		<div class="col-lg-12 section-title">
-			<div class="col-lg-6 no-padding">
-					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
-					</div>
-				<span class="section-title-text">
+            <div class="col-lg-3">
+                <p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p>
+                <p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" tab-class>
+            <li class="active tab-active"><a id="ES" ng-click="aeSurvey.selectedTab('ES')">Edit Survey</a>
+            </li>
+            <li><a id="SS" ng-click="aeSurvey.selectedTab('SS')">Survey Settings</a>
+            </li>
+            <li><a id="SmS" ng-click="aeSurvey.selectedTab('SmS')">Summary Settings</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.auditDefinition.Sections.length>0 && aeSurvey.tab == 'ES'">
+        <span>Total Sections Weight </span>
+        <span id="total-section-weight">{{aeSurvey.totalSectionWeight}}</span>
+    </div>
+    <div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'" id="section-{{$index}}">
+        <div class="col-lg-12 section-box marginbottom50 no-padding">
+            <div class="col-lg-12 section-title">
+                <div class="col-lg-6 no-padding">
+                    <div class="col-lg-1 no-padding text-center">
+                        <div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0">
+                        </div>
+                        <div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)">
+                        </div>
+                    </div>
+                    <span class="section-title-text">
 					{{item.Name}}
 				</span>
-				<span class="section-title-text" ng-if="item.Name==''">
+                    <span class="section-title-text" ng-if="item.Name==''">
 					Section Title
 				</span>
-				<span class="edit-image">
+                    <span class="edit-image">
 					<a href="#" editable-text="item.Name"><img src="/images/ic_edit@2x.png" alt="edit"></a>
 				</span>
-			</div>
-			<div class="col-lg-6 text-right no-padding">
-				<span class="sort-image">
+                </div>
+                <div class="col-lg-6 text-right no-padding">
+                    <span class="sort-image">
 					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny($index,null,null,'section')">
 				</span>
 
-				<span>
+                    <span>
 					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-$index">
 				</span>
 
-			</div>
-		</div>
+                </div>
+            </div>
 
-		<div class="col-lg-12 section-body">
-			<div class="col-lg-12 text-right section-body-head">
-				<span><button class="main-btn-green">Set Equal Points</button></span>
-				<span><button class="main-btn-green">Reset Points</button></span>
-				<span class="total-weight">Total Question Points</span>
-				<span class="total-weight" id="total-ques-{{$index}}">{{aeSurvey.totalQuesWeight}}</span>
-			</div>
+            <div class="col-lg-12 section-body">
+                <div class="col-lg-12 text-right section-body-head">
+                    <span><button class="main-btn-green">Set Equal Points</button></span>
+                    <span><button class="main-btn-green">Reset Points</button></span>
+                    <span class="total-weight">Total Question Points</span>
+                    <span class="total-weight" id="total-ques-{{$index}}">{{aeSurvey.totalQuesWeight}}</span>
+                </div>
 
-			<div class="col-lg-12 section-body-body no-padding">
-			<!-- ng-repear row -->
-				<div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
-				<div class="col-lg-12 no-padding survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
-					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'up')"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'down')"></div>
-					</div>
-					<div class="col-lg-9 no-padding">
-						<span>{{question.Label}}</span>
-						<span>{{question.Text}} </span>
-					</div>
-					<div class="col-lg-1">
-						<div class="col-lg-6" ques-sibling>
-						<img src="/images/ic_add@2x.png" alt="add">
-						<div class="quesGridOptions">
-							<ul>
-							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'above')">Add Question Above</li>
-							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'below')">Add Question Below</li>
-							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'branch')">Add Branching Question</li>	
-							</ul>
-						</div>
-						</div>
-						<div class="col-lg-6 text-center" menu-sibling>
-						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
-						<div class="gridOptions">
-							<ul>
-								<li ng-click="question.Status='Ok'" ng-if="question.Status=='Inactive'">Show</li>
-								<li ng-click="question.Status='Inactive'" ng-if="question.Status=='Ok'"> Hide</li>
-								<li ng-click="aeSurvey.editQuestion(question)">Edit</li>
-								<li ng-click="aeSurvey.deleteAny($parent.$index,$index,null,'question')">Delete</li>
-							</ul>
-						</div>
-						</div>
-					</div>
-					<div class="col-lg-1 text-center">
-					<span>
+                <div class="col-lg-12 section-body-body no-padding">
+                    <!-- ng-repear row -->
+                    <div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
+                        <div class="col-lg-12 no-padding survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
+                            <div class="col-lg-1 no-padding text-center">
+                                <div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'up')">
+                                </div>
+                                <div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'down')">
+                                </div>
+                            </div>
+                            <div class="col-lg-9 no-padding">
+                                <span>{{question.Label}}</span>
+                                <span>{{question.Text}} </span>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="col-lg-6" ques-sibling>
+                                    <img src="/images/ic_add@2x.png" alt="add">
+                                    <div class="quesGridOptions">
+                                        <ul>
+                                            <li ng-click="aeSurvey.addQuestion($parent.$index,$index,'above')">Add Question Above</li>
+                                            <li ng-click="aeSurvey.addQuestion($parent.$index,$index,'below')">Add Question Below</li>
+                                            <li ng-click="aeSurvey.addQuestion($parent.$index,$index,'branch')">Add Branching Question</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center" menu-sibling>
+                                    <img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
+                                    <div class="gridOptions">
+                                        <ul>
+                                            <li ng-click="question.Status='Ok'" ng-if="question.Status=='Inactive'">Show</li>
+                                            <li ng-click="question.Status='Inactive'" ng-if="question.Status=='Ok'"> Hide</li>
+                                            <li ng-click="aeSurvey.editQuestion(question)">Edit</li>
+                                            <li ng-click="aeSurvey.deleteAny($parent.$index,$index,null,'question')">Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 text-center">
+                                <span>
 						<input type="text" ng-model="question.PointsAllowed" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}">
 					</span>
-					</div>
-				</div>
-					<!-- ng-repeat branching row -->
-				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" >
-					<div class="col-lg-1 no-padding"></div>
-					<div class="col-lg-9 no-padding">
-						<div class="col-lg-1 no-padding text-left">
-							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')"></div>
-							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')"></div>
-						</div>
-						<span>{{branch.Label}}</span>
-						<span>{{branch.Text}} </span>
-					</div>
-					<div class="col-lg-1">
-						<div class="col-lg-6" ques-sibling>
-						<img src="/images/ic_add@2x.png" alt="add" >
-						<div class="quesGridOptions">
-							<ul>
-							<li>Add Question Above</li>
-							<li>Add Question Below</li>
-							</ul>
-						</div>
-						</div>
-						<div class="col-lg-6 text-center" menu-sibling>
-						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
-						<div class="gridOptions">
-							<ul>
-								<li>Hide</li>
-								<li>Edit</li>
-								<li>Delete</li>
-							</ul>
-						</div>
-						</div>
-					</div>
-					<div class="col-lg-1 text-center">
-						<div class="point-distribute-box text-right">
-							40.5
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-			<div class="col-lg-12 section-body-footer">
-				<span class="add-question"><a ng-click="aeSurvey.addQuestion($index,null,null)">ADD QUESTION</a></span>
-			</div>
-		</div>
-	</div>
-		<div class="col-lg-12 section-body-footer">
-			<span class="add-question float-right"><a ng-click="aeSurvey.addSection($index)">ADD SECTION</a></span>
-	</div>
+                            </div>
+                        </div>
+                        <!-- ng-repeat branching row -->
+                        <div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)">
+                            <div class="col-lg-1 no-padding"></div>
+                            <div class="col-lg-9 no-padding">
+                                <div class="col-lg-1 no-padding text-left">
+                                    <div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')">
+                                    </div>
+                                    <div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')">
+                                    </div>
+                                </div>
+                                <span>{{branch.Label}}</span>
+                                <span>{{branch.Text}} </span>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="col-lg-6" ques-sibling>
+                                    <img src="/images/ic_add@2x.png" alt="add">
+                                    <div class="quesGridOptions">
+                                        <ul>
+                                            <li>Add Question Above</li>
+                                            <li>Add Question Below</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 text-center" menu-sibling>
+                                    <img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
+                                    <div class="gridOptions">
+                                        <ul>
+                                            <li>Hide</li>
+                                            <li>Edit</li>
+                                            <li>Delete</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 text-center">
+                                <div class="point-distribute-box text-right">
+                                    40.5
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 section-body-footer">
+                    <span class="add-question"><a ng-click="aeSurvey.addQuestion($index,null,null)">ADD QUESTION</a></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 section-body-footer">
+            <span class="add-question float-right"><a ng-click="aeSurvey.addSection($index)">ADD SECTION</a></span>
+        </div>
 
-	<div class="col-lg-12" ng-show="aeSurvey.tab == 'ES'" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
-	</div>
-	<!--  <div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+        <div class="col-lg-12" ng-show="aeSurvey.tab == 'ES'" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
+        </div>
+        <!--  <div class="col-lg-12" ng-if="aeSurvey.auditDefinition.Sections.length==0" style="top:20px">
 			<span><a ng-click="aeSurvey.addSection(0)">ADD SECTION</a></span>
 	</div>-->
+    </div>
 
 
-	<!-- Survey Settings -->
-	<div class="tab-2-SS survey-summary-settings" ng-show="aeSurvey.tab == 'SS'">
-		
-		<div class="col-lg-12 profile margintop37 no-padding">
-			<h3>Audit Period</h3>
-			<div class="col-lg-4 no-padding">
-				<div class="form-group">
-				    <label>Starts</label>
-				    <input type="date" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sDate" class="settings-txt">
-				    <input type="text" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30">
-				    <select class="ampm-select" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sAMPM">
-				    	<option>AM</option>
-				    	<option>PM</option>
-				    </select>
-			 	</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="form-group">
-				    <label>Ends</label>
-				    <input type="date" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eDate" class="settings-txt">
-				    <input type="text" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30">
-				    <select class="ampm-select" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eAMPM">
-				    	<option>AM</option>
-				    	<option>PM</option>
-				    </select>
-			 	</div>
-			</div>
+    <!-- Survey Settings -->
+    <div class="tab-2-SS survey-summary-settings" ng-show="aeSurvey.tab == 'SS'">
 
-			
-			<div class="col-lg-12 no-padding">
-				<h3 class="margintop37">About Survey</h3>
-				<textarea>{{aeSurvey.auditDefinition.About}}</textarea>
-			</div>
-			
-			<div class="col-lg-12 no-padding">
-				<h3 class="margintop37">General</h3>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" ng-model="aeSurvey.auditDefinition.IsScored"> Scoring
-					</label>
-				</div>
-				<div class="form-group marginleft30">
-				    <span ng-class="!aeSurvey.auditDefinition.IsScored ? 'disable-custom' : ''">Total Possible Scores</span>
-				    <input type="number" class="settings-txt" ng-disabled="!aeSurvey.auditDefinition.IsScored">
-				</div>
-			</div>
-
-			<div class="col-lg-12 margintop8 no-padding">
-				<div class="checkbox marginbottom18">
-					<label>
-						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses"> Show Past Audit Dates 
-					</label>
-				</div>
-				<div class="checkbox marginleft30 marginbottom18">
-					<label>
-						<input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Scores</span> 
-					</label>
-				</div>
-				<div class="checkbox marginleft30 marginbottom18">
-					<label>
-						<input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Responces</span> 
-					</label>
-				</div>
+        <div class="col-lg-12 profile margintop37 no-padding">
+            <h3>Audit Period</h3>
+            <div class="col-lg-4 no-padding">
+                <div class="form-group">
+                    <label>Starts</label>
+                    <input type="date" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sDate" class="settings-txt">
+                    <input type="text" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30">
+                    <select class="ampm-select" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sAMPM">
+                        <option>AM</option>
+                        <option>PM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Ends</label>
+                    <input type="date" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eDate" class="settings-txt">
+                    <input type="text" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30">
+                    <select class="ampm-select" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eAMPM">
+                        <option>AM</option>
+                        <option>PM</option>
+                    </select>
+                </div>
+            </div>
 
 
-				<div class="checkbox marginbottom18">
-					<label>
-						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.HistoryInNew"> Show Questions Yes/No History on new Audits 
-					</label>
-				</div>
+            <div class="col-lg-12 no-padding">
+                <h3 class="margintop37">About Survey</h3>
+                <textarea>{{aeSurvey.auditDefinition.About}}</textarea>
+            </div>
+
+            <div class="col-lg-12 no-padding">
+                <h3 class="margintop37">General</h3>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.IsScored"> Scoring
+                    </label>
+                </div>
+                <div class="form-group marginleft30">
+                    <span ng-class="!aeSurvey.auditDefinition.IsScored ? 'disable-custom' : ''">Total Possible Scores</span>
+                    <input type="number" class="settings-txt" ng-disabled="!aeSurvey.auditDefinition.IsScored">
+                </div>
+            </div>
+
+            <div class="col-lg-12 margintop8 no-padding">
+                <div class="checkbox marginbottom18">
+                    <label>
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses"> Show Past Audit Dates
+                    </label>
+                </div>
+                <div class="checkbox marginleft30 marginbottom18">
+                    <label>
+                        <input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Scores</span>
+                    </label>
+                </div>
+                <div class="checkbox marginleft30 marginbottom18">
+                    <label>
+                        <input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Responces</span>
+                    </label>
+                </div>
 
 
-				<div class="checkbox marginbottom50">
-					<label>
-						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Comment"> Enable General Note 
-					</label>
-				</div>
-			</div>
-		</div>
+                <div class="checkbox marginbottom18">
+                    <label>
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.HistoryInNew"> Show Questions Yes/No History on new Audits
+                    </label>
+                </div>
 
-	</div>
-	<!-- Survey Summary Settings -->
-	<div class="tab-3-SmS survey-summary-settings" ng-show="aeSurvey.tab == 'SmS'">
-		<div class="col-lg-12 profile margintop37 no-padding">
-			<h3>Questions Displayed</h3>
-			<div class="col-lg-12 no-padding">
-				<div class="col-lg-3 no-padding checkbox no-margintop">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('It100')" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response 
-					</label>
-				</div>
-				<div class="col-lg-3 checkbox ">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('undesired')"> Undesired Response 
-					</label>
-				</div>
-				<div class="col-lg-3 checkbox ">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('notAnswered')"> Not Filled In 
-					</label>
-				</div>
-				<div class="col-lg-3 checkbox ">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasComment')"> Has Comment 
-					</label>
-				</div>
-			</div>
-			<div class="col-lg-12 no-padding">
-				<div class="col-lg-3 no-padding checkbox no-margintop">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasImage')"> Has Photo 
-					</label>
-				</div>
-				<div class="col-lg-3 checkbox ">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('text')"> Text Entry 
-					</label>
-				</div>
-				<div class="col-lg-3 checkbox ">
-					<label>
-						<input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('numeric')"> Numeric 
-					</label>
-				</div>
-			</div>
 
-			
-			<div class="col-lg-12 no-padding">
-				<h3>Score</h3>
-				<div class="col-lg-4 no-padding checkbox">
-					<label>
-						<input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> Show Score and Score History 
-					</label>
-				</div>
-			</div>
+                <div class="checkbox marginbottom50">
+                    <label>
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Comment"> Enable General Note
+                    </label>
+                </div>
+            </div>
+        </div>
 
-			<div class="col-lg-12 no-padding">
-				<h3>Signatures</h3>
-				<div class="col-lg-4 no-padding checkbox">
-					<label class="no-padding">Enable Signatures 
-					<switch id="enabled" name="enabled" ng-model="aeSurvey.checkSignature" class="blue"></switch>
-						
-					</label>
-				</div>
-			</div>
+    </div>
+    <!-- Survey Summary Settings -->
+    <div class="tab-3-SmS survey-summary-settings" ng-show="aeSurvey.tab == 'SmS'">
+        <div class="col-lg-12 profile margintop37 no-padding">
+            <h3>Questions Displayed</h3>
+            <div class="col-lg-12 no-padding">
+                <div class="col-lg-3 no-padding checkbox no-margintop">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('It100')" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response
+                    </label>
+                </div>
+                <div class="col-lg-3 checkbox ">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('undesired')"> Undesired Response
+                    </label>
+                </div>
+                <div class="col-lg-3 checkbox ">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('notAnswered')"> Not Filled In
+                    </label>
+                </div>
+                <div class="col-lg-3 checkbox ">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasComment')"> Has Comment
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-12 no-padding">
+                <div class="col-lg-3 no-padding checkbox no-margintop">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasImage')"> Has Photo
+                    </label>
+                </div>
+                <div class="col-lg-3 checkbox ">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('text')"> Text Entry
+                    </label>
+                </div>
+                <div class="col-lg-3 checkbox ">
+                    <label>
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('numeric')"> Numeric
+                    </label>
+                </div>
+            </div>
 
-			<div class="signature-section col-lg-12 no-padding marginbottom50" ng-show="aeSurvey.checkSignature">
-				<div class="col-lg-12 no-padding margintop8" ng-repeat="items in aeSurvey.auditDefinition.Signatures track by $index">
-					<div class="col-lg-8 no-padding">
-			    		<input type="text" class="summary-txt" ng-model="items.Header" placeholder="Signature Title">
-						<span class="by-span">by</span>
-			    		<select class="checkbox no-margin summary-txt" ng-model="items.Source">
-			    			<option>Logged in User</option>
-			    			<option>Subject Owner</option>
-			    			<option>Subject</option>
-			    			<option>Text Entry</option>
-			    		</select>
 
-			    		<input type="text" class="summary-txt marginleft10" ng-show="items.Source == 'Text Entry'" placeholder="Enter Name" ng-model="aeSurvey.textEntryValue[$index]" ng-value="aeSurvey.textEntryValue[$index]=items.Source == 'Text Entry'?aeSurvey.textEntryValue[$index]:null">
-						
-					</div>
-					<div class="col-lg-1 no-padding margintop5">
-			    		<a href="javascript:void(0)" ng-click="aeSurvey.auditDefinition.Signatures.splice($index,1);aeSurvey.textEntryValue.splice($index,1)">REMOVE</a>
-					</div>
-					
-					<div class="col-lg-12 checkbox no-padding">
-						<label>
-							<input type="checkbox" ng-model="items.Required" > Set as Required 
-						</label>
-					</div>
-				</div>
+            <div class="col-lg-12 no-padding">
+                <h3>Score</h3>
+                <div class="col-lg-4 no-padding checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> Show Score and Score History
+                    </label>
+                </div>
+            </div>
 
-				<div class="col-lg-12 no-padding" style="top:20px">
-					<span><a href="javascript:void(0)" ng-click="aeSurvey.addSignature()">ADD SIGNATURE</a></span>
-				</div>
-			</div>
-		</div>
+            <div class="col-lg-12 no-padding">
+                <h3>Signatures</h3>
+                <div class="col-lg-4 no-padding checkbox">
+                    <label class="no-padding">Enable Signatures
+                        <switch id="enabled" name="enabled" ng-model="aeSurvey.checkSignature" class="blue"></switch>
 
-	</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="signature-section col-lg-12 no-padding marginbottom50" ng-show="aeSurvey.checkSignature">
+                <div class="col-lg-12 no-padding margintop8" ng-repeat="items in aeSurvey.auditDefinition.Signatures track by $index">
+                    <div class="col-lg-8 no-padding">
+                        <input type="text" class="summary-txt" ng-model="items.Header" placeholder="Signature Title">
+                        <span class="by-span">by</span>
+                        <select class="checkbox no-margin summary-txt" ng-model="items.Source">
+                            <option>Logged in User</option>
+                            <option>Subject Owner</option>
+                            <option>Subject</option>
+                            <option>Text Entry</option>
+                        </select>
+
+                        <input type="text" class="summary-txt marginleft10" ng-show="items.Source == 'Text Entry'" placeholder="Enter Name" ng-model="aeSurvey.textEntryValue[$index]" ng-value="aeSurvey.textEntryValue[$index]=items.Source == 'Text Entry'?aeSurvey.textEntryValue[$index]:null">
+
+                    </div>
+                    <div class="col-lg-1 no-padding margintop5">
+                        <a href="javascript:void(0)" ng-click="aeSurvey.auditDefinition.Signatures.splice($index,1);aeSurvey.textEntryValue.splice($index,1)">REMOVE</a>
+                    </div>
+
+                    <div class="col-lg-12 checkbox no-padding">
+                        <label>
+                            <input type="checkbox" ng-model="items.Required"> Set as Required
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 no-padding" style="top:20px">
+                    <span><a href="javascript:void(0)" ng-click="aeSurvey.addSignature()">ADD SIGNATURE</a></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
 <!--  popups -->
 <script type="text/ng-template" id="addSurveyQuestion.html">
+    <div class="col-lg-12">
+        <img src="/images/ic_close_@2x.png" class="close-btn" ng-click="mqModal.cancel()">
+    </div>
+    <div class="modal-header">
+        <h3 class="modal-title">{{mqModal.subject}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="col-lg-7">
+            <p class="heading">Select one master question</p>
+        </div>
+        <div class="col-lg-4">
+            <input type="text" placeholder="search" class="txt-search" ng-model="query">
+        </div>
         <div class="col-lg-12">
-			<img src="/images/ic_close_@2x.png" class="close-btn" ng-click="mqModal.cancel()">
-		</div>
-        <div class="modal-header">
-            <h3 class="modal-title">{{mqModal.subject}}</h3>
-        </div>	
-		<div class="modal-body">
-			<div class="col-lg-7">
-				<p class="heading">Select one master question</p>
-			</div>
-			<div class="col-lg-4">
-				<input type="text" placeholder="search" class="txt-search" ng-model="query">
-			</div>
-			<div class="col-lg-12">
-				<div class="question-section"> 
-					<div class="col-lg-12">
-						<div class="radio" ng-repeat = "item in mqModal.questions.Data | filter: {Text: query}" >
-  						<label>
-    						<input type="radio"  value="{{item.Id}}" ng-model="mqModal.selected" ng-change="mqModal.setSelected(item)" ng-disabled="mqModal.disabled">
-    							{{item.Text}}
-							<p>Type: <span>{{item.TypeKey}}</span></p>
-  						</label>
-						</div>
-						</div>
-					</div>
-			</div>
-		</div>
-        <div class="modal-footer">
-        	<div class="col-lg-12 text-right">
-				<button ng-class="mqModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="mqModal.selected==null" ng-click="mqModal.next()">Next</button>
-        	</div>
+            <div class="question-section">
+                <div class="col-lg-12">
+                    <div class="radio" ng-repeat="item in mqModal.questions.Data | filter: {Text: query}">
+                        <label>
+                            <input type="radio" value="{{item.Id}}" ng-model="mqModal.selected" ng-change="mqModal.setSelected(item)" ng-disabled="mqModal.disabled"> {{item.Text}}
+                            <p>Type: <span>{{item.TypeKey}}</span>
+                            </p>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-    </script>
-   	<script type="text/ng-template" id="delWarning.html">
-        <div class="modal-body col-lg-12 margintop22 text-center">
-        	<p>{{dwModal.text}}</p>
-        </div>	
-        <div class="modal-footer">
-        	<div class="col-lg-12 text-right">
-				<button class="main-btn-green" type="button" ng-click="dwModal.ok()">OK</button>
-            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="dwModal.cancel()">Cancel</button>
-        	</div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-lg-12 text-right">
+            <button ng-class="mqModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="mqModal.selected==null" ng-click="mqModal.next()">Next</button>
         </div>
-    </script>
-    
+    </div>
+</script>
+<script type="text/ng-template" id="delWarning.html">
+    <div class="modal-body col-lg-12 margintop22 text-center">
+        <p>{{dwModal.text}}</p>
+    </div>
+    <div class="modal-footer">
+        <div class="col-lg-12 text-right">
+            <button class="main-btn-green" type="button" ng-click="dwModal.ok()">OK</button>
+            <button class="main-btn-grey btn btn-primary" type="button" ng-click="dwModal.cancel()">Cancel</button>
+        </div>
+    </div>
+</script>
