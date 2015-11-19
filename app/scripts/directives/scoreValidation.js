@@ -40,6 +40,7 @@ angular.module('sureAuditAdminApp')
 	    						 }
 	    					 }
 	    					 $('#total-section-weight').text(sum);
+	    					 $('#total-section-weight-input').val(sum);
 	    				break;
 	    				}
 	    			 
