@@ -50,7 +50,7 @@
 		</ul>
 	</div>
 
-<div class="col-lg-12 text-right total-weight">
+<div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.tab == 'ES'">
 		<span ng-if="aeSurvey.auditDefinition.IsScored">Total Sections Weight </span>
 		<span id="total-section-weight" ng-if="aeSurvey.auditDefinition.IsScored">{{aeSurvey.totalSectionWeight}}</span>
 </div>
@@ -80,14 +80,13 @@
 				<span>
 					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-{{$index}}" ng-if="aeSurvey.auditDefinition.IsScored">
 				</span>
-
 			</div>
 		</div>
 
 		<div class="col-lg-12 section-body">
 			<div class="col-lg-12 text-right section-body-head">
-				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored">Set Equal Points</button></span>
-				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored">Reset Points</button></span>
+				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.distributePoints($index)">Set Equal Points</button></span>
+				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.resetPoints($index)">Reset Points</button></span>
 				<span class="total-weight" ng-if="aeSurvey.auditDefinition.IsScored">Total Questions Points</span>
 				<span class="total-weight" id="total-ques-{{$index}}" ng-if="aeSurvey.auditDefinition.IsScored">{{aeSurvey.totalQuesWeight}}</span>
 			</div>
@@ -272,41 +271,9 @@
         <div class="col-lg-12 profile margintop37 no-padding">
             <h3>Questions Displayed</h3>
             <div class="col-lg-12 no-padding">
-                <div class="col-lg-3 no-padding checkbox no-margintop">
+                <div class="col-lg-3 checkbox left" ng-repeat="item in aeSurvey.questionDisplay">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('It100')" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response
-                    </label>
-                </div>
-                <div class="col-lg-3 checkbox ">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('undesired')"> Undesired Response
-                    </label>
-                </div>
-                <div class="col-lg-3 checkbox ">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('notAnswered')"> Not Filled In
-                    </label>
-                </div>
-                <div class="col-lg-3 checkbox ">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasComment')"> Has Comment
-                    </label>
-                </div>
-            </div>
-            <div class="col-lg-12 no-padding">
-                <div class="col-lg-3 no-padding checkbox no-margintop">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasImage')"> Has Photo
-                    </label>
-                </div>
-                <div class="col-lg-3 checkbox ">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('text')"> Text Entry
-                    </label>
-                </div>
-                <div class="col-lg-3 checkbox ">
-                    <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('numeric')"> Numeric
+                        <input type="checkbox" name="questionDisplay" ng-disabled="item.name == 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected"> {{item.label}}
                     </label>
                 </div>
             </div>

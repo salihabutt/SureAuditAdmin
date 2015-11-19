@@ -11,10 +11,13 @@
 	border-radius: $border-radius-5;
 
 	.question{
+		.master-question-row{
+		    border-bottom: 1px solid #cccccc;
+		    padding: 10px 0px 2px 0px;
+		    line-height: 1.5;
+		}
+
 		div{
-			height: 40px;
-			line-height: 40px;
-			border-bottom: 1px solid #cccccc;
 			font-size: 14px;
 			color: #4C4C4C;
 			position: relative;
@@ -30,7 +33,7 @@
 
 .gridOptions {    
 	position: absolute !important;
-    top: 32px;
+    top: 22px;
     left: -46px;
     background-color: #fff;
     border: 1px solid #cccccc;

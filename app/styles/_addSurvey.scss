@@ -13,6 +13,10 @@
 			width: 600px;
 		}
 
+		.checkbox{
+			margin: 0px !important;
+		}
+
 		.ampm-select{
 			background-color: #ffffff;
 		    border: 1px solid #cccccc;
@@ -221,10 +225,9 @@
 
 				}
 				.survey-row{
-					height: 40px;
-					line-height: 40px;
 					border-bottom: 1px solid #cccccc;
-
+					padding: 10px 0px 10px 0px;
+					
 					.arrows{
 						height: 20px;
 						margin-top: -6px;
@@ -239,11 +242,18 @@
 					    line-height: 30px;
 					    padding-right: 5px;
 					}
+
+					.question-label{
+						line-height:1;
+					}
+					.question-text{
+						line-height:1;
+					}
 				}
 				
 				.survey-row-hide {
 					background-color: #CCC;
-					font-color: #4C4C4C !important;
+					color: #4C4C4C !important;
 				}
 				
 				.survey-row-show {

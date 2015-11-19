@@ -16,10 +16,19 @@ angular.module('sureAuditAdminApp')
 		self.eDate = null;
 		self.eTime = '00:00:00';
 		self.eAMPM = 'AM';
-		self.textEntryValue = [] ;
-		self.totalQuesWeight = 0;
-		self.totalSectionWeight = 0;
+		self.textEntryValue = [];
+		self.totalQuesWeight = 0.0;
+		self.totalSectionWeight = 0.0;
 		self.name = '';
+		self.questionDisplay = [ 
+			{ label: '< 100% Response', name: 'lt100' ,selected: false },
+		    { label: 'Undesired Response', name: 'undesired' ,  selected: false },
+		    { label: 'Not Filled In',  name: 'notAnswered' ,   selected: false},
+		    { label: 'Has Comment',name: 'hasComment' , selected: false },
+		    { label: 'Has Photo',name: 'text' , selected: false },
+		    { label: 'Text Entry', name: 'lt100' ,selected: false },
+		    { label: 'Numeric', name: 'numeric' ,selected: false }
+								];
 
 		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
@@ -29,8 +38,11 @@ angular.module('sureAuditAdminApp')
 		}
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
+				debugger;
 				self.auditDefinition = response;
 				self.populateSignatures();
+				self.populateQuestionDisplays();
+
 			},function () {
 				// ERROR block
 			});
@@ -42,7 +54,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.populateSignatures = function () {
-		debugger;
 
 		for (var i = 0; i < self.auditDefinition.Signatures.length ; i++) {
 			self.checkSignature = true;
@@ -53,7 +64,7 @@ angular.module('sureAuditAdminApp')
 				self.auditDefinition.Signatures[i].Source = 'Text Entry';
 			}
 		};
-	}
+	};
 
 	self.updateStartDate = function () {
 		var getDate = moment(self.sDate).format('MM/DD/YYYY');
@@ -80,14 +91,6 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 
-	self.pushPullValue = function(item){
-		if(self.auditDefinition.SummaryDisplayFlags.indexOf(item) > -1){
-			self.auditDefinition.SummaryDisplayFlags.splice(self.auditDefinition.SummaryDisplayFlags.indexOf(item),1);
-		}else{
-			self.auditDefinition.SummaryDisplayFlags.push(item);
-		}
-		
-	};
 
 	self.selectedTab = function (tab) {
 		switch(tab)
@@ -132,7 +135,7 @@ angular.module('sureAuditAdminApp')
 					return null;
 				},
 				isScored: function () {
-					return self.auditDefinition.IsScore;
+					return self.auditDefinition.IsScored;
 				}
 			}
 		}).result.then(function(question){
@@ -254,6 +257,7 @@ angular.module('sureAuditAdminApp')
 	self.saveAuditDef = function () {
 		//survey Settings 
 		self.processSurveySettings();
+		self.processQuestionDisplays();
 
 		if($stateParams.id === ''){
 		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
@@ -279,6 +283,26 @@ angular.module('sureAuditAdminApp')
 			if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
 				self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
 			}
+		};
+	};
+
+	self.processQuestionDisplays = function(){
+		debugger;
+		for (var i = 0; i < self.questionDisplay.length; i++) {
+			if(self.questionDisplay[i].selected === true){
+				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name) 
+			}
+		};
+	};
+
+	self.populateQuestionDisplays = function(){
+		debugger;
+		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length; i++) {
+			for (var j = 0 ; j < self.questionDisplay.length; j++) {
+				if(self.auditDefinition.SummaryDisplayFlags[i] === self.questionDisplay[j].name){
+					self.questionDisplay[j].selected = true;
+				}
+			};
 		};
 	};
 	
@@ -320,6 +344,25 @@ angular.module('sureAuditAdminApp')
 	self.hideQuestion = function (pIndex,cIndex,index,type) {
 		if(type === 'question'){
 			self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'Inactive';
+		}
+	};
+	
+	self.resetPoints = function (pIndex) {
+		self.totalQuesWeight = 0.0;
+		for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
+			self.auditDefinition.Sections[pIndex].Questions[i].PointsAllowed = 0.0;
+		}
+	};
+	
+	self.distributePoints = function (pIndex) {
+		var totalWeight = self.auditDefinition.Sections[pIndex].weight;
+		if(totalWeight!='' && parseFloat(totalWeight)!=0){
+			self.totalQuesWeight = 0.0;
+			var points = parseFloat(totalWeight)/self.auditDefinition.Sections[pIndex].Questions.length;
+			for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
+				self.auditDefinition.Sections[pIndex].Questions[i].PointsAllowed = points;
+				self.totalQuesWeight = points + self.totalQuesWeight;
+			}
 		}
 	};
 	

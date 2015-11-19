@@ -31,22 +31,24 @@
 		</div>
 		<div class="col-lg-12 col-md-12 no-padding grid-body-masterquestion marginbottom10">
 			<div class="col-lg-12 col-md-12 no-padding question" ng-repeat="item in mq.data.Data | filter:{Text: query} | filter: {Status: '!Deleted'} | orderBy:mq.predicate:mq.reverse">
-				<div class="col-lg-7 col-md-7 col-sm-7 text-left question-text">
-					<span>{{item.Text}}</span>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 text-center">
-					<span>{{item.TypeKey}}</span>
-				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 text-center">
-					<span>{{item.TouchInfo.ModifiedDate | amDateFormat:'MM DD YY, hh:mm A'}}</span>
-				</div>
-				<div class="col-lg-1 col-md-1 col-sm-1 text-center" menu-sibling>
-					<img src="/images/ic_more_@2x.png" alt="more">
-					<div class="gridOptions">
-						<ul>
-							<li ng-click= "mq.addEditMasterQuestion(item,'EDIT')">Edit</li>
-							<li ng-click="mq.deleteMasterQuestion(item.Id)">Delete</li>
-						</ul>
+				<div class="col-lg-12 master-question-row">
+					<div class="col-lg-7 col-md-7 col-sm-7 text-left question-text">
+						<span>{{item.Text}}</span>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 text-center">
+						<span>{{item.TypeKey}}</span>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 text-center">
+						<span>{{item.TouchInfo.ModifiedDate | amDateFormat:'MM DD YY, hh:mm A'}}</span>
+					</div>
+					<div class="col-lg-1 col-md-1 col-sm-1 text-center" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click= "mq.addEditMasterQuestion(item,'EDIT')">Edit</li>
+								<li ng-click="mq.deleteMasterQuestion(item.Id)">Delete</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>			
