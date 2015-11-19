@@ -20,6 +20,7 @@ angular.module('sureAuditAdminApp')
 		self.totalQuesWeight = 0.0;
 		self.totalSectionWeight = 0.0;
 		self.name = '';
+		self.isDataValid = true;
 		self.questionDisplay = [ 
 			{ label: '< 100% Response', name: 'lt100' ,selected: false },
 		    { label: 'Undesired Response', name: 'undesired' ,  selected: false },
@@ -255,27 +256,66 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
-		//survey Settings 
-		self.processSurveySettings();
-		self.processQuestionDisplays();
+		self.isDataValid = false;
+		self.validationCheck();
+		self.checkTotalSectionWeight();
+		if(self.isDataValid){
+			//survey Settings 
+			self.processSurveySettings();
+			self.processQuestionDisplays();
 
-		if($stateParams.id === ''){
-		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
-			self.auditDefinition.Id = response.Id;
-			console.log(response)
-		},function () {
-			// ERROR block
-		});
-		}
-		else{
-			surveyService.updateSurvey(self.auditDefinition).then(function (response) {			
-				self.auditDefinition.Id = response.Id;
-				console.log(response)
-			},function () {
+			if($stateParams.id === ''){ //ADD SURVEY
+				surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
+					self.auditDefinition.Id = response.Id;
+					console.log(response)
+				},function () {
+					// ERROR block
+				});
+			}
+			else{ //EDIT SURVEY
+				surveyService.updateSurvey(self.auditDefinition).then(function (response) {			
+					self.auditDefinition.Id = response.Id;
+					console.log(response)
+				},function () {
 				// ERROR block
-			});
+				});
+			}
 		}
 	};
+	
+	self.validationCheck = function () {
+		var fields = '';
+		if(utilityService.isEmpty(self.auditDefinition.Name)){
+			fields = 'survey name,';
+		}
+		if(fields !== ''){
+			self.isDataValid = false;
+			var message = "Please enter values for "+ fields.substring(0,fields.length-1);
+			self.openValidationPopup(message);
+		}
+	};
+	
+	self.openValidationPopup = function (message) {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'views/validationPopup.html',
+			controller: 'validationsCtrl',
+			windowClass: 'changes-warning-modal',
+			controllerAs: 'vModal',
+			resolve: {
+				msg: function () {
+					return  message;
+				}
+			}
+		});
+	};
+	self.checkTotalSectionWeight = function () {
+		if(parseFloat(self.totalSectionWeight) > 100){
+			self.isDataValid = false;
+			var message = "All Sections weight must add up to 100%";
+			self.openValidationPopup(message);
+		}
+	}
 
 	self.processSurveySettings = function () {
 	
