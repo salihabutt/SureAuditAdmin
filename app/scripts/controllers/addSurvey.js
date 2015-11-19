@@ -17,10 +17,18 @@ angular.module('sureAuditAdminApp')
 		self.eTime = '00:00:00';
 		self.eAMPM = 'AM';
 		self.textEntryValue = [];
-		self.questionDisplay = [];
 		self.totalQuesWeight = 0;
 		self.totalSectionWeight = 0;
 		self.name = '';
+		self.questionDisplay = [ 
+			{ label: '< 100% Response', name: 'lt100' ,selected: false },
+		    { label: 'Undesired Response', name: 'undesired' ,  selected: false },
+		    { label: 'Not Filled In',  name: 'notAnswered' ,   selected: false},
+		    { label: 'Has Comment',name: 'hasComment' , selected: false },
+		    { label: 'Has Photo',name: 'text' , selected: false },
+		    { label: 'Text Entry', name: 'lt100' ,selected: false },
+		    { label: 'Numeric', name: 'numeric' ,selected: false }
+								];
 
 		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);
@@ -30,9 +38,11 @@ angular.module('sureAuditAdminApp')
 		}
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
+				debugger;
 				self.auditDefinition = response;
 				self.populateSignatures();
-				self.populateQuestionDisplay();
+				self.populateQuestionDisplays();
+
 			},function () {
 				// ERROR block
 			});
@@ -41,15 +51,6 @@ angular.module('sureAuditAdminApp')
 		self.setDates();
 		self.getAllQuestion();
 		
-	};
-
-	self.populateQuestionDisplay = function () {
-
-		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length ; i++) {
-			self.questionDisplay[i] = self.auditDefinition.SummaryDisplayFlags[i];
-		};
-		console.log(self.questionDisplay);
-
 	};
 
 	self.populateSignatures = function () {
@@ -90,14 +91,6 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 
-	self.pushPullValue = function(index, item){
-		if(self.questionDisplay.indexOf(item) > -1){
-			self.questionDisplay.splice(self.questionDisplay.indexOf(item),1);
-		}else{
-			self.questionDisplay.push({index, item});
-		}
-		debugger;
-	};
 
 	self.selectedTab = function (tab) {
 		switch(tab)
@@ -283,9 +276,24 @@ angular.module('sureAuditAdminApp')
 			}
 		};
 	};
-	self.processQuestionDisplays = function () {
-		for (var i = 0 ; i < self.questionDisplay.length ; i++ ) {
-				self.auditDefinition.SummaryDisplayFlags[i] = self.questionDisplay[i];
+
+	self.processQuestionDisplays = function(){
+		debugger;
+		for (var i = 0; i < self.questionDisplay.length; i++) {
+			if(self.questionDisplay[i].selected === true){
+				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name) 
+			}
+		};
+	};
+
+	self.populateQuestionDisplays = function(){
+		debugger;
+		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length; i++) {
+			for (var j = 0 ; j < self.questionDisplay.length; j++) {
+				if(self.auditDefinition.SummaryDisplayFlags[i] === self.questionDisplay[j].name){
+					self.questionDisplay[j].selected = true;
+				}
+			};
 		};
 	};
 	
