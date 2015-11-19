@@ -1,16 +1,17 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel, action, utilityService) {
+.controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel, action, isScored, utilityService) {
 	var self = this,
 	init = function () {
 		self.subject = 'Add Question to Survey';
+		self.undesiredRespList = ['Yes','No'];
 		self.defaultRespList = ['Yes','No'];
 		self.defaultResp = '';
-		self.undesiredRespList = ['Yes','No'];
 		self.undesiredResp = '';
 		self.question = angular.copy(surveyModel.question);
 		self.imageCount = 1;
+		self.isScored = isScored;
 		self.responseRatioOptions = [
 		                             {
 		                            	 label: 'Yes',
@@ -40,6 +41,11 @@ angular.module('sureAuditAdminApp')
 			self.question.Label = ques.Label;
 			self.question.Name = ques.Name;
 			self.question.Id = null;
+		}
+		
+		if(ques.TypeKey === 'yesnona'){
+			self.undesiredRespList = ['Yes','No','N/A'];
+			self.defaultRespList = ['Yes','No','N/A'];
 		}
 	};
 	
@@ -113,6 +119,7 @@ angular.module('sureAuditAdminApp')
 		// process comments required and image required flags
 		self.processReqChecks();
 		self.question.MaxImagesAllowed = self.imageCount;
+		self.question.MinImagesAllowed = 1;
 		console.log(self.question);
 		$uibModalInstance.close(self.question);
 	};

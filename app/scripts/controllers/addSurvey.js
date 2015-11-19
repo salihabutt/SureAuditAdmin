@@ -130,6 +130,9 @@ angular.module('sureAuditAdminApp')
 				},
 				question: function () {
 					return null;
+				},
+				isScored: function () {
+					return self.auditDefinition.IsScore;
 				}
 			}
 		}).result.then(function(question){
@@ -138,9 +141,11 @@ angular.module('sureAuditAdminApp')
 				switch(action) {
 				case 'above':
 					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex,0,question);
+					self.auditDefinition.QuestionCount++;
 					break;
 				case 'below':
 					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex-1,0,question);
+					self.auditDefinition.QuestionCount++;
 					break;
 				case 'branch':
 					if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.length <= 0){
@@ -148,6 +153,7 @@ angular.module('sureAuditAdminApp')
 						self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
 					}
 					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.push(question);
+					self.auditDefinition.QuestionCount++;
 					break;
 				}
 			}
@@ -174,6 +180,9 @@ angular.module('sureAuditAdminApp')
 				},
 				action: function () {
 					return 'edit';
+				},
+				isScored: function () {
+					return self.auditDefinition.IsScored;
 				}
 			}
 		});
@@ -181,10 +190,10 @@ angular.module('sureAuditAdminApp')
 	
 	self.addSection = function (pIndex) {
 		var section = angular.copy(surveyModel.section);
-		if(pIndex === 0 || pIndex === self.auditDefinition.Sections.length-1){
+		if(pIndex === null){
 			self.auditDefinition.Sections.push(section);
 		}else{
-			self.auditDefinition.Sections.splice(pIndex,0,section);
+			self.auditDefinition.Sections.splice(pIndex+1,0,section);
 		}
 	};
 
@@ -297,10 +306,12 @@ angular.module('sureAuditAdminApp')
 		}).result.then(function(){
 			switch(type){
 			case 'section':
+				self.auditDefinition.QuestionCount = self.auditDefinition.QuestionCount - self.auditDefinition.Sections[pIndex].Questions.length;
 				self.auditDefinition.Sections.splice(pIndex,1);
 				break;
 			case 'question':
 				self.auditDefinition.Sections[pIndex].Questions.splice(cIndex,1);
+				self.auditDefinition.QuestionCount--;
 				break;
 			}
 		})
@@ -314,7 +325,7 @@ angular.module('sureAuditAdminApp')
 	
 	init();
 })
-.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, question){
+.controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, question, isScored){
 	var self = this,
 	init = function () {
 		self.questions = mq;
@@ -351,6 +362,9 @@ angular.module('sureAuditAdminApp')
 				},
 				action: function () {
 					return action;
+				},
+				isScored: function () {
+					return isScored;
 				}
 			}
 		}).result.then(function (question){

@@ -28,7 +28,7 @@
 					<button ng-repeat="option in sqdModal.undesiredRespList" ng-class="sqdModal.question.UndesireableValue==option? 'btn-active':'btn-disable'" ng-click="sqdModal.question.UndesireableValue=sqdModal.question.UndesireableValue==option?null:option">{{option}}
 					</button>
 				</div>
-				<div class="col-lg-12 no-padding">
+				<div class="col-lg-12 no-padding" ng-if="sqdModal.isScored">
 					<p class="heading">Score Response Weight*</p>
 					<span ng-repeat="option in sqdModal.responseRatioOptions" class="score-section">
 					<button  ng-class="option.active?'btn-active':'btn-disable'"  ng-click="option.active=!option.active">

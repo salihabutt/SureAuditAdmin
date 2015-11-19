@@ -53,24 +53,6 @@
 				
 				.section-detail {
 					padding-top: 15px;
-					input[type=checkbox] {
-						visibility: hidden;
-						margin-right: 15px;
-					}
-					input[type=checkbox]:before { 
-						visibility: visible;
-						content:""; 
-						display:inline-block; 
-						width:15px; 
-						height:15px; 
-						background:url(../images/ctrl_checkbox_grey_inactive@2x.png); 
-						margin-bottom: 1px;
-					}
-					input[type=checkbox]:checked:before { 
-						visibility: visible;
-						background:url(../images/ctrl_checkbox_active@2x.png); 
-						margin-bottom: 1px;
-					}
 					
 					.btn-disable {
 						font: $font-medium;
