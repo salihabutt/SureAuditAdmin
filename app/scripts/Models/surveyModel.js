@@ -82,7 +82,9 @@ angular.module('sureAuditAdminApp')
                 AllowableValues: null,
                 MinImagesAllowed: null,
                 MaxImagesAllowed: null,
-                ResponseRatios: []
+                ResponseRatios: [],
+                MinResponseLength: 0,
+                MaxResponseLength: 0
 
 		};
 		
