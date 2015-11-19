@@ -97,14 +97,14 @@
                 <div class="col-lg-12 text-right section-body-head">
                     <span><button class="main-btn-green">Set Equal Points</button></span>
                     <span><button class="main-btn-green">Reset Points</button></span>
-                    <span class="total-weight">Total Question Points</span>
-                    <span class="total-weight" id="total-ques-{{$index}}">{{aeSurvey.totalQuesWeight}}</span>
+                    <span class="total-weight no-padding">Total Question Points</span>
+                    <span class="total-weight no-padding" id="total-ques-{{$index}}">{{aeSurvey.totalQuesWeight}}</span>
                 </div>
 
                 <div class="col-lg-12 section-body-body no-padding">
                     <!-- ng-repear row -->
                     <div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
-                        <div class="col-lg-12 no-padding survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
+                        <div class="col-lg-12 survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
                             <div class="col-lg-1 no-padding text-center">
                                 <div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'up')">
                                 </div>
@@ -112,8 +112,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-9 no-padding">
-                                <span>{{question.Label}}</span>
-                                <span>{{question.Text}} </span>
+                                <span class="question-label">{{question.Label}}</span>
+                                <span ng-class="question-text">{{question.Text}} </span>
                             </div>
                             <div class="col-lg-1">
                                 <div class="col-lg-6" ques-sibling>
@@ -291,39 +291,39 @@
             <div class="col-lg-12 no-padding">
                 <div class="col-lg-3 no-padding checkbox no-margintop">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('It100')" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(0,'It100')" ng-disabled="!aeSurvey.auditDefinition.IsScored"> &lt 100% Response
                     </label>
                 </div>
                 <div class="col-lg-3 checkbox ">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('undesired')"> Undesired Response
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(1,'undesired')"> Undesired Response
                     </label>
                 </div>
                 <div class="col-lg-3 checkbox ">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('notAnswered')"> Not Filled In
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(2,'notAnswered')"> Not Filled In
                     </label>
                 </div>
                 <div class="col-lg-3 checkbox ">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasComment')"> Has Comment
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(3,'hasComment')"> Has Comment
                     </label>
                 </div>
             </div>
             <div class="col-lg-12 no-padding">
                 <div class="col-lg-3 no-padding checkbox no-margintop">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('hasImage')"> Has Photo
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(4,'hasImage')"> Has Photo
                     </label>
                 </div>
                 <div class="col-lg-3 checkbox ">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('text')"> Text Entry
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(5,'text')"> Text Entry
                     </label>
                 </div>
                 <div class="col-lg-3 checkbox ">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue('numeric')"> Numeric
+                        <input type="checkbox" name="questionDisplay" ng-click="aeSurvey.pushPullValue(6,'numeric')"> Numeric
                     </label>
                 </div>
             </div>

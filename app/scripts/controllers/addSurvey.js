@@ -16,7 +16,8 @@ angular.module('sureAuditAdminApp')
 		self.eDate = null;
 		self.eTime = '00:00:00';
 		self.eAMPM = 'AM';
-		self.textEntryValue = [] ;
+		self.textEntryValue = [];
+		self.questionDisplay = [];
 		self.totalQuesWeight = 0;
 		self.totalSectionWeight = 0;
 		self.name = '';
@@ -31,6 +32,7 @@ angular.module('sureAuditAdminApp')
 			surveyService.getSurvey($stateParams.id).then(function (response) {
 				self.auditDefinition = response;
 				self.populateSignatures();
+				self.populateQuestionDisplay();
 			},function () {
 				// ERROR block
 			});
@@ -41,8 +43,16 @@ angular.module('sureAuditAdminApp')
 		
 	};
 
+	self.populateQuestionDisplay = function () {
+
+		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length ; i++) {
+			self.questionDisplay[i] = self.auditDefinition.SummaryDisplayFlags[i];
+		};
+		console.log(self.questionDisplay);
+
+	};
+
 	self.populateSignatures = function () {
-		debugger;
 
 		for (var i = 0; i < self.auditDefinition.Signatures.length ; i++) {
 			self.checkSignature = true;
@@ -53,7 +63,7 @@ angular.module('sureAuditAdminApp')
 				self.auditDefinition.Signatures[i].Source = 'Text Entry';
 			}
 		};
-	}
+	};
 
 	self.updateStartDate = function () {
 		var getDate = moment(self.sDate).format('MM/DD/YYYY');
@@ -80,13 +90,13 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 
-	self.pushPullValue = function(item){
-		if(self.auditDefinition.SummaryDisplayFlags.indexOf(item) > -1){
-			self.auditDefinition.SummaryDisplayFlags.splice(self.auditDefinition.SummaryDisplayFlags.indexOf(item),1);
+	self.pushPullValue = function(index, item){
+		if(self.questionDisplay.indexOf(item) > -1){
+			self.questionDisplay.splice(self.questionDisplay.indexOf(item),1);
 		}else{
-			self.auditDefinition.SummaryDisplayFlags.push(item);
+			self.questionDisplay.push({index, item});
 		}
-		
+		debugger;
 	};
 
 	self.selectedTab = function (tab) {
@@ -245,6 +255,7 @@ angular.module('sureAuditAdminApp')
 	self.saveAuditDef = function () {
 		//survey Settings 
 		self.processSurveySettings();
+		self.processQuestionDisplays();
 
 		if($stateParams.id === ''){
 		surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
@@ -270,6 +281,11 @@ angular.module('sureAuditAdminApp')
 			if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
 				self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
 			}
+		};
+	};
+	self.processQuestionDisplays = function () {
+		for (var i = 0 ; i < self.questionDisplay.length ; i++ ) {
+				self.auditDefinition.SummaryDisplayFlags[i] = self.questionDisplay[i];
 		};
 	};
 	
