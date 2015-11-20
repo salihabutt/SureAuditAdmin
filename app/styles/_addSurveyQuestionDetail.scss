@@ -38,12 +38,22 @@
 
 		.custom-btn-select-option{
 			border-radius:5px;
-			background-color: #1B8ECA;
+			background-color: #ffffff;
 			font: $font-medium;
-			color: #ffffff;
+			color: #BABABA;
 			height: 40px;
 			line-height: 40px;
 			width: 210px;
+			text-align: left;
+    		padding-left: 12px;
+    		border: 1px solid #cccccc;
+		}
+
+		.custom-btn-select-option-checked{
+			background-color: #1B8ECA !important;
+    		border: 0 !important;
+    		color: #ffffff !important;
+    		
 		}
 
 		.section {
