@@ -2,7 +2,6 @@
 var REGEXP = /^(0*(?:[1-9][0-9]?|100))$/;
 var REGEXP2 = /^\d{1,2}\.\d{0,1}$/;
 var REGEXP3 = /^0$/;
-var time = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/;
 angular.module('sureAuditAdminApp')
 .directive('scoreCheck', function() {
 	  return {

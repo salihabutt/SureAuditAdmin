@@ -11,10 +11,10 @@ angular.module('sureAuditAdminApp')
 		self.showFlags = false;
 		self.checkSignature = false;
 		self.sDate = null;
-		self.sTime = '00:00:00';
+		self.sTime = '00:00';
 		self.sAMPM = 'AM';
 		self.eDate = null;
-		self.eTime = '00:00:00';
+		self.eTime = '00:00';
 		self.eAMPM = 'AM';
 		self.textEntryValue = [];
 		self.totalQuesWeight = 0.0;
@@ -39,17 +39,16 @@ angular.module('sureAuditAdminApp')
 		}
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
-				debugger;
 				self.auditDefinition = response;
 				self.populateSignatures();
 				self.populateQuestionDisplays();
-
+				self.setDates();
 			},function () {
 				// ERROR block
 			});
 			
 		}
-		self.setDates();
+		
 		self.getAllQuestion();
 		
 	};
@@ -68,6 +67,7 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.updateStartDate = function () {
+
 		var getDate = moment(self.sDate).format('MM/DD/YYYY');
 		var fullStartDate = getDate + 'T' + self.sTime + self.sAMPM;
 		self.auditDefinition.Starts = fullStartDate;
@@ -81,7 +81,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.setDates = function(){
-
 		if(self.auditDefinition.Starts != null){
 			self.sDate = moment(self.auditDefinition.Starts).format('MM/DD/YYYY');
 			self.sTime = moment(self.auditDefinition.Starts).format('HH-mm');
@@ -259,6 +258,7 @@ angular.module('sureAuditAdminApp')
 		self.isDataValid = true;
 		self.validationCheck();
 		self.checkTotalSectionWeight();
+		self.auditDefinition.Starts = new Date();
 		if(self.isDataValid){
 			//survey Settings 
 			self.processSurveySettings();
@@ -328,7 +328,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.processQuestionDisplays = function(){
-		debugger;
 		for (var i = 0; i < self.questionDisplay.length; i++) {
 			if(self.questionDisplay[i].selected === true){
 				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name) 
@@ -337,7 +336,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.populateQuestionDisplays = function(){
-		debugger;
 		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length; i++) {
 			for (var j = 0 ; j < self.questionDisplay.length; j++) {
 				if(self.auditDefinition.SummaryDisplayFlags[i] === self.questionDisplay[j].name){

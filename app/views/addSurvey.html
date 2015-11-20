@@ -195,7 +195,7 @@
                 <div class="form-group">
                     <label>Starts</label>
                     <input type="date" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sDate" class="settings-txt">
-                    <input type="text" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30">
+                    <input type="text" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
                     <select class="ampm-select" ng-change="aeSurvey.updateStartDate()" ng-model="aeSurvey.sAMPM">
                         <option>AM</option>
                         <option>PM</option>
@@ -206,7 +206,7 @@
                 <div class="form-group">
                     <label>Ends</label>
                     <input type="date" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eDate" class="settings-txt">
-                    <input type="text" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30">
+                    <input type="text" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
                     <select class="ampm-select" ng-change="aeSurvey.updateEndDate()" ng-model="aeSurvey.eAMPM">
                         <option>AM</option>
                         <option>PM</option>
@@ -217,7 +217,7 @@
 
             <div class="col-lg-12 no-padding">
                 <h3 class="margintop37">About Survey</h3>
-                <textarea>{{aeSurvey.auditDefinition.About}}</textarea>
+                <textarea ng-model="aeSurvey.auditDefinition.About"></textarea>
             </div>
 
             <div class="col-lg-12 no-padding">
@@ -272,9 +272,9 @@
         <div class="col-lg-12 profile margintop37 no-padding">
             <h3>Questions Displayed</h3>
             <div class="col-lg-12 no-padding">
-                <div class="col-lg-3 checkbox left" ng-repeat="item in aeSurvey.questionDisplay">
+                <div class="col-lg-3 checkbox checkbox-disable-margin left" ng-repeat="item in aeSurvey.questionDisplay">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-disabled="item.name == 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected"> {{item.label}}
+                        <input type="checkbox" name="questionDisplay" ng-disabled="item.name === 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected"> {{item.label}}
                     </label>
                 </div>
             </div>
