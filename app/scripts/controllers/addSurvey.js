@@ -21,6 +21,7 @@ angular.module('sureAuditAdminApp')
 		self.totalSectionWeight = 0.0;
 		self.name = '';
 		self.isDataValid = true;
+		self.isSaveDisabled = true;
 		self.questionDisplay = [ 
 			{ label: '< 100% Response', name: 'lt100' ,selected: false },
 		    { label: 'Undesired Response', name: 'undesired' ,  selected: false },
@@ -32,18 +33,19 @@ angular.module('sureAuditAdminApp')
 								];
 
 		if ($stateParams.id === '') {
-			self.auditDefinition = angular.copy(surveyModel.surevyModel);
+			self.auditDefinition = angular.copy(surveyModel.surevyModel);		
 			self.auditDefinition.Key = utilityService.guid;
 			var section = angular.copy(surveyModel.section);
 			self.auditDefinition.Sections.push(section);
+			self.auditDefinitionClone = angular.copy(self.auditDefinition); // keep this line at end always
 		}
+		
 		else if($stateParams.id !== '') {
 			surveyService.getSurvey($stateParams.id).then(function (response) {
-				debugger;
 				self.auditDefinition = response;
 				self.populateSignatures();
 				self.populateQuestionDisplays();
-
+				self.auditDefinitionClone = angular.copy(self.auditDefinition);  // keep this line at end always
 			},function () {
 				// ERROR block
 			});
@@ -165,6 +167,7 @@ angular.module('sureAuditAdminApp')
 				self.auditDefinition.Sections[pIndex].Questions.push(question);
 				self.auditDefinition.QuestionCount++;
 			}
+			self.updateModel();
 		});
 	};
 	
@@ -199,12 +202,13 @@ angular.module('sureAuditAdminApp')
 		}else{
 			self.auditDefinition.Sections.splice(pIndex+1,0,section);
 		}
+		self.updateModel();
 	};
 
 	self.addSignature = function () {
-
 		var signature = angular.copy(surveyModel.signature);
 		self.auditDefinition.Signatures.push(signature);
+		self.updateModel();
 	}
 
 
@@ -318,8 +322,7 @@ angular.module('sureAuditAdminApp')
 		}
 	}
 
-	self.processSurveySettings = function () {
-	
+	self.processSurveySettings = function () {	
 		for (var i = 0 ; i < self.auditDefinition.Signatures.length ; i++ ) {
 			if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
 				self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
@@ -328,7 +331,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.processQuestionDisplays = function(){
-		debugger;
 		for (var i = 0; i < self.questionDisplay.length; i++) {
 			if(self.questionDisplay[i].selected === true){
 				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name) 
@@ -337,7 +339,6 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.populateQuestionDisplays = function(){
-		debugger;
 		for (var i = 0; i < self.auditDefinition.SummaryDisplayFlags.length; i++) {
 			for (var j = 0 ; j < self.questionDisplay.length; j++) {
 				if(self.auditDefinition.SummaryDisplayFlags[i] === self.questionDisplay[j].name){
@@ -379,7 +380,8 @@ angular.module('sureAuditAdminApp')
 				self.auditDefinition.QuestionCount--;
 				break;
 			}
-		})
+			self.updateModel();
+		});
 	};
 	
 	self.hideQuestion = function (pIndex,cIndex,index,type) {
@@ -408,6 +410,14 @@ angular.module('sureAuditAdminApp')
 		for(var j=0;j<self.auditDefinition.Sections[pIndex].Questions.length;j++){
 			self.auditDefinition.Sections[pIndex].Questions[j].PointsAllowed = points;
 			self.totalQuesWeight = points + self.totalQuesWeight;	
+		}
+	};
+	
+	self.updateModel = function () {
+		if(angular.equals(self.auditDefinition,self.auditDefinitionClone)){
+			self.isSaveDisabled = true;
+		} else {
+			self.isSaveDisabled = false;
 		}
 	};
 	
