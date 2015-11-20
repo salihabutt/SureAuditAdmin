@@ -9,7 +9,7 @@ angular.module('sureAuditAdminApp')
 	    require: 'ngModel',
 	    link: function(scope, elem, attrs, ctrl) {
 	    		var id = attrs.scoreCheck;
-	    		 $(elem).bind('input', function(attrs) { 
+	    		 $(elem).bind('input', function(scope) { 
 	    			 
 	    			 var val = elem.val();
 	    			 if (!(REGEXP.test(val) || REGEXP2.test(val) || REGEXP3.test(val))){
@@ -41,11 +41,13 @@ angular.module('sureAuditAdminApp')
 	    					 }
 	    					 $('#total-section-weight').text(sum);
 	    					 $('#total-section-weight-input').val(sum);
+	    					 angular.element($('#total-section-weight-input')).triggerHandler('input')
 	    				break;
 	    				}
 	    			 
 	    		 
 	            });
+	    		 
 	    }
 	  };
 	});

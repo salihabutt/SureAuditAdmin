@@ -12,18 +12,6 @@ angular.module('sureAuditAdminApp')
 		self.question = angular.copy(surveyModel.question);
 		self.imageCount = 1;
 		self.isScored = isScored;
-		self.responseRatioOptions = [
-		                             {
-		                            	 label: 'Yes',
-		                            	 active: false,
-		                            	 value: 0	 
-		                             },
-		                             {
-		                            	 label: 'No',
-		                            	 active: false,
-		                            	 value: 0
-		                             }];
-		
 		self.commentRequired = false;
 		self.undesiredReq  = false;
 		self.commentsSwitch = false;
@@ -53,19 +41,7 @@ angular.module('sureAuditAdminApp')
 		self.subject = 'Edit Question';
 		self.question = ques;
 		self.imageCount =  ques.MaxImagesAllowed;
-		for(var i =0;i<ques.ResponseRatios.length;i++){
-			var obj = {};
-			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
-				if(self.responseRatioOptions[0].label === ques.ResponseRatios[i].ValueMatch){
-					self.responseRatioOptions[0].active = true;
-					self.responseRatioOptions[0].value = ques.ResponseRatios[i].Ratio;
-				}
-				else if (self.responseRatioOptions[1].label === ques.ResponseRatios[i].ValueMatch){
-					self.responseRatioOptions[1].active = true;
-					self.responseRatioOptions[1].value = ques.ResponseRatios[i].Ratio;
-				}
-			}
-		}
+		self.setResponseRatios(ques.TypeKey);
 		switch(ques.IsCommentRequired){
 		case 1:
 			self.commentRequired = true;
@@ -90,7 +66,44 @@ angular.module('sureAuditAdminApp')
 			break;
 		}
 	}
+	
+	self.setResponseRatios(type){
+		switch(type){
+		case 'yesno':
+			if(action === 'edit'){
+				self.respRatioForYesNoNa();
+			}else{
+				self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];	                       				
+			}
+			break;
+		case 'text':
+			if(action === 'edit'){
+				self.respRatioForText();
+			}else{
+				self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'No',value: 0}];	                       				
+			}
+			break;
+		}
+	
+	};
 
+	
+	self.respRatioForYesNoNa = function () {
+		for(var i =0;i<ques.ResponseRatios.length;i++){
+			var obj = {};
+			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
+				if(self.responseRatioOptions[0].label === ques.ResponseRatios[i].ValueMatch){
+					self.responseRatioOptions[0].active = true;
+					self.responseRatioOptions[0].value = ques.ResponseRatios[i].Ratio;
+				}
+				else if (self.responseRatioOptions[1].label === ques.ResponseRatios[i].ValueMatch){
+					self.responseRatioOptions[1].active = true;
+					self.responseRatioOptions[1].value = ques.ResponseRatios[i].Ratio;
+				}
+			}
+		}
+	};
+	
 	
 	self.cancel = function () {
 		$uibModal.open({

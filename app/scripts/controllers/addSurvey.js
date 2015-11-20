@@ -256,7 +256,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
-		self.isDataValid = false;
+		self.isDataValid = true;
 		self.validationCheck();
 		self.checkTotalSectionWeight();
 		if(self.isDataValid){
@@ -288,6 +288,7 @@ angular.module('sureAuditAdminApp')
 		if(utilityService.isEmpty(self.auditDefinition.Name)){
 			fields = 'survey name,';
 		}
+		
 		if(fields !== ''){
 			self.isDataValid = false;
 			var message = "Please enter values for "+ fields.substring(0,fields.length-1);
@@ -310,7 +311,7 @@ angular.module('sureAuditAdminApp')
 		});
 	};
 	self.checkTotalSectionWeight = function () {
-		if(parseFloat(self.totalSectionWeight) > 100){
+		if(parseFloat(self.totalSectionWeight) > 100 && self.isDataValid){
 			self.isDataValid = false;
 			var message = "All Sections weight must add up to 100%";
 			self.openValidationPopup(message);
@@ -395,14 +396,18 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.distributePoints = function (pIndex) {
-		var totalWeight = self.auditDefinition.Sections[pIndex].weight;
-		if(totalWeight!='' && parseFloat(totalWeight)!=0){
-			self.totalQuesWeight = 0.0;
-			var points = parseFloat(totalWeight)/self.auditDefinition.Sections[pIndex].Questions.length;
-			for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
-				self.auditDefinition.Sections[pIndex].Questions[i].PointsAllowed = points;
-				self.totalQuesWeight = points + self.totalQuesWeight;
-			}
+		self.auditDefinition.Sections[pIndex].weight = 100;
+		var size = 0;
+		self.totalQuesWeight = 0.0;
+		for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
+			if(self.auditDefinition.Sections[pIndex].Questions[i].Status == 'Ok'){
+				size++;
+			}	
+		}
+		var points = parseFloat("100")/size;
+		for(var j=0;j<self.auditDefinition.Sections[pIndex].Questions.length;j++){
+			self.auditDefinition.Sections[pIndex].Questions[j].PointsAllowed = points;
+			self.totalQuesWeight = points + self.totalQuesWeight;	
 		}
 	};
 	
