@@ -41,11 +41,138 @@
 				</div>
 				</div>
 				<!--  YESO,NO || YES,NO,N/A -->
-				<!-- -->
-				<div ng-if="sqdModal.question.TypeKey=='yesno' || sqdModal.question.TypeKey=='yesnona'">
+
+				<!-- Text -->
+				<div ng-if="sqdModal.question.TypeKey=='text'">
+					<div class="col-lg-12 no-padding">
+						<p class="heading">Set Length</p>
+						<div class="col-lg-3 no-padding marginright10">
+							<label>Min</label>
+							<input type="number" class="txt-common" ng-model="sqdModal.question.MinResponseLength" placeholder="Enter Min">
+						</div>
+						<div class="col-lg-3 no-padding">
+							<label>Max</label>
+							<input type="number" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.MaxResponseLength" >
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Default Response</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Response" ng-model="sqdModal.question.DefaultValue">
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Undesired Response</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Response" ng-model="sqdModal.question.UndesireableValue">
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20"  ng-if="sqdModal.isScored">
+						<p class="heading">Score Response Weight*</p>
+						<div class="col-lg-5 no-padding">
+							
+							<div class="col-lg-3 no-padding">
+								<span class="common-text aligning">Response</span>
+							</div>
+							<div class="col-lg-3 no-padding">
+								<input type="text" class="txt-common" placeholder="100" score-check ng-model="sqdModal.responseRatioTextOptions[0].value">
+							</div>
+							<div class="col-lg-3 ">
+								<span class="common-text aligning">%</span>
+							</div>
+						</div>
+						<div class="col-lg-5 no-padding">
+							
+							<div class="col-lg-4 no-padding">
+								<span class="common-text aligning">No Response</span>
+							</div>
+							<div class="col-lg-3 no-padding">
+								<input type="text" class="txt-common" placeholder="0" score-check ng-model="sqdModal.responseRatioTextOptions[1].value">
+							</div>
+							<div class="col-lg-3 ">
+								<span class="common-text aligning">%</span>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<!--  -->
+				<!-- Text -->
+
+				<!-- Numeric -->
+				<div ng-if="sqdModal.question.TypeKey=='numeric'">
+					<div class="col-lg-12 no-padding">
+						<p class="heading">Set Length</p>
+						<div class="col-lg-3 no-padding marginright10">
+							<label>Min</label>
+							<input type="text" class="txt-common" placeholder="Enter Min" ng-model="sqdModal.question.MinResponseLength">
+						</div>
+						<div class="col-lg-3 no-padding">
+							<label>Max</label>
+							<input type="text" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.MaxResponseLength">
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Default Response</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.DefaultValue">
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Undesired Response</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.UndesireableValue">
+						</div>
+					</div>
+
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Score Response Weight</p>
+						
+						<div class="col-lg-6 no-padding marginbottom10">
+							<div class="col-lg-8 no-padding">
+								<select class="txt-common">
+									<option>Greater Than</option>
+									<option>Less Than</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 no-padding marginbottom10">
+							<div class="col-lg-8 no-padding">
+								<select class="txt-common">
+									<option>Less Than</option>
+									<option>Greater Than</option>
+								</select>
+							</div>
+						</div>
+
+
+						<div class="col-lg-6 no-padding">
+							<div class="col-lg-8 no-padding">
+								<input type="text" class="txt-common" placeholder="Enter Number">
+							</div>
+						</div>
+						<div class="col-lg-6 no-padding">
+							<div class="col-lg-8 no-padding">
+								<input type="text" class="txt-common" placeholder="Enter Number">
+							</div>
+							<div class="col-lg-3 no-padding">
+								<input type="text" class="txt-common" placeholder="100">
+							</div>
+
+							<div class="col-lg-1 no-padding">
+								<span class="common-text aligning">%</span>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- Numeric -->
+
 				<div class="col-lg-12 comment-box no-padding">
 				<p class="heading">Comments and Photos</p>
 

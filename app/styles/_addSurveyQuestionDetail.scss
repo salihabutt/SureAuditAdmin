@@ -17,6 +17,25 @@
 			font: $font-large;		
 		}
 		
+
+		.txt-common{
+			width: 100%;
+		    border-radius: 5px;
+		    border: 1px solid #cccccc;
+		    height: 40px;
+		    padding: 0 0 0 9px;
+		}
+
+		span.common-text{
+			font : $font-small;
+			color: #000000
+		}
+
+		.aligning{
+		    margin-top: 10px;
+    		display: block;
+		}
+
 		.section {
 			font:$font-medium;
 			padding-left: 10px !important;
@@ -96,7 +115,9 @@
     						border-radius: 5px;
     						box-shadow: none;
     						font: $font-medium;
-    						color: #000000
+    						color: #000000;
+    						border: 1px solid #cccccc;
+  							padding: 0 0 0 5px;
 						}
 						
 

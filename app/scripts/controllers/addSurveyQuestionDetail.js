@@ -17,8 +17,9 @@ angular.module('sureAuditAdminApp')
 		self.commentsSwitch = false;
 		self.imageSwitch = false;
 		self.imageRequired = false;
-		self.undesiredImgReq  = false;  
-		
+		self.undesiredImgReq  = false;
+		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
+		self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'NoResponse',value: 0}];	      
 		if(action === 'edit'){
 			self.editMode();
 		}
@@ -35,6 +36,9 @@ angular.module('sureAuditAdminApp')
 			self.undesiredRespList = ['Yes','No','N/A'];
 			self.defaultRespList = ['Yes','No','N/A'];
 		}
+		
+		self.isValid = false;
+		
 	};
 	
 	self.editMode = function () {
@@ -65,22 +69,23 @@ angular.module('sureAuditAdminApp')
 			self.undesiredImgReq  = true; 
 			break;
 		}
-	}
+	};
 	
-	self.setResponseRatios(type){
+	self.setResponseRatios = function(type){
 		switch(type){
 		case 'yesno':
 			if(action === 'edit'){
 				self.respRatioForYesNoNa();
-			}else{
-				self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];	                       				
+			}
+			break;
+		case 'yesnona':
+			if(action === 'edit'){
+				self.respRatioForYesNoNa();
 			}
 			break;
 		case 'text':
 			if(action === 'edit'){
 				self.respRatioForText();
-			}else{
-				self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'No',value: 0}];	                       				
 			}
 			break;
 		}
@@ -104,6 +109,20 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 	
+	self.respRatioForText = function () {
+		for(var i =0;i<ques.ResponseRatios.length;i++){
+			var obj = {};
+			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
+				if(ques.ResponseRatios[i].ValueMatch === '*'){
+					self.responseRatioTextOptions[0].value = ques.ResponseRatios[i].Ratio;
+				}
+				else if (ques.ResponseRatios[i].ValueMatch === '' || ques.ResponseRatios[i].ValueMatch === null){
+					self.responseRatioTextOptions[1].value = ques.ResponseRatios[i].Ratio;
+				}
+			}
+		}
+	};
+	
 	
 	self.cancel = function () {
 		$uibModal.open({
@@ -120,7 +139,31 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.ok = function () {
-		// Do processing
+		self.isValid = true;
+		// process comments required and image required flags
+		self.processReqChecks();
+		self.question.MaxImagesAllowed = self.imageCount;
+		self.question.MinImagesAllowed = 1;
+		console.log(self.question);
+		switch(self.question.TypeKey) {
+		case 'yesno':
+			self.saveResponseRatioForYesNoNa();
+			break;
+		case 'yesnona':
+			self.saveResponseRatioForYesNoNa();
+			break;
+		case 'text':
+			self.validateTextresponse();
+			self.saveResponseRatioForText();
+			break;
+		}
+		
+		if(self.isValid){
+		$uibModalInstance.close(self.question);
+		}
+	};
+	
+	self.saveResponseRatioForYesNoNa = function () {
 		for (var i=0;i<self.responseRatioOptions.length;i++){
 			if(self.responseRatioOptions[i].active){
 				var responseRatio = {};
@@ -128,13 +171,36 @@ angular.module('sureAuditAdminApp')
 				responseRatio.ValueMatch = self.responseRatioOptions[i].label;
 				self.question.ResponseRatios.push(responseRatio);
 			}
+		}	
+	};
+	
+	self.saveResponseRatioForText = function () {
+		for (var i=0;i<self.responseRatioTextOptions.length;i++){
+			if(self.responseRatioTextOptions[i].value !== '' || self.responseRatioTextOptions[i].value !== null){
+				var responseRatio = {};
+				responseRatio.Ratio = self.responseRatioTextOptions[i].value;
+				responseRatio.ValueMatch = self.responseRatioTextOptions[i].label === 'Response'?'*':'';
+				self.question.ResponseRatios.push(responseRatio);
+			}
+		}	
+	};
+	
+	self.validateTextresponse = function () {
+		if(self.question.MinResponseLength > self.question.MaxResponseLength){
+			self.isValid = false;
+			$uibModal.open({
+				animation: true,
+				templateUrl: 'views/validationPopup.html',
+				controller: 'validationsCtrl',
+				windowClass: 'changes-warning-modal',
+				controllerAs: 'vModal',
+				resolve: {
+					msg: function () {
+						return  'Please enter valid min and/or max';
+					}
+				}
+			});
 		}
-		// process comments required and image required flags
-		self.processReqChecks();
-		self.question.MaxImagesAllowed = self.imageCount;
-		self.question.MinImagesAllowed = 1;
-		console.log(self.question);
-		$uibModalInstance.close(self.question);
 	};
 	
 	self.processReqChecks = function () {
