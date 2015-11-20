@@ -129,7 +129,7 @@
 					</div>
 					<div class="col-lg-1 text-center" ng-if="aeSurvey.auditDefinition.IsScored">
 					<span>
-						<input type="text" ng-model="question.PointsAllowed" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}">
+						<input type="text" ng-model="question.PointsAllowed" ng-change="aeSurvey.updateModel()" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}">
 					</span>
 					</div>
 				</div>
@@ -195,7 +195,7 @@
                 <div class="form-group">
                     <label>Starts</label>
                     <input type="date" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sDate" class="settings-txt">
-                    <input type="text" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30">
+                    <input type="text" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
                     <select class="ampm-select" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sAMPM">
                         <option>AM</option>
                         <option>PM</option>
@@ -205,9 +205,10 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Ends</label>
-                    <input type="date" ng-change="aeSurvey.updateEndDate();aeSurvey.updateModel()" ng-model="aeSurvey.eDate" class="settings-txt">
-                    <input type="text" ng-change="aeSurvey.updateEndDate();aeSurvey.updateModel()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30">
+			        <input type="date" ng-change="aeSurvey.updateEndDate();aeSurvey.updateModel()" ng-model="aeSurvey.eDate" class="settings-txt">
+                    <input type="text" ng-change="aeSurvey.updateEndDate();aeSurvey.updateModel()" ng-model="aeSurvey.eTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
                     <select class="ampm-select" ng-change="aeSurvey.updateEndDate();aeSurvey.updateModel()" ng-model="aeSurvey.eAMPM">
+
                         <option>AM</option>
                         <option>PM</option>
                     </select>
@@ -272,9 +273,9 @@
         <div class="col-lg-12 profile margintop37 no-padding">
             <h3>Questions Displayed</h3>
             <div class="col-lg-12 no-padding">
-                <div class="col-lg-3 checkbox left" ng-repeat="item in aeSurvey.questionDisplay">
+                <div class="col-lg-3 checkbox checkbox-disable-margin left" ng-repeat="item in aeSurvey.questionDisplay">
                     <label>
-                        <input type="checkbox" ng-change="aeSurvey.updateModel()" name="questionDisplay" ng-disabled="item.name == 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected"> {{item.label}}
+                        <input type="checkbox" name="questionDisplay" ng-disabled="item.name === 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected" ng-change="aeSurvey.updateModel()"> {{item.label}}
                     </label>
                 </div>
             </div>

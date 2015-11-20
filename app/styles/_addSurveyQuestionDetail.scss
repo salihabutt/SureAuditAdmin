@@ -36,6 +36,16 @@
     		display: block;
 		}
 
+		.custom-btn-select-option{
+			border-radius:5px;
+			background-color: #1B8ECA;
+			font: $font-medium;
+			color: #ffffff;
+			height: 40px;
+			line-height: 40px;
+			width: 210px;
+		}
+
 		.section {
 			font:$font-medium;
 			padding-left: 10px !important;
