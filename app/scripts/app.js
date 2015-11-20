@@ -83,7 +83,7 @@ angular
 		  }
 		})
 		.state('addSurvey',{
-			url: 'addsurvey',
+			url: 'addsurvey/:id',
 			parent: 'main',
 			params: {
 			    id: '',

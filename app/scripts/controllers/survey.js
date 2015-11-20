@@ -12,7 +12,9 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		self.navigate = function () {
-			$state.go('addSurvey');
+			$state.go('addSurvey',{
+			      id: ''
+			});
 		};
 		
 		self.editSurvey = function (id) {
