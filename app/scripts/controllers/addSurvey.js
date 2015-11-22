@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService, moment) {
+.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService) {
 	var self = this,
 	init = function () {
 		self.auditDefinition = {};
@@ -16,6 +16,12 @@ angular.module('sureAuditAdminApp')
 		self.eDate = null;
 		self.eTime = '00:00';
 		self.eAMPM = 'AM';
+		self.sDateClone = null;
+		self.sTimeClone = null;
+		self.sAMPMClone = 'AM';
+		self.eDateClone = null;
+		self.eTimeClone = null;
+		self.eAMPMClone = 'AM';
 		self.textEntryValue = [];
 		self.totalQuesWeight = 0.0;
 		self.totalSectionWeight = 0.0;
@@ -31,21 +37,24 @@ angular.module('sureAuditAdminApp')
 		    { label: 'Text Entry', name: 'lt100' ,selected: false },
 		    { label: 'Numeric', name: 'numeric' ,selected: false }
 								];
-
+		// ADD new SURVEY
 		if ($stateParams.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);		
 			self.auditDefinition.Key = utilityService.guid;
 			var section = angular.copy(surveyModel.section);
 			self.auditDefinition.Sections.push(section);
+			var signature = angular.copy(surveyModel.signature);
+			self.auditDefinition.Signatures.push(signature);
 			self.auditDefinitionClone = angular.copy(self.auditDefinition); // keep this line at end always
 		}
-		
-		else if($stateParams.id !== '') {
+		else if($stateParams.id !== '') {  // EDIT SURVEY
 			surveyService.getSurvey($stateParams.id).then(function (response) {
 				self.auditDefinition = response;
+				self.auditDefinition.TouchInfo.ModifiedDate = new Date();
 				self.populateSignatures();
 				self.populateQuestionDisplays();
-				self.setDates();
+				self.setDates();	
+				self.updateQuestionTotal();
 				self.auditDefinitionClone = angular.copy(self.auditDefinition);  // keep this line at end always
 			},function () {
 				// ERROR block
@@ -58,7 +67,11 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.populateSignatures = function () {
-
+		if(self.auditDefinition.Signatures.length<=0){
+			var signature = angular.copy(surveyModel.signature);
+			self.auditDefinition.Signatures.push(signature);
+		}
+		else{
 		for (var i = 0; i < self.auditDefinition.Signatures.length ; i++) {
 			self.checkSignature = true;
 			if(self.auditDefinition.Signatures[i].Source != 'Logged in User' && 
@@ -67,35 +80,72 @@ angular.module('sureAuditAdminApp')
 				self.textEntryValue[i] = self.auditDefinition.Signatures[i].Source;
 				self.auditDefinition.Signatures[i].Source = 'Text Entry';
 			}
-		};
+		}
+		}
 	};
 
 	self.updateStartDate = function () {
 
-		var getDate = moment(self.sDate).format('MM/DD/YYYY');
-		var fullStartDate = getDate + 'T' + self.sTime + self.sAMPM;
-		self.auditDefinition.Starts = fullStartDate;
+		//var getDate = moment(self.sDate).format('MM/DD/YYYY');
+		//var fullStartDate = getDate + 'T' + self.sTime + self.sAMPM;
+		//new Date (new Date().toDateString() + ' ' + '10:55 pm')
+	//	self.auditDefinition.Starts = (new Date (self.sDate.toDateString() + ' ' + self.sTime + ' ' +self.sAMPM)).toISOString();
+		self.auditDefinition.Starts = (new Date (self.sDate.toDateString() + ' ' +  self.sTime + ' ' +self.sAMPM )).toISOString();
 	};
 
 
 	self.updateEndDate = function () {
-		var getDate = moment(self.eDate).format('MM/DD/YYYY');
-		var fullEndDate = getDate + 'T' + self.eTime + self.eAMPM;
-		self.auditDefinition.Ends = fullEndDate;
+	//	var getDate = moment(self.eDate).format('MM/DD/YYYY');
+	//	var fullEndDate = getDate + 'T' + self.eTime + self.eAMPM;
+	//	self.auditDefinition.Ends =(new Date (self.eDate.toDateString() + ' ' + self.tTime + ' ' +self.eAMPM)).toISOString();
+		self.auditDefinition.Ends = (new Date (self.eDate.toDateString() + ' ' +  self.eTime + ' ' +self.eAMPM )).toISOString();
 	};
 
 	self.setDates = function(){
 		if(self.auditDefinition.Starts != null){
-			self.sDate = moment(self.auditDefinition.Starts).format('MM/DD/YYYY');
-			self.sTime = moment(self.auditDefinition.Starts).format('HH-mm');
+			self.sDate = self.getFormattedDate(self.auditDefinition.Starts);
+			var timeString = (new Date(self.auditDefinition.Starts)).toTimeString().substring(0,5);
+			var H = +timeString.substr(0, 2);
+			var h = (H % 12) || 12;
+			self.sAMPM = H < 12 ? "AM" : "PM";
+			timeString = h + timeString.substr(2, 3);
+			self.sTime = timeString;
+			self.sDateClone = angular.copy(self.sDate);
+			self.sTimeClone = angular.copy(self.sTime);
+			self.sAMPMClone = angular.copy(self.sAMPM);
 		}
 		if(self.auditDefinition.Ends != null){
-			self.eDate = moment(self.auditDefinition.Ends).format('MM/DD/YYYY');
-			self.eTime = moment(self.auditDefinition.Ends).format('HH-mm');
+			self.eDate = self.getFormattedDate(self.auditDefinition.Ends);
+			var etimeString = (new Date(self.auditDefinition.Ends)).toTimeString().substring(0,5);
+			var eH = etimeString.substr(0, 2);
+			var eh = (eH % 12) || 12;
+			self.eAMPM = eH < 12 ? "AM" : "PM";
+			etimeString = eh + etimeString.substr(2, 3);
+			self.eTime = etimeString;
+			self.eDateClone = angular.copy(self.eDate);
+			self.eTimeClone = angular.copy(self.eTime);
+			self.eAMPMClone = angular.copy(self.eAMPM);
 		}
 	};
 
+	self.getFormattedDate = function(date){
+		var myDate = (new Date(date));
+		return new Date((myDate.getMonth() + 1) + "/" + myDate.getDate() + "/" + myDate.getFullYear());
+	};
 
+	self.updateQuestionTotal = function () {
+		for(var i=0;i<self.auditDefinition.Sections.length;i++){
+			self.auditDefinition.Sections[i].QuestionSum = 0;
+			for(var j=0;j<self.auditDefinition.Sections[i].Questions.length;j++){
+				if(self.auditDefinition.Sections[i].Questions[j].Status.toUpperCase() === 'OK'){
+					if(self.auditDefinition.Sections[i].Questions[j].PointsAllowed !== '' || self.auditDefinition.Sections[i].Questions[j].PointsAllowed !== null){
+						self.auditDefinition.Sections[i].QuestionSum = self.auditDefinition.Sections[i].QuestionSum + self.auditDefinition.Sections[i].Questions[j].PointsAllowed;
+					}
+				}
+			}
+		}
+	};
+	
 	self.selectedTab = function (tab) {
 		switch(tab)
 		{
@@ -143,7 +193,7 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function(question){
-			question.Status = "Ok";
+			question.Status = "OK";
 			if(cIndex !== null && action !== null){
 				switch(action) {
 				case 'above':
@@ -261,15 +311,16 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
+		debugger;
 		self.isDataValid = true;
 		self.validationCheck();
 		self.checkTotalSectionWeight();
-		self.auditDefinition.Starts = new Date();
 		if(self.isDataValid){
+			self.updateStartDate();
+			self.updateEndDate();
 			//survey Settings 
 			self.processSurveySettings();
-			self.processQuestionDisplays();
-
+		//	self.processQuestionDisplays(); 
 			if($stateParams.id === ''){ //ADD SURVEY
 				surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
 					self.auditDefinition.Id = response.Id;
@@ -286,6 +337,7 @@ angular.module('sureAuditAdminApp')
 				// ERROR block
 				});
 			}
+			self.isSaveDisabled = true;
 		}
 	};
 	
@@ -325,11 +377,13 @@ angular.module('sureAuditAdminApp')
 	}
 
 	self.processSurveySettings = function () {	
-		for (var i = 0 ; i < self.auditDefinition.Signatures.length ; i++ ) {
-			if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
-				self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
+		if(self.checkSignature){
+			for (var i = 0 ; i < self.auditDefinition.Signatures.length ; i++ ) {
+				if(self.auditDefinition.Signatures[i].Source === 'Text Entry'){
+					self.auditDefinition.Signatures[i].Source = self.textEntryValue[i];
+				}
 			}
-		};
+		}
 	};
 
 	self.processQuestionDisplays = function(){
@@ -378,6 +432,7 @@ angular.module('sureAuditAdminApp')
 				self.auditDefinition.Sections.splice(pIndex,1);
 				break;
 			case 'question':
+				self.auditDefinition.Sections[pIndex].QuestionSum = self.auditDefinition.Sections[pIndex].QuestionSum - self.auditDefinition.Sections[pIndex].Questions[cIndex].PointsAllowed;
 				self.auditDefinition.Sections[pIndex].Questions.splice(cIndex,1);
 				self.auditDefinition.QuestionCount--;
 				break;
@@ -386,25 +441,30 @@ angular.module('sureAuditAdminApp')
 		});
 	};
 	
-	self.hideQuestion = function (pIndex,cIndex,index,type) {
-		if(type === 'question'){
-			self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'Inactive';
+	self.exIncQuestion = function (pIndex,cIndex,type) {
+		if(type === 'hide') {
+		self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'INACTIVE';
+		self.auditDefinition.Sections[pIndex].QuestionSum = self.auditDefinition.Sections[pIndex].QuestionSum - self.auditDefinition.Sections[pIndex].Questions[cIndex].PointsAllowed;
+		} else {
+			self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'OK';
+			self.auditDefinition.Sections[pIndex].QuestionSum = self.auditDefinition.Sections[pIndex].QuestionSum + self.auditDefinition.Sections[pIndex].Questions[cIndex].PointsAllowed;
 		}
 	};
 	
 	self.resetPoints = function (pIndex) {
 		self.totalQuesWeight = 0.0;
+		self.auditDefinition.Sections[pIndex].QuestionSum = 0;
 		for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
 			self.auditDefinition.Sections[pIndex].Questions[i].PointsAllowed = 0.0;
 		}
 	};
 	
 	self.distributePoints = function (pIndex) {
-		self.auditDefinition.Sections[pIndex].weight = 100;
 		var size = 0;
 		self.totalQuesWeight = 0.0;
+		self.auditDefinition.Sections[pIndex].QuestionSum = 100;
 		for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
-			if(self.auditDefinition.Sections[pIndex].Questions[i].Status == 'Ok'){
+			if(self.auditDefinition.Sections[pIndex].Questions[i].Status.toUpperCase() == 'OK'){
 				size++;
 			}	
 		}
@@ -416,11 +476,89 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.updateModel = function () {
-		if(angular.equals(self.auditDefinition,self.auditDefinitionClone)){
-			self.isSaveDisabled = true;
-		} else {
+		self.isSaveDisabled = true;
+		if(!angular.equals(self.auditDefinition,self.auditDefinitionClone)){
+			self.isSaveDisabled = false;
+		} 
+		if(self.sDate.toDateString() !== self.sDateClone.toDateString()){
+			self.isSaveDisabled = false;
+		}else if(self.sTime !== self.sTimeClone){
+			self.isSaveDisabled = false;
+		}else if(self.sAMPM !== self.sAMPMClone){
 			self.isSaveDisabled = false;
 		}
+		
+		if(self.eDate.toDateString() !== self.eDateClone.toDateString()){
+			self.isSaveDisabled = false;
+		}else if (self.eTime !== self.eTimeClone){
+			self.isSaveDisabled = false;
+		}else if(self.eAMPM !== self.eAMPMClone){
+			self.isSaveDisabled = false;
+		}
+	};
+	
+	self.setQuestionDisplay = function (event, name) {
+		switch(name) {
+		
+		case '< 100% Response':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('lt100');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('lt100');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Undesired Response':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('undesired');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('undesired');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Not Filled In':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('notAnswered');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('notAnswered');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Has Comment':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('hasComment');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasComment');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Has Photo':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('hasImage');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasImage');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Text Entry':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('text');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('text');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		case 'Numeric':
+			if(event.target.checked){
+				 self.auditDefinition.SummaryDisplayFlags.push('numeric');
+			}else{
+				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('numeric');
+				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+			}
+			break;
+		}
+		console.log(self.auditDefinition.SummaryDisplayFlags);
+		self.updateModel();
 	};
 	
 	init();

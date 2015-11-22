@@ -53,7 +53,8 @@ angular.module('sureAuditAdminApp')
 			requestedData.TouchInfo = self.getTouchInfo();
 			requestedData.TouchInfo.CreatedDate = new Date();
 			requestedData.TouchInfo.CreatedByUserId = utilityService.getUserProfile()['p:userid'];
-			surveyService.saveSurvey(requestedData).then(function () {			
+			surveyService.saveSurvey(requestedData).then(function (response) {	
+				requestedData.Id = response.Id;
 				self.data.push(requestedData);
 			},function () {
 				// ERROR block

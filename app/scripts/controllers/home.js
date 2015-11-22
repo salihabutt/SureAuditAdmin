@@ -26,5 +26,14 @@ angular.module('sureAuditAdminApp')
 		self.gotoMasterQuestion = function(){
 			$state.go('masterQuestion');
 		};
+		
+		self.navigate = function (type) {
+			switch(type){
+			case 'survey':
+				$state.go('survey');
+				break;
+			}
+			
+		}
 
 	});

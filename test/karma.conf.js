@@ -43,6 +43,8 @@ module.exports = function(config) {
       'bower_components/angular-moment/angular-moment.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/angular-ui-switch/angular-ui-switch.js',
+      'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
+      'bower_components/angular-datepicker/dist/angular-datepicker.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

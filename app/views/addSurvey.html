@@ -79,23 +79,24 @@
 				</span>
 
 				<span>
-					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-{{$index}}" ng-if="aeSurvey.auditDefinition.IsScored" ng-change="aeSurvey.updateModel()">
+					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-{{$index}}" ng-show="aeSurvey.auditDefinition.IsScored" ng-change="aeSurvey.updateModel()">
 				</span>
 			</div>
 		</div>
 
 		<div class="col-lg-12 section-body">
 			<div class="col-lg-12 text-right section-body-head">
-				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.distributePoints($index)">Set Equal Points</button></span>
-				<span><button class="main-btn-green" ng-if="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.resetPoints($index)">Reset Points</button></span>
-				<span class="total-weight" ng-if="aeSurvey.auditDefinition.IsScored">Total Questions Points</span>
-				<span class="total-weight" id="total-ques-{{$index}}" ng-if="aeSurvey.auditDefinition.IsScored"><!--{{aeSurvey.totalQuesWeight}}--></span>
+				<span><button class="main-btn-green" ng-show="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.distributePoints($index)">Set Equal Points</button></span>
+				<span><button class="main-btn-green" ng-show="aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.resetPoints($index)">Reset Points</button></span>
+				<span class="total-weight" ng-show="aeSurvey.auditDefinition.IsScored">Total Questions Points</span>
+				<span class="total-weight" id="total-ques-{{$index}}" ng-show="aeSurvey.auditDefinition.IsScored">{{item.QuestionSum}}</span>
+				<input type="text" id="total-ques-weight-input-{{$parent.$index}}" class="hidden" ng-model="item.QuestionSum">
 			</div>
 
 			<div class="col-lg-12 section-body-body no-padding">
 			<!-- ng-repear row -->
 				<div ng-repeat="question in item.Questions track by $id(question)" ng-init="childIndex = $index">
-				<div class="col-lg-12 survey-row" ng-class="question.Status=='Ok'?'survey-row-show':'survey-row-hide'">
+				<div class="col-lg-12 survey-row" ng-class="question.Status.toUpperCase()=='OK'?'survey-row-show':'survey-row-hide'">
 					<div class="col-lg-1 no-padding text-center">
 						<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'up')"></div>
 						<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderQuestion($parent.$index,$index,'down')"></div>
@@ -119,22 +120,22 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
-								<li ng-click="question.Status='Ok';aeSurvey.updateModel()" ng-if="question.Status=='Inactive'">Show</li>
-								<li ng-click="question.Status='Inactive';aeSurvey.updateModel()" ng-if="question.Status=='Ok'"> Hide</li>
+								<li ng-click="question.Status='OK';aeSurvey.updateModel();aeSurvey.exIncQuestion($parent.$index,$index,'show')" ng-show="question.Status.toUpperCase()=='INACTIVE'">Show</li>
+								<li ng-click="question.Status='INACTIVE';aeSurvey.exIncQuestion($parent.$index,$index,'hide');aeSurvey.updateModel()" ng-show="question.Status.toUpperCase()=='OK'" > Hide</li>
 								<li ng-click="aeSurvey.editQuestion(question)">Edit</li>
 								<li ng-click="aeSurvey.deleteAny($parent.$index,$index,null,'question')">Delete</li>
 							</ul>
 						</div>
 						</div>
 					</div>
-					<div class="col-lg-1 text-center" ng-if="aeSurvey.auditDefinition.IsScored">
+					<div class="col-lg-1 text-center" ng-show="aeSurvey.auditDefinition.IsScored">
 					<span>
-						<input type="text" ng-model="question.PointsAllowed" ng-change="aeSurvey.updateModel()" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}">
+						<input type="text" ng-model="question.PointsAllowed" ng-change="aeSurvey.updateModel()" class="percent-weight" id="question-{{$index}}-{{$parent.$index}}" score-check="question-{{$parent.$index}}" status="{{question.Status}}">
 					</span>
 					</div>
 				</div>
 					<!-- ng-repeat branching row -->
-				<div class="col-lg-12 no-padding survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" >
+				<div class="col-lg-12 survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" ng-class="branch.Status.toUpperCase()=='OK'?'survey-row-show':'survey-row-hide'">
 					<div class="col-lg-1 no-padding"></div>
 					<div class="col-lg-9 no-padding">
 						<div class="col-lg-1 no-padding text-left">
@@ -158,18 +159,19 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
-								<li>Hide</li>
+								<li ng-click="branch.Status='OK';aeSurvey.updateModel()" ng-show="branch.Status.toUpperCase()=='INACTIVE'">Show</li>
+								<li ng-click="branch.Status='Inactive';aeSurvey.updateModel()" ng-show="branch.Status.toUpperCase()=='OK'" > Hide</li>
 								<li>Edit</li>
 								<li>Delete</li>
 							</ul>
 						</div>
 						</div>
 					</div>
-					<div class="col-lg-1 text-center">
-						<div class="point-distribute-box text-right" ng-if="aeSurvey.auditDefinition.IsScored">
-							40.5
+						<div class=" col-lg-1 text-center" ng-show="aeSurvey.auditDefinition.IsScored">
+							<span>
+								<input type="text" ng-model="branch.PointsAllowed" ng-change="aeSurvey.updateModel()" class="percent-weight">
+							</span>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -194,8 +196,8 @@
             <div class="col-lg-4 no-padding">
                 <div class="form-group">
                     <label>Starts</label>
-                    <input type="date" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sDate" class="settings-txt">
-                    <input type="text" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
+                    <input type="date" ng-change="aeSurvey.updateModel()" ng-model="aeSurvey.sDate" class="settings-txt">
+                    <input type="text" ng-change="aeSurvey.updateModel()" ng-model="aeSurvey.sTime" class="settings-txt settings-txt-time marginleft30" placeholder="HH:mm" time-validator>
                     <select class="ampm-select" ng-change="aeSurvey.updateStartDate();aeSurvey.updateModel()" ng-model="aeSurvey.sAMPM">
                         <option>AM</option>
                         <option>PM</option>
@@ -237,17 +239,17 @@
             <div class="col-lg-12 margintop8 no-padding">
                 <div class="checkbox marginbottom18">
                     <label>
-                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses" ng-change="aeSurvey.updateModel()"> Show Past Audit Dates
+                        <input type="checkbox" ng-model="aeSurvey.auditDefinition.ShowPrevious.AuditDates" ng-change="aeSurvey.updateModel()"> Show Past Audit Dates
                     </label>
                 </div>
                 <div class="checkbox marginleft30 marginbottom18">
                     <label>
-                        <input type="checkbox" ng-change="aeSurvey.updateModel()" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''">Show Past Audit Scores</span>
+                        <input type="checkbox" ng-change="aeSurvey.updateModel()" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.AuditDates" ng-model="aeSurvey.auditDefinition.ShowPrevious.Scores"> <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.AuditDates ? 'disable-custom' : ''">Show Past Audit Scores</span>
                     </label>
                 </div>
                 <div class="checkbox marginleft30 marginbottom18">
                     <label>
-                        <input type="checkbox" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.Responses" > <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.Responses ? 'disable-custom' : ''" >Show Past Audit Responces</span>
+                        <input type="checkbox" ng-change="aeSurvey.updateModel()" ng-disabled="!aeSurvey.auditDefinition.ShowPrevious.AuditDates" ng-model="aeSurvey.auditDefinition.ShowPrevious.Responses" > <span ng-class="!aeSurvey.auditDefinition.ShowPrevious.AuditDates ? 'disable-custom' : ''" >Show Past Audit Responces</span>
                     </label>
                 </div>
 
@@ -273,13 +275,45 @@
         <div class="col-lg-12 profile margintop37 no-padding">
             <h3>Questions Displayed</h3>
             <div class="col-lg-12 no-padding">
-                <div class="col-lg-3 checkbox checkbox-disable-margin left" ng-repeat="item in aeSurvey.questionDisplay">
+                <div class="col-lg-3 checkbox checkbox-disable-margin left">
                     <label>
-                        <input type="checkbox" name="questionDisplay" ng-disabled="item.name === 'lt100' && !aeSurvey.auditDefinition.IsScored" value="item.name" ng-model="item.selected" ng-change="aeSurvey.updateModel()"> {{item.label}}
+                        <input type="checkbox" ng-model="aeSurvey.questionDisplay[0].selected"  ng-disabled="!aeSurvey.auditDefinition.IsScored" ng-click="aeSurvey.setQuestionDisplay($event,'< 100% Response')"> < 100% Response
+                    </label>
+                    </div>
+                    <div class="col-lg-3 checkbox checkbox-disable-margin left">
+                    <label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[1].selected" ng-click="aeSurvey.setQuestionDisplay($event,'Undesired Response')">  Undesired Response
+                    </label>
+                    </div>
+                    <div class="col-lg-3 checkbox checkbox-disable-margin left">
+                    <label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[2].selected" ng-click="aeSurvey.setQuestionDisplay($event,'Not Filled In')"> Not Filled In
                     </label>
                 </div>
+                  <div class="col-lg-3 checkbox checkbox-disable-margin left">
+				<label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[3].selected"  ng-click="aeSurvey.setQuestionDisplay($event,'Has Comment')"> Has Comment
+                    </label>
+                    </div>
             </div>
-
+             <div class="col-lg-12 no-padding">
+           
+                    <div class="col-lg-3 checkbox checkbox-disable-margin left">
+                    <label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[4].selected" ng-click="aeSurvey.setQuestionDisplay($event,'Has Photo')">  Has Photo
+                    </label>
+                    </div>
+                    <div class="col-lg-3 checkbox checkbox-disable-margin left">
+                    <label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[5].selected" ng-click="aeSurvey.setQuestionDisplay($event,'Text Entry')"> Text Entry
+                    </label>
+                    </div>
+                    <div class="col-lg-3 checkbox checkbox-disable-margin left">
+                    <label>
+                        <input type="checkbox"  ng-model="aeSurvey.questionDisplay[6].selected" ng-click="aeSurvey.setQuestionDisplay($event,'Numeric')"> Numeric
+                    </label>
+                    </div>
+                    </div>
 
             <div class="col-lg-12 no-padding">
                 <h3>Score</h3>
@@ -294,7 +328,7 @@
                 <h3>Signatures</h3>
                 <div class="col-lg-4 no-padding checkbox">
                     <label class="no-padding">Enable Signatures
-                        <switch id="enabled" name="enabled" ng-model="aeSurvey.checkSignature" class="blue"></switch>
+                        <switch id="enabled" name="enabled" ng-model="aeSurvey.checkSignature"  class="blue" ></switch>
 
                     </label>
                 </div>

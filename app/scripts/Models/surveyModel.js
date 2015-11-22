@@ -20,7 +20,8 @@ angular.module('sureAuditAdminApp')
 			        Comment: false,
 			        Scores: false,
 			        Responses: false,
-			        HistoryInNew: false
+			        HistoryInNew: false,
+			        AuditDates: false
 			      },
 			      SummaryDisplayFlags: [],
 			      Signatures: [],
@@ -56,8 +57,8 @@ angular.module('sureAuditAdminApp')
 				IsVisible: true,		
 				QuestionCount: 0,
 				SubSections: [],
-				Questions: []
-
+				Questions: [],
+				QuestionSum:0 // we exclude this on saving audit definition
 		};
 		
 		var question = {
