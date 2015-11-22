@@ -5,7 +5,8 @@ angular.module('sureAuditAdminApp')
 	this.errors = {
 			loginFail: 'The username, password or customer ID you entered is incorrect. Please try again.',
 			AppSetOK: 'Your settings have been saved.',
-			AppSetError: 'Your settings are not saved.'
+			AppSetError: 'Your settings are not saved.',
+			SurveyOK: 'Survey has been saved successfully'
 	};
 	return this.errors;
 

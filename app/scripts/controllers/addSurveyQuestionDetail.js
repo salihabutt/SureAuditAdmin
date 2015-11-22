@@ -46,7 +46,7 @@ angular.module('sureAuditAdminApp')
 		self.question = ques;
 		self.imageCount =  ques.MaxImagesAllowed;
 		self.setResponseRatios(ques.TypeKey);
-		switch(ques.IsCommentRequired){
+		switch(ques.CommentRequired){
 		case 1:
 			self.commentRequired = true;
 			self.undesiredReq  = true;
@@ -58,7 +58,7 @@ angular.module('sureAuditAdminApp')
 			break;
 		}
 		
-		switch(ques.IsImagesRequired){
+		switch(ques.ImagesRequired){
 		case 1:
 			self.imageSwitch = true;
 			self.imageRequired = true;
@@ -205,19 +205,19 @@ angular.module('sureAuditAdminApp')
 	
 	self.processReqChecks = function () {
 		if(self.commentRequired && self.undesiredReq){
-			self.question.IsCommentRequired = 1;
+			self.question.CommentRequired = 1;
 		} else if(!self.commentRequired && self.undesiredReq){
-			self.question.IsCommentRequired = 3;
+			self.question.CommentRequired = 3;
 		} else{
-			self.question.IsCommentRequired = 0;
+			self.question.CommentRequired = 0;
 		}
 		
 		if(self.imageRequired && self.undesiredImgReq){
 			self.question.IsImagesRequired = 1;
 		} else if(!self.imageRequired && self.undesiredImgReq){
-			self.question.IsImagesRequired = 3;
+			self.question.ImagesRequired = 3;
 		} else{
-			self.question.IsImagesRequired = 0;
+			self.question.ImagesRequired = 0;
 		}
 	}
 	self.updateImageCount = function (action) {

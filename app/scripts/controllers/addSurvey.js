@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, surveyModel, utilityService, masterQuestionService, surveyService) {
+.controller('AddEditSurveyCtrl', function ($stateParams, $uibModal, $timeout, surveyModel, utilityService, masterQuestionService, surveyService) {
 	var self = this,
 	init = function () {
+		self.id = $stateParams.id;
 		self.auditDefinition = {};
 		self.questionList = {};
 		self.editSurvey = false;
@@ -28,6 +29,7 @@ angular.module('sureAuditAdminApp')
 		self.name = '';
 		self.isDataValid = true;
 		self.isSaveDisabled = true;
+		self.showMessage = false;
 		self.questionDisplay = [ 
 			{ label: '< 100% Response', name: 'lt100' ,selected: false },
 		    { label: 'Undesired Response', name: 'undesired' ,  selected: false },
@@ -38,7 +40,7 @@ angular.module('sureAuditAdminApp')
 		    { label: 'Numeric', name: 'numeric' ,selected: false }
 								];
 		// ADD new SURVEY
-		if ($stateParams.id === '') {
+		if (self.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);		
 			self.auditDefinition.Key = utilityService.guid;
 			var section = angular.copy(surveyModel.section);
@@ -47,8 +49,8 @@ angular.module('sureAuditAdminApp')
 			self.auditDefinition.Signatures.push(signature);
 			self.auditDefinitionClone = angular.copy(self.auditDefinition); // keep this line at end always
 		}
-		else if($stateParams.id !== '') {  // EDIT SURVEY
-			surveyService.getSurvey($stateParams.id).then(function (response) {
+		else if(self.id !== '') {  // EDIT SURVEY
+			surveyService.getSurvey(self.id).then(function (response) {
 				self.auditDefinition = response;
 				self.auditDefinition.TouchInfo.ModifiedDate = new Date();
 				self.populateSignatures();
@@ -136,6 +138,7 @@ angular.module('sureAuditAdminApp')
 	self.updateQuestionTotal = function () {
 		for(var i=0;i<self.auditDefinition.Sections.length;i++){
 			self.auditDefinition.Sections[i].QuestionSum = 0;
+			self.totalSectionWeight = self.totalSectionWeight + self.auditDefinition.Sections[i].Weight;
 			for(var j=0;j<self.auditDefinition.Sections[i].Questions.length;j++){
 				if(self.auditDefinition.Sections[i].Questions[j].Status.toUpperCase() === 'OK'){
 					if(self.auditDefinition.Sections[i].Questions[j].PointsAllowed !== '' || self.auditDefinition.Sections[i].Questions[j].PointsAllowed !== null){
@@ -243,7 +246,10 @@ angular.module('sureAuditAdminApp')
 					return self.auditDefinition.IsScored;
 				}
 			}
+		}).result.then(function(){
+			self.updateModel();
 		});
+		
 	};
 	
 	self.addSection = function (pIndex) {
@@ -311,7 +317,6 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveAuditDef = function () {
-		debugger;
 		self.isDataValid = true;
 		self.validationCheck();
 		self.checkTotalSectionWeight();
@@ -321,10 +326,10 @@ angular.module('sureAuditAdminApp')
 			//survey Settings 
 			self.processSurveySettings();
 		//	self.processQuestionDisplays(); 
-			if($stateParams.id === ''){ //ADD SURVEY
+			if(self.id === ''){ //ADD SURVEY
 				surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
 					self.auditDefinition.Id = response.Id;
-					console.log(response)
+					self.id = response.Id;
 				},function () {
 					// ERROR block
 				});
@@ -332,7 +337,11 @@ angular.module('sureAuditAdminApp')
 			else{ //EDIT SURVEY
 				surveyService.updateSurvey(self.auditDefinition).then(function (response) {			
 					self.auditDefinition.Id = response.Id;
-					console.log(response)
+					self.id = response.Id;
+					self.showMessage = true;
+					$timeout(function () {
+						self.showMessage = false;
+					},3000);
 				},function () {
 				// ERROR block
 				});

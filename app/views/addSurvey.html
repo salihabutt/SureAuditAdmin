@@ -1,4 +1,5 @@
 <div class="col-lg-12 ae-survey-wrapper" ng-controller="AddEditSurveyCtrl as aeSurvey">
+<div class="erorOrMessage" ng-show="aeSurvey.showMessage">{{errors.SurveyOK}}</div>
 	<div class="col-lg-12 survey-info-box" >	
 		<div class="custom-breadcrumbs">
 			<span>Surveys</span> 
@@ -52,7 +53,7 @@
 
 <div class="col-lg-12 text-right total-weight" ng-show="aeSurvey.tab == 'ES'">
 		<span ng-if="aeSurvey.auditDefinition.IsScored">Total Sections Weight </span>
-		<span id="total-section-weight" ng-if="aeSurvey.auditDefinition.IsScored">{{aeSurvey.totalSectionWeight}}</span>
+		<span id="total-section-weight" ng-if="aeSurvey.auditDefinition.IsScored">{{aeSurvey.totalSectionWeight}} %</span>
 		<input type="text" id="total-section-weight-input" class="hidden" ng-model="aeSurvey.totalSectionWeight">
 </div>
 <div ng-repeat="item in aeSurvey.auditDefinition.Sections track by $id(item)" ng-init="parentIndex=$index" ng-show="aeSurvey.tab == 'ES'" id="section-{{$index}}">
@@ -79,7 +80,7 @@
 				</span>
 
 				<span>
-					<input type="text" ng-model="item.weight" class="section-percent-weight" score-check="section-{{$index}}" ng-show="aeSurvey.auditDefinition.IsScored" ng-change="aeSurvey.updateModel()">
+					<input type="text" ng-model="item.Weight" class="section-percent-weight" score-check="section-{{$index}}" ng-show="aeSurvey.auditDefinition.IsScored" ng-change="aeSurvey.updateModel()"> <span ng-show="aeSurvey.auditDefinition.IsScored">%</span>
 				</span>
 			</div>
 		</div>
