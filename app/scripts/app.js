@@ -94,6 +94,24 @@ angular
 					templateUrl: 'views/addSurvey.html'
 				  }
 			  }
+		})
+		.state('surveyGroups', {
+		  url: 'surveyGroups',
+		  parent: 'main',
+		  views: {
+			  'content': {
+				templateUrl: 'views/surveyGroups.html'
+			  }
+		  }
+		})
+		.state('addSurveyGroup', {
+		  url: 'addSurveyGroup/:id',
+		  parent: 'main',
+		  views: {
+			  'content': {
+				templateUrl: 'views/addSurveyGroups.html'
+			  }
+		  }
 		});
 
    /* *************************** Other configurations ************************************* */
