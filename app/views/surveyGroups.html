@@ -1,0 +1,61 @@
+<div class="main-content col-lg-12" ng-controller="surveyGroupsCtrl as surveyGroup">
+	<div class="col-lg-12 col-md-12 no-padding">
+		<div class="col-lg-6 col-md-6 no-padding">
+			<h2>Survey Groups</h2>
+		</div>
+		<div class="col-lg-6 col-md-6 no-padding text-right">
+			<button class="main-btn-green" ng-click="surveyGroup.navigate()">Add New</button>
+		</div>
+	</div>
+ 
+	<div class="col-lg-12 col-md-12 no-padding margintop37">
+		<div class="col-lg-12 col-md-12 no-padding">
+			<div class="no-padding survey-group-box" ng-repeat="items in surveyGroup.data track by $index" ng-show="items.Status == 'OK'">
+				<div class="box-head clearfix">
+					<h4>{{items.Name}}</h4>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>{{items.Audits.length}} Surveys</p>
+					
+				</div>
+				<div class="box-footer clearfix">
+					<div class="edit-btn col-lg-8">
+						<input type="button" value="Edit Group" class="box-edit-action-btn marginleft25">
+					</div>
+					<div class="menu-section text-right" ng-click="surveyGroup.deleteSurvey($index)" menu-sibling>
+						<img src="/images/ic_delete@2x.png" alt="more">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="deleteSurveyWarning.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>This survey group is associated with one or more permissions and cannot be deleted.</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dwCtrl.ok()">OK</button>
+        	</div>
+        </div>
+</script>
+
+<script type="text/ng-template" id="surveyDeleteConfirm.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>This survey group contains one or more surveys. Are you sure you want to delete it??</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dcCtrl.ok()">OK</button>
+            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="dcCtrl.cancel()">Cancel</button>
+        	</div>
+        </div>
+</script>
+
+
+
+
+
+
