@@ -107,11 +107,11 @@
 						<p class="heading">Set Length</p>
 						<div class="col-lg-3 no-padding marginright10">
 							<label>Min</label>
-							<input type="text" class="txt-common" placeholder="Enter Min" ng-model="sqdModal.question.MinResponseLength">
+							<input type="number" class="txt-common" placeholder="Enter Min" ng-model="sqdModal.question.LowerValueLimitInclusive">
 						</div>
 						<div class="col-lg-3 no-padding">
 							<label>Max</label>
-							<input type="text" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.UpperValueLimitExclusive">
+							<input type="number" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.UpperValueLimitExclusive">
 						</div>
 					</div>
 
@@ -130,46 +130,47 @@
 					</div>
 
 					<div class="col-lg-12 no-padding margintop20">
-						<p class="heading">Score Response Weight</p>
-						
+						<p class="heading">Score Response Weight*</p>
+						<div class="col-lg-12 margintop20" ng-repeat="item in sqdModal.weights track by $index">
 						<div class="col-lg-6 no-padding marginbottom10">
 							<div class="col-lg-8 no-padding">
-								<select class="txt-common">
-									<option>Greater Than</option>
-									<option>Less Than</option>
+								<select selectpicker ng-model="item.leftSelected" ng-change="item.rightDisable=item.leftSelected!='Greater than or equal to'?true:false">
+								<option ng-repeat="option in item.left" value="{{option}}">{{option}}</option>
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-6 no-padding marginbottom10">
+						<div class="col-lg-5 no-padding marginbottom10">
 							<div class="col-lg-8 no-padding">
-								<select class="txt-common">
-									<option>Less Than</option>
-									<option>Greater Than</option>
+								<select selectpicker ng-model="item.rightSelected" ng-class="item.rightDisable?'disableClass':'enableClass'" ng-disabled="item.rightDisable">
+								<option ng-repeat="option in item.right" value="{{option}}">{{option}}</option>
 								</select>
 							</div>
 						</div>
-
+						<div class="col-lg-1">
+						<a ng-click="sqdModal.weights.splice($index,1)" ng-show="$index>0">Remove</a>
+						</div>
 
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
-								<input type="text" class="txt-common" placeholder="Enter Number">
+								<input type="number" class="txt-common" placeholder="Enter Number" ng-model="item.leftVal">
 							</div>
 						</div>
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
-								<input type="text" class="txt-common" placeholder="Enter Number">
+								<input type="number" class="txt-common" placeholder="Enter Number" ng-model="item.rightVal" ng-disabled="item.leftSelected!='Greater than or equal to' || item.rightSelected=='None'" ng-class="(item.leftSelected!='Greater than or equal to') || (item.rightSelected=='None')?'disableClass':'enableClass'">
 							</div>
-							<div class="col-lg-3 no-padding">
-								<input type="text" class="txt-common" placeholder="100">
+							<div class="col-lg-3">
+								<input type="text" class="txt-common" placeholder="100" ng-model="item.rightRatio" score-check required>
 							</div>
 
 							<div class="col-lg-1 no-padding">
 								<span class="common-text aligning">%</span>
 							</div>
 						</div>
-						<div class="col-lg-6 no-padding">
-							<div class="col-lg-8 no-padding">
-								<a href="javascript:void(0)">Add weight condition</a>
+						</div>
+						<div class="col-lg-6 margintop20">
+							<div class="col-lg-8">
+								<a ng-click="sqdModal.weights.length<6?sqdModal.addWeigthCondition():null">Add Condition</a>
 							</div>
 						</div>
 					</div>

@@ -9,24 +9,30 @@ angular.module('sureAuditAdminApp')
 	    require: 'ngModel',
 	    link: function(scope, elem, attrs, ctrl) {
 	    		 $(elem).bind('input', function(scope,attrs) { 
-	    			 var val = elem.val();
+	    			 var val = $(elem).val();
 	    			 if (!(/^(([0-9]{1,2})?(\.[0-9])?|100)$/.test(val)) && val!== ''){
 	    				 var temp = '';
 	    				 if(val.search('.') > 0){
 	    					 if(val.charAt(0) === '.'){
 	    						 temp = val.replace('.','');
 	    						 if(temp.length>1){
-		    						 $(elem).val(val.substring(0,val.length-1));
+	    							 val = val.substring(0,val.length-1)
+		    						 $(elem).val(val);
+	    							 angular.element($(elem)).triggerHandler('input');
 		    					 }
 	    					 }else if(val.charAt(1) === '.'){
 	    					 temp = val.replace('.','');
 	    					 if(temp.length>2){
-	    						 $(elem).val(val.substring(0,val.length-1));
+	    						 val = val.substring(0,val.length-1)
+	    						 $(elem).val(val);
+	    						 angular.element($(elem)).triggerHandler('input');
 	    					 }
 	    					 }
 	    				 }else{
 	    					 if(val.length>3 || val>100){
-	    						 $(elem).val(val.substring(0,val.length-1));
+	    						 val = val.substring(0,val.length-1)
+	    						 $(elem).val(val);
+	    						 angular.element($(elem)).triggerHandler('input');
 	    					 }
 	    				 }
 	    			 }

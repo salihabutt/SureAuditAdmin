@@ -249,3 +249,11 @@ a {
 	padding-top:10px;
  	@include font-family-medium;
 }
+
+.disableClass {
+  background-color: #E8E8E8;
+}
+
+.enableClass {
+  background-color: #FFFFFF;
+}

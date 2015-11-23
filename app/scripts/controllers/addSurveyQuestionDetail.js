@@ -5,8 +5,7 @@ angular.module('sureAuditAdminApp')
 	var self = this,
 	init = function () {
 		self.subject = 'Add Question to Survey';
-		self.undesiredRespList = ['Yes','No'];
-		self.defaultRespList = ['Yes','No'];
+		
 		self.defaultResp = '';
 		self.undesiredResp = '';
 		self.question = angular.copy(surveyModel.question);
@@ -18,29 +17,60 @@ angular.module('sureAuditAdminApp')
 		self.imageSwitch = false;
 		self.imageRequired = false;
 		self.undesiredImgReq  = false;
-		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
-		self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'NoResponse',value: 0}];	      
-		if(action === 'edit'){
-			self.editMode();
+		
+		switch(ques.TypeKey){
+		case 'yesno':
+			self.initYesNo();
+			break;
+		case 'yesnona':
+			self.initYesNoNA();
+			break;
+		case 'text':
+			self.initText();
+			break;
+		case 'numeric':
+			self.initNumeric();
+			break;
+			
 		}
-		else if(action === 'add'){
+	
+		if(action === 'add'){
 			self.question.MasterId = ques.Id;
 			self.question.Text = ques.Text;
 			self.question.TypeKey = ques.TypeKey;
 			self.question.Label = ques.Label;
 			self.question.Name = ques.Name;
 			self.question.Id = null;
+		} else 	if(action === 'edit'){
+			self.editMode();
 		}
-		
-		if(ques.TypeKey === 'yesnona'){
-			self.undesiredRespList = ['Yes','No','N/A'];
-			self.defaultRespList = ['Yes','No','N/A'];
-		}
-		
+
 		self.isValid = false;
 		
 	};
 	
+	/***********************INITIALIZE MODELS*******************************/
+	self.initYesNo = function () {
+		self.undesiredRespList = ['Yes','No'];
+		self.defaultRespList = ['Yes','No'];
+		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
+	};
+	self.initYesNoNA = function () {
+		self.undesiredRespList = ['Yes','No','N/A'];
+		self.defaultRespList = ['Yes','No','N/A'];
+		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
+	};
+	
+	self.initText = function () {
+		self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'NoResponse',value: 0}];	
+	};
+	
+	self.initNumeric = function () {
+		self.weights = []
+		self.addWeigthCondition();
+	};
+	
+/********************   EDit Model            ********************/	
 	self.editMode = function () {
 		self.subject = 'Edit Question';
 		self.question = ques;
@@ -71,6 +101,7 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 	
+
 	self.setResponseRatios = function(type){
 		switch(type){
 		case 'yesno':
@@ -88,6 +119,10 @@ angular.module('sureAuditAdminApp')
 				self.respRatioForText();
 			}
 			break;
+		case 'numeric':
+			if(action == 'edit'){
+				self.respRatioForNumeric();
+			}
 		}
 	
 	};
@@ -123,7 +158,27 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 	
+	self.respRatioForNumeric = function () {
+		if(ques.ResponseRatios.length>0){
+			self.weights = [];
+			for(var i=0;i<ques.ResponseRatios.length;i++){
+				var weight = {};
+				weight.left = ['Greater than or equal to','Equal to','Less than'];
+				weight.right = ['None','Less than'];
+				weight.leftSelected =  ques.ResponseRatios[i].ValueMatch;
+				weight.rightSelected =  'Less than';
+				weight.leftVal = ques.ResponseRatios[i].LowerInclusive;
+				if(ques.ResponseRatios.ValueMatch != 'Greater than or equal to'){
+					weight.rightVal = ques.ResponseRatios[i].UpperExclusive;
+					weight.rightRatio = ques.ResponseRatios[i].Ratio;
+					weight.rightDisable = true;
+				}
+				self.weights.push(weight);
+			}
+		}
+	}
 	
+	/**********************************************/
 	self.cancel = function () {
 		$uibModal.open({
 			animation: false,
@@ -156,6 +211,10 @@ angular.module('sureAuditAdminApp')
 			self.validateTextresponse();
 			self.saveResponseRatioForText();
 			break;
+		case 'numeric':
+			self.validateNumericresponse();
+			self.saveResponseRatioForNumeric();
+			break;
 		}
 		
 		if(self.isValid){
@@ -185,8 +244,40 @@ angular.module('sureAuditAdminApp')
 		}	
 	};
 	
+	self.saveResponseRatioForNumeric = function () {
+		for(var i=0;i<self.weights.length;i++){
+			var responseRatio = {};
+			responseRatio.LowerInclusive = self.weights[i].leftVal;
+			responseRatio.ValueMatch = self.weights[i].leftSelected;
+			responseRatio.Ratio = self.weights[i].rightRatio;
+			if(!self.weights[i].rightDisable){
+				responseRatio.UpperExclusive = self.weights[i].rightVal;	
+			}
+			
+			self.question.ResponseRatios.push(responseRatio);
+		}	
+	};
+	
 	self.validateTextresponse = function () {
 		if(self.question.MinResponseLength > self.question.MaxResponseLength){
+			self.isValid = false;
+			$uibModal.open({
+				animation: true,
+				templateUrl: 'views/validationPopup.html',
+				controller: 'validationsCtrl',
+				windowClass: 'changes-warning-modal',
+				controllerAs: 'vModal',
+				resolve: {
+					msg: function () {
+						return  'Please enter valid min and/or max';
+					}
+				}
+			});
+		}
+	};
+	
+	self.validateNumericresponse = function () {
+		if(self.question.LowerValueLimitInclusive > self.question.UpperValueLimitExclusive){
 			self.isValid = false;
 			$uibModal.open({
 				animation: true,
@@ -273,6 +364,22 @@ angular.module('sureAuditAdminApp')
 			self.undesiredImgReq = false;
 			self.imageCount = 1;
 		}
+	};
+	
+
+	
+	self.addWeigthCondition = function () {
+		var weight= {};
+		weight.left = ['Greater than or equal to','Equal to','Less than'];
+		weight.right = ['None','Less than'];
+		weight.leftSelected = 'Greater than or equal to';
+		weight.rightSelected = 'Less than';
+		weight.leftVal = null;
+		weight.rightVal = null;
+		weight.leftRatio = null;
+		weight.rightRatio = null;
+		weight.rightDisable = false;
+		self.weights.push(weight);
 	};
 	
 	init();
