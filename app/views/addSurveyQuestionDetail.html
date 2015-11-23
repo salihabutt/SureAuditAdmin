@@ -182,49 +182,26 @@
 
 				<div ng-if="sqdModal.question.TypeKey=='multiple'">
 					
-
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Default Response</p>
-						<div class="col-lg-6 no-padding">
+							<div class="col-lg-6 no-padding margintop10" ng-repeat="item in sqdModal.question.AllowableValues track by $index">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button ng-class="item.IsDefault?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.defMltplSelect($index);">{{item.Value}}</button>
 							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-						</div>
+						</div>					
 					</div>
 
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Undesired Response</p>
-						<div class="col-lg-6 no-padding">
+						<div class="col-lg-6 no-padding margintop10" ng-repeat="item in sqdModal.question.AllowableValues">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button ng-class="item.IsUndesireable?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.undesMltplSelect($index);">{{item.Value}}</button>
 							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-						</div>
+						</div>	
 					</div>
 
-					<div class="col-lg-12 no-padding margintop20">
-						<p class="heading">Set Response weight</p>
+					<div class="col-lg-12 no-padding margintop20" ng-if="sqdModal.isScored">
+						<p class="heading">Set Response weight*</p>
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
 								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
@@ -284,49 +261,27 @@
 
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Default Response</p>
-						<div class="col-lg-6 no-padding">
+							<div class="col-lg-6 no-padding margintop10" ng-repeat="item in sqdModal.question.AllowableValues track by $index">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button ng-class="item.IsDefault?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.defSingleSelect($index);">{{item.Value}}</button>
 							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-						</div>
+						</div>					
 					</div>
 
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Undesired Response</p>
-						<div class="col-lg-6 no-padding">
+						<div class="col-lg-6 no-padding margintop10" ng-repeat="item in sqdModal.question.AllowableValues">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button ng-class="item.IsUndesireable?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.undesSingleSelect($index);">{{item.Value}}</button>
 							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-						</div>
+						</div>	
 					</div>
 
-					<div class="col-lg-12 no-padding margintop20">
-						<p class="heading">Set Response weight</p>
+					<div class="col-lg-12 no-padding margintop20"  ng-if="sqdModal.isScored">
+						<p class="heading">Set Response weight*</p>
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button ng-class="item.IsUndesireable?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.undesSingleSelect($index);">{{item.Value}}</button>
 							</div>
 							<div class="col-lg-3 no-padding">
 								<input type="text" class="txt-common" placeholder="100">

@@ -31,6 +31,12 @@ angular.module('sureAuditAdminApp')
 		case 'numeric':
 			self.initNumeric();
 			break;
+		case 'single':
+			self.initSingle();
+			break;
+		case 'multiple':
+			self.initMultiple();
+			break;
 			
 		}
 	
@@ -68,6 +74,14 @@ angular.module('sureAuditAdminApp')
 	self.initNumeric = function () {
 		self.weights = []
 		self.addWeigthCondition();
+	};
+	
+	self.initSingle = function () {
+		self.question.AllowableValues = ques.AllowableValues;
+	};
+	
+	self.initMultiple = function () {
+		self.question.AllowableValues = ques.AllowableValues;
 	};
 	
 /********************   EDit Model            ********************/	
@@ -168,10 +182,13 @@ angular.module('sureAuditAdminApp')
 				weight.leftSelected =  ques.ResponseRatios[i].ValueMatch;
 				weight.rightSelected =  'Less than';
 				weight.leftVal = ques.ResponseRatios[i].LowerInclusive;
-				if(ques.ResponseRatios.ValueMatch != 'Greater than or equal to'){
+				weight.rightRatio = ques.ResponseRatios[i].Ratio;
+				if(ques.ResponseRatios[i].ValueMatch === 'Greater than or equal to'){
 					weight.rightVal = ques.ResponseRatios[i].UpperExclusive;
-					weight.rightRatio = ques.ResponseRatios[i].Ratio;
+					weight.rightDisable = false;
+				} else{
 					weight.rightDisable = true;
+					weight.rightVal = '';
 				}
 				self.weights.push(weight);
 			}
@@ -223,6 +240,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveResponseRatioForYesNoNa = function () {
+		self.question.ResponseRatios = [];
 		for (var i=0;i<self.responseRatioOptions.length;i++){
 			if(self.responseRatioOptions[i].active){
 				var responseRatio = {};
@@ -234,6 +252,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveResponseRatioForText = function () {
+		self.question.ResponseRatios = [];
 		for (var i=0;i<self.responseRatioTextOptions.length;i++){
 			if(self.responseRatioTextOptions[i].value !== '' || self.responseRatioTextOptions[i].value !== null){
 				var responseRatio = {};
@@ -245,6 +264,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveResponseRatioForNumeric = function () {
+		self.question.ResponseRatios = [];
 		for(var i=0;i<self.weights.length;i++){
 			var responseRatio = {};
 			responseRatio.LowerInclusive = self.weights[i].leftVal;
@@ -259,40 +279,57 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.validateTextresponse = function () {
+		if(isScored){
+			for (var i=0;i<self.responseRatioTextOptions.length;i++){
+				if(utilityService.isEmpty(self.responseRatioTextOptions[i].value.toString())){
+					self.isValid = false;
+					break
+				}
+			}
+			if(!self.isValid){
+				self.showWarning('Please enter response ratio.');
+			}
+			
+		}
 		if(self.question.MinResponseLength > self.question.MaxResponseLength){
 			self.isValid = false;
-			$uibModal.open({
-				animation: true,
-				templateUrl: 'views/validationPopup.html',
-				controller: 'validationsCtrl',
-				windowClass: 'changes-warning-modal',
-				controllerAs: 'vModal',
-				resolve: {
-					msg: function () {
-						return  'Please enter valid min and/or max';
-					}
-				}
-			});
+			self.showWarning('Please enter valid min and/or max');
 		}
 	};
 	
 	self.validateNumericresponse = function () {
+		if(isScored){
+			for(var i=0;i<self.weights.length;i++){
+				if(utilityService.isEmpty(self.weights[i].rightRatio.toString())){
+					self.isValid = false;
+					break
+				}
+			}
+			if(!self.isValid){
+				self.showWarning('Please enter response ratio.');
+			}
+			
+		}
 		if(self.question.LowerValueLimitInclusive > self.question.UpperValueLimitExclusive){
 			self.isValid = false;
-			$uibModal.open({
-				animation: true,
-				templateUrl: 'views/validationPopup.html',
-				controller: 'validationsCtrl',
-				windowClass: 'changes-warning-modal',
-				controllerAs: 'vModal',
-				resolve: {
-					msg: function () {
-						return  'Please enter valid min and/or max';
-					}
-				}
-			});
+			self.showWarning('Please enter valid min and/or max');
 		}
 	};
+	
+	self.showWarning = function (msg) {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'views/validationPopup.html',
+			controller: 'validationsCtrl',
+			windowClass: 'changes-warning-modal',
+			controllerAs: 'vModal',
+			resolve: {
+				msg: function () {
+					return  msg;
+				}
+			}
+		});
+	}
 	
 	self.processReqChecks = function () {
 		if(self.commentRequired && self.undesiredReq){
@@ -380,6 +417,40 @@ angular.module('sureAuditAdminApp')
 		weight.rightRatio = null;
 		weight.rightDisable = false;
 		self.weights.push(weight);
+	};
+	
+	self.defSingleSelect = function (index) {
+		for(var i=0;i<self.question.AllowableValues.length;i++){
+			if(i !== index){
+				self.question.AllowableValues[i].IsDefault = false;
+			}
+		}
+		self.question.AllowableValues[index].IsDefault = !self.question.AllowableValues[index].IsDefault;
+	};
+	
+	self.undesSingleSelect = function (index) {
+		for(var i=0;i<self.question.AllowableValues.length;i++){
+			if(i !== index){
+			self.question.AllowableValues[i].IsUndesireable = false;
+			}
+		}
+			self.question.AllowableValues[index].IsUndesireable = !self.question.AllowableValues[index].IsUndesireable;
+	};
+	
+	self.defMltplSelect = function (index) {
+		if(self.question.AllowableValues[index].IsDefault === null){
+			self.question.AllowableValues[index].IsDefault = true;	
+		} else {
+			self.question.AllowableValues[index].IsDefault = !self.question.AllowableValues[index].IsDefault;
+		}
+	};
+	
+	self.undesMltplSelect = function (index) {
+		if(self.question.AllowableValues[index].IsUndesireable === null){
+			self.question.AllowableValues[index].IsUndesireable = true;	
+		} else {
+			self.question.AllowableValues[index].IsUndesireable = !self.question.AllowableValues[index].IsDefault;
+		}
 	};
 	
 	init();
