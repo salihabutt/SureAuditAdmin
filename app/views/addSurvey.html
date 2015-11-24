@@ -12,7 +12,7 @@
 		</div>
 		
 		<div class="col-lg-12 no-padding survey-detail" ng-show="!aeSurvey.editSurvey">
-			<div class="col-lg-3 no-padding survey-detail-box">
+			<div class="col-lg-5 no-padding survey-detail-box">
 				<p class="heading">{{aeSurvey.auditDefinition.Name}} <span ng-if="aeSurvey.auditDefinition.Name==''" class="span-txt">Enter Survey Details</span><img src="/images/ic_edit@2x.png" ng-click="aeSurvey.editSurvey=true"></p>
 				<p>{{aeSurvey.auditDefinition.SubTitle}}</p>
 			</div>
@@ -61,8 +61,8 @@
 		<div class="col-lg-12 section-title">
 			<div class="col-lg-6 no-padding">
 					<div class="col-lg-1 no-padding text-center">
-						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up','section')" ng-hide="$index==0"></div>
-						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down','section')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
+						<div class="arrows"><img src="/images/ic_selector_up_white@2x.png" alt="arrow up" ng-click="aeSurvey.orderSection($index,'up')" ng-hide="$index==0"></div>
+						<div class="arrows"><img src="/images/ic_selector_down_white@2x.png" alt="arrow down" ng-click="aeSurvey.orderSection($index,'down')" ng-hide="$index==(aeSurvey.auditDefinition.Sections.length-1)"></div>
 					</div>
 				<span class="section-title-text">
 					{{item.Name}}
@@ -76,7 +76,7 @@
 			</div>
 			<div class="col-lg-6 text-right no-padding">
 				<span class="sort-image">
-					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny($index,null,null,'section')">
+					<img src="/images/ic_delete_white_@2x.png" alt="sort" ng-click="aeSurvey.deleteAny($index,null,'section')">
 				</span>
 
 				<span>
@@ -113,7 +113,7 @@
 							<ul>
 							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'above')">Add Question Above</li>
 							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'below')">Add Question Below</li>
-							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'branch')">Add Branching Question</li>	
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$index,$index,null,null,'add')">Add Branching Question</li>	
 							</ul>
 						</div>
 						</div>
@@ -124,7 +124,7 @@
 								<li ng-click="question.Status='OK';aeSurvey.updateModel();aeSurvey.exIncQuestion($parent.$index,$index,'show')" ng-show="question.Status.toUpperCase()=='INACTIVE'">Show</li>
 								<li ng-click="question.Status='INACTIVE';aeSurvey.exIncQuestion($parent.$index,$index,'hide');aeSurvey.updateModel()" ng-show="question.Status.toUpperCase()=='OK'" > Hide</li>
 								<li ng-click="aeSurvey.editQuestion(question)">Edit</li>
-								<li ng-click="aeSurvey.deleteAny($parent.$index,$index,null,'question')">Delete</li>
+								<li ng-click="aeSurvey.deleteAny($parent.$index,$index,'question')">Delete</li>
 							</ul>
 						</div>
 						</div>
@@ -136,23 +136,24 @@
 					</div>
 				</div>
 					<!-- ng-repeat branching row -->
-				<div class="col-lg-12 survey-row survey-row-branching" ng-repeat="branch in question.Branches[0].Questions track by $id(branch)" ng-class="branch.Status.toUpperCase()=='OK'?'survey-row-show':'survey-row-hide'">
+				<div class="col-lg-12 no-padding" ng-repeat="branch in question.Branches track by $id(branch)">
+				<div class="col-lg-12 survey-row survey-row-branching"  ng-class="childQues.Status.toUpperCase()=='OK'?'survey-row-show':'survey-row-hide'" ng-repeat="childQues in branch.Questions track by $id(childQues)">
 					<div class="col-lg-1 no-padding"></div>
 					<div class="col-lg-9 no-padding">
 						<div class="col-lg-1 no-padding text-left">
 							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')"></div>
 							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')"></div>
 						</div>
-						<span>{{branch.Label}}</span>
-						<span>{{branch.Text}} </span>
+						<span>{{childQues.Label}}</span>
+						<span>{{childQues.Text}} </span>
 					</div>
 					<div class="col-lg-1">
 						<div class="col-lg-6" ques-sibling>
 						<img src="/images/ic_add@2x.png" alt="add" >
 						<div class="quesGridOptions">
 							<ul>
-							<li>Add Question Above</li>
-							<li>Add Question Below</li>
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$index,$parent.$index,$parent.$index,'above')">Add Branching Question Above</li>
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$index,$parent.$index,$parent.$index,'below')">Add Branching Question Below</li>
 							</ul>
 						</div>
 						</div>
@@ -160,10 +161,10 @@
 						<img src="/images/ic_more_@2x.png" alt="more" class="marginleft10">
 						<div class="gridOptions">
 							<ul>
-								<li ng-click="branch.Status='OK';aeSurvey.updateModel()" ng-show="branch.Status.toUpperCase()=='INACTIVE'">Show</li>
-								<li ng-click="branch.Status='Inactive';aeSurvey.updateModel()" ng-show="branch.Status.toUpperCase()=='OK'" > Hide</li>
+								<li ng-click="childQues.Status='OK';aeSurvey.updateModel()" ng-show="childQues.Status.toUpperCase()=='INACTIVE'">Show</li>
+								<li ng-click="childQues.Status='INACTIVE';aeSurvey.updateModel()" ng-show="childQues.Status.toUpperCase()=='OK'" > Hide</li>
 								<li>Edit</li>
-								<li>Delete</li>
+								<li ng-click="aeSurvey.deleteBranchQues($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,$index)">Delete</li>
 							</ul>
 						</div>
 						</div>
@@ -174,6 +175,7 @@
 							</span>
 						</div>
 				</div>
+			</div>
 			</div>
 		</div>
 			<div class="col-lg-12 section-body-footer">
@@ -406,6 +408,44 @@
         	</div>
         </div>
     </script>
+    
+  <!-- Add Branching Question -->
+  <script type="text/ng-template" id="addBranchingQuestion.html">
+        <div class="col-lg-12">
+			<img src="/images/ic_close_@2x.png" class="close-btn" ng-click="bqModal.cancel()">
+		</div>
+        <div class="modal-header">
+            <h3 class="modal-title">{{bqModal.subject}}</h3>
+        </div>	
+		<div class="modal-body">
+			<div class="col-lg-7">
+				<p class="heading">Select one master question</p>
+			</div>
+			<div class="col-lg-4">
+				<input type="text" placeholder="search" class="txt-search" ng-model="query">
+			</div>
+			<div class="col-lg-12">
+				<div class="question-section"> 
+					<div class="col-lg-12">
+						<div class="radio" ng-repeat = "item in bqModal.questions.Data | filter: {Text: query}" >
+  						<label>
+    						<input type="radio"  value="{{item.Id}}" ng-model="bqModal.selected" ng-change="bqModal.setSelected(item)" ng-disabled="bqModal.disabled">
+    							{{item.Text}}
+							<p>Type: <span>{{item.TypeKey}}</span></p>
+  						</label>
+						</div>
+						</div>
+					</div>
+			</div>
+		</div>
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button ng-class="bqModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="bqModal.selected==null" ng-click="bqModal.next()">Next</button>
+        	</div>
+        </div>
+    </script>
+  
+  <!-- Branching Question -->
    	<script type="text/ng-template" id="delWarning.html">
         <div class="modal-body col-lg-12 margintop22 text-center">
         	<p>{{dwModal.text}}</p>

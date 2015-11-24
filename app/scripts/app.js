@@ -24,8 +24,7 @@ angular
     'ui.bootstrap',
     'angularMoment',
     'xeditable',
-    'uiSwitch',
-    'datePicker'
+    'uiSwitch'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider

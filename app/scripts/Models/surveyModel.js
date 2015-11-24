@@ -75,6 +75,7 @@ angular.module('sureAuditAdminApp')
 				IsVisible: true,				
 				IsScored: false,
 				Branches: [],
+				Status: 'OK',
 				CommentHint: null,
 				CommentRequired: null,
 				ImagesRequired: null,
@@ -92,7 +93,18 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		var branch = {
-				Questions: []
+				Key: null,
+				Questions: [],
+				Type: null,
+				LowerValueLimitInclusive: null,
+				UpperValueLimitExclusive: null,
+				AllowableValues: [],
+				IsCommentRequired: null,
+				CommentHint: null,
+				IsImagesRequired: null,
+				MaxImagesAllowed: null,
+				ImagesHint: null,
+				IsActionItemRequired: null
 		};
 		
 		surveyModelFactory.surevyModel = surveyModel;

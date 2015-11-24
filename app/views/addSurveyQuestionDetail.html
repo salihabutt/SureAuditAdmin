@@ -48,11 +48,11 @@
 						<p class="heading">Set Length</p>
 						<div class="col-lg-3 no-padding marginright10">
 							<label>Min</label>
-							<input type="number" class="txt-common" ng-model="sqdModal.question.MinResponseLength" placeholder="Enter Min">
+							<input type="text" class="txt-common" ng-model="sqdModal.question.MinResponseLength" placeholder="Enter Min" numeric>
 						</div>
 						<div class="col-lg-3 no-padding">
 							<label>Max</label>
-							<input type="number" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.MaxResponseLength" >
+							<input type="text" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.MaxResponseLength" numeric>
 						</div>
 					</div>
 
@@ -107,25 +107,25 @@
 						<p class="heading">Set Length</p>
 						<div class="col-lg-3 no-padding marginright10">
 							<label>Min</label>
-							<input type="number" class="txt-common" placeholder="Enter Min" ng-model="sqdModal.question.LowerValueLimitInclusive">
+							<input type="text" class="txt-common" placeholder="Enter Min" ng-model="sqdModal.question.LowerValueLimitInclusive" numeric>
 						</div>
 						<div class="col-lg-3 no-padding">
 							<label>Max</label>
-							<input type="number" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.UpperValueLimitExclusive">
+							<input type="text" class="txt-common" placeholder="Enter Max" ng-model="sqdModal.question.UpperValueLimitExclusive" numeric>
 						</div>
 					</div>
 
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Default Response</p>
 						<div class="col-lg-6 no-padding">
-							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.DefaultValue">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.DefaultValue" numeric>
 						</div>
 					</div>
 
 					<div class="col-lg-12 no-padding margintop20">
 						<p class="heading">Set Undesired Response</p>
 						<div class="col-lg-6 no-padding">
-							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.UndesireableValue">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.UndesireableValue" numeric>
 						</div>
 					</div>
 
@@ -152,15 +152,15 @@
 
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
-								<input type="number" class="txt-common" placeholder="Enter Number" ng-model="item.leftVal">
+								<input type="text" class="txt-common" placeholder="Enter Number" ng-model="item.leftVal" numeric>
 							</div>
 						</div>
 						<div class="col-lg-6 no-padding">
 							<div class="col-lg-8 no-padding">
-								<input type="number" class="txt-common" placeholder="Enter Number" ng-model="item.rightVal" ng-disabled="item.leftSelected!='Greater than or equal to' || item.rightSelected=='None'" ng-class="(item.leftSelected!='Greater than or equal to') || (item.rightSelected=='None')?'disableClass':'enableClass'">
+								<input type="text" class="txt-common" placeholder="Enter Number" ng-model="item.rightVal" ng-disabled="item.leftSelected!='Greater than or equal to' || item.rightSelected=='None'" ng-class="(item.leftSelected!='Greater than or equal to') || (item.rightSelected=='None')?'disableClass':'enableClass'" numeric>
 							</div>
 							<div class="col-lg-3">
-								<input type="text" class="txt-common" placeholder="100" ng-model="item.rightRatio" score-check required>
+								<input type="text" class="txt-common" placeholder="100" ng-model="item.rightRatio" score-check numeric>
 							</div>
 
 							<div class="col-lg-1 no-padding">
@@ -200,54 +200,21 @@
 						</div>	
 					</div>
 
-					<div class="col-lg-12 no-padding margintop20" ng-if="sqdModal.isScored">
+				<div class="col-lg-12 no-padding margintop20"  ng-if="sqdModal.isScored">
 						<p class="heading">Set Response weight*</p>
-						<div class="col-lg-6 no-padding">
+						<div class="col-lg-6 no-padding margintop10"  ng-repeat="item in sqdModal.responseRatioMultSing">
 							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 1</button>
+								<button class="custom-btn-select-option">{{item.name}}</button>
 							</div>
 							<div class="col-lg-3 no-padding">
-								<input type="text" class="txt-common" placeholder="100">
+								<input type="text" class="txt-common" placeholder="100" ng-model="item.val" score-check numeric>
 							</div>
 
 							<div class="col-lg-1 no-padding">
-								<span class="common-text aligning">%</span>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-							<div class="col-lg-3 no-padding margintop10">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding margintop10">
-								<span class="common-text aligning">%</span>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-3 no-padding">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding">
-								<span class="common-text aligning">%</span>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-							<div class="col-lg-3 no-padding margintop10">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding margintop10">
 								<span class="common-text aligning">%</span>
 							</div>
 						</div>
 					</div>
-
 				</div>
 
 
@@ -279,47 +246,15 @@
 
 					<div class="col-lg-12 no-padding margintop20"  ng-if="sqdModal.isScored">
 						<p class="heading">Set Response weight*</p>
-						<div class="col-lg-6 no-padding">
+						<div class="col-lg-6 no-padding margintop10"  ng-repeat="item in sqdModal.responseRatioMultSing">
 							<div class="col-lg-8 no-padding">
-								<button ng-class="item.IsUndesireable?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="sqdModal.undesSingleSelect($index);">{{item.Value}}</button>
+								<button class="custom-btn-select-option">{{item.name}}</button>
 							</div>
 							<div class="col-lg-3 no-padding">
-								<input type="text" class="txt-common" placeholder="100">
+								<input type="text" class="txt-common" placeholder="100" ng-model="item.val" score-check numeric>
 							</div>
 
 							<div class="col-lg-1 no-padding">
-								<span class="common-text aligning">%</span>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 3</button>
-							</div>
-							<div class="col-lg-3 no-padding margintop10">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding margintop10">
-								<span class="common-text aligning">%</span>
-							</div>
-						</div>
-						<div class="col-lg-6 no-padding ">
-							<div class="col-lg-8 no-padding">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 2</button>
-							</div>
-							<div class="col-lg-3 no-padding">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding">
-								<span class="common-text aligning">%</span>
-							</div>
-							<div class="col-lg-8 no-padding margintop10">
-								<button class="custom-btn-select-option" toggle-class="custom-btn-select-option-checked">Option 4</button>
-							</div>
-							<div class="col-lg-3 no-padding margintop10">
-								<input type="text" class="txt-common" placeholder="100">
-							</div>
-
-							<div class="col-lg-1 no-padding margintop10">
 								<span class="common-text aligning">%</span>
 							</div>
 						</div>
@@ -329,6 +264,40 @@
 
 
 				<!-- single -->
+				
+				<!-- Rating -->
+					<div ng-if="sqdModal.question.TypeKey=='rating'">
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Default Response (Up to 5)</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.DefaultValue" numeric>
+						</div>
+					</div>
+					<div class="col-lg-12 no-padding margintop20">
+						<p class="heading">Set Undesired Response (Up to 5)</p>
+						<div class="col-lg-6 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="sqdModal.question.UndesireableValue" numeric>
+						</div>
+					</div>
+					<div class="col-lg-12 no-padding margintop20" ng-if="sqdModal.isScored">
+						<p class="heading">Score Resopnse Weight*</p>
+						<div class="wrapper-rating col-lg-2" ng-repeat="item in [0,1,2,3,4,5]">
+            				<div class="rating">
+								<img src="/images/ic_star@2x.png"><span>{{item}}</span>
+							</div>
+						</div>
+						
+						<div class="col-lg-12 no-padding margintop20" >
+						<div class="col-lg-2 no-padding" ng-repeat="item in sqdModal.responseRatioRating">
+								<input type="text" class="txt-rating" placeholder="100" ng-model="item.val" score-check numeric>%
+					
+						</div>
+					</div>
+					</div>
+					
+				</div>
+				
+				<!-- Rating -->
 
 				<div class="col-lg-12 comment-box no-padding">
 				<p class="heading">Comments and Photos</p>

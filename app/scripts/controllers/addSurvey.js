@@ -196,7 +196,6 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function(question){
-			question.Status = "OK";
 			if(cIndex !== null && action !== null){
 				switch(action) {
 				case 'above':
@@ -204,7 +203,7 @@ angular.module('sureAuditAdminApp')
 					self.auditDefinition.QuestionCount++;
 					break;
 				case 'below':
-					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex-1,0,question);
+					self.auditDefinition.Sections[pIndex].Questions.splice(cIndex+1,0,question);
 					self.auditDefinition.QuestionCount++;
 					break;
 				case 'branch':
@@ -251,7 +250,7 @@ angular.module('sureAuditAdminApp')
 		});
 		
 	};
-	
+
 	self.addSection = function (pIndex) {
 		var section = angular.copy(surveyModel.section);
 		if(pIndex === null){
@@ -270,18 +269,14 @@ angular.module('sureAuditAdminApp')
 
 
 	
-	self.orderSection = function (index, action, type) {
-		switch(type){
-		case 'section':
+	self.orderSection = function (index, action) {
 			if(self.auditDefinition.Sections.length > 1 && action === 'down'){
 				self.sortDown(self.auditDefinition.Sections,index);
 			}
 			else if(self.auditDefinition.Sections.length > 1 && action === 'up'){
 				self.sortUp(self.auditDefinition.Sections,index);
 			}
-			break;
-			
-		}
+		
 	};
 	
 	self.orderQuestion = function (pIndex,index, action) {
@@ -413,7 +408,7 @@ angular.module('sureAuditAdminApp')
 		};
 	};
 	
-	self.deleteAny = function (pIndex,cIndex,index,type) {
+	self.deleteAny = function (pIndex,cIndex,type) {
 		$uibModal.open({
 			animation: true,
 			templateUrl: 'delWarning.html',
@@ -450,6 +445,24 @@ angular.module('sureAuditAdminApp')
 		});
 	};
 	
+	self.deleteBranchQues = function (sIndex,qIndex,bIndex,index){
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'delWarning.html',
+			controller: 'delWarningCtrl',
+			windowClass: 'changes-warning-modal',
+			controllerAs: 'dwModal',
+			resolve: {
+				msg: function () {
+					return 'Are you sure you want to delete the branching question.';
+				}
+			}
+		}).result.then(function(){
+			self.auditDefinition.Sections[sIndex].Questions[qIndex].Branches[bIndex].Questions.splice(index,1);
+			self.updateModel();
+		});
+		
+	};
 	self.exIncQuestion = function (pIndex,cIndex,type) {
 		if(type === 'hide') {
 		self.auditDefinition.Sections[pIndex].Questions[cIndex].Status = 'INACTIVE';
@@ -569,6 +582,41 @@ angular.module('sureAuditAdminApp')
 		console.log(self.auditDefinition.SummaryDisplayFlags);
 		self.updateModel();
 	};
+	self.addBranchingQuestion = function (pIndex,cIndex,bIndex,action) {
+			var branch = angular.copy(surveyModel.branch);
+			branch.Key = utilityService.guid();
+			branch.Type = self.auditDefinition.Sections[pIndex].Questions[cIndex].TypeKey;
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'addBranchingQuestion.html',
+			controller: 'AddBranchingQuestionCtrl',
+			windowClass: 'survey-questions-modal',
+			controllerAs: 'bqModal',
+			resolve: {
+				mq: function () {
+					return self.questionList;
+				},
+				action: function () {
+					return 'add';
+				},
+				branch: function () {
+					return branch;
+				},
+				isScored: function () {
+					return self.auditDefinition.IsScored;
+				}
+			}
+		}).result.then(function (branch) {
+			if(bIndex === null){
+			self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
+			}else if(index == 'above'){
+				self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex,0,branch);
+				
+			}else if(index == 'below'){
+				self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex+1,0,branch);
+			}
+		})
+	};
 	
 	init();
 })
@@ -637,6 +685,62 @@ angular.module('sureAuditAdminApp')
 		$uibModalInstance.dismiss('cancel');
 	};
 	
+	
+}).controller('AddBranchingQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, branch, isScored){
+	var self = this,
+	init = function () {
+		self.questions = mq;
+		self.selected = null;
+		self.selctedQuestion = {};
+		self.disabled = false;
+		self.subject = 'Add Question';
+		self.branch = branch;
+		if(action === 'edit'){
+			self.selctedQuestion = question;
+			self.selected = question.MasterId;
+			self.disabled = true;
+			self.subject = 'Edit Question';
+		}
+	};
+	
+	self.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
+	
+	self.setSelected = function (item) {
+		self.selctedQuestion = item;		
+	};
+	
+	self.next = function () {
+		$uibModal.open({
+			animation: true,
+			templateUrl: 'views/addBranchingQuestionDetail.html',
+			controller: 'AddBranchingQuestionDetailCtrl',
+			windowClass: 'survey-branquestiondetail-modal',
+			controllerAs: 'bqdModal',
+			resolve:{
+				branch: function () {
+					return self.branch;
+				},
+				action: function () {
+					return action;
+				},
+				question: function () {
+					return self.selctedQuestion;
+				},
+				isScored: function () {
+					return isScored;
+				}
+			}
+		}).result.then(function (branch){
+			if(branch !== null){
+				$uibModalInstance.close(branch);
+			}
+		}, function (){
+			
+		});
+	};
+	init();
 	
 });
 	

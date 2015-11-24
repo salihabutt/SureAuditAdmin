@@ -1,4 +1,4 @@
-.survey-questiondetail-modal .modal-dialog {
+.survey-branquestiondetail-modal .modal-dialog {
 	width: 808px;
 	height: 688px;
 	color: #4C4C4C;
@@ -8,18 +8,18 @@
 		float: right;
 	}
   	.modal-header{
-    	font: $font-heading; 
+    	font: $font-heading;
   	}
 	.modal-body{
 		height: 500px;
 		overflow-y: auto;
 		.heading {
-			font: $font-large;		
+			font: $font-large;
 		}
-		
+
 		.rating{
     		position:relative;
-		}               
+		}
         .wrapper-rating div.rating span {
               position: absolute;
               display: inline-block;
@@ -28,7 +28,7 @@
     		  font-size: 12px;
     		  color: #FFFFFF;
         }
-         
+
 
 		.txt-common{
 			width: 100%;
@@ -37,7 +37,7 @@
 		    height: 40px;
 		    padding: 0 0 0 9px;
 		}
-		
+
 		.txt-rating{
 			width: 60%;
 		    border-radius: 5px;
@@ -81,23 +81,44 @@
 			background-color: #1B8ECA !important;
     		border: 0 !important;
     		color: #ffffff !important;
-    		
+
 		}
+			.btn-disable {
+						font: $font-medium;
+						padding: 9px 10px;
+						margin-right: 25px;
+						color: #BABABA;
+						background-color:$white-color;
+						border: 1px solid #BABABA;
+						border-radius:  $border-radius-5;
+						width:50px;
+					}
+
+					.btn-active {
+						font: $font-medium;
+						padding: 9px 10px;
+						margin-right: 25px;
+						color: $white-color;
+						background-color:#1B8ECA;
+						border: 1px solid #BABABA;
+						border-radius:  $border-radius-5;
+						width:50px;
+					}
 
 		.section {
 			font:$font-medium;
 			padding-left: 10px !important;
 			color:#777777;
-			
+
 			.heading{
 				padding: 15px 0px 15px 0px;
 			}
 			.subsection {
 				color: #4C4C4C;
-				
+
 				.type {
 					font: $font-small;
-				}	
+				}
 				label{
 					margin-top: 12px;
 				}
@@ -106,7 +127,7 @@
 					color:#777777;
 					font-weight: normal !important;
 				}
-				
+
 				textarea {
 					font: $font-medium;
 					color: #4C4C4C;
@@ -117,35 +138,15 @@
 					border-radius: 5px;
 					border-color: #ccc;
 				}
-				
+
 				.section-detail {
 					padding-top: 15px;
-					
-					.btn-disable {
-						font: $font-medium;
-						padding: 9px 10px;
-						margin-right: 25px;
-						color: #BABABA;
-						background-color:$white-color;
-						border: 1px solid #BABABA;
-						border-radius:  $border-radius-5;
-						width: 50px;
-					}
-					
-					.btn-active {
-						font: $font-medium;
-						padding: 9px 10px;
-						margin-right: 25px;
-						color: $white-color;
-						background-color:#1B8ECA;
-						border: 1px solid #BABABA;
-						border-radius:  $border-radius-5;
-						width: 50px;
-					}
-					
+
+
+
 					.score-section {
 						margin-right: 96px;
-						
+
 						input[type="text"] {
 							width: 50px;
     						height: 40px;
@@ -154,42 +155,12 @@
     						font: $font-medium;
 						}
 					}
-					
-					.comment-box {
-						margin-top: 30px;
-						border-top: 1px solid #cccccc;
-						
-						input[type="text"] {
-							width: 258px;
-    						height: 40px;
-    						border-radius: 5px;
-    						box-shadow: none;
-    						font: $font-medium;
-    						color: #000000;
-    						border: 1px solid #cccccc;
-  							padding: 0 0 0 5px;
-						}
-						
 
-						label{
-						 font-size: 14px; 
-						 color: #777777;
-						}
 
-						.btn-arrow{
-							background-color: #fff;
-						    border: 1px solid #cccccc;
-						    border-radius: 5px;
-						    color: #1b8eca;
-						    margin-top: 8px;
-    						margin-bottom: 7px;
-						}
-						
-					}
-	
-				}					
+
+				}
 			}
 		}
-		
+
 	}
 }

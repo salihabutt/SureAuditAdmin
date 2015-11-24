@@ -4,7 +4,7 @@ angular.module('sureAuditAdminApp')
 .controller('AddSurveyQuestionDetailCtrl', function ($uibModal, $uibModalInstance, ques, surveyModel, action, isScored, utilityService) {
 	var self = this,
 	init = function () {
-		self.subject = 'Add Question to Survey';
+		self.subject = 'Add Branching Question';
 		
 		self.defaultResp = '';
 		self.undesiredResp = '';
@@ -37,6 +37,9 @@ angular.module('sureAuditAdminApp')
 		case 'multiple':
 			self.initMultiple();
 			break;
+		case 'rating':
+			self.initRating();
+			break;
 			
 		}
 	
@@ -59,16 +62,16 @@ angular.module('sureAuditAdminApp')
 	self.initYesNo = function () {
 		self.undesiredRespList = ['Yes','No'];
 		self.defaultRespList = ['Yes','No'];
-		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
+		self.responseRatioOptions = [{label: 'Yes',active: false,value: null}, {label: 'No',active: false,value: null}];
 	};
 	self.initYesNoNA = function () {
 		self.undesiredRespList = ['Yes','No','N/A'];
 		self.defaultRespList = ['Yes','No','N/A'];
-		self.responseRatioOptions = [{label: 'Yes',active: false,value: 0}, {label: 'No',active: false,value: 0}];
+		self.responseRatioOptions = [{label: 'Yes',active: false,value: null}, {label: 'No',active: false,value: null}];
 	};
 	
 	self.initText = function () {
-		self.responseRatioTextOptions = [{label: 'Response',value: 0}, {label: 'NoResponse',value: 0}];	
+		self.responseRatioTextOptions = [{label: 'Response',value: null}, {label: 'NoResponse',value: null}];	
 	};
 	
 	self.initNumeric = function () {
@@ -78,10 +81,40 @@ angular.module('sureAuditAdminApp')
 	
 	self.initSingle = function () {
 		self.question.AllowableValues = ques.AllowableValues;
+		if(isScored){
+			self.responseRatioMultSing = [];
+			for(var i=0;i<ques.AllowableValues.length;i++){
+				var weight = {};
+				weight.name = ques.AllowableValues[i].Value;
+				weight.val = null;
+				self.responseRatioMultSing.push(weight);
+			}
+		}
 	};
 	
 	self.initMultiple = function () {
 		self.question.AllowableValues = ques.AllowableValues;
+		if(isScored){
+			self.responseRatioMultSing = [];
+			for(var i=0;i<ques.AllowableValues.length;i++){
+				var weight = {};
+				weight.name = ques.AllowableValues[i].Value;
+				weight.val = null;
+				self.responseRatioMultSing.push(weight);
+			}
+		}
+	};
+	
+	self.initRating = function () {
+		if(isScored){
+			self.responseRatioRating = [];
+			for(var i=0;i<6;i++){
+				var resp = {};
+				resp.val = null;
+				resp.id = i;
+				self.responseRatioRating.push(resp);
+			}
+		}
 	};
 	
 /********************   EDit Model            ********************/	
@@ -89,7 +122,7 @@ angular.module('sureAuditAdminApp')
 		self.subject = 'Edit Question';
 		self.question = ques;
 		self.imageCount =  ques.MaxImagesAllowed;
-		self.setResponseRatios(ques.TypeKey);
+		self.setResponseRatiosForEdit(ques.TypeKey);
 		switch(ques.CommentRequired){
 		case 1:
 			self.commentRequired = true;
@@ -116,36 +149,38 @@ angular.module('sureAuditAdminApp')
 	};
 	
 
-	self.setResponseRatios = function(type){
+	self.setResponseRatiosForEdit = function(type){
 		switch(type){
 		case 'yesno':
-			if(action === 'edit'){
 				self.respRatioForYesNoNa();
-			}
 			break;
 		case 'yesnona':
-			if(action === 'edit'){
 				self.respRatioForYesNoNa();
-			}
 			break;
 		case 'text':
-			if(action === 'edit'){
 				self.respRatioForText();
-			}
 			break;
 		case 'numeric':
-			if(action == 'edit'){
 				self.respRatioForNumeric();
-			}
+			break;
+		case 'single':
+				self.respRatioForMultipleSingle();
+			break;
+		case 'multiple':
+				self.respRatioForMultipleSingle();
+			break;
+		case 'rating':
+			self.respRatioForRating();
+			break;
 		}
 	
 	};
 
 	
 	self.respRatioForYesNoNa = function () {
+		if(ques.ResponseRatios.length>0){
 		for(var i =0;i<ques.ResponseRatios.length;i++){
 			var obj = {};
-			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
 				if(self.responseRatioOptions[0].label === ques.ResponseRatios[i].ValueMatch){
 					self.responseRatioOptions[0].active = true;
 					self.responseRatioOptions[0].value = ques.ResponseRatios[i].Ratio;
@@ -154,21 +189,22 @@ angular.module('sureAuditAdminApp')
 					self.responseRatioOptions[1].active = true;
 					self.responseRatioOptions[1].value = ques.ResponseRatios[i].Ratio;
 				}
-			}
+			
+		}
 		}
 	};
 	
 	self.respRatioForText = function () {
+		if(ques.ResponseRatios.length>0){
 		for(var i =0;i<ques.ResponseRatios.length;i++){
 			var obj = {};
-			if(!utilityService.isEmpty(ques.ResponseRatios[i].ValueMatch)){
 				if(ques.ResponseRatios[i].ValueMatch === '*'){
 					self.responseRatioTextOptions[0].value = ques.ResponseRatios[i].Ratio;
 				}
 				else if (ques.ResponseRatios[i].ValueMatch === '' || ques.ResponseRatios[i].ValueMatch === null){
 					self.responseRatioTextOptions[1].value = ques.ResponseRatios[i].Ratio;
 				}
-			}
+		}
 		}
 	};
 	
@@ -193,7 +229,31 @@ angular.module('sureAuditAdminApp')
 				self.weights.push(weight);
 			}
 		}
-	}
+	};
+	
+	self.respRatioForMultipleSingle = function () {
+		if(ques.ResponseRatios.length>0){
+			self.responseRatioMultSing = [];
+			for(var i=0;i<ques.ResponseRatios.length;i++){
+				var weight = {};
+				weight.name = ques.ResponseRatios[i].ValueMatch;
+				weight.val = ques.ResponseRatios[i].Ratio;
+				self.responseRatioMultSing.push(weight);
+			}
+		}
+	};
+	
+	self.respRatioForRating = function () {
+		if(ques.ResponseRatios.length>0){
+			self.responseRatioRating = [];
+			for(var i=0;i<ques.ResponseRatios.length;i++){
+				var resp = {};
+				resp.id = ques.ResponseRatios[i].ValueMatch;
+				resp.val = ques.ResponseRatios[i].Ratio;
+				self.responseRatioRating.push(resp);
+			}
+		}
+	};
 	
 	/**********************************************/
 	self.cancel = function () {
@@ -231,6 +291,16 @@ angular.module('sureAuditAdminApp')
 		case 'numeric':
 			self.validateNumericresponse();
 			self.saveResponseRatioForNumeric();
+			break;
+		case 'single':
+			self.saveResponseRatioForMultipleSingle();
+			break;
+		case 'multiple':
+			self.saveResponseRatioForMultipleSingle();
+			break;
+		case 'rating':
+			self.validateRating();
+			self.saveResponseRatioForRating();
 			break;
 		}
 		
@@ -278,10 +348,32 @@ angular.module('sureAuditAdminApp')
 		}	
 	};
 	
+	self.saveResponseRatioForMultipleSingle = function () {
+		self.question.ResponseRatios = [];
+		for(var i=0;i<self.responseRatioMultSing.length;i++){
+			if(!utilityService.isEmpty(self.responseRatioMultSing[i].val)){
+				var responseRatio = {};
+				responseRatio.ValueMatch = self.responseRatioMultSing[i].name;
+				responseRatio.Ratio = self.responseRatioMultSing[i].val;
+				self.question.ResponseRatios.push(responseRatio);
+			}
+		}		
+	};
+	
+	self.saveResponseRatioForRating = function (){
+		self.question.ResponseRatios = [];
+		for(var i=0;i<self.responseRatioRating.length;i++){
+				var responseRatio = {};
+				responseRatio.ValueMatch = self.responseRatioRating[i].id;
+				responseRatio.Ratio = self.responseRatioRating[i].val;
+				self.question.ResponseRatios.push(responseRatio);
+		}
+	};
+	
 	self.validateTextresponse = function () {
 		if(isScored){
 			for (var i=0;i<self.responseRatioTextOptions.length;i++){
-				if(utilityService.isEmpty(self.responseRatioTextOptions[i].value.toString())){
+				if(utilityService.isEmpty(self.responseRatioTextOptions[i].value)){
 					self.isValid = false;
 					break
 				}
@@ -300,7 +392,7 @@ angular.module('sureAuditAdminApp')
 	self.validateNumericresponse = function () {
 		if(isScored){
 			for(var i=0;i<self.weights.length;i++){
-				if(utilityService.isEmpty(self.weights[i].rightRatio.toString())){
+				if(utilityService.isEmpty(self.weights[i].rightRatio)){
 					self.isValid = false;
 					break
 				}
@@ -313,6 +405,26 @@ angular.module('sureAuditAdminApp')
 		if(self.question.LowerValueLimitInclusive > self.question.UpperValueLimitExclusive){
 			self.isValid = false;
 			self.showWarning('Please enter valid min and/or max');
+		}
+	};
+	
+	self.validateRating = function () {
+		var message = '';
+		if(!utilityService.isEmpty(self.question.DefaultValue)){
+			if(self.question.DefaultValue != 0 || self.question.DefaultValue!=1 || self.question.DefaultValue!=2 ||
+				self.question.DefaultValue!=3 || self.question.DefaultValue!=4 || self.question.DefaultValue!=5){
+				self.isValid = false;
+				message = 'Please enter a valid value in the Set Default Response';
+			}
+			else if(self.question.DefaultValue != 0 || self.question.DefaultValue!=1 || self.question.DefaultValue!=2 ||
+				self.question.DefaultValue!=3 || self.question.DefaultValue!=4 || self.question.DefaultValue!=5){
+				self.isValid = false;
+				message = 'Please enter a valid value in the Set Undesired Response';
+			}
+		}
+		
+		if(!self.isValid){
+			self.showWarning(message);
 		}
 	};
 	
