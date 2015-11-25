@@ -290,12 +290,12 @@ angular.module('sureAuditAdminApp')
 			
 	};
 	
-	self.orderBranchQues = function (pIndex,cIndex,index,action){
-		if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.length > 1 && action === 'down'){
-			self.sortDown(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions,index);
+	self.orderBranchQues = function (pIndex,cIndex,bIndex,action){
+		if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.length > 1 && action === 'down'){
+			self.sortDown(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches,bIndex);
 		}
-		else if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions.length > 1 && action === 'up'){
-			self.sortUp(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches[0].Questions,index);
+		else if(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.length > 1 && action === 'up'){
+			self.sortUp(self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches,bIndex);
 		}
 	};
 	
@@ -582,10 +582,91 @@ angular.module('sureAuditAdminApp')
 		console.log(self.auditDefinition.SummaryDisplayFlags);
 		self.updateModel();
 	};
-	self.addBranchingQuestion = function (pIndex,cIndex,bIndex,action) {
+	self.addBranchingQuestion = function (pIndex,cIndex,bIndex,index,action) {
 			var branch = angular.copy(surveyModel.branch);
 			branch.Key = utilityService.guid();
 			branch.Type = self.auditDefinition.Sections[pIndex].Questions[cIndex].TypeKey;
+			switch(branch.Type){
+			case 'yesno':
+				self.populateYesNo(branch);
+				break;
+			case 'yesnona':
+				self.populateYesNoNa(branch);
+				break;
+			case 'multiple':
+				self.populateBranchMultiSingle(branch,self.auditDefinition.Sections[pIndex].Questions[cIndex]);
+				break;
+			case 'single':
+				self.populateBranchMultiSingle(branch,self.auditDefinition.Sections[pIndex].Questions[cIndex]);
+				break;
+			}
+			console.log(branch)
+			$uibModal.open({
+				animation: true,
+				templateUrl: 'addBranchingQuestion.html',
+				controller: 'AddBranchingQuestionCtrl',
+				windowClass: 'survey-questions-modal',
+				controllerAs: 'bqModal',
+				resolve: {
+					mq: function () {
+						return self.questionList;
+					},
+					action: function () {
+						return 'add';
+					},
+					branch: function () {
+						return branch;
+					},
+					isScored: function () {
+						return self.auditDefinition.IsScored;
+					},
+					quesIndex: function () {
+						return index;
+					}
+				}
+			}).result.then(function (branch) {
+				if(bIndex === null){
+					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
+				}else if(action == 'above'){
+					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex,0,branch);
+				
+				}else if(action == 'below'){
+					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex+1,0,branch);
+				}
+			});
+	};
+	
+	self.populateBranchMultiSingle = function (branch, question){
+		for(var i=0;i<question.AllowableValues.length;i++){
+			var allowableValue = angular.copy(surveyModel.allowableValue);
+			allowableValue.Value = question.AllowableValues[i].Value;
+			branch.AllowableValues.push(allowableValue);
+		}
+	};
+	
+	self.populateYesNo = function (branch) {
+		var allowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue.Value = 'Yes';
+		branch.AllowableValues.push(allowableValue);
+		allowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue.Value = 'No';
+		branch.AllowableValues.push(allowableValue);
+	};
+	
+	self.populateYesNoNa = function (branch) {
+		var allowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue.Value = 'Yes';
+		branch.AllowableValues.push(allowableValue);
+		allowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue.Value = 'No';
+		branch.AllowableValues.push(allowableValue);
+		vallowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue.Value = 'N/A';
+		branch.AllowableValues.push(allowableValue);
+	};
+	
+	self.editBranchQuestion = function (sIndex,qIndex,bIndex,index) {
+		var branch = self.auditDefinition.Sections[sIndex].Questions[qIndex].Branches[bIndex];
 		$uibModal.open({
 			animation: true,
 			templateUrl: 'addBranchingQuestion.html',
@@ -597,26 +678,22 @@ angular.module('sureAuditAdminApp')
 					return self.questionList;
 				},
 				action: function () {
-					return 'add';
+					return 'edit';
 				},
 				branch: function () {
 					return branch;
 				},
 				isScored: function () {
 					return self.auditDefinition.IsScored;
+				},
+				quesIndex: function () {
+					return index;
 				}
 			}
-		}).result.then(function (branch) {
-			if(bIndex === null){
-			self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
-			}else if(index == 'above'){
-				self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex,0,branch);
-				
-			}else if(index == 'below'){
-				self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex+1,0,branch);
-			}
-		})
-	};
+		}).result.then(function () {
+			self.updateModel();
+		});
+	}
 	
 	init();
 })
@@ -686,7 +763,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	
-}).controller('AddBranchingQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, branch, isScored){
+}).controller('AddBranchingQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, branch, quesIndex, isScored){
 	var self = this,
 	init = function () {
 		self.questions = mq;
@@ -696,10 +773,10 @@ angular.module('sureAuditAdminApp')
 		self.subject = 'Add Question';
 		self.branch = branch;
 		if(action === 'edit'){
-			self.selctedQuestion = question;
-			self.selected = question.MasterId;
+			self.selctedQuestion = self.branch.Questions[quesIndex];
+			self.selected = self.branch.Questions[quesIndex].MasterId;
 			self.disabled = true;
-			self.subject = 'Edit Question';
+			self.subject = 'Edit Branching Question';
 		}
 	};
 	

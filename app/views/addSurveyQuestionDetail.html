@@ -33,10 +33,12 @@
 				<div class="col-lg-12 no-padding" ng-if="sqdModal.isScored">
 					<p class="heading">Score Response Weight*</p>
 					<span ng-repeat="option in sqdModal.responseRatioOptions" class="score-section">
-					<button  ng-class="option.active?'btn-active':'btn-disable'"  ng-click="option.active=!option.active">
+				<!--<button  ng-class="option.active?'btn-active':'btn-disable'"  ng-click="option.active=!option.active">-->
+				<button  ng-class="option.active?'btn-active':'btn-disable'" >
 					{{option.label}}
 					</button>
-					<input type="text" ng-model="option.value" ng-disabled="!option.active" max="100" min="0" score-check> <span>%</span>
+				<!--	<input type="text" ng-model="option.value" ng-disabled="!option.active" max="100" min="0" score-check> <span>%</span>-->
+				<input type="text" ng-model="option.value" max="100" min="0" score-check> <span>%</span>
 					</span>
 				</div>
 				</div>

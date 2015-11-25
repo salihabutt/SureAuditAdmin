@@ -7,18 +7,136 @@ angular.module('sureAuditAdminApp')
 	init = function () {
 		self.branch = branch;
 		self.subject = 'Add Branching Question';
-		self.question = question;
+		self.bquestion = question;
+		self.isDisabled = true;
 		switch(branch.Type){
 		case 'yesno':
-			self.initYesNo();
+			self.selectedOption = null;
 			break;
+		case 'yesnona':
+			self.selectedOption = null;
+			break;
+		case 'numeric':
+			self.initNumeric();
+			break;
+		case 'rating':
+			self.initRating();
+			break;
+		}
+		
+		if(action === 'edit'){
+			self.editMode();
+		}
+	};
+
+	self.initNumeric = function () {
+		self.leftList = ['Greater than or equal to','Equal to','Less than'];
+		self.rightList = ['None','Less than'];
+		self.leftSelected = 'Greater than or equal to';
+		self.rightSelected = 'Less than';
+		self.leftVal = null;
+		self.rightVal = null;
+		self.rightDisable = false;
+	};
+	
+	self.initRating = function () {
+		self.leftRatingList = ['Greater than or equal to','Equal to','Less than'];
+		self.rightRatingList = ['None','Less than'];
+		self.leftRatingSelected = 'Greater than or equal to';
+		self.rightRatingSelected = 'Less than';
+		self.rightRatingDisable = false;
+		self.rightCount = 0;
+		self.leftCount = 0;
+	};
+	
+	self.updateCount = function (type,action){
+		if(type === 'left' && action ==='up'){
+			if(self.leftCount<5){
+			self.leftCount++;
+			}
+		} else if(type === 'left' && action ==='down'){
+			if(self.leftRatingSelected === 'Less than'){
+				if(self.leftCount>1){
+					self.leftCount--;
+				}
+			} else{
+				if(self.leftCount>0){
+					self.leftCount--;
+				}
+			}
+		}else if(type === 'right' && action ==='up'){
+			if(self.rightCount<5){
+				self.rightCount++;
+				}
+			} else if(type === 'right' && action ==='down'){
+				if(self.rightCount>0){
+					self.rightCount--;
+				}
+			}
+	};
+	
+	self.setMiniVal = function () {
+		if(self.leftCount == 0){
+			self.leftCount = 1;
 		}
 	};
 	
-	self.initYesNo = function () {
-		self.conditionList = ['Yes','No'];
-		self.selectedOption = null;
+	self.checkDisabled = function(){
+		self.isDisabled = true;
+		for(var i=0;i< self.branch.AllowableValues.length;i++){
+			if(self.branch.AllowableValues[i].IsDefault){
+				self.isDisabled = false;
+			}
+		}
+	}
+	
+	self.editMode = function () {
+		self.subject = 'Edit Branching Question';
+		switch(self.branch.Type){
+		case 'yesno':
+			self.populateYesNoNa();
+			break;
+		case 'yesnona':
+			self.populateYesNoNa();
+			break;
+		case 'numeric':
+			self.populateNumeric();
+			break;
+		case 'rating':
+			self.populateRating();
+			break;
+		}
+		
 	};
+	
+	self.populateYesNoNa = function (){
+		for(var i=0;i< self.branch.AllowableValues.length;i++){
+			if(self.branch.AllowableValues[i].IsDefault){
+				self.selectedOption = self.branch.AllowableValues[i].Value
+			}
+		}
+		
+	};
+	
+	self.populateNumeric = function () {
+		self.leftSelected = 'Greater than or equal to';  //TODO
+		self.rightSelected = 'Less than';
+		self.leftVal = self.branch.LowerValueLimitInclusive;	
+		self.rightVal = self.branch.UpperValueLimitExclusive;
+		self.rightDisable = false;
+		if(self.branch.UpperValueLimitExclusive == null){
+			self.rightVal = null;
+		}
+	};
+	
+	self.populateRating = function () {
+		self.leftRatingSelected = 'Greater than or equal to';
+		self.rightRatingSelected = 'Less than';
+		self.rightRatingDisable = false;
+		self.rightCount = self.branch.LowerValueLimitInclusive;
+		self.leftCount = self.branch.UpperValueLimitExclusive;
+	};
+	
 	self.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
@@ -26,16 +144,50 @@ angular.module('sureAuditAdminApp')
 	self.saveBranch = function () {
 		switch(self.branch.Type){
 		case 'yesno':
+			self.saveYesNoNa();
+			break;
+		case 'yesnona':
+			self.saveYesNoNa();
+			break;
+		case 'numeric':
+			self.saveNumeric();
+			break;
+		case 'rating':
+			self.saveRating();
 			break;
 		}
 	};
 	
-	self.saveYesNo = function () {
-		allowableValue = {};
-		allowableValue.Key = self.selectedOption;
-		allowableValue.Label = self.selectedOption;
-		allowableValue.Value = self.selectedOption;
-		self.branch.AllowableValues.push(allowableValue);
+	self.saveYesNoNa = function () {
+		for(var i=0;i<self.branch.AllowableValues.length;i++){
+			self.branch.AllowableValues[i].IsDefault = false;
+			if(self.selectedOption === self.branch.AllowableValues[i].Value){
+				self.branch.AllowableValues[i].IsDefault = true;
+			}
+		}
+	};
+	self.saveNumeric = function () {
+		self.branch.LowerValueLimitInclusive = self.leftVal;
+		self.branch.UpperValueLimitExclusive = self.rightVal;
+		if(self.rightDisable){
+			self.branch.UpperValueLimitExclusive = null;
+		}
+	};
+	
+	self.saveRating = function () {
+		self.branch.LowerValueLimitInclusive = self.leftCount;
+		self.branch.UpperValueLimitExclusive = self.rightCount;
+	};
+	
+	self.singleSelect = function (index){	
+		for(var i=0;i<self.branch.AllowableValues.length;i++){
+			if(i === index){
+				self.branch.AllowableValues[i].IsDefault = !self.branch.AllowableValues[i].IsDefault;
+			} else{
+				self.branch.AllowableValues[i].IsDefault = false;
+			}
+			
+		}
 	};
 	
 	self.cleanBranch = function () {
@@ -45,7 +197,7 @@ angular.module('sureAuditAdminApp')
 		self.branch.IsCommentRequired = null;
 		self.branch.CommentHint = null;
 		self.branch.IsImagesRequired = null;
-		MaxImagesAllowed = null;
+		self.branch.MaxImagesAllowed = null;
 		self.branch.ImagesHint = null;
 		self.branch.IsActionItemRequired = null;
 	};
@@ -60,7 +212,7 @@ angular.module('sureAuditAdminApp')
 			controllerAs: 'sqdModal',
 			resolve:{
 				ques: function () {
-					return self.question;
+					return self.bquestion;
 				},
 				action: function () {
 					return action;
@@ -70,19 +222,20 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		}).result.then(function (question){
-			if(question == null){
-				self.cleanBranch();
-			}else{
-				self.branch.Questions.push(question);
+			if(question !== null){
+				if(action !== 'edit'){
+					self.branch.Questions.push(question);
+				}
 				$uibModalInstance.close(self.branch);
-			}
+			} 
 		}, function (){
-			//$uibModalInstance.dismiss('cancel');
+
 		});
 		
-		self.back = function () {
-			$uibModalInstance.dismiss('cancel');
-		}
+	};
+	
+	self.back = function () {
+		$uibModalInstance.dismiss('cancel');
 	};
 	
 	init();

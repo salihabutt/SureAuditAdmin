@@ -374,12 +374,12 @@ angular.module('sureAuditAdminApp')
 		if(isScored){
 			for (var i=0;i<self.responseRatioTextOptions.length;i++){
 				if(utilityService.isEmpty(self.responseRatioTextOptions[i].value)){
-					self.isValid = false;
+				//	self.isValid = false;
 					break
 				}
 			}
 			if(!self.isValid){
-				self.showWarning('Please enter response ratio.');
+		//		self.showWarning('Please enter response ratio.');
 			}
 			
 		}
@@ -393,12 +393,12 @@ angular.module('sureAuditAdminApp')
 		if(isScored){
 			for(var i=0;i<self.weights.length;i++){
 				if(utilityService.isEmpty(self.weights[i].rightRatio)){
-					self.isValid = false;
+			//		self.isValid = false;
 					break
 				}
 			}
 			if(!self.isValid){
-				self.showWarning('Please enter response ratio.');
+		//		self.showWarning('Please enter response ratio.');
 			}
 			
 		}
@@ -416,8 +416,8 @@ angular.module('sureAuditAdminApp')
 				self.isValid = false;
 				message = 'Please enter a valid value in the Set Default Response';
 			}
-			else if(self.question.DefaultValue != 0 || self.question.DefaultValue!=1 || self.question.DefaultValue!=2 ||
-				self.question.DefaultValue!=3 || self.question.DefaultValue!=4 || self.question.DefaultValue!=5){
+			else if(self.question.UndesireableValue != 0 || self.question.UndesireableValue!=1 || self.question.UndesireableValue!=2 ||
+				self.question.UndesireableValue!=3 || self.question.UndesireableValue!=4 || self.question.UndesireableValue!=5){
 				self.isValid = false;
 				message = 'Please enter a valid value in the Set Undesired Response';
 			}

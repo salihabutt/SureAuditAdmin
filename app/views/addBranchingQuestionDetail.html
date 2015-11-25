@@ -6,17 +6,98 @@
         </div>	
 		<div class="modal-body">
 		<div class="col-lg-12">
-		<p class="heading">Set Condition</p>
-		<span>Show this question when previous answer is equal to:</span>
-		<div class="col-lg-12 margintop20 no-padding" ng-if="bqdModal.branch.Type=='yesno'">
-		<button ng-repeat="option in bqdModal.conditionList" ng-class="bqdModal.selectedOption==option? 'btn-active':'btn-disable'" ng-click="bqdModal.selectedOption=bqdModal.selectedOption==option?null:option">{{option}}</button>
-		</div>
+			<p class="heading">Set Condition</p>
+			<span>Show this question when previous answer is equal to:</span>
+			<!-- Yes NO NA-->
+			<div class="col-lg-12 margintop20 no-padding" ng-if="bqdModal.branch.Type=='yesno' || bqdModal.branch.Type=='yesnona'">
+				<button ng-repeat="option in bqdModal.branch.AllowableValues" ng-class="option.Value==bqdModal.selectedOption? 'btn-active':'btn-disable'" ng-click="bqdModal.selectedOption=bqdModal.selectedOption==option.Value?null:option.Value;bqdModal.isDisabled=bqdModal.selectedOption!=null?false:true">{{option.Value}}</button>
+			</div>
+			<!-- NUMERIC -->
+			<div class="col-lg-12 margintop20 no-padding" ng-if="bqdModal.branch.Type=='numeric'">
+				<div class="col-lg-12 no-padding">
+					<div class="col-lg-6 no-padding">
+						<select selectpicker ng-model="bqdModal.leftSelected" ng-change="bqdModal.rightDisable=bqdModal.leftSelected!='Greater than or equal to'?true:false">
+							<option ng-repeat="option in bqdModal.leftList" value="{{option}}">{{option}}</option>
+						</select>
+					</div>
+					<div class="col-lg-6 no-padding">
+						<select selectpicker ng-model="bqdModal.rightSelected" ng-disabled="bqdModal.rightDisable">
+							<option ng-repeat="option in bqdModal.rightList" value="{{option}}">{{option}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-12 no-padding">
+					<div class="col-lg-6 no-padding">
+						<div class="col-lg-8 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="bqdModal.leftVal" numeric ng-keyup="bqdModal.isDisabled=bqdModal.leftVal==null || bqdModal.leftVal==''?true:false">
+						</div>
+					</div>
+					<div class="col-lg-6 no-padding">
+						<div class="col-lg-8 no-padding">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="bqdModal.rightVal" numeric ng-disabled="bqdModal.rightDisable || bqdModal.rightSelected=='None'" ng-class="bqdModal.rightDisable?'disableClass':'enableClass'">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Multiple -->
+			<div class="col-lg-12 no-padding" ng-if="bqdModal.branch.Type=='multiple'">
+				<div class="col-lg-12 no-padding margintop20" ng-repeat="item in bqdModal.branch.AllowableValues track by $index">
+					<div class="col-lg-6 no-padding margintop10" >
+						<button ng-class="item.IsDefault?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="item.IsDefault=!item.IsDefault;bqdModal.checkDisabled()">{{item.Value}}</button>
+					</div>					
+				</div>
+			</div>
+			
+			<!-- SINGLE -->
+				<div class="col-lg-12 no-padding" ng-if="bqdModal.branch.Type=='single'">
+				<div class="col-lg-12 no-padding margintop20" ng-repeat="item in bqdModal.branch.AllowableValues track by $index">
+					<div class="col-lg-6 no-padding margintop10" >
+						<button ng-class="item.IsDefault?'custom-btn-select-option-checked':'custom-btn-select-option'"  ng-click="bqdModal.singleSelect($index);bqdModal.checkDisabled()">{{item.Value}}</button>
+					</div>					
+				</div>
+			</div>
+			
+			<!-- Rating -->
+			<div class="col-lg-12 no-padding comment-box" ng-if="bqdModal.branch.Type=='rating'">
+				<div class="col-lg-12 no-padding">
+					<div class="col-lg-6 no-padding">
+						<select selectpicker ng-model="bqdModal.leftRatingSelected" ng-change="bqdModal.rightRatingDisable=bqdModal.leftRatingSelected!='Greater than or equal to'?true:false;bqdModal.setMiniVal(bqdModal.leftRatingSelected)">
+							<option ng-repeat="option in bqdModal.leftRatingList" value="{{option}}">{{option}}</option>
+						</select>
+					</div>
+					<div class="col-lg-6 no-padding">
+						<select selectpicker ng-model="bqdModal.rightRatingSelected" ng-disabled="bqdModal.rightRatingDisable">
+							<option ng-repeat="option in bqdModal.rightRatingList" value="{{option}}">{{option}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-lg-12 no-padding">
+					<div class="col-lg-6 no-padding">
+						<button class="btn-arrow" ng-click="bqdModal.updateCount('left','down')"> 
+							<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> 
+						</button>
+						<span class="marginright10 marginleft10">{{bqdModal.leftCount}}</span>
+						<button class="btn-arrow" ng-click="bqdModal.updateCount('left','up')"> 
+							<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
+						</button>
+					</div>
+					<div class="col-lg-6 no-padding">
+						<button class="btn-arrow" ng-click="bqdModal.updateCount('right','down')" ng-disabled="bqdModal.rightRatingSelected =='None' || bqdModal.rightRatingDisable"> 
+							<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> 
+						</button>
+						<span class="marginright10 marginleft10">{{bqdModal.rightCount}}</span>
+						<button class="btn-arrow" ng-click="bqdModal.updateCount('right','up')" ng-disabled="bqdModal.rightRatingSelected =='None' || bqdModal.rightRatingDisable"> 
+							<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
+						</button>
+					</div>
+					</div>
+			</div>
 		</div>
 		
 		</div>
         <div class="modal-footer">
         	<div class="col-lg-12 text-right">
-        	<button class="btn-back" type="button" ng-click="bqdModal.back()">Back</button>
-				<button class="main-btn-green" type="button"  ng-click="bqdModal.next()">Next</button>
+        		<button class="btn-back" type="button" ng-click="bqdModal.back()">Back</button>
+				<button ng-class="bqdModal.isDisabled?'btn-deactive':'main-btn-green'" type="button"  ng-click="bqdModal.next()" ng-disabled="bqdModal.isDisabled">Next</button>
         	</div>
         </div>
