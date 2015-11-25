@@ -24,7 +24,9 @@ angular
     'ui.bootstrap',
     'angularMoment',
     'xeditable',
-    'uiSwitch'
+    'uiSwitch',
+    'datePicker',
+    'jkuri.slimscroll'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider

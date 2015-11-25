@@ -26,8 +26,7 @@ angular.module('sureAuditAdminApp')
 		};
 
 		self.deleteSurvey = function (index) {
-			// another check to ask propelics && self.data[index].ResponseCount>0
-			if(self.data[index].Audits.length > 0 ){ 
+			if(self.data[index].Audits.length > 0 && self.data[index].ParentGroup === null){ 
 			 $uibModal.open({
 				  animation: true,
 				  templateUrl: 'surveyDeleteConfirm.html',
@@ -37,17 +36,15 @@ angular.module('sureAuditAdminApp')
 			  }).result.then(function(){						
 					self.deleteSurveyById(index);
 				});
-			}
-
-				// else {
-				//   $uibModal.open({
-				// 	  animation: true,
-				// 	  templateUrl: 'deleteSurveyWarning.html',
-				// 	  controller: 'deleteWarningCtrl',
-				// 	  windowClass: 'survey-warning-modal',
-				// 	  controllerAs: 'dwCtrl',
-				//   })			
-			
+			}else {
+			  $uibModal.open({
+				  animation: true,
+				  templateUrl: 'deleteSurveyWarning.html',
+				  controller: 'deleteWarningCtrl',
+				  windowClass: 'survey-warning-modal',
+				  controllerAs: 'dwCtrl',
+			  })	
+			}		
 		};
 
 		self.deleteSurveyById = function (index) {

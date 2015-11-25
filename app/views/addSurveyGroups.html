@@ -1,3 +1,239 @@
-<div class="col-lg-12 ae-survey-wrapper ng-scope" ng-controller="AddSurveyGroupsCtrlCtrl as addSurveyGroup">
+<div class="col-lg-12 no-padding margintop50 ae-survey-wrapper ng-scope" ng-controller="AddSurveyGroupsCtrlCtrl as addSurveyGroup">
+	<div class="col-lg-9 no-padding">
+	
+	<div class="col-lg-12 survey-info-box" >	
+		<div class="custom-breadcrumbs">
+			<span>Surveys</span> 
+			<img src="/images/ic_arrow@2x.png"> 
+			<span>{{aeSurvey.auditDefinition.Name}}</span>
+		</div>
+		<!-- survey detials -->
+		<div class="col-lg-12">
+			<button type="button" class='float-right main-btn-green'>Save</button>
+		</div>
+		
+		<div class="col-lg-12 no-padding survey-detail" ng-show="!aeSurvey.editSurvey">
+			<div class="col-lg-3 no-padding survey-detail-box">
+				<p class="heading">Name of Survey <span ng-if="aeSurvey.auditDefinition.Name==''" class="span-txt">Enter Survey Details</span><img src="/images/ic_edit@2x.png" ng-click="aeSurvey.editSurvey=true"></p>
+				<p>SubTitle</p>
+			</div>
+			<div class="col-lg-3">
+				<p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p><p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
+			</div>
+		</div>
+		<!-- survey edit section -->
+		<div class="col-lg-12 no-padding survey-detail" ng-show="aeSurvey.editSurvey">
+			<div class="col-lg-4 no-padding survey-detail-box">
+			<div class="col-lg-10">
+				<p>
+					<span>
+						<input type="text" placeholder="Survey Name" ng-model ="aeSurvey.auditDefinition.Name" class="form-control" ng-change="aeSurvey.updateModel()">
+					</span>
+				</p>
+				<p>
+					<input type ="text" placeholder="Survey Reference" ng-model="aeSurvey.auditDefinition.SubTitle" class="form-control" ng-change="aeSurvey.updateModel()">
+				</p>
+				</div>
+				<div class="col-lg-1">
+			<button type="submit" class="btn btn-primary" ng-click="aeSurvey.editSurvey=false"><span class="glyphicon glyphicon-ok"></span></button>
+			</div>	
+				
+			</div>
+			
+			<div class="col-lg-3">
+				<p>{{aeSurvey.auditDefinition.QuestionCount}} Questions</p><p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>				
+			</div>
+		</div>		
+	</div>
 
+	<!-- survey listings -->
+
+		<div class="col-lg-12 col-md-12 no-padding margintop50">
+			
+			<div class="no-padding survey-box">
+				<div class="box-head clearfix">
+					<h4>item.Name</h4>
+					<span>item.SubTitle</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>item.QuestionCount Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="menu-section text-right" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="survey.duplicate($index)">Edit</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="no-padding survey-box">
+				<div class="box-head clearfix">
+					<h4>item.Name</h4>
+					<span>item.SubTitle</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>item.QuestionCount Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="menu-section text-right" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="survey.duplicate($index)">Edit</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="no-padding survey-box">
+				<div class="box-head clearfix">
+					<h4>item.Name</h4>
+					<span>item.SubTitle</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>item.QuestionCount Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="menu-section text-right" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="survey.duplicate($index)">Edit</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="no-padding survey-box">
+				<div class="box-head clearfix">
+					<h4>item.Name</h4>
+					<span>item.SubTitle</span>
+				</div>
+				<div class="clearfix"></div>
+				<div class="box-body clearfix">
+					<p>item.QuestionCount Questions</p>
+					<p>Last Modified : {{item.TouchInfo.ModifiedDate  | amDateFormat:'MM DD YY'}}</p>
+				</div>
+				<div class="box-footer clearfix">
+					<div class="menu-section text-right" menu-sibling>
+						<img src="/images/ic_more_@2x.png" alt="more">
+						<div class="gridOptions">
+							<ul>
+								<li ng-click="survey.duplicate($index)">Edit</li>
+								<li ng-click="survey.deleteSurvey($index)">Delete</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- side panel -->
+
+	<div class="col-lg-3 no-padding add-survey-side-panel">
+		<div class="col-lg-12 no-padding side-panel-head">
+			<div class="col-lg-12 margintop20">
+				<p>Select the surveys you want to add to this survey group.</p>
+			</div>
+			<div class="col-lg-12 margintop37">
+				<p class="heading">Available Surveys</p>
+			</div>
+			<div class="col-lg-12 text-center margintop20 search-box">
+				<input type="text" placeholder="search" class="txt-search" ng-model="query">
+			</div>
+		</div>
+		<div ng-slimscroll  height="450" color="#FFFFFF" distance="5px">
+			<div class="col-lg-12 no-padding side-panel-body">
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+				<div class="col-lg-12 survey-group-item">
+					<div class="col-lg-1">
+						<input type="checkbox" class="">
+					</div>
+					<div class="col-lg-10">
+						<p class="heading">Survey 01</p>
+						<p>Survey Title
+						<p>Last modified: 11/11/11</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-12 side-panel-footer text-center">
+			<button class="main-btn-green">Add Surveys</button>
+		</div>
+	</div>
 </div>
