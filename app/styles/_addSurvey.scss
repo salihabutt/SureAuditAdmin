@@ -59,6 +59,8 @@
 	.survey-info-box {
 		background-color: $white-color;
 		padding: 10px 25px;
+		border-top: 1px solid #cccccc;
+    	border-bottom: 1px solid #cccccc;
 
 		.custom-breadcrumbs{
 			font: $font-med-small;

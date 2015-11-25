@@ -1,0 +1,50 @@
+.add-survey-side-panel{
+	background-color: #292929;
+	min-height: 800px;
+	height: auto;
+	position: relative;
+
+	p{
+		text-align: center;
+		color: #ffffff;
+		font: $font-med-small;
+	}
+
+	p.heading{
+		font: $font-medium-bold;
+	}
+
+	.search-box{
+		border-bottom: 1px solid #4C4C4C;
+		padding-bottom: 25px;
+	}
+
+	.side-panel-body{
+		margin-bottom: 100px;
+		height: 500px;
+		.survey-group-item{
+			margin-top: 30px;
+		}
+
+		p{
+			text-align: left;
+			color: #BABABA;
+			font: $font-med-small;
+			margin: 0px;
+		}
+
+		p.heading{
+			color:#ffffff;
+			margin-bottom: 5px;
+			font: $font-medium-bold;
+		}
+	}
+
+	.side-panel-footer{
+		padding: 30px 0;
+		background-color: #141414;
+		position: absolute;
+		bottom: 0;
+	}
+
+}
