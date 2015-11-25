@@ -1,0 +1,22 @@
+       <div class="col-lg-12">
+			<img src="/images/ic_close_@2x.png" class="close-btn" ng-click="bqdModal.cancel()">
+		</div>
+        <div class="modal-header">
+            <h3 class="modal-title">{{bqdModal.subject}}</h3>
+        </div>	
+		<div class="modal-body">
+		<div class="col-lg-12">
+		<p class="heading">Set Condition</p>
+		<span>Show this question when previous answer is equal to:</span>
+		<div class="col-lg-12 margintop20 no-padding" ng-if="bqdModal.branch.Type=='yesno'">
+		<button ng-repeat="option in bqdModal.conditionList" ng-class="bqdModal.selectedOption==option? 'btn-active':'btn-disable'" ng-click="bqdModal.selectedOption=bqdModal.selectedOption==option?null:option">{{option}}</button>
+		</div>
+		</div>
+		
+		</div>
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+        	<button class="btn-back" type="button" ng-click="bqdModal.back()">Back</button>
+				<button class="main-btn-green" type="button"  ng-click="bqdModal.next()">Next</button>
+        	</div>
+        </div>
