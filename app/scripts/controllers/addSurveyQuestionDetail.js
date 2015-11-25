@@ -310,6 +310,7 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.saveResponseRatioForYesNoNa = function () {
+		if(isScored){
 		self.question.ResponseRatios = [];
 		for (var i=0;i<self.responseRatioOptions.length;i++){
 			if(self.responseRatioOptions[i].active){
@@ -319,9 +320,11 @@ angular.module('sureAuditAdminApp')
 				self.question.ResponseRatios.push(responseRatio);
 			}
 		}	
+		}
 	};
 	
 	self.saveResponseRatioForText = function () {
+		if(isScored){
 		self.question.ResponseRatios = [];
 		for (var i=0;i<self.responseRatioTextOptions.length;i++){
 			if(self.responseRatioTextOptions[i].value !== '' || self.responseRatioTextOptions[i].value !== null){
@@ -331,9 +334,11 @@ angular.module('sureAuditAdminApp')
 				self.question.ResponseRatios.push(responseRatio);
 			}
 		}	
+		}
 	};
 	
 	self.saveResponseRatioForNumeric = function () {
+		if(isScored){
 		self.question.ResponseRatios = [];
 		for(var i=0;i<self.weights.length;i++){
 			var responseRatio = {};
@@ -346,9 +351,11 @@ angular.module('sureAuditAdminApp')
 			
 			self.question.ResponseRatios.push(responseRatio);
 		}	
+		}
 	};
 	
 	self.saveResponseRatioForMultipleSingle = function () {
+		if(isScored){
 		self.question.ResponseRatios = [];
 		for(var i=0;i<self.responseRatioMultSing.length;i++){
 			if(!utilityService.isEmpty(self.responseRatioMultSing[i].val)){
@@ -358,15 +365,18 @@ angular.module('sureAuditAdminApp')
 				self.question.ResponseRatios.push(responseRatio);
 			}
 		}		
+		}
 	};
 	
 	self.saveResponseRatioForRating = function (){
+		if(isScored){
 		self.question.ResponseRatios = [];
 		for(var i=0;i<self.responseRatioRating.length;i++){
 				var responseRatio = {};
 				responseRatio.ValueMatch = self.responseRatioRating[i].id;
 				responseRatio.Ratio = self.responseRatioRating[i].val;
 				self.question.ResponseRatios.push(responseRatio);
+		}
 		}
 	};
 	
@@ -416,7 +426,9 @@ angular.module('sureAuditAdminApp')
 				self.isValid = false;
 				message = 'Please enter a valid value in the Set Default Response';
 			}
-			else if(self.question.UndesireableValue != 0 || self.question.UndesireableValue!=1 || self.question.UndesireableValue!=2 ||
+		}
+		if(!utilityService.isEmpty(self.question.UndesireableValue)){
+		if(self.question.UndesireableValue != 0 || self.question.UndesireableValue!=1 || self.question.UndesireableValue!=2 ||
 				self.question.UndesireableValue!=3 || self.question.UndesireableValue!=4 || self.question.UndesireableValue!=5){
 				self.isValid = false;
 				message = 'Please enter a valid value in the Set Undesired Response';
@@ -441,7 +453,7 @@ angular.module('sureAuditAdminApp')
 				}
 			}
 		});
-	}
+	};
 	
 	self.processReqChecks = function () {
 		if(self.commentRequired && self.undesiredReq){
