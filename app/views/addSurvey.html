@@ -113,7 +113,7 @@
 							<ul>
 							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'above')">Add Question Above</li>
 							<li ng-click="aeSurvey.addQuestion($parent.$index,$index,'below')">Add Question Below</li>
-							<li ng-click="aeSurvey.addBranchingQuestion($parent.$index,$index,null,null,'add')">Add Branching Question</li>	
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$index,$index,null,null,'add')" ng-show="question.TypeKey!='text'">Add Branching Question</li>	
 							</ul>
 						</div>
 						</div>
@@ -141,8 +141,8 @@
 					<div class="col-lg-1 no-padding"></div>
 					<div class="col-lg-9 no-padding">
 						<div class="col-lg-1 no-padding text-left">
-							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'up')"></div>
-							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues(parentIndex,childIndex,$index,'down')"></div>
+							<div class="arrows"><img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" ng-click="aeSurvey.orderBranchQues($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,'up')"></div>
+							<div class="arrows"><img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" ng-click="aeSurvey.orderBranchQues($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,'down')"></div>
 						</div>
 						<span>{{childQues.Label}}</span>
 						<span>{{childQues.Text}} </span>
@@ -152,8 +152,8 @@
 						<img src="/images/ic_add@2x.png" alt="add" >
 						<div class="quesGridOptions">
 							<ul>
-							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$index,$parent.$index,$parent.$index,'above')">Add Branching Question Above</li>
-							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$index,$parent.$index,$parent.$index,'below')">Add Branching Question Below</li>
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,$index,'above')">Add Question Above</li>
+							<li ng-click="aeSurvey.addBranchingQuestion($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,$index,'below')">Add Question Below</li>
 							</ul>
 						</div>
 						</div>
@@ -163,7 +163,7 @@
 							<ul>
 								<li ng-click="childQues.Status='OK';aeSurvey.updateModel()" ng-show="childQues.Status.toUpperCase()=='INACTIVE'">Show</li>
 								<li ng-click="childQues.Status='INACTIVE';aeSurvey.updateModel()" ng-show="childQues.Status.toUpperCase()=='OK'" > Hide</li>
-								<li>Edit</li>
+								<li ng-click="aeSurvey.editBranchQuestion($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,$index)">Edit</li>
 								<li ng-click="aeSurvey.deleteBranchQues($parent.$parent.$parent.$index,$parent.$parent.$index,$parent.$index,$index)">Delete</li>
 							</ul>
 						</div>

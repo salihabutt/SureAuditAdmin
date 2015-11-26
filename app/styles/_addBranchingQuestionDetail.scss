@@ -31,7 +31,7 @@
 
 
 		.txt-common{
-			width: 100%;
+			  width: 100%;
 		    border-radius: 5px;
 		    border: 1px solid #cccccc;
 		    height: 40px;
@@ -39,7 +39,7 @@
 		}
 
 		.txt-rating{
-			width: 60%;
+			  width: 60%;
 		    border-radius: 5px;
 		    border: 1px solid #cccccc;
 		    height: 40px;
@@ -104,63 +104,36 @@
 						border-radius:  $border-radius-5;
 						width:50px;
 					}
-
-		.section {
-			font:$font-medium;
-			padding-left: 10px !important;
-			color:#777777;
-
-			.heading{
-				padding: 15px 0px 15px 0px;
-			}
-			.subsection {
-				color: #4C4C4C;
-
-				.type {
-					font: $font-small;
-				}
-				label{
-					margin-top: 12px;
-				}
-				.custom-label {
-					font:$font-small;
-					color:#777777;
-					font-weight: normal !important;
-				}
-
-				textarea {
-					font: $font-medium;
-					color: #4C4C4C;
-					width: 720px;
-					height: 110px;
-					background-color: #F6F6F6;
-					resize: none;
-					border-radius: 5px;
-					border-color: #ccc;
-				}
-
-				.section-detail {
-					padding-top: 15px;
-
-
-
-					.score-section {
-						margin-right: 96px;
+  .comment-box {
+						margin-top: 30px;
 
 						input[type="text"] {
-							width: 50px;
+							width: 258px;
     						height: 40px;
     						border-radius: 5px;
     						box-shadow: none;
     						font: $font-medium;
+    						color: #000000;
+    						border: 1px solid #cccccc;
+  							padding: 0 0 0 5px;
 						}
+
+
+						label{
+						 font-size: 14px;
+						 color: #777777;
+						}
+
+						.btn-arrow{
+							background-color: #fff;
+						    border: 1px solid #cccccc;
+						    border-radius: 5px;
+						    color: #1b8eca;
+						    margin-top: 8px;
+    						margin-bottom: 7px;
+						}
+
 					}
-
-
-
-				}
-			}
-		}
 
 	}
 }

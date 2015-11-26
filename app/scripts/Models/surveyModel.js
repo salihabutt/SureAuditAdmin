@@ -107,11 +107,20 @@ angular.module('sureAuditAdminApp')
 				IsActionItemRequired: null
 		};
 		
+		var allowableValue = {
+				Key: null,
+				Label: null,
+				Value: null,
+				IsDefault: null,
+				IsUndesireable: null
+		}
+		
 		surveyModelFactory.surevyModel = surveyModel;
 		surveyModelFactory.signature = signature;
 		surveyModelFactory.section = section;
 		surveyModelFactory.question = question;
 		surveyModelFactory.branch = branch;
+		surveyModelFactory.allowableValue = allowableValue;
 		
 		return surveyModelFactory;
 	});

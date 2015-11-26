@@ -24,9 +24,7 @@ angular
     'ui.bootstrap',
     'angularMoment',
     'xeditable',
-    'uiSwitch',
-    'datePicker',
-    'jkuri.slimscroll'
+    'uiSwitch'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -96,6 +94,28 @@ angular
 				  }
 			  }
 		})
+	
+		.state('userGroups', {
+			  url: 'usergroups',
+			  parent: 'main',
+			  views: {
+				  'content': {
+					templateUrl: 'views/userGroups.html'
+				  }
+			  }
+			})
+		.state('userGroupPermission', {
+			  url: 'usergrouppermission/:id',
+			  params: {
+				    id: '',
+				  },
+			  parent: 'main',
+			  views: {
+				  'content': {
+					templateUrl: 'views/userGroupPermissions.html'
+				  }
+			  }
+		})
 		.state('surveyGroups', {
 		  url: 'surveyGroups',
 		  parent: 'main',
@@ -123,7 +143,6 @@ angular
 			  }
 		  }
 		});
-
    /* *************************** Other configurations ************************************* */
 	  blockUIConfig.message = 'Please Wait ...';
 	  $httpProvider.interceptors.push('authInterceptorService');

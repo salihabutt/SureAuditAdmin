@@ -1,0 +1,50 @@
+<div class="col-lg-12 permission-wrapper" ng-controller="UserGroupPermissionsCtrl as usrPermission">
+<div class="permission-info-box col-lg-12">
+	<div class="custom-breadcrumbs">
+		<span>User Groups</span> 
+		<img src="/images/ic_arrow@2x.png"> 
+		<span> user group 1</span>
+	</div>
+	<div class="col-lg-12">
+			<button type="button" class="float-right main-btn-green"  >Add New</button>
+		</div>
+	<div class="col-lg-12 no-padding permission-detail">
+			<div class="col-lg-5 no-padding survey-detail-box">
+				<p class="heading">user Group 01 </p>
+				<p>AD Group</p>
+			</div>
+			<div class="col-lg-3">
+				<p>3 Permissions</p><p>Last Modified : {{aeSurvey.auditDefinition.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-12 permission-detail">
+		<div class="col-lg-12 col-md-12 no-padding margintop37 ">
+	<div class="col-lg-4" >
+		<div class="col-lg-12 col-md-12 no-padding">
+			<div class="no-padding user-group-box">
+				<div class="box-head clearfix">
+					<h4>Subject Group Hierarchy</h4>
+					<p>Employees</p>
+				</div>
+				<div class="box-body clearfix">
+					<p class="heading">Survey Group</p>		
+					<p>Survey group 03</p>	
+					<p class="heading">Permission</p>		
+					<p>Create</p>	
+				</div>
+				<div class="box-footer clearfix">
+					<div class="edit-btn col-lg-11">
+						<input type="button" value="Edit" class="box-manage-action-btn marginleft25" ng-click="usergrp.navigate()">	
+					</div>
+					<div class="col-lg-1">
+					 <span ng-click="usrPermission.deletePermission()"><img src="/images/ic_delete@2x.png" ></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
+	</div>
+</div>

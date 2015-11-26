@@ -39,6 +39,7 @@ angular.module('sureAuditAdminApp')
 				$state.go('subjectGroup');
 				break;
 			}
+
 		}
 
 	});

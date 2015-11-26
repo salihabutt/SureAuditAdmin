@@ -1,0 +1,44 @@
+.permission-wrapper {
+	padding-top: 50px;
+
+
+	.permission-info-box {
+		background-color: $white-color;
+		padding: 10px 25px;
+		border-top: 1px solid #cccccc;
+    	border-bottom: 1px solid #cccccc;
+
+		.custom-breadcrumbs{
+			font: $font-med-small;
+			color: #BABABA;
+			span {
+				color: #777777;
+				margin-right: 20px;
+			}
+			img{
+				margin-right: 20px;
+			}
+		}
+			.permission-detail{
+			width: 100%;
+			margin-bottom: 50px;
+			p {
+				font: $font-medium;
+				color: #4C4C4C;
+			}
+
+			.heading {
+				font: $font-heading;
+				color: #0DC3F3;
+			}
+			.survey-detail-box{
+				border-right: 1px solid #cccccc;
+			}
+			.span-txt {
+				font: $font-heading;
+				color: #CCCCCC;
+			}
+		}
+		}
+}
+
