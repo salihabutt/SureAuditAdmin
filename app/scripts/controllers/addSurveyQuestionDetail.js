@@ -347,9 +347,22 @@ angular.module('sureAuditAdminApp')
 			responseRatio.Ratio = self.weights[i].rightRatio;
 			if(!self.weights[i].rightDisable){
 				responseRatio.UpperExclusive = self.weights[i].rightVal;	
+			}else {
+				responseRatio.UpperExclusive = null;
 			}
 			
 			self.question.ResponseRatios.push(responseRatio);
+			
+	/*		if(self.weights[i].leftVal === 'Greater than or equal to'){
+				responseRatio.LowerInclusive = self.weights[i].leftVal;
+				responseRatio.UpperExclusive = self.weights[i].rightVal;
+			} else if(self.weights[i].leftVal === 'Less than'){
+				responseRatio.LowerInclusive = null;
+				responseRatio.UpperExclusive = self.weights[i].leftVal;
+			}else if(self.weights[i].leftVal === 'Equal to'){
+				responseRatio.LowerInclusive = self.weights[i].leftVal;
+				responseRatio.UpperExclusive = null;
+			}*/
 		}	
 		}
 	};

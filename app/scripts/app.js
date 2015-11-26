@@ -24,9 +24,7 @@ angular
     'ui.bootstrap',
     'angularMoment',
     'xeditable',
-    'uiSwitch',
-    'datePicker',
-    'jkuri.slimscroll'
+    'uiSwitch'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -96,24 +94,28 @@ angular
 				  }
 			  }
 		})
-		.state('surveyGroups', {
-		  url: 'surveyGroups',
-		  parent: 'main',
-		  views: {
-			  'content': {
-				templateUrl: 'views/surveyGroups.html'
+	
+		.state('userGroups', {
+			  url: 'usergroups',
+			  parent: 'main',
+			  views: {
+				  'content': {
+					templateUrl: 'views/userGroups.html'
+				  }
 			  }
-		  }
-		})
-		.state('addSurveyGroup', {
-		  url: 'addSurveyGroup/:id',
-		  parent: 'main',
-		  views: {
-			  'content': {
-				templateUrl: 'views/addSurveyGroups.html'
+			})
+		.state('userGroupPermission', {
+			  url: 'usergrouppermission/:id',
+			  params: {
+				    id: '',
+				  },
+			  parent: 'main',
+			  views: {
+				  'content': {
+					templateUrl: 'views/userGroupPermissions.html'
+				  }
 			  }
-		  }
-		});
+			});
 
    /* *************************** Other configurations ************************************* */
 	  blockUIConfig.message = 'Please Wait ...';

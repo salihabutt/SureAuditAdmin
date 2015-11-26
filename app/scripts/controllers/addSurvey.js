@@ -502,22 +502,56 @@ angular.module('sureAuditAdminApp')
 		if(!angular.equals(self.auditDefinition,self.auditDefinitionClone)){
 			self.isSaveDisabled = false;
 		} 
-		if(self.sDate.toDateString() !== self.sDateClone.toDateString()){
+		self.checkModelForDates();
+	
+	};
+	
+	self.checkModelForDates = function ( ){
+		if(self.sDate !== null && self.sDateClone !== null){
+			if(self.sDate.toDateString() !== self.sDateClone.toDateString()){
+				self.isSaveDisabled = false;
+			}
+		}else if(self.sDate !== null && self.sDateClone === null){
 			self.isSaveDisabled = false;
-		}else if(self.sTime !== self.sTimeClone){
+		}
+		if(self.eDate !== null && self.eDateClone!== null){
+			if(self.eDate.toDateString() !== self.eDateClone.toDateString()){
+				self.isSaveDisabled = false;
+			}
+		} else if(self.eDate !== null && self.eDateClone === null){
 			self.isSaveDisabled = false;
-		}else if(self.sAMPM !== self.sAMPMClone){
+		}
+		if(self.sTime !== null && self.sTimeClone !== null){
+			if(self.sTime !== self.sTimeClone){
+				self.isSaveDisabled = false;
+			}
+		}else if(self.sTime !== null && self.sTimeClone === null){
+			self.isSaveDisabled = false;
+		}
+		if(self.eTime !== null && self.eTimeClone !== null){
+			if(self.eTime !== self.eTimeClone){
+				self.isSaveDisabled = false;
+			}
+		}else if(self.eTime !== null && self.eTimeClone === null){
 			self.isSaveDisabled = false;
 		}
 		
-		if(self.eDate.toDateString() !== self.eDateClone.toDateString()){
-			self.isSaveDisabled = false;
-		}else if (self.eTime !== self.eTimeClone){
-			self.isSaveDisabled = false;
-		}else if(self.eAMPM !== self.eAMPMClone){
+		if(self.eAMPM !== null && self.eAMPMClone !== null){
+			if(self.eAMPM !== self.eAMPMClone){
+				self.isSaveDisabled = false;
+			}
+		}else if (self.eAMPM !== null && self.eAMPMClone === null){
 			self.isSaveDisabled = false;
 		}
-	};
+		
+		if(self.sAMPM !== null && self.sAMPMClone !== null){
+			if(self.sAMPM !== self.sAMPMClone){
+				self.isSaveDisabled = false;
+			}
+		}else if (self.sAMPM !== null && self.sAMPMClone === null){
+			self.isSaveDisabled = false;
+		}
+	}
 	
 	self.setQuestionDisplay = function (event, name) {
 		switch(name) {

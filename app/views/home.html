@@ -25,7 +25,7 @@
 							Survey Groups
 						</div>
 						<div  class="col-lg-12 col-md-12 no-padding box-count">
-							{{ home.data.SubjectGroups }}
+							{{ home.data.AuditGroups }}
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,7 @@
 							Surveys
 						</div>
 						<div  class="col-lg-12 col-md-12 no-padding box-count">
-							{{ home.data.SubjectGroups }}
+							{{ home.data.AuditDefinitions }}
 						</div>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 				</div>
 				
 				<div class="col-lg-12 col-md-12 btn-section-manage">
-					<button class="manage-btn" ng-click="home.gotoMasterQuestion()">Manage</button>
+					<button class="manage-btn" ng-click="home.navigate('masterQuestion')">Manage</button>
 				</div>
 			</div>
 		</div>
@@ -101,7 +101,7 @@
 				</div>
 				
 				<div class="col-lg-12 col-md-12 btn-section-manage">
-					<button class="manage-btn">Manage</button>
+					<button class="manage-btn" ng-click="home.navigate('userGroups')">Manage</button>
 				</div>
 			</div>
 

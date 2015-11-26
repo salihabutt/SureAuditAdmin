@@ -20,8 +20,8 @@
 							<option ng-repeat="option in bqdModal.leftList" value="{{option}}">{{option}}</option>
 						</select>
 					</div>
-					<div class="col-lg-6 no-padding">
-						<select selectpicker ng-model="bqdModal.rightSelected" ng-disabled="bqdModal.rightDisable">
+					<div class="col-lg-6 no-padding" ng-show="!bqdModal.rightDisable">
+						<select selectpicker ng-model="bqdModal.rightSelected" >
 							<option ng-repeat="option in bqdModal.rightList" value="{{option}}">{{option}}</option>
 						</select>
 					</div>
@@ -34,7 +34,7 @@
 					</div>
 					<div class="col-lg-6 no-padding">
 						<div class="col-lg-8 no-padding">
-							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="bqdModal.rightVal" numeric ng-disabled="bqdModal.rightDisable || bqdModal.rightSelected=='None'" ng-class="bqdModal.rightDisable?'disableClass':'enableClass'">
+							<input type="text" class="txt-common" placeholder="Enter Number" ng-model="bqdModal.rightVal" numeric ng-show="!bqdModal.rightDisable" ng-disabled="bqdModal.rightDisable || bqdModal.rightSelected=='None'" ng-class="bqdModal.rightDisable?'disableClass':'enableClass'">
 						</div>
 					</div>
 				</div>
@@ -65,8 +65,8 @@
 							<option ng-repeat="option in bqdModal.leftRatingList" value="{{option}}">{{option}}</option>
 						</select>
 					</div>
-					<div class="col-lg-6 no-padding">
-						<select selectpicker ng-model="bqdModal.rightRatingSelected" ng-disabled="bqdModal.rightRatingDisable">
+					<div class="col-lg-6 no-padding" ng-show="!bqdModal.rightRatingDisable">
+						<select selectpicker ng-model="bqdModal.rightRatingSelected">
 							<option ng-repeat="option in bqdModal.rightRatingList" value="{{option}}">{{option}}</option>
 						</select>
 					</div>
@@ -81,12 +81,12 @@
 							<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
 						</button>
 					</div>
-					<div class="col-lg-6 no-padding">
+					<div class="col-lg-6 no-padding" ng-show="!bqdModal.rightRatingDisable">
 						<button class="btn-arrow" ng-click="bqdModal.updateCount('right','down')" ng-disabled="bqdModal.rightRatingSelected =='None' || bqdModal.rightRatingDisable"> 
 							<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> 
 						</button>
 						<span class="marginright10 marginleft10">{{bqdModal.rightCount}}</span>
-						<button class="btn-arrow" ng-click="bqdModal.updateCount('right','up')" ng-disabled="bqdModal.rightRatingSelected =='None' || bqdModal.rightRatingDisable"> 
+						<button class="btn-arrow" ng-click="bqdModal.updateCount('right','up')" ng-disabled="bqdModal.rightRatingSelected =='None' || bqdModal.rightRatingDisable" > 
 							<span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
 						</button>
 					</div>

@@ -26,6 +26,7 @@ angular.module('sureAuditAdminApp')
 		
 		if(action === 'edit'){
 			self.editMode();
+			self.isDisabled = false;
 		}
 	};
 
@@ -76,8 +77,10 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.setMiniVal = function () {
-		if(self.leftCount == 0){
-			self.leftCount = 1;
+		if(self.leftRatiingSelected === 'Less than'){
+			if(self.leftCount == 0){
+				self.leftCount = 1;
+			}
 		}
 	};
 	
@@ -119,22 +122,51 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.populateNumeric = function () {
-		self.leftSelected = 'Greater than or equal to';  //TODO
-		self.rightSelected = 'Less than';
-		self.leftVal = self.branch.LowerValueLimitInclusive;	
-		self.rightVal = self.branch.UpperValueLimitExclusive;
 		self.rightDisable = false;
-		if(self.branch.UpperValueLimitExclusive == null){
+		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive!=null){
+			self.leftSelected = 'Greater than or equal to';
+			self.rightSelected = 'None';
+			self.leftVal = self.branch.LowerValueLimitInclusive;	
+			self.rightVal = self.branch.UpperValueLimitExclusive;
+			
+		} 
+		else if(self.branch.LowerValueLimitInclusive==null && self.branch.UpperValueLimitExclusive!=null){
+			self.leftSelected = 'Less than';
+			self.rightSelected = 'Less than';
+			self.rightDisable = true;
+			self.leftVal = self.branch.UpperValueLimitExclusive;	
 			self.rightVal = null;
+		}
+		else {
+			self.leftSelected = 'Equal to';
+			self.leftVal = self.branch.AllowableValues[0].Value;
+			self.rightVal = null;
+			self.rightDisable = true;
 		}
 	};
 	
 	self.populateRating = function () {
-		self.leftRatingSelected = 'Greater than or equal to';
-		self.rightRatingSelected = 'Less than';
 		self.rightRatingDisable = false;
-		self.rightCount = self.branch.LowerValueLimitInclusive;
-		self.leftCount = self.branch.UpperValueLimitExclusive;
+		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive!=null){
+			self.leftRatingSelected = 'Greater than or equal to';
+			self.rightRatingSelected = 'None';
+			self.leftCount = self.branch.LowerValueLimitInclusive;	
+			self.rightCount = self.branch.UpperValueLimitExclusive;
+			
+		} 
+		else if(self.branch.LowerValueLimitInclusive==null && self.branch.UpperValueLimitExclusive!=null){
+			self.leftRatingSelected = 'Less than';
+			self.rightRatingSelected = 'Less than';
+			self.rightRatingDisable = true;
+			self.leftCount = self.branch.UpperValueLimitExclusive;	
+			self.rightCount = null;
+		}
+		else {
+			self.leftRatiingSelected = 'Equal to';
+			self.leftCount = self.branch.AllowableValues[0].Value;
+			self.rightCount = null;
+			self.rightRatingDisable = true;
+		}
 	};
 	
 	self.cancel = function () {
@@ -167,16 +199,54 @@ angular.module('sureAuditAdminApp')
 		}
 	};
 	self.saveNumeric = function () {
-		self.branch.LowerValueLimitInclusive = self.leftVal;
+	/*	self.branch.LowerValueLimitInclusive = self.leftVal;
 		self.branch.UpperValueLimitExclusive = self.rightVal;
 		if(self.rightDisable){
 			self.branch.UpperValueLimitExclusive = null;
+		}*/
+		if(self.leftSelected === 'Greater than or equal to'){
+			if(self.rightSelected === 'None'){
+				self.branch.LowerValueLimitInclusive = self.leftVal;
+				self.branch.UpperValueLimitExclusive = null;
+			}else{
+				self.branch.LowerValueLimitInclusive = self.leftVal;
+				self.branch.UpperValueLimitExclusive = self.rightVal;
+			}
+		}
+		else if (self.leftSelected === 'Less than'){
+			self.branch.UpperValueLimitExclusive = self.leftVal;
+			self.branch.LowerValueLimitInclusive = null;
+		} else if(self.leftSelected === 'Equal to'){
+			self.branch.LowerValueLimitInclusive = null;
+			self.branch.UpperValueLimitExclusive = null;
+			var allowableValue = {};
+			allowableValue.Value = self.leftVal;
+			self.branch.AllowableValues.push(allowableValue);
 		}
 	};
 	
 	self.saveRating = function () {
 		self.branch.LowerValueLimitInclusive = self.leftCount;
 		self.branch.UpperValueLimitExclusive = self.rightCount;
+		if(self.leftRatingSelected === 'Greater than or equal to'){
+			if(self.rightSelected === 'None'){
+				self.branch.LowerValueLimitInclusive = self.leftCount;
+				self.branch.UpperValueLimitExclusive = null;
+			}else{
+				self.branch.LowerValueLimitInclusive = self.leftCount;
+				self.branch.UpperValueLimitExclusive = self.rightCount;
+			}
+		}
+		else if (self.leftRatingSelected === 'Less than'){
+			self.branch.UpperValueLimitExclusive = self.leftVal;
+			self.branch.LowerValueLimitInclusive = null;
+		} else if(self.leftRatingSelected === 'Equal to'){
+			self.branch.LowerValueLimitInclusive = null;
+			self.branch.UpperValueLimitExclusive = null;
+			var allowableValue = {};
+			allowableValue.Value = self.leftVal;
+			self.branch.AllowableValues.push(allowableValue);
+		}
 	};
 	
 	self.singleSelect = function (index){	
