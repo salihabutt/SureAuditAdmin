@@ -5,7 +5,7 @@ angular.module('sureAuditAdminApp')
 	.controller('surveyGroupsCtrl',  function (surveyGroupService, $uibModal, $state) {
 		var self = this,
 		init= function () {
-			surveyGroupService.getData().then(function(response){
+			surveyGroupService.getDataGroup().then(function(response){
 				self.data = response.Data;
 				console.log(self.data)
 			},function(){
@@ -49,7 +49,7 @@ angular.module('sureAuditAdminApp')
 
 		self.deleteSurveyById = function (index) {
 			console.log(self.data[index].Status);
-			surveyGroupService.deleteSurvey(self.data[index].Id).then(function(){
+			surveyGroupService.deleteSurveyGroup(self.data[index].Id).then(function(){
 				self.data[index].Status = 'Deleted';
 			},function(){
 				// error block

@@ -113,6 +113,15 @@ angular
 				templateUrl: 'views/addSurveyGroups.html'
 			  }
 		  }
+		})
+		.state('subjectGroup', {
+		  url: 'subjectGroup',
+		  parent: 'main',
+		  views: {
+			  'content': {
+				templateUrl: 'views/subjectGroup.html'
+			  }
+		  }
 		});
 
    /* *************************** Other configurations ************************************* */

@@ -21,10 +21,10 @@
 				</div>
 				<div class="box-footer clearfix">
 					<div class="edit-btn col-lg-8">
-						<input type="button" value="Edit" class="box-edit-action-btn marginleft25">
+						<input type="button" value="Edit" ng-click="surveyGroup.editSurvey(items.Id)" class="box-edit-action-btn marginleft25">
 					</div>
-					<div class="menu-section text-right" ng-click="surveyGroup.deleteSurvey($index)" menu-sibling>
-						<img src="/images/ic_delete@2x.png" alt="more">
+					<div class="menu-section text-right right"  menu-sibling>
+						<img src="/images/ic_delete@2x.png" ng-click="surveyGroup.deleteSurvey($index)" alt="more">
 					</div>
 				</div>
 			</div>

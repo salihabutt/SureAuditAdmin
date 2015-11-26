@@ -26,7 +26,7 @@
 			<li ng-click="head.expandQuesMenu = !head.expandQuesMenu">Question and Surveys
 				<div class="sub-menu" set-width ng-show="head.expandQuesMenu"> 
 					<ul>
-						<li>Survey Groups</li>
+						<li ng-click="head.navigate('SURVEYGROUPS')">Survey Groups</li>
 						<div class="border-div"></div>
 						<li ng-click="head.navigate('SURVEY')">Surveys</li>
 						<div class="border-div"></div>
@@ -34,8 +34,8 @@
 					</ul>
 				</div>
 			</li>
-			<li ng-click="head.navigate('SURVEYGROUPS')">User Groups</li>
-			<li>Subject Groups</li>
+			<li>User Groups</li>
+			<li ng-click="head.navigate('SUBJECTGROUPS')">Subject Groups</li>
 		</ul>
 	</nav>
 	<script type="text/ng-template" id="logoutConfirmation.html">
