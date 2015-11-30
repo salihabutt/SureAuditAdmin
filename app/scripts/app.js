@@ -24,7 +24,8 @@ angular
     'ui.bootstrap',
     'angularMoment',
     'xeditable',
-    'uiSwitch'
+    'uiSwitch',
+    'jkuri.slimscroll'
   ])
   .config(function($stateProvider, $urlRouterProvider, $httpProvider, cfpLoadingBarProvider, localStorageServiceProvider, blockUIConfig) {
 	  $stateProvider
@@ -140,6 +141,15 @@ angular
 		  views: {
 			  'content': {
 				templateUrl: 'views/subjectGroup.html'
+			  }
+		  }
+		})
+		.state('subjectGroupSettings', {
+		  url: 'subjectGroup/:id',
+		  parent: 'main',
+		  views: {
+			  'content': {
+				templateUrl: 'views/subjectGroupSettings.html'
 			  }
 		  }
 		});

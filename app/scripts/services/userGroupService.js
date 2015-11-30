@@ -22,7 +22,7 @@ angular.module('sureAuditAdminApp')
 		  	return deferred.promise;
 		};
 		
-		var _getUserGroup = function (id) {
+		var _getUserGroupAssociation = function (id) {
 				var deferred = $q.defer();
 				var request = {
 					method: 'GET',
@@ -38,9 +38,26 @@ angular.module('sureAuditAdminApp')
 		    	return deferred.promise;
 		};
 		
+		var _deleteUserGroupAssociation = function (id) {
+			var deferred = $q.defer();
+			var request = {
+				method: 'DELETE',
+				url: configurations.sureAudit + configurations.serviceBase + 'GroupAssociations/'+id
+			};
+
+	    	$http(request).success( function(response){
+	    		deferred.resolve(response);
+		  	}).error(function(err){
+		  		deferred.reject(err);
+		  	});
+			
+	    	return deferred.promise;
+	};
+		
 		
 		userGroupServiceFactory.getData = _getData;
-		userGroupServiceFactory.getUserGroup = _getUserGroup;
+		userGroupServiceFactory.getUserGroupAssociation = _getUserGroupAssociation;
+		userGroupServiceFactory.deleteUserGroupAssociation = _deleteUserGroupAssociation;
 		
 		return userGroupServiceFactory;
 	});

@@ -20,7 +20,25 @@ angular.module('sureAuditAdminApp')
 
 		  	return deferred.promise;
 		};
+		
+		var _getSubjectGroup = function(id){
+			var deferred = $q.defer();
+			var request = {
+				method: 'GET',
+				url: configurations.sureAudit + configurations.serviceBase + 'SubjectGroups/'+id
+			};
+
+	    	$http(request).success( function(response){
+	    		deferred.resolve(response);
+		  	}).error(function(err){
+		  		deferred.reject(err);
+		  	});
+			
+
+		  	return deferred.promise;
+		};
 
 		SubjectGroupServiceFactory.getDataGroup = _getDataGroup;
+		SubjectGroupServiceFactory.getSubjectGroup = _getSubjectGroup;
 		return SubjectGroupServiceFactory;
 	});

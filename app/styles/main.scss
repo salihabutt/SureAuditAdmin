@@ -12,14 +12,15 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "profile";
 @import "survey";
 @import "generalAppSettings";
-@import "master-question";
+@import "masterQuestion";
 @import "addSurvey";
 @import "addSurveyQuestionDetail";
 @import "surveyGroup";
 @import "addSurveyGroup";
 @import "addBranchingQuestionDetail";
 @import "userGroups";
-@import "permissions";
+@import "userGroupPermission";
+@import "subjectGroupSettings";
 
 
 

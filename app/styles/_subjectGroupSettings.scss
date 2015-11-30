@@ -1,0 +1,88 @@
+	.subgroup-settings-wrapper {
+	padding-top: 50px;
+
+
+	.subgroup-settings-info-box {
+		background-color: $white-color;
+		padding: 10px 25px;
+		border-top: 1px solid #cccccc;
+    	border-bottom: 1px solid #cccccc;
+
+
+		.custom-breadcrumbs{
+			font: $font-med-small;
+			color: #BABABA;
+			span {
+				color: #777777;
+				margin-right: 20px;
+			}
+			img{
+				margin-right: 20px;
+			}
+		}
+			.subgroup-settings-detail{
+			width: 100%;
+			margin-bottom: 50px;
+			p {
+				font: $font-medium;
+				color: #4C4C4C;
+			}
+			.span-txt {
+				font: $font-heading;
+				color: #CCCCCC;
+			}
+
+			.subgroup-settings-box{
+				border-right: 1px solid #cccccc;
+			}
+		}
+
+					.nav-tabs {
+    	border: none !important;
+	}
+	.nav-tabs > li > a {
+		font: $font-med-small;
+    	border: none !important;
+		cursor: pointer;
+		color: #777777;
+	}
+
+	.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    	color: #000000 !important;
+    }
+		}
+
+  .heading {
+			font: $font-large-bold ;
+		}
+
+.custom-label {
+					font:$font-small;
+					color:#777777;
+					font-weight: normal !important;
+				}
+
+.margintop50
+	     {
+	        margin-top: 50px;
+	      }
+.local-input {
+    height: 40px;
+    padding: 5px 0px 5px 12px;
+    border-radius: 5px;
+    border: 1px solid #CCC;
+}
+
+.label-light {
+  color:#777777;
+  font: $font-small;
+}
+
+.text-center {
+  text-align:center;
+}
+.bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){
+  width: 324px;
+}
+
+	}

@@ -24,23 +24,7 @@ angular.module('sureAuditAdminApp')
 
 
 		self.navigate = function (view) {
-			switch (view) {
-			case 'HOME': 
-				$state.go('home');
-				break;
-			case 'MQUESTION':
-				$state.go('masterQuestion');
-				break;
-			case 'SURVEY':
-				$state.go('survey');
-				break;
-			case 'SURVEYGROUPS':
-				$state.go('surveyGroups');
-				break;
-			case 'SUBJECTGROUPS':
-				$state.go('subjectGroup');
-				break;
-			}
+			$state.go(view);
 		};
 	
 })

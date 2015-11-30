@@ -1,0 +1,33 @@
+
+<div class="col-lg-12">
+	<img src="/images/ic_close_@2x.png" ng-click="ugpModal.cancel()" class="close-btn">
+</div>
+<div class="modal-header">
+	<h3 class="modal-title">{{ugpModal.subject}}</h3>
+</div>
+<div class="modal-body col-lg-12">
+			<div class="col-lg-7">
+				<p class="heading">Select One Survey Group</p>
+			</div>
+			<div class="col-lg-12">
+				<div class="data-section"> 
+					<div class="col-lg-12">
+						<div class="radio" ng-repeat = "item in ugpModal.surveyGroups" >
+  						<label>
+    						<input type="radio"  value="{{item.Id}}" ng-model="ugpModal.selected" >
+    							{{item.Name}}
+  						</label>
+						</div>
+						</div>
+					</div>
+			</div>
+			<div class="col-lg-12">
+				<p class="heading">Permissions</p>
+				<span>Allow user to perform audits</span>
+				<switch id="enabled" name="enabled" ng-model="ugpModal.permissionSwitch" class="blue" >this is working</switch>
+			</div>
+		</div>
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button ng-class="ugpModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" >Save</button>
+        	</div>
