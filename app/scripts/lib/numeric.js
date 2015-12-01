@@ -1,3 +1,4 @@
+'use strict';
 (function( $ ) {
 	// Plugin defaults
 	var defaults = {

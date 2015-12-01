@@ -694,7 +694,7 @@ angular.module('sureAuditAdminApp')
 		allowableValue = angular.copy(surveyModel.allowableValue);
 		allowableValue.Value = 'No';
 		branch.AllowableValues.push(allowableValue);
-		vallowableValue = angular.copy(surveyModel.allowableValue);
+		allowableValue = angular.copy(surveyModel.allowableValue);
 		allowableValue.Value = 'N/A';
 		branch.AllowableValues.push(allowableValue);
 	};
