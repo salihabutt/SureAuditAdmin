@@ -19,37 +19,37 @@
 
 			if (inputCode > 0 && (inputCode < 48 || inputCode > 57))	// Checks the if the character code is not a digit
 			{
-				if (allowFloat == true && inputCode == 46)	// Conditions for a period (decimal point)
+				if (allowFloat === true && inputCode === 46)	// Conditions for a period (decimal point)
 				{
 					//Disallows a period before a negative
-					if (allowNegative == true && getCaret(this) == 0 && currentValue.charAt(0) == '-') 
-						return false;
+					if (allowNegative === true && getCaret(this) === 0 && currentValue.charAt(0) === '-') 
+						{return false;}
 
 					//Disallows more than one decimal point.
 					if (currentValue.match(/[.]/)) 
-						return false; 
+						{return false; }
 				}
 
-				else if (allowNegative == true && inputCode == 45)	// Conditions for a decimal point
+				else if (allowNegative === true && inputCode === 45)	// Conditions for a decimal point
 				{
-					if(currentValue.charAt(0) == '-') 
-						return false;
+					if(currentValue.charAt(0) === '-') 
+						{return false;}
 					
-					if(getCaret(this) != 0) 
-						return false; 
+					if(getCaret(this) !== 0) 
+						{return false; }
 				}
 
-				else if (inputCode == 8) 	// Allows backspace
-					return true; 
+				else if (inputCode === 8) 	// Allows backspace
+					{return true; }
 
 				else								// Disallow non-numeric
-					return false;  
+					{return false;}  
 			}
 
 			else if(inputCode > 0 && (inputCode >= 48 && inputCode <= 57))	// Disallows numbers before a negative.
 			{
-				if (allowNegative == true && currentValue.charAt(0) == '-' && getCaret(this) == 0) 
-					return false;
+				if (allowNegative === true && currentValue.charAt(0) === '-' && getCaret(this) === 0) 
+					{return false;}
 			}
 		});
 		
@@ -62,15 +62,15 @@
 	function getCaret(element) 
 	{ 
 		if (element.selectionStart) 
-			return element.selectionStart; 
+			{return element.selectionStart; }
 
 		else if (document.selection) //IE specific
 		{ 
 			element.focus(); 
 
 			var r = document.selection.createRange(); 
-			if (r == null) 
-				return 0; 
+			if (r === null) 
+				{return 0; }
 
 			var re = element.createTextRange(), 
 			rc = re.duplicate(); 
@@ -80,5 +80,5 @@
 		}  
 
 		return 0; 
-	};
+	}
 }( jQuery ));

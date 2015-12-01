@@ -16,7 +16,6 @@ angular.module('sureAuditAdminApp')
 			if (self.id === '') {
 				self.auditGroupDef = angular.copy(surveyGroupModel.surveyGroupModelDef);		
 				self.auditGroupDef.Key = utilityService.guid;
-				console.log(utilityService.guid)
 				self.auditGroupDefClone = angular.copy(self.auditGroupDef); // keep this line at end always
 				console.log(self.auditGroupDef);
 			}else{

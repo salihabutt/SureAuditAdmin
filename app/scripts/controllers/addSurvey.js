@@ -7,6 +7,7 @@ angular.module('sureAuditAdminApp')
 		self.id = $stateParams.id;
 		self.auditDefinition = {};
 		self.questionList = {};
+		self.getIndex = '';
 		self.editSurvey = false;
 		self.tab = 'ES';
 		self.showFlags = false;
@@ -76,9 +77,9 @@ angular.module('sureAuditAdminApp')
 		else{
 		for (var i = 0; i < self.auditDefinition.Signatures.length ; i++) {
 			self.checkSignature = true;
-			if(self.auditDefinition.Signatures[i].Source != 'Logged in User' && 
-				self.auditDefinition.Signatures[i].Source != 'Subject Owner' &&
-				self.auditDefinition.Signatures[i].Source != 'Subject'){
+			if(self.auditDefinition.Signatures[i].Source !== 'Logged in User' && 
+				self.auditDefinition.Signatures[i].Source !== 'Subject Owner' &&
+				self.auditDefinition.Signatures[i].Source !== 'Subject'){
 				self.textEntryValue[i] = self.auditDefinition.Signatures[i].Source;
 				self.auditDefinition.Signatures[i].Source = 'Text Entry';
 			}
@@ -104,7 +105,7 @@ angular.module('sureAuditAdminApp')
 	};
 
 	self.setDates = function(){
-		if(self.auditDefinition.Starts != null){
+		if(self.auditDefinition.Starts !== null){
 			self.sDate = self.getFormattedDate(self.auditDefinition.Starts);
 			var timeString = (new Date(self.auditDefinition.Starts)).toTimeString().substring(0,5);
 			var H = +timeString.substr(0, 2);
@@ -116,7 +117,7 @@ angular.module('sureAuditAdminApp')
 			self.sTimeClone = angular.copy(self.sTime);
 			self.sAMPMClone = angular.copy(self.sAMPM);
 		}
-		if(self.auditDefinition.Ends != null){
+		if(self.auditDefinition.Ends !== null){
 			self.eDate = self.getFormattedDate(self.auditDefinition.Ends);
 			var etimeString = (new Date(self.auditDefinition.Ends)).toTimeString().substring(0,5);
 			var eH = etimeString.substr(0, 2);
@@ -265,7 +266,7 @@ angular.module('sureAuditAdminApp')
 		var signature = angular.copy(surveyModel.signature);
 		self.auditDefinition.Signatures.push(signature);
 		self.updateModel();
-	}
+	};
 
 
 	
@@ -378,7 +379,7 @@ angular.module('sureAuditAdminApp')
 			var message = "All Sections weight must add up to 100%";
 			self.openValidationPopup(message);
 		}
-	}
+	};
 
 	self.processSurveySettings = function () {	
 		if(self.checkSignature){
@@ -393,9 +394,9 @@ angular.module('sureAuditAdminApp')
 	self.processQuestionDisplays = function(){
 		for (var i = 0; i < self.questionDisplay.length; i++) {
 			if(self.questionDisplay[i].selected === true){
-				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name) 
+				self.auditDefinition.SummaryDisplayFlags.push(self.questionDisplay[i].name);
 			}
-		};
+		}
 	};
 
 	self.populateQuestionDisplays = function(){
@@ -404,8 +405,8 @@ angular.module('sureAuditAdminApp')
 				if(self.auditDefinition.SummaryDisplayFlags[i] === self.questionDisplay[j].name){
 					self.questionDisplay[j].selected = true;
 				}
-			};
-		};
+			}
+		}
 	};
 	
 	self.deleteAny = function (pIndex,cIndex,type) {
@@ -486,7 +487,7 @@ angular.module('sureAuditAdminApp')
 		self.totalQuesWeight = 0.0;
 		self.auditDefinition.Sections[pIndex].QuestionSum = 100;
 		for(var i=0;i<self.auditDefinition.Sections[pIndex].Questions.length;i++){
-			if(self.auditDefinition.Sections[pIndex].Questions[i].Status.toUpperCase() == 'OK'){
+			if(self.auditDefinition.Sections[pIndex].Questions[i].Status.toUpperCase() === 'OK'){
 				size++;
 			}	
 		}
@@ -551,7 +552,7 @@ angular.module('sureAuditAdminApp')
 		}else if (self.sAMPM !== null && self.sAMPMClone === null){
 			self.isSaveDisabled = false;
 		}
-	}
+	};
 	
 	self.setQuestionDisplay = function (event, name) {
 		switch(name) {
@@ -560,56 +561,56 @@ angular.module('sureAuditAdminApp')
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('lt100');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('lt100');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('lt100');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Undesired Response':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('undesired');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('undesired');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('undesired');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Not Filled In':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('notAnswered');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('notAnswered');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('notAnswered');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Has Comment':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('hasComment');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasComment');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasComment');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Has Photo':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('hasImage');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasImage');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('hasImage');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Text Entry':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('text');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('text');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('text');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		case 'Numeric':
 			if(event.target.checked){
 				 self.auditDefinition.SummaryDisplayFlags.push('numeric');
 			}else{
-				var index = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('numeric');
-				self.auditDefinition.SummaryDisplayFlags.splice(index,1);
+				self.getIndex = self.auditDefinition.SummaryDisplayFlags.map(function(x) {return x; }).indexOf('numeric');
+				self.auditDefinition.SummaryDisplayFlags.splice(self.getIndex,1);
 			}
 			break;
 		}
@@ -634,7 +635,6 @@ angular.module('sureAuditAdminApp')
 				self.populateBranchMultiSingle(branch,self.auditDefinition.Sections[pIndex].Questions[cIndex]);
 				break;
 			}
-			console.log(branch)
 			$uibModal.open({
 				animation: true,
 				templateUrl: 'addBranchingQuestion.html',
@@ -661,10 +661,10 @@ angular.module('sureAuditAdminApp')
 			}).result.then(function (branch) {
 				if(bIndex === null){
 					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.push(branch);
-				}else if(action == 'above'){
+				}else if(action === 'above'){
 					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex,0,branch);
 				
-				}else if(action == 'below'){
+				}else if(action === 'below'){
 					self.auditDefinition.Sections[pIndex].Questions[cIndex].Branches.splice(bIndex+1,0,branch);
 				}
 			});
@@ -727,8 +727,7 @@ angular.module('sureAuditAdminApp')
 		}).result.then(function () {
 			self.updateModel();
 		});
-	}
-	
+	};
 	init();
 })
 .controller('AddSurveyQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, question, isScored){

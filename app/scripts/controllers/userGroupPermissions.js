@@ -57,7 +57,7 @@ angular.module('sureAuditAdminApp')
 				windowClass: 'permissions-modal',
 				resolve: {
 					surveyGroups: function () {
-						return self.surveyGroups
+						return self.surveyGroups;
 					},
 					subjectGroups: function () {
 						return self.subjectGroups;
@@ -65,7 +65,7 @@ angular.module('sureAuditAdminApp')
 				}
 			}).result.then(function () {
 				
-			})
+			});
 		};
 		
 		init();

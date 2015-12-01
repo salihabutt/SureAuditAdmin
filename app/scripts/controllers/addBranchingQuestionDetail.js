@@ -78,7 +78,7 @@ angular.module('sureAuditAdminApp')
 	
 	self.setMiniVal = function () {
 		if(self.leftRatiingSelected === 'Less than'){
-			if(self.leftCount == 0){
+			if(self.leftCount === 0){
 				self.leftCount = 1;
 			}
 		}
@@ -91,7 +91,7 @@ angular.module('sureAuditAdminApp')
 				self.isDisabled = false;
 			}
 		}
-	}
+	};
 	
 	self.editMode = function () {
 		self.subject = 'Edit Branching Question';
@@ -115,7 +115,7 @@ angular.module('sureAuditAdminApp')
 	self.populateYesNoNa = function (){
 		for(var i=0;i< self.branch.AllowableValues.length;i++){
 			if(self.branch.AllowableValues[i].IsDefault){
-				self.selectedOption = self.branch.AllowableValues[i].Value
+				self.selectedOption = self.branch.AllowableValues[i].Value;
 			}
 		}
 		
@@ -123,14 +123,14 @@ angular.module('sureAuditAdminApp')
 	
 	self.populateNumeric = function () {
 		self.rightDisable = false;
-		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive!=null){
+		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive !== null){
 			self.leftSelected = 'Greater than or equal to';
 			self.rightSelected = 'None';
 			self.leftVal = self.branch.LowerValueLimitInclusive;	
 			self.rightVal = self.branch.UpperValueLimitExclusive;
 			
 		} 
-		else if(self.branch.LowerValueLimitInclusive==null && self.branch.UpperValueLimitExclusive!=null){
+		else if(self.branch.LowerValueLimitInclusive === null && self.branch.UpperValueLimitExclusive !== null){
 			self.leftSelected = 'Less than';
 			self.rightSelected = 'Less than';
 			self.rightDisable = true;
@@ -147,14 +147,14 @@ angular.module('sureAuditAdminApp')
 	
 	self.populateRating = function () {
 		self.rightRatingDisable = false;
-		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive!=null){
+		if(self.branch.UpperValueLimitExclusive === null && self.branch.LowerValueLimitInclusive !== null){
 			self.leftRatingSelected = 'Greater than or equal to';
 			self.rightRatingSelected = 'None';
 			self.leftCount = self.branch.LowerValueLimitInclusive;	
 			self.rightCount = self.branch.UpperValueLimitExclusive;
 			
 		} 
-		else if(self.branch.LowerValueLimitInclusive==null && self.branch.UpperValueLimitExclusive!=null){
+		else if(self.branch.LowerValueLimitInclusive === null && self.branch.UpperValueLimitExclusive !== null){
 			self.leftRatingSelected = 'Less than';
 			self.rightRatingSelected = 'Less than';
 			self.rightRatingDisable = true;

@@ -6,7 +6,7 @@ angular.module('sureAuditAdminApp')
 	  return {
 	  	restrict: 'A',
 	    link: function(scope, elem) {
-			$(elem).bind('input', function(scope) { 
+			$(elem).bind('input', function() { 
 				var val = $(elem).val();
 				if(val.length>5 && val.search(':') > 0){
 					val = val.substring(0,val.length-1);
@@ -14,7 +14,7 @@ angular.module('sureAuditAdminApp')
 					angular.element($(elem)).triggerHandler('input');
 				}
 				if(val.length === 4 && val.search(':') < 0){
-					val = val.substring(0,2) + ':' + val.substring(2,4)
+					val = val.substring(0,2) + ':' + val.substring(2,4);
 					$(elem).val(val);
 					angular.element($(elem)).triggerHandler('input');
 				}

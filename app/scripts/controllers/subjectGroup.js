@@ -7,7 +7,6 @@ angular.module('sureAuditAdminApp')
 		init= function () {
 			SubjectGroupService.getDataGroup().then(function(response){
 				self.data = response.Data;
-				console.log(self.data)
 			},function(){
 
 			});
@@ -16,7 +15,7 @@ angular.module('sureAuditAdminApp')
 		self.navigateSubGrpSettings = function (id){
 			$state.go('subjectGroupSettings',{
 				id:id
-			})
-		}
+			});
+		};
 		init();
 });

@@ -113,7 +113,7 @@ angular.module('sureAuditAdminApp')
 				Value: null,
 				IsDefault: null,
 				IsUndesireable: null
-		}
+		};
 		
 		surveyModelFactory.surevyModel = surveyModel;
 		surveyModelFactory.signature = signature;

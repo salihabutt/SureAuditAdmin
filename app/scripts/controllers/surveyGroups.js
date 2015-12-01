@@ -7,10 +7,7 @@ angular.module('sureAuditAdminApp')
 		init= function () {
 			surveyGroupService.getDataGroup().then(function(response){
 				self.data = response.Data;
-				console.log(self.data)
-			},function(){
-
-			});
+			},function(){});
 		};
 
 		self.navigate = function () {
@@ -22,7 +19,7 @@ angular.module('sureAuditAdminApp')
 		self.editSurvey = function (id) {
 			$state.go('addSurveyGroup',{
 			      id: id
-			})
+			});
 		};
 
 		self.deleteSurvey = function (index) {
@@ -43,7 +40,7 @@ angular.module('sureAuditAdminApp')
 				  controller: 'deleteWarningCtrl',
 				  windowClass: 'survey-warning-modal',
 				  controllerAs: 'dwCtrl',
-			  })	
+			  });	
 			}		
 		};
 

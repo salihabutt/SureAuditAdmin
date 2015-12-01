@@ -1,14 +1,14 @@
 'use strict';
 // dummb expression does not work with variable names
-var REGEXP = /^(([0-9]{1,2})?(\.[0-9])?|100)$/;
-var REGEXP2 = /^\d{1,2}\.\d{0,1}$/;
-var REGEXP3 = /^0$/;
+// var REGEXP = /^(([0-9]{1,2})?(\.[0-9])?|100)$/;
+// var REGEXP2 = /^\d{1,2}\.\d{0,1}$/;
+// var REGEXP3 = /^0$/;
 angular.module('sureAuditAdminApp')
 .directive('scoreCheck', function() {
 	  return {
 	    require: 'ngModel',
-	    link: function(scope, elem, attrs, ctrl) {
-	    		 $(elem).bind('input', function(scope,attrs) { 
+	    link: function(scope, elem) {
+	    		 $(elem).bind('input', function() { 
 	    			 var val = $(elem).val();
 	    			 if (!(/^(([0-9]{1,2})?(\.[0-9])?|100)$/.test(val)) && val!== ''){
 	    				 var temp = '';
@@ -16,21 +16,21 @@ angular.module('sureAuditAdminApp')
 	    					 if(val.charAt(0) === '.'){
 	    						 temp = val.replace('.','');
 	    						 if(temp.length>1){
-	    							 val = val.substring(0,val.length-1)
+	    							 val = val.substring(0,val.length-1);
 		    						 $(elem).val(val);
 	    							 angular.element($(elem)).triggerHandler('input');
 		    					 }
 	    					 }else if(val.charAt(1) === '.'){
 	    					 temp = val.replace('.','');
 	    					 if(temp.length>2){
-	    						 val = val.substring(0,val.length-1)
+	    						 val = val.substring(0,val.length-1);
 	    						 $(elem).val(val);
 	    						 angular.element($(elem)).triggerHandler('input');
 	    					 }
 	    					 }
 	    				 }else{
 	    					 if(val.length>3 || val>100){
-	    						 val = val.substring(0,val.length-1)
+	    						 val = val.substring(0,val.length-1);
 	    						 $(elem).val(val);
 	    						 angular.element($(elem)).triggerHandler('input');
 	    					 }

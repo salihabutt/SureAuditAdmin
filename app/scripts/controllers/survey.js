@@ -20,7 +20,7 @@ angular.module('sureAuditAdminApp')
 		self.editSurvey = function (id) {
 			$state.go('addSurvey',{
 			      id: id
-		})
+			});
 		};
 		self.unpublish = function (index) {
 			self.data[index].Published = null;
