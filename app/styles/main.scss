@@ -1,9 +1,10 @@
+@import "variables";
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@import "variables";
+
 @import "global";
 @import "login";
 @import "home";
@@ -24,6 +25,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 
 
+.container { width: 1280px !important; }
 
 .browsehappy {
   margin: 0.2em 0;

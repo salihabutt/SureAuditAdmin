@@ -1,4 +1,6 @@
 /*color variables*/
+
+
 $white-color: #FFFFFF;
 $border-radius-5: 5px;
 $heading-color-grey: #4C4C4C;
@@ -14,3 +16,10 @@ $font-heading: 26px Helvetica Neue Medium, helvetica;
 $font-large-bold: 18px Helvetica Neue Bold, helvetica;
 /*breakpoints configuration*/
 $breakpoint-tablet: 800px;
+
+$screen-xs:                  0px !default;
+$screen-sm:                  1px !default;
+$screen-md:                  2px !default;
+$screen-lg:                  9999px !default;
+
+
