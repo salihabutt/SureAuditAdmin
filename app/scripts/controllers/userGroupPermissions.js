@@ -18,7 +18,7 @@ angular.module('sureAuditAdminApp')
 		};
 		
 
-		self.deletePermission = function () {
+		self.deletePermission = function (id) {
 			$uibModal.open({
 				animation: true,
 				templateUrl: 'views/deleteWarning.html',

@@ -38,13 +38,14 @@ angular.module('sureAuditAdminApp')
 	    			 }
 	    			 
 	    				 var type = $(elem).attr('score-check').split('-')[0];
-	    				 var sectionId= null;			 
+	    				 var sectionId= null;
+	    				 var sum = 0.0;
+	    				 var objArray = [];
 	    				 switch(type){
 	    				 case 'question':
 	    					 if($(elem).attr('status') === 'OK'){
 	    					 sectionId = $(elem).attr('score-check').split('-')[1];
-	    					 var sum = 0.0;
-	    					 var objArray = $('#section-'+ sectionId + ' .percent-weight');	 
+	    					 objArray = $('#section-'+ sectionId + ' .percent-weight');	 
 	    					 for(var i=0;i<objArray.length;i++){
 	    						 if(objArray[i].value !== '' && objArray[i].value !== '.'){
 	    						 sum = sum + parseFloat(objArray[i].value);
@@ -57,8 +58,7 @@ angular.module('sureAuditAdminApp')
 	    				break;	 
 	    				 case 'section':
 	    					 sectionId = $(elem).attr('score-check').split('-')[1];
-	    					 var sum = 0.0;
-	    					 var objArray = $('.section-percent-weight');	 
+	    					 objArray = $('.section-percent-weight');	 
 	    					 for(var j=0;j<objArray.length;j++){
 	    						 if(objArray[j].value !== '' && objArray[j].value !== '.'){
 	    						 sum = sum + parseFloat(objArray[j].value);
