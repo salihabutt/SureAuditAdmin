@@ -55,9 +55,9 @@
 			</div>
 			<div class="col-lg-12 no-padding"  ng-repeat = "item in subgrp.subjectAttList track by $index">
 				<div class="col-lg-5 no-padding margintop20">
-				<select>
+				<select ng-model="item.Name">
 					<option value=""></option>
-            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.Key">{{option.Label}}</option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Label}}">{{option.Label}}</option>
             	</select>
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
@@ -75,18 +75,28 @@
 		<div class="col-lg-12 margintop50">
 		<p class="heading">Subject Attributes</p>
 		<p>Select subject attributes that display in the subject profile:</p>
-			<div class="col-lg-12 no-padding" >
+			<div class="col-lg-12 no-padding margintop20" ng-repeat="item in subgrp.profileAttList">
 				<div class="col-lg-2">
-					<input type="text" placeholder="Enter Label" class="local-input">
+					<input type="text" placeholder="Enter Label" class="local-input" ng-model="item.key">
 				</div>
 				<div class="col-lg-4">
+				<div class="col-lg-1 no-padding">
+					<input type="number" ng-model="item.order" min=0 id="input-number-mod">
+				</div>
+				<div class="col-lg-3 no-padding">
 				<select>
 					<option value=""></option>
-            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.Key">{{option.Label}}</option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.label">{{option.Label}}</option>
             	</select>
             	</div>
+            	</div>
             	<div class="col-lg-6">
-            	<input type="radio">
+            	<div class="col-lg-2" ng-repeat="option in subgrp.types">
+            	<label class="label-light">
+            	{{option}}
+            	</label>
+            		<input type="radio" ng-model="item.type" ng-value="option">
+            	</div>
             	</div>
 			</div>
 		</div>
