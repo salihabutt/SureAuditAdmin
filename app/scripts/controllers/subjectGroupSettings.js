@@ -37,6 +37,10 @@ angular.module('sureAuditAdminApp')
 			}
 		}
 	};
+	
+	self.saveSubGrpSetting = function () {
+		
+	};
 	init();
 	
 });
