@@ -1,19 +1,19 @@
-<div class="col-lg-12 subgroup-settings-wrapper">
+<div class="col-lg-12 subgroup-settings-wrapper" ng-controller="SubjectGroupSettingsCtrl as subgrp">
 	<div class="subgroup-settings-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
 		<span>Subject Groups</span> 
 		<img src="/images/ic_arrow@2x.png"> 
-		<span>Employees</span>
+		<span>{{subgrp.subgrpSettings.Name}}</span>
 	</div>
 	<div class="col-lg-12">
-			<button type="button" class="float-right main-btn-green"  >Save</button>
+			<button type="button" class="float-right main-btn-green"  ng-click="subgrp.saveSubGrpSetting()">Save</button>
 	</div>
 	<div class="col-lg-12 no-padding subgroup-settings-detail">
-			<div class="col-lg-5 no-padding subgroup-settings-box">
-				<p class="heading">Employees</p>
+			<div class="col-lg-5 no-padding">
+				<p class="heading">{{subgrp.subgrpSettings.Name}}</p>
 			</div>
-			<div class="col-lg-3">
-				<p>30 Employees</p><p>Last Modified : {{usrPermission.userPermissions.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
+			<div class="col-lg-3 subgroup-settings-box">
+				<p>{{subgrp.subgrpSettings.SubjectCount}} {{subgrp.subgrpSettings.Name}}</p><p>Last Modified : {{subgrp.subgrpSettings.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
 			</div>
 		</div>
 		<ul class="nav nav-tabs" tab-class>
@@ -26,18 +26,18 @@
 		<div class="col-lg-12 margintop50">
 		<p class="heading">Configure Photo</p>
 		<label>
-			<input type="checkbox"> <span class="custom-label" >Show Subject Photo</span>
+			<input type="checkbox"> <span class="custom-label" ng-model="subgrp.subgrpSettings.ShowImageInListing">Show Subject Photo</span>
 		</label>
 		</div>
 		<div class="col-lg-12 margintop50">
 		<p class="heading">Search Settings</p>
 		<div class="col-lg-3 no-padding">
 			<p class="label-light">Local</p>
-			<input type="text" placeholder="Enter Label" class="local-input">
+			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal">
 		</div>
 		<div class="col-lg-3">
 			<p class="label-light">All</p>
-			<input type="text" placeholder="Enter Label" class="local-input">
+			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal">
 		</div>
 		</div>
 		<div class="col-lg-12 margintop50">
@@ -53,77 +53,43 @@
 				<p class="label-light">Select options for default</p>
 				</div>
 			</div>
-			<div class="col-lg-12 no-padding">
+			<div class="col-lg-12 no-padding"  ng-repeat = "item in subgrp.subjectAttList track by $index">
 				<div class="col-lg-5 no-padding margintop20">
-				<select selectpicker >
-            		<option value="">Select</option>
+				<select>
+					<option value=""></option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.Key">{{option.Label}}</option>
             	</select>
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
-					<input type="checkbox"> 
+					<input type="checkbox" ng-model="item.sortOption"> 
 				</label>
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
-					<input type="checkbox">
+					<input type="checkbox" ng-model="item.isDefault" ng-click="subgrp.checkIsDefault($index,$event)">
 				</label>
 				</div>
 			</div>
-				<div class="col-lg-12 no-padding">
-				<div class="col-lg-5 no-padding margintop20">
-				<select selectpicker >
-            		<option value="">Select</option>
-            	</select>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-			</div>
-				<div class="col-lg-12 no-padding">
-				<div class="col-lg-5 no-padding margintop20">
-				<select selectpicker >
-            		<option value="">Select</option>
-            	</select>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-			</div>
-				<div class="col-lg-12 no-padding">
-				<div class="col-lg-5 no-padding margintop20">
-				<select selectpicker >
-            		<option value="">Select</option>
-            	</select>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-				<div class="col-lg-3 no-padding margintop20">
-				<label>
-					<input type="checkbox"> <span class="custom-label" >
-				</label>
-				</div>
-			</div>
-			
 		</div>
-	
+		<div class="col-lg-12 margintop50">
+		<p class="heading">Subject Attributes</p>
+		<p>Select subject attributes that display in the subject profile:</p>
+			<div class="col-lg-12 no-padding" >
+				<div class="col-lg-2">
+					<input type="text" placeholder="Enter Label" class="local-input">
+				</div>
+				<div class="col-lg-4">
+				<select>
+					<option value=""></option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.Key">{{option.Label}}</option>
+            	</select>
+            	</div>
+            	<div class="col-lg-6">
+            	<input type="radio">
+            	</div>
+			</div>
+		</div>
 	</div>
 </div>
 	

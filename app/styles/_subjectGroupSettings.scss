@@ -6,7 +6,7 @@
 		background-color: $white-color;
 		padding: 10px 25px;
 		border-top: 1px solid #cccccc;
-    	border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
 
 
 		.custom-breadcrumbs{
@@ -33,7 +33,12 @@
 			}
 
 			.subgroup-settings-box{
-				border-right: 1px solid #cccccc;
+				border-left: 1px solid #cccccc;
+			}
+
+			.heading {
+				font: $font-heading;
+				color: #0DC3F3;
 			}
 		}
 
@@ -83,6 +88,19 @@
 }
 .bootstrap-select:not([class*="span"]):not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){
   width: 324px;
+}
+
+select {
+    border: 1px solid #111;
+    background: #FFFFFF;
+    width: 325px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 	}
