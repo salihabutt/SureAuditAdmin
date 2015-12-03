@@ -23,7 +23,7 @@
 	</div>
 	<!-- SUbject Group Settings -->
 	<div class="col-lg-12">
-		<div class="col-lg-12 margintop50">
+		<div class="col-lg-12 margintop50" ng-show="subgrp.subgrpSettings.AllowImages">
 		<p class="heading">Configure Photo</p>
 		<label>
 			<input type="checkbox"> <span class="custom-label" ng-model="subgrp.subgrpSettings.ShowImageInListing">Show Subject Photo</span>
@@ -55,10 +55,29 @@
 			</div>
 			<div class="col-lg-12 no-padding"  ng-repeat = "item in subgrp.subjectAttList track by $index">
 				<div class="col-lg-5 no-padding margintop20">
-				<select ng-model="item.Name">
+				<div class="col-lg-9 selectdiv">
+				<div class="col-lg-2 no-padding">
+						<div class="order-box">
+							<div class="left arrows-section">
+								<div class="arrows">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;">
+								</div>
+								<div class="arrows">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;">
+								</div>
+							</div>
+							<div class="right order-number">
+								<span>{{item.order}}.</span>
+							</div>
+						</div>
+						</div>
+						<div class="col-lg-10 no-padding">
+						<select ng-model="item.key">
 					<option value=""></option>
-            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Label}}">{{option.Label}}</option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Key}}">{{option.Label}}</option>
             	</select>
+				</div>
+            	</div>
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
@@ -80,14 +99,28 @@
 					<input type="text" placeholder="Enter Label" class="local-input" ng-model="item.key">
 				</div>
 				<div class="col-lg-4">
-				<div class="col-lg-1 no-padding">
-					<input type="number" ng-model="item.order" min=0 id="input-number-mod">
-				</div>
-				<div class="col-lg-3 no-padding">
-				<select>
+				<div class="col-lg-12 selectdiv">
+				<div class="col-lg-2 no-padding">
+						<div class="order-box">
+							<div class="left arrows-section">
+								<div class="arrows">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" class="">
+								</div>
+								<div class="arrows">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" class="">
+								</div>
+							</div>
+							<div class="right order-number">
+								<span>{{item.order}}.</span>
+							</div>
+						</div>
+						</div>
+						<div class="col-lg-10 no-padding">
+					<select ng-model="item.label">
 					<option value=""></option>
-            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="item.label">{{option.Label}}</option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Label}}">{{option.Label}}</option>
             	</select>
+				</div>
             	</div>
             	</div>
             	<div class="col-lg-6">
