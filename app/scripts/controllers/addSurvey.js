@@ -281,7 +281,6 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.orderQuestion = function (pIndex,index, action) {
-
 			if(self.auditDefinition.Sections[pIndex].Questions.length > 1 && action === 'down'){
 				self.sortDown(self.auditDefinition.Sections[pIndex].Questions,index);
 			}
@@ -301,15 +300,20 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	self.sortUp = function (array,index) {
-		var temp = array[index];
-		array[index] = array[index-1];
-		array[index-1] = temp;
+		if(index>0){
+			var temp = array[index];
+			array[index] = array[index-1];
+			array[index-1] = temp;
+		}
+		
 	};
 	
 	self.sortDown = function (array,index) {
-		var temp = array[index];
-		array[index] = array[index+1];
-		array[index+1] = temp;
+		if(index < array.length-1){
+			var temp = array[index];
+			array[index] = array[index+1];
+			array[index+1] = temp;
+		}
 	};
 	
 	self.saveAuditDef = function () {
