@@ -16,9 +16,21 @@ angular.module('sureAuditAdminApp')
 					  ModifiedDate: new Date()
 				  }
 				};
+
+
+		var audits = {
+			Id: "",
+			Key: "",
+			LastModified: "",
+			Name: "",
+			Published: "",
+			QuestionCount: 0,
+			SubTitle: "",
+		}
 		
 
 		surveyGroupModelFactory.surveyGroupModelDef = surveyGroupModelDef;
+		surveyGroupModelFactory.auditsList = audits;
 
 		return surveyGroupModelFactory;
 	});

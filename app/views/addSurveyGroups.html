@@ -47,11 +47,27 @@
 
 		<div class="col-lg-12 col-md-12 no-padding margintop50">
 			<h3>Published</h3>
-			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits">
-				<div class="no-padding survey-box" ng-show="item.Published != null">
+			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits track by $index">
+				<div class="no-padding survey-group-box" ng-show="items.Published != null">
 					<div class="box-head clearfix">
-						<h4>{{items.Name}}</h4>
-						<span>{{items.SubTitle}}</span>
+						<div class="left">
+							<h4>{{items.Name}}</h4>
+							<span>{{items.SubTitle}}</span>
+						</div>
+						<div class="order-box right">
+							<div class="left arrows-section">
+								<div class="arrows">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" class="">
+								</div>
+								<div class="arrows">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" class="">
+								</div>
+							</div>
+							<div class="right order-number">
+								<span>1.</span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="box-body clearfix">
@@ -75,11 +91,27 @@
 		<div class="col-lg-12 col-md-12 no-padding margintop50">
 			<h3>Un-Published</h3>
 
-			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits">
-				<div class="no-padding survey-box"  ng-show="item.Published == null" >
+			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits track by $index">
+				<div class="no-padding survey-group-box"  ng-show="items.Published == null" >
 					<div class="box-head clearfix">
-						<h4>{{items.Name}}</h4>
-						<span>{{items.SubTitle}}</span>
+						<div class="left">
+							<h4>{{items.Name}}</h4>
+							<span>{{items.SubTitle}}</span>
+						</div>
+						<div class="order-box right">
+							<div class="left arrows-section">
+								<div class="arrows">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" class="">
+								</div>
+								<div class="arrows">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" class="">
+								</div>
+							</div>
+							<div class="right order-number">
+								<span>1.</span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="box-body clearfix">
@@ -119,9 +151,9 @@
 		<div ng-slimscroll  height="450" color="#FFFFFF" distance="5px">
 			<div class="col-lg-12 no-padding side-panel-body">
 				
-				<div class="col-lg-12 survey-group-item" ng-repeat="items in addSurveyGroup.getAllAudits.Data | filter:query:strict">
+				<div class="col-lg-12 survey-group-item"  ng-repeat="items in addSurveyGroup.getAllAudits | filter:query:strict | orderBy : items.Name">
 					<div class="col-lg-1">
-						<input type="checkbox" class="">
+						<input type="checkbox" ng-model="items.checked" class="">
 					</div>
 					<div class="col-lg-10">
 						<p class="heading">{{items.Name}}</p>
@@ -133,7 +165,7 @@
 			</div>
 		</div>
 		<div class="col-lg-12 side-panel-footer text-center">
-			<button class="main-btn-green">Add Surveys</button>
+			<button class="main-btn-green" ng-click="addSurveyGroup.updateSurveyGroup()">Add Surveys</button>
 		</div>
 	</div>
 </div>
