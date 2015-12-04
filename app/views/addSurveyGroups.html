@@ -10,7 +10,7 @@
 		</div>
 		<!-- survey detials -->
 		<div class="col-lg-12">
-			<button type="button" class='float-right main-btn-green' ng-click="addSurveyGroup.saveSurGroup()">Save</button>
+			<button type="button" class='float-right' ng-class="addSurveyGroup.isSaveDisabled?'btn-deactive':'main-btn-green'" ng-disabled="addSurveyGroup.isSaveDisabled" ng-click="addSurveyGroup.saveSurGroup()">Save</button>
 		</div>
 		
 		<div class="col-lg-12 no-padding survey-detail" ng-show="!addSurveyGroup.editSurvey">
@@ -27,7 +27,7 @@
 			<div class="col-lg-10">
 				<p>
 					<span>
-						<input type="text" placeholder="Group Name" ng-model ="addSurveyGroup.auditGroupDef.Name" class="form-control" ng-change="aeSurvey.updateModel()">
+						<input type="text" placeholder="Group Name" ng-model ="addSurveyGroup.auditGroupDef.Name" class="form-control" ng-change="addSurveyGroup.updateModel()">
 					</span>
 				</p>
 				</div>
@@ -64,7 +64,7 @@
 								</div>
 							</div>
 							<div class="right order-number">
-								<span>1.</span>
+								<span>{{items.sortingCount}}.</span>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -79,8 +79,8 @@
 							<img src="/images/ic_more_@2x.png" alt="more">
 							<div class="gridOptions">
 								<ul>
-									<li ng-click="survey.duplicate($index)">Edit</li>
-									<li ng-click="survey.deleteSurvey($index)">Delete</li>
+									<li ng-click="addSurveyGroup.editAudit(items.Id)">Edit</li>
+									<li ng-click="addSurveyGroup.deleteAudit(items.Id)">Delete</li>
 								</ul>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 								</div>
 							</div>
 							<div class="right order-number">
-								<span>1.</span>
+								<span>{{items.sortingCount}}.</span>
 							</div>
 						</div>
 						<div class="clearfix"></div>
@@ -123,8 +123,8 @@
 							<img src="/images/ic_more_@2x.png" alt="more">
 							<div class="gridOptions">
 								<ul>
-									<li ng-click="survey.duplicate($index)">Edit</li>
-									<li ng-click="survey.deleteSurvey($index)">Delete</li>
+									<li ng-click="addSurveyGroup.editAudit(items.Id)">Edit</li>
+									<li ng-click="addSurveyGroup.deleteAudit(items.Id)">Delete</li>
 								</ul>
 							</div>
 						</div>
@@ -151,7 +151,7 @@
 		<div ng-slimscroll  height="450" color="#FFFFFF" distance="5px">
 			<div class="col-lg-12 no-padding side-panel-body">
 				
-				<div class="col-lg-12 survey-group-item"  ng-repeat="items in addSurveyGroup.getAllAudits | filter:query:strict | orderBy : items.Name">
+				<div class="col-lg-12 survey-group-item" ng-hide="items.showInList == false" ng-repeat="items in addSurveyGroup.getAllAudits | filter:query:strict | orderBy : items.Name">
 					<div class="col-lg-1">
 						<input type="checkbox" ng-model="items.checked" class="">
 					</div>
@@ -169,3 +169,15 @@
 		</div>
 	</div>
 </div>
+
+ 	<script type="text/ng-template" id="delWarning.html">
+        <div class="modal-body col-lg-12 margintop22 text-center">
+        	<p>Are you sure you want to remove the survey from the survey group?</p>
+        </div>	
+        <div class="modal-footer">
+        	<div class="col-lg-12 text-right">
+				<button class="main-btn-green" type="button" ng-click="dwModal.ok()">OK</button>
+            	<button class="main-btn-grey btn btn-primary" type="button" ng-click="dwModal.cancel()">Cancel</button>
+        	</div>
+        </div>
+    </script>

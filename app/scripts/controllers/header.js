@@ -3,12 +3,20 @@
 
 angular.module('sureAuditAdminApp')
 	.controller('headerCtrl',  function ($state, authService, $uibModal ) {
-		var self = this;
-		self.expandQuesMenu = false;
+		var self = this,
+
+		init = function(){
+			self.expandQuesMenu = false;
+			self.getState = $state;
+		
+		}
+
 		self.getProfile = function () {
 			$state.go('profile');
 		};
 		
+
+
 		self.logout = function () {
 			$uibModal.open({
 			  animation: true,
@@ -26,6 +34,8 @@ angular.module('sureAuditAdminApp')
 		self.navigate = function (view) {
 			$state.go(view);
 		};
+
+		init();
 	
 })
 .controller('logoutConfirmation', function ($uibModalInstance) {

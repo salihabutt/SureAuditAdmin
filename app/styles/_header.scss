@@ -24,6 +24,10 @@ nav{
 	ul{
 		list-style: none;
 		margin: 35px 0 0 0;
+		.active{
+		    border-bottom: 3px solid #0DC3F3 !important;
+    		padding-bottom: 5px;
+		}
 		li{
 			list-style: none;
 			font-family: helvetica;
@@ -39,15 +43,13 @@ nav{
 
 			div.sub-menu{
 			   	position: absolute;
-			    top: -26px;
+			    top: 4px;
 			    right: -205%;
 			    border-bottom: 1px solid #cccccc;
 			    clear: both;
 			    height: 78px;
 			    z-index:9999;
 			    
-			    margin-top: 30px;
-
 				ul{
 					margin: 0;
 					position: absolute;
@@ -61,6 +63,12 @@ nav{
 						color: #777777;
 						font-family: helvetica;
 						margin: 0 25px;
+						height: 78px
+					}
+
+					.active{
+					    color: #12709A !important;
+					    border: 0px !important
 					}
 
 					.border-div{
