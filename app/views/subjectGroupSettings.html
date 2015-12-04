@@ -17,12 +17,12 @@
 			</div>
 		</div>
 		<ul class="nav nav-tabs" tab-class>
-  			<li class="active tab-active"><a id="GS" ng-click="">Settings</a></li>
-  			<li><a id="GV" ng-click="">View</a></li>
+  			<li class="active tab-active"><a id="GS" ng-click="subgrp.selectedTab = 'GS'">Settings</a></li>
+  			<li><a id="GV" ng-click="subgrp.selectedTab = 'GV'">View</a></li>
 		</ul>
 	</div>
 	<!-- SUbject Group Settings -->
-	<div class="col-lg-12">
+	<div class="col-lg-12" ng-if="subgrp.selectedTab == 'GS'">
 		<div class="col-lg-12 margintop50" ng-show="subgrp.subgrpSettings.AllowImages">
 		<p class="heading">Configure Photo</p>
 		<label>
@@ -60,10 +60,10 @@
 						<div class="order-box">
 							<div class="left arrows-section">
 								<div class="arrows">
-									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.subjectAttList.length?item.order+1:item.order">
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order">
 								</div>
 							</div>
 							<div class="right order-number">
@@ -86,7 +86,7 @@
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
-					<input type="checkbox" ng-model="item.isDefault" ng-click="subgrp.checkIsDefault($index,$event)">
+					<input type="checkbox" ng-model="item.isDefault" ng-click="subgrp.checkIsDefault($index,$event)" ng-disabled="!item.sortOption">
 				</label>
 				</div>
 			</div>
@@ -104,10 +104,10 @@
 						<div class="order-box">
 							<div class="left arrows-section">
 								<div class="arrows">
-									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" class="">
+							<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.profileAttList.length?item.order+1:item.order">
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" class="">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order">
 								</div>
 							</div>
 							<div class="right order-number">
@@ -118,7 +118,7 @@
 						<div class="col-lg-10 no-padding">
 					<select ng-model="item.label">
 					<option value=""></option>
-            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Label}}">{{option.Label}}</option>
+            		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Key}}">{{option.Label}}</option>
             	</select>
 				</div>
             	</div>
