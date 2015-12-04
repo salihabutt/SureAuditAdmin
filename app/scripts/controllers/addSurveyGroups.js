@@ -15,20 +15,15 @@ angular.module('sureAuditAdminApp')
 			self.auditGroupDef = {};
 
 			if (self.id === '') {
-				debugger;
 				self.auditGroupDef = angular.copy(surveyGroupModel.surveyGroupModelDef);		
 				self.auditGroupDef.Key = utilityService.guid();
 				self.auditGroupDefClone = angular.copy(self.auditGroupDef); // keep this line at end always
 				console.log(self.auditGroupDef);
 			}else{
 				surveyGroupService.getSurveyGroup(self.id).then(function (response) {
-					debugger;
 					self.auditGroupDef = response;
 					self.auditGroupDef.TouchInfo.ModifiedDate = new Date();
 					self.auditGroupDef = angular.copy(self.auditGroupDef);  // keep this line at end always
-					for (var i = 0 ; i < self.auditGroupDef.Audits.length; i++) {
-						self.auditGroupDef.Audits[i].sortingCount = i + 1 ;
-					}
 
 				},function () {
 					// ERROR block
@@ -36,7 +31,6 @@ angular.module('sureAuditAdminApp')
 			}
 
 			surveyService.getData().then(function (response) {
-					debugger;
 					if (self.id === ''){
 						self.getAllAudits = response.Data;
 						for (var i = 0 ; i < self.getAllAudits.length; i++) {
@@ -66,7 +60,6 @@ angular.module('sureAuditAdminApp')
 			};
 
 		self.updateSurveyGroup = function(){
-			debugger;
 			for (var i = 0; i < self.getAllAudits.length; i++) {
 				if(self.getAllAudits[i].checked === true && self.getAllAudits[i].showInList === true){
 					var newAuditList = angular.copy(surveyGroupModel.auditsList);
@@ -127,7 +120,6 @@ angular.module('sureAuditAdminApp')
 
 		self.saveSurGroup = function(){
 			if(self.id === ''){ //ADD SURVEY group
-				debugger;
 				surveyGroupService.saveSurveyGroup(self.auditGroupDef).then(function (response) {			
 					self.auditGroupDef.Id = response.Id;
 					self.id = response.Id;
@@ -140,7 +132,6 @@ angular.module('sureAuditAdminApp')
 				});
 			}
 			else{ //EDIT SURVEY group
-				debugger;
 				surveyGroupService.updateSurveyGroup(self.auditGroupDef).then(function (response) {			
 					self.auditGroupDef.Id = response.Id;
 					self.id = response.Id;

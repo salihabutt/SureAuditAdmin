@@ -39,6 +39,22 @@
 		    	width: 50%;
 		    	text-align: center;
 		    	margin-top: -2px;
+		    	position: relative;
+		    	left: 10px;
+
+		    	.arrows{
+		    		position: absolute;
+
+		    		&:nth-child(1){
+		    			top: 1px;
+		    		}
+
+		    		&:nth-child(2){
+		    			top: 19px;
+		    		}
+		    	
+		    	}
+
 		    }
 
 		    .order-number{

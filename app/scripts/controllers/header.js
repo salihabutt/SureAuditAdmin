@@ -26,7 +26,7 @@ angular.module('sureAuditAdminApp')
 			  controllerAs: 'lcModal',
 		  	}).result.then(function(){ 
 				authService.logOut();
-				});
+			});
 		};
 
 
