@@ -1,4 +1,5 @@
 <div class="col-lg-12 subgroup-settings-wrapper" ng-controller="SubjectGroupSettingsCtrl as subgrp">
+<div class="erorOrMessage" ng-show="subgrp.showMessage">{{errors.SubjectGroupOK}}</div>
 	<div class="subgroup-settings-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
 		<span>Subject Groups</span> 
@@ -6,7 +7,7 @@
 		<span>{{subgrp.subgrpSettings.Name}}</span>
 	</div>
 	<div class="col-lg-12">
-			<button type="button" class="float-right main-btn-green"  ng-click="subgrp.saveSubGrpSetting()">Save</button>
+			<button type="button" class="float-right" ng-class="subgrp.disableSave?'btn-deactive':'main-btn-green'"  ng-click="subgrp.saveSubGrpSetting()" ng-disabled="subgrp.disableSave">Save</button>
 	</div>
 	<div class="col-lg-12 no-padding subgroup-settings-detail">
 			<div class="col-lg-5 no-padding">
@@ -22,22 +23,22 @@
 		</ul>
 	</div>
 	<!-- SUbject Group Settings -->
-	<div class="col-lg-12" ng-if="subgrp.selectedTab == 'GS'">
+	<div class="col-lg-12" ng-show="subgrp.selectedTab == 'GS'">
 		<div class="col-lg-12 margintop50" ng-show="subgrp.subgrpSettings.AllowImages">
 		<p class="heading">Configure Photo</p>
 		<label>
-			<input type="checkbox"> <span class="custom-label" ng-model="subgrp.subgrpSettings.ShowImageInListing">Show Subject Photo</span>
+			<input type="checkbox"> <span class="custom-label" ng-model="subgrp.subgrpSettings.ShowImageInListing" ng-change="subgrp.updateModel()">Show Subject Photo</span>
 		</label>
 		</div>
 		<div class="col-lg-12 margintop50">
 		<p class="heading">Search Settings</p>
 		<div class="col-lg-3 no-padding">
 			<p class="label-light">Local</p>
-			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal">
+			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal" ng-change="subgrp.updateModel()">
 		</div>
 		<div class="col-lg-3">
 			<p class="label-light">All</p>
-			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal">
+			<input type="text" placeholder="Enter Label" class="local-input" ng-model="subgrp.subgrpSettings.SearchLabelLocal" ng-change="subgrp.updateModel()">
 		</div>
 		</div>
 		<div class="col-lg-12 margintop50">
@@ -60,10 +61,10 @@
 						<div class="order-box">
 							<div class="left arrows-section">
 								<div class="arrows">
-									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.subjectAttList.length?item.order+1:item.order">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.subjectAttList.length?item.order+1:item.order; subgrp.updateModel()">
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order; subgrp.updateModel()">
 								</div>
 							</div>
 							<div class="right order-number">
@@ -81,12 +82,12 @@
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
-					<input type="checkbox" ng-model="item.sortOption"> 
+					<input type="checkbox" ng-model="item.sortOption" ng-change="subgrp.updateModel()"> 
 				</label>
 				</div>
 				<div class="col-lg-3 no-padding margintop20">
 				<label>
-					<input type="checkbox" ng-model="item.isDefault" ng-click="subgrp.checkIsDefault($index,$event)" ng-disabled="!item.sortOption">
+					<input type="checkbox" ng-model="item.isDefault" ng-click="subgrp.checkIsDefault($index,$event)" ng-disabled="!item.sortOption" ng-change="subgrp.updateModel()">
 				</label>
 				</div>
 			</div>

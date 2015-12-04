@@ -10,7 +10,7 @@ angular.module('sureAuditAdminApp')
 			//self.getState = $state;
 			self.getState = $stateParams.parent;
 		
-		}
+		};
 
 		self.getProfile = function () {
 			$state.go('profile');

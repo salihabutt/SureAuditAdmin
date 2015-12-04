@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-.controller('SubjectGroupSettingsCtrl', function ($stateParams,SubjectGroupService){
+.controller('SubjectGroupSettingsCtrl', function ($stateParams, $timeout, SubjectGroupService){
 	var self = this,
 	init = function () {
 		var id = $stateParams.id;
@@ -9,8 +9,11 @@ angular.module('sureAuditAdminApp')
 		self.initProfileAttributes();
 		self.types = ['Email','Phone','Other'];
 		self.selectedTab = 'GS';
+		self.disableSave = true;
+		self.showMessage = false;
 		SubjectGroupService.getSubjectGroup(id).then(function (response){
 			self.subgrpSettings = response;
+			self.subgrpSettingsClone = angular.copy(self.subgrpSettings);
 			self.subgrpSettings.TouchInfo.ModifiedDate = new Date();
 			if(self.subgrpSettings.SortOptions !== null){
 				self.popuplateSubjectAtt();
@@ -46,7 +49,7 @@ angular.module('sureAuditAdminApp')
 			subjectAtt.name = self.subgrpSettings.SortOptions[i].Name;
 			subjectAtt.field = null;
 			subjectAtt.isDefault = self.subgrpSettings.SortOptions[i].isDefault;
-			subjectAtt.sortOption = false;	
+			subjectAtt.sortOption = true;	
 			self.subjectAttList[i] = subjectAtt;
 		}
 		console.log(self.subjectAttList);
@@ -89,16 +92,25 @@ angular.module('sureAuditAdminApp')
 	self.saveSubGrpSetting = function () {
 		self.saveSubAtt();
 		self.saveProfileAtt();
+		SubjectGroupService.updateSubjectGroup(self.subgrpSettings).then(function (response) {
+			console.log(response);
+			self.showMessage = true;
+			$timeout(function () {
+				self.showMessage = false;
+			},3000);
+		});
 	};
 	
 	self.saveSubAtt = function () {
 		self.subgrpSettings.SortOptions = [];
 		self.subjectAttList.sort(function(a, b) { return a.order - b.order; });
 		for(var i=0;i<self.subjectAttList.length;i++){
-			var obj = {};
-			obj.Key = self.subjectAttList[i].key;
-			obj.IsDefault = self.subjectAttList[i].isDefault;
-			self.subgrpSettings.SortOptions.push(obj);
+			if(self.subjectAttList[i].sortOption){
+				var obj = {};
+				obj.Key = self.subjectAttList[i].key;
+				obj.IsDefault = self.subjectAttList[i].isDefault;
+				self.subgrpSettings.SortOptions.push(obj);
+			}
 		}
 	};
 	
@@ -113,6 +125,14 @@ angular.module('sureAuditAdminApp')
 			self.subgrpSettings.ProfileAttributes.push(obj);
 		}
 	};
+	
+	self.updateModel = function () {
+		self.disableSave = true;
+		if(!angular.equals(self.subgrpSettings,self.subgrpSettingsClone)){
+			self.disableSave = false;
+		}
+	};
+	
 	init();
 	
 });
