@@ -57,14 +57,14 @@
 						<div class="order-box right">
 							<div class="left arrows-section">
 								<div class="arrows">
-									<img src="/images/ic_selector_up_gray@2x.png" ng-show="$index > 0" alt="arrow up" style="vertical-align: bottom;" class="">
+									<img src="/images/ic_selector_up_gray@2x.png"  alt="arrow up" style="vertical-align: bottom;" ng-click="items.order=items.order+1" >
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" ng-hide="$last" alt="arrow down" style="vertical-align: baseline;" class="">
+									<img src="/images/ic_selector_down_gray@2x.png"  alt="arrow down" style="vertical-align: baseline;" ng-click="items.order=items.order-1" >
 								</div>
 							</div>
 							<div class="right order-number">
-								<span>{{$index + 1}}.</span>
+								<span>{{items.order}}.</span>
 							</div>
 						</div>
 						<div class="clearfix"></div>

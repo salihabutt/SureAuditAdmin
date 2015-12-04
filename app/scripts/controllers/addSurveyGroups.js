@@ -24,6 +24,7 @@ angular.module('sureAuditAdminApp')
 					self.auditGroupDef = response;
 					self.auditGroupDef.TouchInfo.ModifiedDate = new Date();
 					self.auditGroupDef = angular.copy(self.auditGroupDef);  // keep this line at end always
+					self.populateAudits();
 
 				},function () {
 					// ERROR block
@@ -70,6 +71,7 @@ angular.module('sureAuditAdminApp')
 					newAuditList.Published = self.getAllAudits[i].Published;
 					newAuditList.QuestionCount = self.getAllAudits[i].QuestionCount;
 					newAuditList.SubTitle = self.getAllAudits[i].SubTitle;
+					newAuditList.order = newAuditList.Published==null?99999:0;
 
 					self.auditGroupDef.Audits.push(newAuditList)
 					self.getAllAudits[i].showInList = false;	
@@ -119,6 +121,9 @@ angular.module('sureAuditAdminApp')
 		};
 
 		self.saveSurGroup = function(){
+			self.auditGroupDef.Audits.sort(function(a, b) { return a.order - b.order; });
+			console.log(self.auditGroupDef.Audits);
+			/*
 			if(self.id === ''){ //ADD SURVEY group
 				surveyGroupService.saveSurveyGroup(self.auditGroupDef).then(function (response) {			
 					self.auditGroupDef.Id = response.Id;
@@ -142,9 +147,19 @@ angular.module('sureAuditAdminApp')
 				},function () {
 				// ERROR block
 				});
-			}
+			}*/
 		};
 
+		self.populateAudits = function () {
+			for(var i=0;i<self.auditGroupDef.Audits.length;i++){
+				if(self.auditGroupDef.Audits[i].Published != null){
+					self.auditGroupDef.Audits[i].order = i+1;
+				}else{
+					self.auditGroupDef.Audits[i].order = 99999;
+				}
+			}
+			
+		};
 		init();
 }).controller('delWarningCtrl', function ($uibModalInstance, $uibModal){
 	var self = this;

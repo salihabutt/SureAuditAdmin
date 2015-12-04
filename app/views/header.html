@@ -23,14 +23,14 @@
 
 	<nav class="clearfix text-right">
 		<ul>
-			<li ng-class="(head.getState.current.name == 'surveyGroups' || head.getState.current.name == 'survey' || head.getState.current.name == 'masterQuestion' )  ? 'active' : '' " ng-click="head.expandQuesMenu = !head.expandQuesMenu">Question and Surveys
+			<li ng-class="(head.getState == 'surveyGroups' || head.getState == 'survey' || head.getState == 'masterQuestion' )  ? 'active' : '' " ng-click="head.expandQuesMenu = !head.expandQuesMenu">Question and Surveys
 				<div class="sub-menu" set-width ng-show="head.expandQuesMenu"> 
 					<ul>
-						<li ng-class="head.getState.current.name == 'surveyGroups' ? 'active' : '' " ng-click="head.navigate('surveyGroups')">Survey Groups</li>
+						<li ng-class="head.getState == 'surveyGroups' ? 'active' : '' " ng-click="head.navigate('surveyGroups')">Survey Groups</li>
 						<div class="border-div"></div>
-						<li ng-class="head.getState.current.name == 'survey' ? 'active' : '' " ng-click="head.navigate('survey')">Surveys</li>
+						<li ng-class="head.getState == 'survey' ? 'active' : '' " ng-click="head.navigate('survey')">Surveys</li>
 						<div class="border-div"></div>
-						<li ng-class="head.getState.current.name == 'masterQuestion' ? 'active' : '' " ng-click="head.navigate('masterQuestion')">Master Questions</li>
+						<li ng-class="head.getState == 'masterQuestion' ? 'active' : '' " ng-click="head.navigate('masterQuestion')">Master Questions</li>
 					</ul>
 				</div>
 			</li>

@@ -8,7 +8,7 @@ angular.module('sureAuditAdminApp')
 		self.initSubjectAttributes();
 		self.initProfileAttributes();
 		self.types = ['Email','Phone','Other'];
-		self.selected = 'GS';
+		self.selectedTab = 'GS';
 		SubjectGroupService.getSubjectGroup(id).then(function (response){
 			self.subgrpSettings = response;
 			self.subgrpSettings.TouchInfo.ModifiedDate = new Date();

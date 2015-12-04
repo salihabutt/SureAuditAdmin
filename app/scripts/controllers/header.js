@@ -2,12 +2,13 @@
 
 
 angular.module('sureAuditAdminApp')
-	.controller('headerCtrl',  function ($state, authService, $uibModal ) {
+	.controller('headerCtrl',  function ($state, $stateParams, authService, $uibModal ) {
 		var self = this,
 
 		init = function(){
 			self.expandQuesMenu = false;
-			self.getState = $state;
+			//self.getState = $state;
+			self.getState = $stateParams.parent;
 		
 		}
 

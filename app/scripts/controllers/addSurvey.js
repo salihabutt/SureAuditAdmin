@@ -43,7 +43,7 @@ angular.module('sureAuditAdminApp')
 		// ADD new SURVEY
 		if (self.id === '') {
 			self.auditDefinition = angular.copy(surveyModel.surevyModel);		
-			self.auditDefinition.Key = utilityService.guid;
+			self.auditDefinition.Key = utilityService.guid();
 			var section = angular.copy(surveyModel.section);
 			self.auditDefinition.Sections.push(section);
 			var signature = angular.copy(surveyModel.signature);
@@ -93,7 +93,9 @@ angular.module('sureAuditAdminApp')
 		//var fullStartDate = getDate + 'T' + self.sTime + self.sAMPM;
 		//new Date (new Date().toDateString() + ' ' + '10:55 pm')
 	//	self.auditDefinition.Starts = (new Date (self.sDate.toDateString() + ' ' + self.sTime + ' ' +self.sAMPM)).toISOString();
+		if(self.sDate !== null){
 		self.auditDefinition.Starts = (new Date (self.sDate.toDateString() + ' ' +  self.sTime + ' ' +self.sAMPM )).toISOString();
+		}
 	};
 
 
@@ -101,7 +103,9 @@ angular.module('sureAuditAdminApp')
 	//	var getDate = moment(self.eDate).format('MM/DD/YYYY');
 	//	var fullEndDate = getDate + 'T' + self.eTime + self.eAMPM;
 	//	self.auditDefinition.Ends =(new Date (self.eDate.toDateString() + ' ' + self.tTime + ' ' +self.eAMPM)).toISOString();
+		if(self.eDate !== null){
 		self.auditDefinition.Ends = (new Date (self.eDate.toDateString() + ' ' +  self.eTime + ' ' +self.eAMPM )).toISOString();
+		}
 	};
 
 	self.setDates = function(){
@@ -330,6 +334,10 @@ angular.module('sureAuditAdminApp')
 				surveyService.saveSurvey(self.auditDefinition).then(function (response) {			
 					self.auditDefinition.Id = response.Id;
 					self.id = response.Id;
+					self.showMessage = true;
+					$timeout(function () {
+						self.showMessage = false;
+					},3000);
 				},function () {
 					// ERROR block
 				});

@@ -77,6 +77,9 @@ angular
 		.state('survey', {
 		  url: 'survey',
 		  parent: 'main',
+		  params: {
+			  parent: 'survey'
+		  },
 		  views: {
 			  'content': {
 				templateUrl: 'views/survey.html'
@@ -88,6 +91,7 @@ angular
 			parent: 'main',
 			params: {
 			    id: '',
+			    parent: 'survey'
 			  },
 			views: {
 				  'content': {
@@ -120,6 +124,9 @@ angular
 		.state('surveyGroups', {
 		  url: 'surveyGroups',
 		  parent: 'main',
+		  params:{
+			  parent: 'surveyGroups'
+		  },
 		  views: {
 			  'content': {
 				templateUrl: 'views/surveyGroups.html'
@@ -129,6 +136,9 @@ angular
 		.state('addSurveyGroup', {
 		  url: 'addSurveyGroup/:id',
 		  parent: 'main',
+		  params: {
+			  parent: 'surveyGroups'
+		  },
 		  views: {
 			  'content': {
 				templateUrl: 'views/addSurveyGroups.html'
