@@ -11,6 +11,7 @@ angular.module('sureAuditAdminApp')
 			self.showMessage = false;
 			self.getAllAudits = [];
 			self.isSaveDisabled = true;
+			self.publishcount = 0;
 
 			self.auditGroupDef = {};
 
@@ -72,6 +73,7 @@ angular.module('sureAuditAdminApp')
 					newAuditList.QuestionCount = self.getAllAudits[i].QuestionCount;
 					newAuditList.SubTitle = self.getAllAudits[i].SubTitle;
 					newAuditList.order = newAuditList.Published==null?99999:0;
+					self.publishcount =  newAuditList.Published!=null?self.publishcount+1 : self.publishcount;
 
 					self.auditGroupDef.Audits.push(newAuditList)
 					self.getAllAudits[i].showInList = false;	
@@ -99,9 +101,11 @@ angular.module('sureAuditAdminApp')
 				}
 				for (var i = self.auditGroupDef.Audits.length - 1; i > -1; i--) {
 				    if (self.auditGroupDef.Audits[i].Id === index){
+				 		self.publishcount = self.auditGroupDef.Audits[i].Published != null? self.publishcount-1 :self.publishcount;
 				 		self.auditGroupDef.Audits.splice(i, 1);
 				 	}
 				}
+
 				self.updateModel();
 			});
 		};
@@ -154,12 +158,13 @@ angular.module('sureAuditAdminApp')
 			for(var i=0;i<self.auditGroupDef.Audits.length;i++){
 				if(self.auditGroupDef.Audits[i].Published != null){
 					self.auditGroupDef.Audits[i].order = i+1;
+					self.publishcount++ ;
 				}else{
 					self.auditGroupDef.Audits[i].order = 99999;
 				}
 			}
-			
 		};
+		
 		init();
 }).controller('delWarningCtrl', function ($uibModalInstance, $uibModal){
 	var self = this;
