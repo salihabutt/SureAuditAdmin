@@ -66,6 +66,9 @@ angular.module('sureAuditAdminApp')
 				});
 			};
 
+		self.gotoSurveyGroup = function(){
+			$state.go('surveyGroups');
+		};
 
 		self.updateSurveyGroup = function(){
 
