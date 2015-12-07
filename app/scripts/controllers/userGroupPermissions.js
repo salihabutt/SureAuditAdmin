@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-	.controller('UserGroupPermissionsCtrl',  function ($state, $stateParams,$uibModal,userGroupService,SubjectGroupService,surveyGroupService) {
+	.controller('UserGroupPermissionsCtrl',  function ($state, $stateParams,$uibModal,userGroupService,SubjectGroupService,surveyGroupService, groupAssoicationModel) {
 		var self = this,
 		init = function () {
 			self.id = $stateParams.id;
+			self.userPermissions = angular.copy(groupAssoicationModel);
+			self.userPermissionsClone = angular.copy(groupAssoicationModel);
 			userGroupService.getUserGroupAssociation(self.id).then(function(response){
 				if(response !== null){
 					self.userPermissions = response;  //TODO after discussing with client
@@ -48,11 +50,11 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		
-		self.AddEditPermission = function () {
+		self.addEditPermission = function (action) {
 			$uibModal.open({
 				animation: true,
-				templateUrl: 'views/permissionPopup.html',
-				controller: 'permissionPopupCtrl',
+				templateUrl: 'addEditPermissions.html',
+				controller: 'AddEditPermissionsCtrl',
 				controllerAs: 'ugpModal',
 				windowClass: 'permissions-modal',
 				resolve: {
@@ -61,6 +63,9 @@ angular.module('sureAuditAdminApp')
 					},
 					subjectGroups: function () {
 						return self.subjectGroups;
+					},
+					action: function(){
+						return action;
 					}
 				}
 			}).result.then(function () {
@@ -68,16 +73,25 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		
+		self.navigate = function (state) {
+			$state.go(state);
+		};
+		
 		init();
 	})
-	.controller('permissionPopupCtrl', function ($uibModalInstance,surveyGroups,subjectGroups) {
+	.controller('AddEditPermissionsCtrl', function ($uibModalInstance,surveyGroups,subjectGroups,action) {
 	  	var self = this,
 	  	init = function () {
 	  		self.subject = 'Add Permissions';
 	  		self.surveyGroups = surveyGroups;
 	  		self.subjectGroups = subjectGroups;
-	  		self.selected = null;
+	  		self.state = 'subgroup';
+	  		self.selectedSurGroup = null;
+	  		self.selectedSubGroup = null;
 	  		self.permissionSwitch = false;
+	  		if(action === 'edit'){
+	  			self.subject = 'Edit Permissions';
+	  		}
 	  	};
 	  	self.ok = function () {
 		    $uibModalInstance.close();
@@ -86,6 +100,14 @@ angular.module('sureAuditAdminApp')
 		self.cancel = function () {
 		    $uibModalInstance.dismiss('cancel');
 		};
+		
+		self.next = function () {
+			self.state = 'surgroup';
+		}
+		
+		self.back = function () {
+			self.state = 'subgroup';
+		}
 
 		init();
   }) ;

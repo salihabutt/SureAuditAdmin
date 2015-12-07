@@ -2,7 +2,7 @@
 <div class="erorOrMessage" ng-show="subgrp.showMessage">{{errors.SubjectGroupOK}}</div>
 	<div class="subgroup-settings-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
-		<span>Subject Groups</span> 
+		<span ng-click="subgrp.navigate('subjectGroup')">Subject Groups</span> 
 		<img src="/images/ic_arrow@2x.png"> 
 		<span>{{subgrp.subgrpSettings.Name}}</span>
 	</div>
@@ -27,7 +27,7 @@
 		<div class="col-lg-12 margintop50" ng-show="subgrp.subgrpSettings.AllowImages">
 		<p class="heading">Configure Photo</p>
 		<label>
-			<input type="checkbox"> <span class="custom-label" ng-model="subgrp.subgrpSettings.ShowImageInListing" ng-change="subgrp.updateModel()">Show Subject Photo</span>
+			<input type="checkbox" ng-change="subgrp.updateModel()" ng-model="subgrp.subgrpSettings.ShowImageInListing"> <span class="custom-label"  >Show Subject Photo</span>
 		</label>
 		</div>
 		<div class="col-lg-12 margintop50">
@@ -61,10 +61,10 @@
 						<div class="order-box">
 							<div class="left arrows-section">
 								<div class="arrows">
-									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.subjectAttList.length?item.order+1:item.order; subgrp.updateModel()">
+									<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-class="{'invisible':item.order==subgrp.subjectAttList.length}" ng-click="item.order=item.order<subgrp.subjectAttList.length?item.order+1:item.order; subgrp.updateModel()">
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order; subgrp.updateModel()">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-class="{'invisible':item.order==1}" ng-click="item.order=item.order>1?item.order-1:item.order; subgrp.updateModel()">
 								</div>
 							</div>
 							<div class="right order-number">
@@ -105,10 +105,10 @@
 						<div class="order-box">
 							<div class="left arrows-section">
 								<div class="arrows">
-							<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-click="item.order=item.order<subgrp.profileAttList.length?item.order+1:item.order">
+								<img src="/images/ic_selector_up_gray@2x.png" alt="arrow up" style="vertical-align: bottom;" ng-class="{'invisible':item.order==subgrp.profileAttList.length}" ng-click="item.order=item.order<subgrp.profileAttList.length?item.order+1:item.order">
 								</div>
 								<div class="arrows">
-									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-click="item.order=item.order>1?item.order-1:item.order">
+									<img src="/images/ic_selector_down_gray@2x.png" alt="arrow down" style="vertical-align: baseline;" ng-class="{'invisible':item.order==1}" ng-click="item.order=item.order>1?item.order-1:item.order">
 								</div>
 							</div>
 							<div class="right order-number">
@@ -117,7 +117,7 @@
 						</div>
 						</div>
 						<div class="col-lg-10 no-padding">
-					<select ng-model="item.label">
+					<select ng-model="item.label" ng-change="subgrp.updateModel()">
 					<option value=""></option>
             		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Key}}">{{option.Label}}</option>
             	</select>
@@ -129,7 +129,7 @@
             	<label class="label-light">
             	{{option}}
             	</label>
-            		<input type="radio" ng-model="item.type" ng-value="option">
+            		<input type="radio" ng-model="item.type" ng-value="option" ng-change="subgrp.updateModel()">
             	</div>
             	</div>
 			</div>

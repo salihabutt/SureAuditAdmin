@@ -5,7 +5,25 @@
 <div class="modal-header">
 	<h3 class="modal-title">{{ugpModal.subject}}</h3>
 </div>
-<div class="modal-body col-lg-12">
+<div class="modal-body col-lg-12" ng-show="ugpModal.state=='subgroup'">
+			<div class="col-lg-7">
+				<p class="heading">Select One Subject Group Hierarchy</p>
+			</div>
+			<div class="col-lg-12">
+				<div class="data-section"> 
+					<div class="col-lg-12">
+						<div class="radio" ng-repeat = "item in ugpModal.subjectGroups" >
+  						<label>
+    						<input type="radio"  value="{{item.Id}}" ng-model="ugpModal.selectedSubGroup" >
+    							{{item.Name}}
+  						</label>
+						</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		<div class="modal-body col-lg-12" ng-show="ugpModal.state!='subgroup'">
 			<div class="col-lg-7">
 				<p class="heading">Select One Survey Group</p>
 			</div>
@@ -14,20 +32,27 @@
 					<div class="col-lg-12">
 						<div class="radio" ng-repeat = "item in ugpModal.surveyGroups" >
   						<label>
-    						<input type="radio"  value="{{item.Id}}" ng-model="ugpModal.selected" >
+    						<input type="radio"  value="{{item.Id}}" ng-model="ugpModal.selectedSurGroup" >
     							{{item.Name}}
   						</label>
 						</div>
 						</div>
 					</div>
 			</div>
-			<div class="col-lg-12">
+			<div class="col-lg-12" >
 				<p class="heading">Permissions</p>
 				<span>Allow user to perform audits</span>
 				<switch id="enabled" name="enabled" ng-model="ugpModal.permissionSwitch" class="blue" >this is working</switch>
 			</div>
 		</div>
-        <div class="modal-footer">
+        <div class="modal-footer" ng-show="ugpModal.state=='subgroup'">
         	<div class="col-lg-12 text-right">
-				<button ng-class="ugpModal.selected==null ?'btn-deactive': 'main-btn-green'" type="button" >Save</button>
+				<button ng-class="ugpModal.selectedSubGroup==null ?'btn-deactive': 'main-btn-green'" type="button" ng-click="ugpModal.next()" ng-disabled="ugpModal.selectedSubGroup==null">Next</button>
+        	</div>
+        	</div>
+        	  <div class="modal-footer" ng-show="ugpModal.state!='subgroup'">
+        	<div class="col-lg-12 text-right">
+        	<button ng-class="" type="button" ng-click="ugpModal.back()">Back</button>
+				<button ng-class="ugpModal.selectedSurGroup==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="ugpModal.selectedSurGroup==null">Save</button>
+        	</div>
         	</div>

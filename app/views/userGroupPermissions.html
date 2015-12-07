@@ -1,12 +1,12 @@
 <div class="col-lg-12 permission-wrapper" ng-controller="UserGroupPermissionsCtrl as usrPermission">
 <div class="permission-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
-		<span>User Groups</span> 
+		<span ng-click="navigate('surveyGroups')">User Groups</span> 
 		<img src="/images/ic_arrow@2x.png"> 
 		<span>{{usrPermission.userPermissions.Name}}</span>
 	</div>
 	<div class="col-lg-12">
-			<button type="button" class="float-right main-btn-green"  ng-click="usrPermission.AddEditPermission()">Add New</button>
+			<button type="button" class="float-right main-btn-green"  ng-click="usrPermission.addEditPermission('add')">Add New</button>
 	</div>
 	<div class="col-lg-12 no-padding permission-detail">
 			<div class="col-lg-5 no-padding permission-detail-box">
@@ -20,6 +20,11 @@
 	</div>
 	
 	<div class="col-lg-12 permission-detail">
+	<div class="col-lg-12 margintop20">
+	<select selectpicker>
+				
+     </select>
+	</div>
 		<div class="col-lg-12 col-md-12 no-padding margintop37 ">
 	<div class="col-lg-4" >
 		<div class="col-lg-12 col-md-12 no-padding">
@@ -36,7 +41,7 @@
 				</div>
 				<div class="box-footer clearfix">
 					<div class="edit-btn col-lg-11">
-						<input type="button" value="Edit" class="box-manage-action-btn marginleft25" ng-click="usergrp.navigate()">	
+						<input type="button" value="Edit" class="box-manage-action-btn marginleft25" ng-click="usergrp.addEditPermission('edit')">	
 					</div>
 					<div class="col-lg-1">
 					 <span ng-click="usrPermission.deletePermission(item.Id)"><img src="/images/ic_delete@2x.png" ></span>
@@ -48,3 +53,66 @@
 </div>	
 </div>
 </div>
+<script type="text/ng-template" id="addEditPermissions.html">
+<div class="col-lg-12">
+	<img src="/images/ic_close_@2x.png" ng-click="ugpModal.cancel()"
+		class="close-btn">
+</div>
+<div class="modal-header">
+	<h3 class="modal-title">{{ugpModal.subject}}</h3>
+</div>
+<div class="modal-body col-lg-12" ng-show="ugpModal.state=='subgroup'">
+	<div class="col-lg-7">
+		<p class="heading">Select One Subject Group Hierarchy</p>
+	</div>
+	<div class="col-lg-12">
+		<div class="data-section">
+			<div class="col-lg-12">
+				<div class="radio" ng-repeat="item in ugpModal.subjectGroups">
+					<label> <input type="radio" value="{{item.Id}}"
+						ng-model="ugpModal.selectedSubGroup"> {{item.Name}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-body col-lg-12" ng-show="ugpModal.state!='subgroup'">
+	<div class="col-lg-7">
+		<p class="heading">Select One Survey Group</p>
+	</div>
+	<div class="col-lg-12">
+		<div class="data-section">
+			<div class="col-lg-12">
+				<div class="radio" ng-repeat="item in ugpModal.surveyGroups">
+					<label> <input type="radio" value="{{item.Id}}"
+						ng-model="ugpModal.selectedSurGroup"> {{item.Name}}
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<p class="heading">Permissions</p>
+		<span>Allow user to perform audits</span>
+		<switch id="enabled" name="enabled" ng-model="ugpModal.permissionSwitch" class="blue">this is
+		working</switch>
+	</div>
+</div>
+<div class="modal-footer" ng-show="ugpModal.state=='subgroup'">
+	<div class="col-lg-12 text-right">
+		<button
+			ng-class="ugpModal.selectedSubGroup==null ?'btn-deactive': 'main-btn-green'"
+			type="button" ng-click="ugpModal.next()"
+			ng-disabled="ugpModal.selectedSubGroup==null">Next</button>
+	</div>
+</div>
+<div class="modal-footer" ng-show="ugpModal.state!='subgroup'">
+	<div class="col-lg-12 text-right">
+		<button ng-class="" type="button" ng-click="ugpModal.back()">Back</button>
+		<button
+			ng-class="ugpModal.selectedSurGroup==null ?'btn-deactive': 'main-btn-green'"
+			type="button" ng-disabled="ugpModal.selectedSurGroup==null">Save</button>
+	</div>
+</div>
+</script>
