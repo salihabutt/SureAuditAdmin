@@ -11,8 +11,9 @@ angular.module('sureAuditAdminApp')
 			self.showMessage = false;
 			self.getAllAudits = [];
 			self.isSaveDisabled = true;
+			self.isAuditSelected = false;
 			self.publishcount = 0;
-
+			self.getAllAuditsClone = {};
 			self.auditGroupDef = {};
 
 			if (self.id === '') {
@@ -39,6 +40,7 @@ angular.module('sureAuditAdminApp')
 							self.getAllAudits[i].checked = false;
 							self.getAllAudits[i].showInList = true;
 						}
+						self.getAllAuditsClone = angular.copy(self.getAllAudits);
 					}else{
 
 						self.getAllAudits = response.Data;
@@ -52,16 +54,21 @@ angular.module('sureAuditAdminApp')
 							for (var j = 0 ; j < self.auditGroupDef.Audits.length; j++) {
 								if(response.Data[i].Id === self.auditGroupDef.Audits[j].Id){
 									self.getAllAudits[i].showInList = false;
+
 								}	
 							}
 						}
+
+						self.getAllAuditsClone = angular.copy(self.getAllAudits);
 					}
 				},function () {
 					// ERROR block
 				});
 			};
 
+
 		self.updateSurveyGroup = function(){
+
 			for (var i = 0; i < self.getAllAudits.length; i++) {
 				if(self.getAllAudits[i].checked === true && self.getAllAudits[i].showInList === true){
 					var newAuditList = angular.copy(surveyGroupModel.auditsList);
@@ -83,6 +90,13 @@ angular.module('sureAuditAdminApp')
 			self.updateModel();
 		};
 		
+		self.isChecked = function(){
+			self.isAuditSelected = false;
+			if(!angular.equals(self.getAllAudits,self.getAllAuditsClone)){
+				self.isAuditSelected = true;
+			} 
+		};
+
 
 		self.deleteAudit = function(index){
 
@@ -123,11 +137,17 @@ angular.module('sureAuditAdminApp')
 				self.isSaveDisabled = false;
 			} 
 		};
+		self.updateModel = function () {
+			self.isSaveDisabled = true;
+			if(!angular.equals(self.auditGroupDef,self.auditGroupDefClone)){
+				self.isSaveDisabled = false;
+			} 
+		};
+
 
 		self.saveSurGroup = function(){
 			self.auditGroupDef.Audits.sort(function(a, b) { return a.order - b.order; });
-			console.log(self.auditGroupDef.Audits);
-			/*
+			
 			if(self.id === ''){ //ADD SURVEY group
 				surveyGroupService.saveSurveyGroup(self.auditGroupDef).then(function (response) {			
 					self.auditGroupDef.Id = response.Id;
@@ -151,7 +171,7 @@ angular.module('sureAuditAdminApp')
 				},function () {
 				// ERROR block
 				});
-			}*/
+			}
 		};
 
 		self.populateAudits = function () {

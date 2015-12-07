@@ -142,7 +142,7 @@
 				
 				<div class="col-lg-12 survey-group-item" ng-hide="items.showInList == false" ng-repeat="items in addSurveyGroup.getAllAudits | filter:query:strict | orderBy : items.Name">
 					<div class="col-lg-1">
-						<input type="checkbox" ng-model="items.checked" class="">
+						<input type="checkbox" ng-model="items.checked" ng-click="addSurveyGroup.isChecked()" class="">
 					</div>
 					<div class="col-lg-10">
 						<p class="heading">{{items.Name}}</p>
@@ -154,7 +154,7 @@
 			</div>
 		</div>
 		<div class="col-lg-12 side-panel-footer text-center">
-			<button class="main-btn-green" ng-click="addSurveyGroup.updateSurveyGroup()">Add Surveys</button>
+			<button ng-class="addSurveyGroup.isAuditSelected?'main-btn-green':'btn-deactive'" ng-disabled="!addSurveyGroup.isAuditSelected" ng-click="addSurveyGroup.updateSurveyGroup()">Add Surveys</button>
 		</div>
 	</div>
 </div>
