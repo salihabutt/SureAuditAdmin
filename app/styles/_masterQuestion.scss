@@ -3,6 +3,21 @@
 		font-size: 14px;
 		color: $heading-color-grey;
 	}
+
+	.arrow-sort{
+		background-image: url(/images/ctrl_picker_big@2x.png);
+		padding: 0px 9px;
+	    background-repeat: no-repeat;
+	    vertical-align: sub;
+	    margin-left: 5px;
+	}
+	.arrow-sort-reverse{
+		background-image: url(/images/ctrl_picker_reverse_big@2x.png);
+		padding: 0px 9px;
+	    background-repeat: no-repeat;
+	    vertical-align: sub;
+	    margin-left: 5px;
+	}
 }
 
 .grid-body-masterquestion{
@@ -63,6 +78,11 @@
 
 .questions-modal .modal-dialog {
 	width: 750px;
+
+	.modal-header{
+		border:0 !important;
+	}
+
 	.modal-body {
 		padding-top: 0px;
 		textarea {
@@ -73,7 +93,8 @@
 			background-color: #F6F6F6;
 			resize: none;
 			border-radius: 5px;
-			border-color: #ccc;
+			border: 1px solid #ccc;
+			padding: 7px;
 		}
 		
 		.id {

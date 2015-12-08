@@ -26,7 +26,7 @@ angular.module('sureAuditAdminApp')
 			Published: "",
 			QuestionCount: 0,
 			SubTitle: "",
-		}
+		};
 		
 
 		surveyGroupModelFactory.surveyGroupModelDef = surveyGroupModelDef;
