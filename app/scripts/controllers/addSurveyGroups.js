@@ -36,18 +36,18 @@ angular.module('sureAuditAdminApp')
 			surveyService.getData().then(function (response) {
 					if (self.id === ''){
 						self.getAllAudits = response.Data;
-						for (var i = 0 ; i < self.getAllAudits.length; i++) {
-							self.getAllAudits[i].checked = false;
-							self.getAllAudits[i].showInList = true;
+						for (var a = 0 ; a < self.getAllAudits.length; a++) {
+							self.getAllAudits[a].checked = false;
+							self.getAllAudits[a].showInList = true;
 						}
 						self.getAllAuditsClone = angular.copy(self.getAllAudits);
 					}else{
 
 						self.getAllAudits = response.Data;
 						
-						for (var i = 0 ; i < self.getAllAudits.length; i++) {
-							self.getAllAudits[i].checked = false;
-							self.getAllAudits[i].showInList = true;
+						for (var b = 0 ; b < self.getAllAudits.length; i++) {
+							self.getAllAudits[b].checked = false;
+							self.getAllAudits[b].showInList = true;
 						}
 
 						for (var i = 0 ; i < response.Data.length ; i++) {
@@ -82,10 +82,10 @@ angular.module('sureAuditAdminApp')
 					newAuditList.Published = self.getAllAudits[i].Published;
 					newAuditList.QuestionCount = self.getAllAudits[i].QuestionCount;
 					newAuditList.SubTitle = self.getAllAudits[i].SubTitle;
-					newAuditList.order = newAuditList.Published==null?99999:0;
-					self.publishcount =  newAuditList.Published!=null?self.publishcount+1 : self.publishcount;
+					newAuditList.order = newAuditList.Published === null?99999:1;
+					self.publishcount =  newAuditList.Published !== null?self.publishcount+1 : self.publishcount;
 
-					self.auditGroupDef.Audits.push(newAuditList)
+					self.auditGroupDef.Audits.push(newAuditList);
 					self.getAllAudits[i].showInList = false;	
 				}
 			}
@@ -110,15 +110,15 @@ angular.module('sureAuditAdminApp')
 				windowClass: 'changes-warning-modal',
 				controllerAs: 'dwModal',
 			}).result.then(function(){
-				for (var i = self.getAllAudits.length - 1; i > -1; i--) {
-				    if (self.getAllAudits[i].Id === index){
-				        self.getAllAudits[i].showInList = true;
-				    	self.getAllAudits[i].checked = false;
+				for (var a = self.getAllAudits.length - 1; a > -1; a--) {
+				    if (self.getAllAudits[a].Id === index){
+				        self.getAllAudits[a].showInList = true;
+				    	self.getAllAudits[a].checked = false;
 				    }
 				}
 				for (var i = self.auditGroupDef.Audits.length - 1; i > -1; i--) {
 				    if (self.auditGroupDef.Audits[i].Id === index){
-				 		self.publishcount = self.auditGroupDef.Audits[i].Published != null? self.publishcount-1 :self.publishcount;
+				 		self.publishcount = self.auditGroupDef.Audits[i].Published !== null? self.publishcount-1 :self.publishcount;
 				 		self.auditGroupDef.Audits.splice(i, 1);
 				 	}
 				}
@@ -178,8 +178,8 @@ angular.module('sureAuditAdminApp')
 		};
 
 		self.populateAudits = function () {
-			for(var i=0;i<self.auditGroupDef.Audits.length;i++){
-				if(self.auditGroupDef.Audits[i].Published != null){
+			for(var i = 0;i < self.auditGroupDef.Audits.length; i++){
+				if(self.auditGroupDef.Audits[i].Published !== null){
 					self.auditGroupDef.Audits[i].order = i+1;
 					self.publishcount++ ;
 				}else{
@@ -189,7 +189,7 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		init();
-}).controller('delWarningCtrl', function ($uibModalInstance, $uibModal){
+}).controller('delWarningCtrl', function ($uibModalInstance){
 	var self = this;
 	
 	self.ok = function () {
