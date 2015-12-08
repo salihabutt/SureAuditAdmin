@@ -66,6 +66,9 @@ angular.module('sureAuditAdminApp')
 				});
 			};
 
+		self.gotoSurveyGroup = function(){
+			$state.go('surveyGroups');
+		};
 
 		self.updateSurveyGroup = function(){
 
@@ -102,10 +105,15 @@ angular.module('sureAuditAdminApp')
 
 			$uibModal.open({
 				animation: true,
-				templateUrl: 'delWarning.html',
+				templateUrl: 'views/deleteWarning.html',
 				controller: 'delWarningCtrl',
 				windowClass: 'changes-warning-modal',
 				controllerAs: 'dwModal',
+				resolve: {
+					msg: function () {
+						return 'Are you sure you want to remove the survey from the survey group?';
+					}
+				}
 			}).result.then(function(){
 				for (var i = self.getAllAudits.length - 1; i > -1; i--) {
 				    if (self.getAllAudits[i].Id === index){

@@ -19,11 +19,11 @@
 	font-size: 16px;
 	border:0;
 	box-shadow: none;
-	padding: 9px 40px;
+	padding: 9px 40px 8px;
+    margin-top: 1px;
+    vertical-align: top;
 
 }
-
-
 
 
  /*/*global CSS */
@@ -111,6 +111,9 @@
 	margin-bottom: 50px;
 }
 
+.marginbottom80{
+	margin-bottom: 80px;
+}
 .marginleft30{
 	margin-left: 30px;
 }
@@ -262,6 +265,19 @@ a {
   background-color: #FFFFFF;
 }
 
+
 .invisible {
   visibility: hidden;
+}
+
+.click{
+	cursor: pointer;
+}
+
+.clearboth {
+  clear: both;
+}
+
+.noborder {
+  border: 0px;
 }

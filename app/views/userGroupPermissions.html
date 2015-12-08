@@ -1,47 +1,47 @@
 <div class="col-lg-12 permission-wrapper" ng-controller="UserGroupPermissionsCtrl as usrPermission">
 <div class="permission-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
-		<span ng-click="navigate('surveyGroups')">User Groups</span> 
+		<span ng-click="usrPermission.navigate('userGroups')" class="click">User Groups</span> 
 		<img src="/images/ic_arrow@2x.png"> 
-		<span>{{usrPermission.userPermissions.Name}}</span>
+		<span class="heading">{{usrPermission.userGroup.Name}}</span>
 	</div>
 	<div class="col-lg-12">
-			<button type="button" class="float-right main-btn-green"  ng-click="usrPermission.addEditPermission('add')">Add New</button>
+			<button type="button" class="float-right main-btn-green"  ng-click="usrPermission.addEditPermission('add',null)">Add New</button>
 	</div>
 	<div class="col-lg-12 no-padding permission-detail">
 			<div class="col-lg-5 no-padding permission-detail-box">
-				<p class="heading">{{usrPermission.userPermissions.Name}}</p>
-				<p>AD Group:</p>
+				<p class="heading">{{usrPermission.userGroup.Name}}</p>
+				<p>AD Group:{{usrPermission.userGroup.Key}}</p>
 			</div>
 			<div class="col-lg-3">
-				<p>3 Permissions</p><p>Last Modified : {{usrPermission.userPermissions.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
+				<p>{{usrPermission.count}} Permissions</p><p>Last Modified : {{usrPermission.userGroup.TouchInfo.ModifiedDate | amDateFormat:'MM/DD/YY'}}</p>		
 			</div>
 		</div>
 	</div>
 	
 	<div class="col-lg-12 permission-detail">
 	<div class="col-lg-12 margintop20">
-	<select selectpicker>
-				
+	<select selectpicker ng-model="usrPermission.selectedSortOption" ng-change="usrPermission.order(usrPermission.selectedSortOption)">
+		<option ng-repeat="option in usrPermission.sortoptions">{{option}}</option>
      </select>
 	</div>
-		<div class="col-lg-12 col-md-12 no-padding margintop37 ">
-	<div class="col-lg-4" >
+		<div class="col-lg-12 col-md-12 no-padding margintop37">
+	<div class="col-lg-4" ng-repeat="item in usrPermission.userPermissionsList | filter: {Status: '!Deleted'} | orderBy:usrPermission.predicate:usrPermission.reverse track by $id(item)">
 		<div class="col-lg-12 col-md-12 no-padding">
 			<div class="no-padding permission-box">
 				<div class="box-head clearfix">
 					<h4>Subject Group Hierarchy</h4>
-					<p>Employees</p>
+					<p>{{item.SubjectGroups[0].Name}}</p>
 				</div>
 				<div class="box-body clearfix">
 					<p class="heading">Survey Group</p>		
-					<p>Survey group 03</p>	
+					<p>{{item.AuditGroups[0].Name}}</p>	
 					<p class="heading">Permission</p>		
-					<p>Create</p>	
+					<p>{{item.Permissions[0]}}</p>	
 				</div>
 				<div class="box-footer clearfix">
 					<div class="edit-btn col-lg-11">
-						<input type="button" value="Edit" class="box-manage-action-btn marginleft25" ng-click="usergrp.addEditPermission('edit')">	
+						<input type="button" value="Edit" class="box-manage-action-btn marginleft25" ng-click="usrPermission.addEditPermission('edit', $index)">	
 					</div>
 					<div class="col-lg-1">
 					 <span ng-click="usrPermission.deletePermission(item.Id)"><img src="/images/ic_delete@2x.png" ></span>
@@ -95,24 +95,18 @@
 	<div class="col-lg-12">
 		<p class="heading">Permissions</p>
 		<span>Allow user to perform audits</span>
-		<switch id="enabled" name="enabled" ng-model="ugpModal.permissionSwitch" class="blue">this is
-		working</switch>
+		<switch id="enabled" name="enabled" ng-model="ugpModal.permissionSwitch" class="blue">this is working</switch>
 	</div>
 </div>
 <div class="modal-footer" ng-show="ugpModal.state=='subgroup'">
 	<div class="col-lg-12 text-right">
-		<button
-			ng-class="ugpModal.selectedSubGroup==null ?'btn-deactive': 'main-btn-green'"
-			type="button" ng-click="ugpModal.next()"
-			ng-disabled="ugpModal.selectedSubGroup==null">Next</button>
+		<button ng-class="ugpModal.selectedSubGroup==null ?'btn-deactive': 'main-btn-green'" type="button" ng-click="ugpModal.next()" ng-disabled="ugpModal.selectedSubGroup==null">Next</button>
 	</div>
 </div>
 <div class="modal-footer" ng-show="ugpModal.state!='subgroup'">
 	<div class="col-lg-12 text-right">
-		<button ng-class="" type="button" ng-click="ugpModal.back()">Back</button>
-		<button
-			ng-class="ugpModal.selectedSurGroup==null ?'btn-deactive': 'main-btn-green'"
-			type="button" ng-disabled="ugpModal.selectedSurGroup==null">Save</button>
+		<button class="btn-back" type="button" ng-click="ugpModal.back()">Back</button>
+		<button ng-class="ugpModal.selectedSurGroup==null ?'btn-deactive': 'main-btn-green'" type="button" ng-disabled="ugpModal.selectedSurGroup==null" ng-click="ugpModal.save()">Save</button>
 	</div>
 </div>
 </script>

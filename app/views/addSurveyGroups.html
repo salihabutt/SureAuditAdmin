@@ -4,7 +4,7 @@
 	
 	<div class="col-lg-12 survey-info-box" >	
 		<div class="custom-breadcrumbs">
-			<span>Surveys</span> 
+			<span class="click" ng-click="addSurveyGroup.gotoSurveyGroup()">Surveys</span> 
 			<img src="/images/ic_arrow@2x.png"> 
 			<span>{{addSurveyGroup.auditGroupDef.Name}}</span>
 		</div>
@@ -45,7 +45,7 @@
 
 	<!-- survey listings -->
 		
-		<div class="col-lg-12 col-md-12 no-padding margintop50">
+		<div class="col-lg-12 col-md-12 margintop50">
 			<h3>Published</h3>
 			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits track by $index">
 				<div class="no-padding survey-group-box" ng-show="items.Published != null">
@@ -89,7 +89,7 @@
 				</div>
 			</span>
 		</div>
-		<div class="col-lg-12 col-md-12 no-padding margintop50">
+		<div class="col-lg-12 col-md-12 margintop50">
 			<h3>Un-Published</h3>
 
 			<span ng-repeat="items in addSurveyGroup.auditGroupDef.Audits track by $index">

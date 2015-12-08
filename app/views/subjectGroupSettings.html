@@ -2,7 +2,7 @@
 <div class="erorOrMessage" ng-show="subgrp.showMessage">{{errors.SubjectGroupOK}}</div>
 	<div class="subgroup-settings-info-box col-lg-12">
 	<div class="custom-breadcrumbs">
-		<span ng-click="subgrp.navigate('subjectGroup')">Subject Groups</span> 
+		<span ng-click="subgrp.navigate('subjectGroup')" class="click">Subject Groups</span> 
 		<img src="/images/ic_arrow@2x.png"> 
 		<span>{{subgrp.subgrpSettings.Name}}</span>
 	</div>
@@ -73,8 +73,7 @@
 						</div>
 						</div>
 						<div class="col-lg-10 no-padding">
-						<select ng-model="item.key">
-					<option value=""></option>
+						<select ng-model="item.key" ng-change="subgrp.updateModel()">
             		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Key}}">{{option.Label}}</option>
             	</select>
 				</div>
@@ -118,7 +117,6 @@
 						</div>
 						<div class="col-lg-10 no-padding">
 					<select ng-model="item.label" ng-change="subgrp.updateModel()">
-					<option value=""></option>
             		<option ng-repeat="option in subgrp.subgrpSettings.ListAttributes" value="{{option.Key}}">{{option.Label}}</option>
             	</select>
 				</div>

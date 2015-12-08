@@ -79,11 +79,16 @@ angular.module('sureAuditAdminApp')
 			  });
 			}else {
 				  $uibModal.open({
-					  animation: true,
-					  templateUrl: 'surveyDeleteConfirm.html',
-					  controller: 'deleteConfirmCtrl',
-					  windowClass: 'survey-warning-modal',
-					  controllerAs: 'dcCtrl',
+						animation: true,
+						templateUrl: 'views/deleteWarning.html',
+						controller: 'delWarningCtrl',
+						windowClass: 'changes-warning-modal',
+						controllerAs: 'dwModal',
+						resolve: {
+							msg: function () {
+								return 'Are you sure you want to delete the survey?';
+							}
+						}
 				  }).result.then(function(){						
 						self.deleteSurveyById(index);
 				  });			

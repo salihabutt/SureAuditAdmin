@@ -424,7 +424,7 @@ angular.module('sureAuditAdminApp')
 	self.deleteAny = function (pIndex,cIndex,type) {
 		$uibModal.open({
 			animation: true,
-			templateUrl: 'delWarning.html',
+			templateUrl: 'views/deleteWarning.html',
 			controller: 'delWarningCtrl',
 			windowClass: 'changes-warning-modal',
 			controllerAs: 'dwModal',
@@ -461,7 +461,7 @@ angular.module('sureAuditAdminApp')
 	self.deleteBranchQues = function (sIndex,qIndex,bIndex,index){
 		$uibModal.open({
 			animation: true,
-			templateUrl: 'delWarning.html',
+			templateUrl: 'views/deleteWarning.html',
 			controller: 'delWarningCtrl',
 			windowClass: 'changes-warning-modal',
 			controllerAs: 'dwModal',
@@ -794,7 +794,7 @@ angular.module('sureAuditAdminApp')
 	};
 	init();
 	
-})
+})/*
 .controller('delWarningCtrl', function ($uibModalInstance, $uibModal, msg){
 	var self = this;
 	self.text = msg;
@@ -808,7 +808,8 @@ angular.module('sureAuditAdminApp')
 	};
 	
 	
-}).controller('AddBranchingQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, branch, quesIndex, isScored){
+})*/
+.controller('AddBranchingQuestionCtrl', function ($uibModalInstance, $uibModal, mq, action, branch, quesIndex, isScored){
 	var self = this,
 	init = function () {
 		self.questions = mq;

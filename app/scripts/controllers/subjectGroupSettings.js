@@ -32,9 +32,9 @@ angular.module('sureAuditAdminApp')
 		for(var i=1; i<5; i++){
 			var subjectAtt = {};
 			subjectAtt.order = i;
-			subjectAtt.Key = '';
-			subjectAtt.Name = null;
-			subjectAtt.Field = null;
+			subjectAtt.key = '';
+			subjectAtt.name = null;
+			subjectAtt.field = null;
 			subjectAtt.isDefault = false;
 			subjectAtt.sortOption = false;
 			self.subjectAttList.push(subjectAtt);

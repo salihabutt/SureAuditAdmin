@@ -11,9 +11,10 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		
-		self.navigate = function (id) {
+		self.navigate = function (usergroup) {
 			$state.go('userGroupPermission',{
-				id: id
+				id: usergroup.Key,
+				usergroup: usergroup
 			});
 		};
 		

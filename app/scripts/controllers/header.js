@@ -7,8 +7,8 @@ angular.module('sureAuditAdminApp')
 
 		init = function(){
 			self.expandQuesMenu = false;
-			//self.getState = $state;
-			self.getState = $stateParams.parent;
+			self.getState = $state;
+			//self.getState = $stateParams.parent;
 		
 		};
 

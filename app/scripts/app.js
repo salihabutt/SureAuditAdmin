@@ -90,7 +90,6 @@ angular
 			url: 'addsurvey/:id',
 			parent: 'main',
 			params: {
-			    id: '',
 			    parent: 'survey'
 			  },
 			views: {
@@ -112,7 +111,7 @@ angular
 		.state('userGroupPermission', {
 			  url: 'usergrouppermission/:id',
 			  params: {
-				    id: '',
+				  usergroup: null
 				  },
 			  parent: 'main',
 			  views: {
