@@ -7,6 +7,7 @@ $disable: #BABABA;
 
 $font-medium: 16px HelveticaNeue-Medium;
 
+<<<<<<< HEAD
 $font-medium-bold: 16px HelveticaNeue-Bold;
 
 $font-med-small: 14px HelveticaNeue-Medium;
@@ -18,6 +19,17 @@ $font-small-small: 12px HelveticaNeue-Light;
 $font-large: 18px HelveticaNeue-Medium;
 
 $font-large-bold: 18px HelveticaNeue-Bold;
+=======
+$font-medium: 16px Helvetica Neue, helvetica;
+$font-medium-bold: 16px HelveticaNeue-Bold;
+$font-med-small: 14px Helvetica Neue Medium, helvetica;
+$font-small: 14px Helvetica Neue, helvetica;
+$font-large: 18px Helvetica Neue Medium, helvetica;
+$font-heading: 26px Helvetica Neue Medium, helvetica;
+$font-large-bold: 18px Helvetica Neue Bold, helvetica;
+/*breakpoints configuration*/
+$breakpoint-tablet: 800px;
+>>>>>>> parent of 8341c8e... css files commit
 
 $font-heading: 26px HelveticaNeue-Medium;
 
