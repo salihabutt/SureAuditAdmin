@@ -97,15 +97,11 @@
 
     select {
         border: 1px solid #FFFFFF;
-        background: url(/images/ctrl_picker_big@2x.png) 100% no-repeat #FFFFFF;
         width: 285px;
         padding: 5px;
-        font-size: 16px;
         height: 38px;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
         border-radius: 0px;
+        @include dropdown-appearence;
     }
 
     .orderbox {

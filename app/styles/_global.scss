@@ -11,6 +11,13 @@
     vertical-align: top;
 }
 
+@mixin dropdown-appearence {
+    background: url(/images/ctrl_picker_big@2x.png) 97% no-repeat #FFFFFF;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
 /*global CSS */
 * {
     outline: none;
@@ -136,9 +143,10 @@
     color: #000000 !important;
     border: 1px solid #cccccc !important;
     padding: 3px 30px !important;
-    font-size: 14px;
-
-    @include btn-common-style;
+    border-radius: 5px;
+    box-shadow: none;
+    margin-top: 1px;
+    vertical-align: top;
 }
 
 .manage-btn {
@@ -170,6 +178,7 @@
     border: 0;
     box-shadow: none;
     padding: 9px 40px;
+    color: #fff;
 }
 
 .sub-heading {
@@ -210,6 +219,14 @@
 
 .radio[disabled] {
     background-color: #FFFFFF;
+}
+
+@-moz-document url-prefix() {
+		input[type=checkbox] {
+		    visibility: visible !important;
+		    margin-right: 15px;
+		    margin-top: 0px;
+	}
 }
 
 input[type=checkbox] {

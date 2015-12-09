@@ -33,7 +33,7 @@
 						<input type="button" class="login-btn-inactive" ng-disabled="login.disableLoginBtn" ng-class="login.disableLoginBtn? 'login-btn-inactive': 'login-btn-active'" ng-click="login.login()" value="Login">
 					</div>
 					<div class="col-lg-12 remember-me text-left">
-						<span><input type="checkbox" name="rememberchk" ng-model="login.loginData.rememberMe" ng-change="login.update()"></span>
+						<span><label><input type="checkbox" name="rememberchk" ng-model="login.loginData.rememberMe" ng-change="login.update()"></label></span>
 						<span>Remember me</span>
 					</div>		
 				</div>
