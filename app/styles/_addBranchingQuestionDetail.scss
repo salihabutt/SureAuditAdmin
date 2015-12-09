@@ -1,29 +1,26 @@
 .survey-branquestiondetail-modal .modal-dialog {
-    width: 808px;
-    height: 688px;
-    color: #4C4C4C;
-    overflow-y: initial !important;
 
-    .close-btn {
-        padding-top: 5px;
-        float: right;
-    }
+	width: 808px;
+	height: 688px;
+	color: #4C4C4C;
+	overflow-y: initial !important;
+	.close-btn {
+		padding-top: 5px;
+		float: right;
+	}
+  	.modal-header{
+    	font: $font-heading;
+  	}
+	.modal-body{
+		height: 500px;
+		overflow-y: auto;
+		.heading {
+			font: $font-large;
+		}
 
-    .modal-header {
-        font: $font-heading;
-    }
-
-    .modal-body {
-        height: 500px;
-        overflow-y: auto;
-
-        .heading {
-            font: $font-large;
-        }
-
-        .rating {
-            position: relative;
-        }
+		.rating{
+    		position:relative;
+		}
 
         .wrapper-rating div.rating span {
             position: absolute;
