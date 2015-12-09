@@ -1,95 +1,94 @@
 .login-page {
-	width: 100%;
-	height: 100%;
-	background: url(../images/bg_login.png) no-repeat fixed center; 
-	display: table;
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg_login.png) no-repeat fixed center;
+    display: table;
 
-	.child-vertical-center {
-		display: table-cell;
-		vertical-align: middle;
-		margin:0px auto;
-		max-width: 1024px;
-	}
+    .child-vertical-center {
+        display: table-cell;
+        vertical-align: middle;
+        margin: 0px auto;
+        max-width: 1024px;
+    }
 
-	.logo-area {
-		margin-top: 140px;
-	}
-	@media (max-width: $breakpoint-tablet) {
-		.logo-area {
-			margin-top: 20px;
-		}
-	}
+    .logo-area {
+        margin-top: 140px;
+    }
 
-	.slogan {
-		font-size: 32px;
-		color: $white-color;
-		margin-top: 30px;
-		line-height: 32px;
-		
-	}
-	.login-form {
-		.login-box {
-			background-color: $white-color;
-		    display: block;
-		    width: 380px;
-		    height: auto;
-		    padding: 40px 20px 40px 20px;
-		    margin: 0px auto;
-		    border-radius: $border-radius-5; 
+    @media (max-width: $breakpoint-tablet) {
+        .logo-area {
+            margin-top: 20px;
+        }
+    }
 
-		    h4 {
-		    	font-size: 20px;
-		    	font-family: helvetica;
+    .slogan {
+        font-size: 32px;
+        color: $white-color;
+        margin-top: 30px;
+        line-height: 32px;
+    }
 
-		    }
+    .login-form {
+        .login-box {
+            background-color: $white-color;
+            display: block;
+            width: 380px;
+            height: auto;
+            padding: 40px 20px 40px 20px;
+            margin: 0px auto;
+            border-radius: $border-radius-5;
 
-		    .login-txt {
-		    	width: 100%;
-			    border: 1px solid #cccccc;
-			    border-radius: $border-radius-5;
-			    height: 40px;
-			    padding-left: 10px; 
-			    margin: 10px 0px;
-			    font-size: 16px;
-		    }
-		    .forgot-password{ 
-		    	a {
-			    	font-size: 14px;
-			    	color: #777777;
-			    	margin: 15px 0px 40px 0px;
-			    	display: block;
-			    }
-		    }
+            h4 {
+                font-size: 20px;
+                font-family: helvetica;
+            }
 
-		    .login-btn-inactive{
-		    	width: 100%;
-		    	height: 40px;
-			    background-color: #BABABA;
-			    border-radius: $border-radius-5;
-			    color: $white-color;
-			    border:0px;
-			    font-size: 16px;
-		    }
+            .login-txt {
+                width: 100%;
+                border: 1px solid #cccccc;
+                border-radius: $border-radius-5;
+                height: 40px;
+                padding-left: 10px;
+                margin: 10px 0px;
+                font-size: 16px;
+            }
 
- 			.login-btn-active{
-		    	width: 100%;
-		    	height: 40px;
-			    background-color: #1B8ECA;
-			    border-radius: $border-radius-5;
-			    color: $white-color;
-			    border:0px;
-			    font-size: 16px;
-		    }
-		    
-		    .remember-me{
-		    	margin-top:22px;
-		    	font-size: 14px;
-		    	color: #777777;
-		    }
-		    @media (min-width: $breakpoint-tablet) {
-  
-			}
-		}
-	}
+            .forgot-password {
+                a {
+                    font-size: 14px;
+                    color: #777777;
+                    margin: 15px 0px 40px 0px;
+                    display: block;
+                }
+            }
+
+            .login-btn-inactive {
+                width: 100%;
+                height: 40px;
+                background-color: #BABABA;
+                border-radius: $border-radius-5;
+                color: $white-color;
+                border: 0px;
+                font-size: 16px;
+            }
+
+            .login-btn-active {
+                width: 100%;
+                height: 40px;
+                background-color: #1B8ECA;
+                border-radius: $border-radius-5;
+                color: $white-color;
+                border: 0px;
+                font-size: 16px;
+            }
+
+            .remember-me {
+                margin-top: 22px;
+                font-size: 14px;
+                color: #777777;
+            }
+
+            @media (min-width: $breakpoint-tablet) {}
+        }
+    }
 }
-

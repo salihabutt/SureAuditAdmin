@@ -1,53 +1,54 @@
-.grid-header{
-	span{
-		font-size: 14px;
-		color: $heading-color-grey;
-	}
+.grid-header {
+    span {
+        font: $font-med-small;
+        color: $heading-color-grey;
+    }
 
-	.arrow-sort{
-		background-image: url(/images/ctrl_picker_big@2x.png);
-		padding: 0px 9px;
-	    background-repeat: no-repeat;
-	    vertical-align: sub;
-	    margin-left: 5px;
-	}
-	.arrow-sort-reverse{
-		background-image: url(/images/ctrl_picker_reverse_big@2x.png);
-		padding: 0px 9px;
-	    background-repeat: no-repeat;
-	    vertical-align: sub;
-	    margin-left: 5px;
-	}
+    .arrow-sort {
+        background-image: url(/images/ctrl_picker_big@2x.png);
+        padding: 0px 9px;
+        background-repeat: no-repeat;
+        vertical-align: sub;
+        margin-left: 5px;
+    }
+
+    .arrow-sort-reverse {
+        background-image: url(/images/ctrl_picker_reverse_big@2x.png);
+        padding: 0px 9px;
+        background-repeat: no-repeat;
+        vertical-align: sub;
+        margin-left: 5px;
+    }
 }
 
-.grid-body-masterquestion{
-	background-color: $white-color;
-	border: 1px solid #cccccc;
-	border-radius: $border-radius-5;
+.grid-body-masterquestion {
+    background-color: $white-color;
+    border: 1px solid #cccccc;
+    border-radius: $border-radius-5;
 
-	.question{
-		.master-question-row{
-		    border-bottom: 1px solid #cccccc;
-		    padding: 10px 0px 2px 0px;
-		    line-height: 1.5;
-		}
+    .question {
+        .master-question-row {
+            border-bottom: 1px solid #cccccc;
+            padding: 10px 0px 2px 0px;
+            line-height: 1.5;
+        }
 
-		div{
-			font-size: 14px;
-			color: #4C4C4C;
-			position: relative;
-		}
-		
-	}
-	:nth-last-child{
-		div{
-			border:0px;
-		}
-	}
+        div {
+            font: $font-med-small;
+            color: #4C4C4C;
+            position: relative;
+        }
+    }
+
+    :nth-last-child {
+        div {
+            border: 0px;
+        }
+    }
 }
 
-.gridOptions {    
-	position: absolute !important;
+.gridOptions {
+    position: absolute !important;
     top: 22px;
     left: -46px;
     background-color: #fff;
@@ -56,90 +57,94 @@
     height: 80px !important;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #cccccc;
-    z-index:9;
+    z-index: 9;
     display: none;
 
-    ul{
-    	list-style: none;
-    	margin: 0;
-    	padding: 0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-    	li{
-    		padding: 0;
-    		text-align: right;
-    		padding-right: 10px;
-    		cursor: pointer;
+        li {
+            padding: 0;
+            text-align: right;
+            padding-right: 10px;
+            cursor: pointer;
+        }
 
-    	}:hover{
-    		background-color: #F7F7F7;
-    	}
+        :hover {
+            background-color: #F7F7F7;
+        }
     }
 }
 
 .questions-modal .modal-dialog {
-	width: 750px;
+    width: 750px;
 
-	.modal-header{
-		border:0 !important;
-	}
+    .modal-header {
+        border: 0 !important;
+    }
 
-	.modal-body {
-		padding-top: 0px;
-		textarea {
-			@include font-family-medium;
-			color: #000000;
-			width: 720px;
-			height: 160px;
-			background-color: #F6F6F6;
-			resize: none;
-			border-radius: 5px;
-			border: 1px solid #ccc;
-			padding: 7px;
-		}
-		
-		.id {
-			width: 50px;
-		}
+    .modal-body {
+        padding-top: 0px;
 
-	}
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-	
-	.options {
-		padding-bottom: 5px;
-	}
+        textarea {
+            font: $font-medium;
+            color: #000000;
+            width: 720px;
+            height: 160px;
+            background-color: #F6F6F6;
+            resize: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 7px;
+        }
+
+        .id {
+            width: 50px;
+        }
+    }
+
+    .close-btn {
+        padding-top: 5px;
+        float: right;
+    }
+
+    .options {
+        padding-bottom: 5px;
+    }
 }
 
 .questions-modal-delete .modal-dialog {
-	width: 600px;
-	.modal-body {
-		padding-top: 0px;
-		
-	}
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-	
-	.options {
-		padding-bottom: 5px;
-	}
+    width: 600px;
+
+    .modal-body {
+        padding-top: 0px;
+    }
+
+    .close-btn {
+        padding-top: 5px;
+        float: right;
+    }
+
+    .options {
+        padding-bottom: 5px;
+    }
 }
 
 .changes-warning-modal .modal-dialog {
-	width: 310px;
-	.modal-body {
-		padding-top: 0px;
-		
-	}
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-	
-	.options {
-		padding-bottom: 5px;
-	}
+    width: 310px;
+
+    .modal-body {
+        padding-top: 0px;
+    }
+
+    .close-btn {
+        padding-top: 5px;
+        float: right;
+    }
+
+    .options {
+        padding-bottom: 5px;
+    }
 }

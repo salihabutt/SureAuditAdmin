@@ -1,25 +1,32 @@
 /*color variables*/
 
-
 $white-color: #FFFFFF;
 $border-radius-5: 5px;
 $heading-color-grey: #4C4C4C;
 $disable: BABABA;
-$font-medium: Helvetica Neue 16px #FFFFFF;
 
-$font-medium: 16px HelveticaNeue-Light;
+$font-medium: HelveticaNeue-Medium 16px #FFFFFF;
+
+$font-medium: 16px HelveticaNeue-Medium;
+
 $font-medium-bold: 16px HelveticaNeue-Bold;
+
 $font-med-small: 14px HelveticaNeue-Medium;
+
 $font-small: 14px HelveticaNeue-Light;
+
+$font-small-small: 12px HelveticaNeue-Light;
+
 $font-large: 18px HelveticaNeue-Medium;
-$font-heading: 26px HelveticaNeue-Medium;
+
 $font-large-bold: 18px HelveticaNeue-Bold;
+
+$font-heading: 26px HelveticaNeue-Medium;
+
 /*breakpoints configuration*/
 $breakpoint-tablet: 800px;
 
-$screen-xs:                  0px !default;
-$screen-sm:                  1px !default;
-$screen-md:                  2px !default;
-$screen-lg:                  4px !default;
-
-
+$screen-xs: 0px !default;
+$screen-sm: 1px !default;
+$screen-md: 2px !default;
+$screen-lg: 4px !default;

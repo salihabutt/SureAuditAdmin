@@ -1,139 +1,141 @@
 .survey-branquestiondetail-modal .modal-dialog {
-	width: 808px;
-	height: 688px;
-	color: #4C4C4C;
-	overflow-y: initial !important;
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-  	.modal-header{
-    	font: $font-heading;
-  	}
-	.modal-body {
-		height: 500px;
-		overflow-y: auto;
-		.heading {
-			font: $font-large;
-		}
+    width: 808px;
+    height: 688px;
+    color: #4C4C4C;
+    overflow-y: initial !important;
 
-		.rating{
-    		position:relative;
-		}
-        .wrapper-rating div.rating span {
-              position: absolute;
-              display: inline-block;
-    		  left: 20px;
-    		  top: 18px;
-    		  font-size: 12px;
-    		  color: #FFFFFF;
+    .close-btn {
+        padding-top: 5px;
+        float: right;
+    }
+
+    .modal-header {
+        font: $font-heading;
+    }
+
+    .modal-body {
+        height: 500px;
+        overflow-y: auto;
+
+        .heading {
+            font: $font-large;
         }
 
+        .rating {
+            position: relative;
+        }
 
-		.txt-common{
-			  width: 100%;
-		    border-radius: 5px;
-		    border: 1px solid #cccccc;
-		    height: 40px;
-		    padding: 0 0 0 9px;
-		}
+        .wrapper-rating div.rating span {
+            position: absolute;
+            display: inline-block;
+            left: 20px;
+            top: 18px;
+            font-size: 12px;
+            color: #FFFFFF;
+        }
 
-		.txt-rating{
-			  width: 60%;
-		    border-radius: 5px;
-		    border: 1px solid #cccccc;
-		    height: 40px;
-		    padding: 0 0 0 9px;
-		    margin-right: 5px;
-		}
+        .txt-common {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            height: 40px;
+            padding: 0 0 0 9px;
+        }
 
-		span.common-text{
-			font : $font-small;
-			color: #000000
-		}
+        .txt-rating {
+            width: 60%;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            height: 40px;
+            padding: 0 0 0 9px;
+            margin-right: 5px;
+        }
 
-		.aligning{
-		    margin-top: 10px;
-    		display: block;
-		}
+        span.common-text {
+            font: $font-small;
+            color: #000000;
+        }
 
-		.custom-btn-select-option{
-			border-radius:5px;
-			background-color: #ffffff;
-			font: $font-medium;
-			color: #BABABA;
-			height: 40px;
-			line-height: 40px;
-			width: 210px;
-			text-align: left;
-    		padding-left: 12px;
-    		border: 1px solid #cccccc;
-		}
+        .aligning {
+            margin-top: 10px;
+            display: block;
+        }
 
-		.custom-btn-select-option-checked{
-		    border-radius: 5px;
-    		font: 16px Helvetica Neue, helvetica;
-    		height: 40px;
-    		line-height: 40px;
-    		width: 210px;
-    		text-align: left;
-    		padding-left: 12px;
-			background-color: #1B8ECA !important;
-    		border: 0 !important;
-    		color: #ffffff !important;
+        .custom-btn-select-option {
+            border-radius: 5px;
+            background-color: #ffffff;
+            font: $font-medium;
+            color: #BABABA;
+            height: 40px;
+            line-height: 40px;
+            width: 210px;
+            text-align: left;
+            padding-left: 12px;
+            border: 1px solid #cccccc;
+        }
 
-		}
-			.btn-disable {
-						font: $font-medium;
-						padding: 9px 10px;
-						margin-right: 25px;
-						color: #BABABA;
-						background-color:$white-color;
-						border: 1px solid #BABABA;
-						border-radius:  $border-radius-5;
-						width:50px;
-					}
+        .custom-btn-select-option-checked {
+            border-radius: 5px;
+            font: $font-medium;
+            height: 40px;
+            line-height: 40px;
+            width: 210px;
+            text-align: left;
+            padding-left: 12px;
+            background-color: #1B8ECA !important;
+            border: 0 !important;
+            color: #ffffff !important;
+        }
 
-					.btn-active {
-						font: $font-medium;
-						padding: 9px 10px;
-						margin-right: 25px;
-						color: $white-color;
-						background-color:#1B8ECA;
-						border: 1px solid #BABABA;
-						border-radius:  $border-radius-5;
-						width:50px;
-					}
-  .comment-box {
-						margin-top: 30px;
+        .btn-disable {
+            font: $font-medium;
+            padding: 9px 10px;
+            margin-right: 25px;
+            color: #BABABA;
+            background-color: $white-color;
+            border: 1px solid #BABABA;
+            border-radius: $border-radius-5;
+            width: 50px;
+        }
 
-						input[type="text"] {
-							width: 258px;
-    						height: 40px;
-    						border-radius: 5px;
-    						box-shadow: none;
-    						font: $font-medium;
-    						color: #000000;
-    						border: 1px solid #cccccc;
-  							padding: 0 0 0 5px;
-						}
+        .btn-active {
+            font: $font-medium;
+            padding: 9px 10px;
+            margin-right: 25px;
+            color: $white-color;
+            background-color: #1B8ECA;
+            border: 1px solid #BABABA;
+            border-radius: $border-radius-5;
+            width: 50px;
+        }
 
+        .comment-box {
+            margin-top: 30px;
 
-						label{
-						 font-size: 14px;
-						 color: #777777;
-						}
+            input[type="text"] {
+                width: 258px;
+                height: 40px;
+                border-radius: 5px;
+                box-shadow: none;
+                font: $font-medium;
+                color: #000000;
+                border: 1px solid #cccccc;
+                padding: 0 0 0 5px;
+            }
 
-						.btn-arrow{
-							background-color: #fff;
-						    border: 1px solid #cccccc;
-						    border-radius: 5px;
-						    color: #1b8eca;
-						    margin-top: 8px;
-    						margin-bottom: 7px;
-						}
+            label {
+                font-size: 14px;
+                color: #777777;
+            }
 
-					}
-
-	}
+            .btn-arrow {
+                background-color: #fff;
+                border: 1px solid #cccccc;
+                border-radius: 5px;
+                color: #1b8eca;
+                margin-top: 8px;
+                margin-bottom: 7px;
+            }
+        }
+    }
 }

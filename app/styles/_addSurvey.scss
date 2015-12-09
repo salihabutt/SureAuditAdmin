@@ -1,336 +1,341 @@
 .ae-survey-wrapper {
-	padding-top: 50px;
+    padding-top: 50px;
 
-	.survey-summary-settings{
-		label{
-			font: $font-small;
-			color: #777777;
+    .survey-summary-settings {
+        label {
+            font: $font-small;
+            color: #777777;
+        }
 
-		}
+        textarea {
+            height: 160px;
+            width: 600px;
+        }
 
-		textarea{
-			height: 160px;
-			width: 600px;
-		}
+        .checkbox-disable-margin {
+            margin: 0px !important;
+        }
 
-		.checkbox-disable-margin{
-			margin: 0px !important;
-		}
+        .ampm-select {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            height: 30px;
+            font-size: 14px;
+            color: #777777;
+            margin-left: -5px;
+            padding-left: 5px;
+        }
 
-		.ampm-select{
-			background-color: #ffffff;
-		    border: 1px solid #cccccc;
-		    height: 30px;
-		    font-size: 14px;
-		    color: #777777;
-		    margin-left: -5px;
-		    padding-left: 5px;
-		}
+        .settings-txt {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            height: 30px;
+            font-size: 14px;
+            color: #777777;
+            padding-left: 5px;
+        }
 
-		.settings-txt{
-			background-color: #ffffff;
-		    border: 1px solid #cccccc;
-		    height: 30px;
-		    font-size: 14px;
-		    color: #777777;
-		    padding-left: 5px;
-		}
-		.summary-txt{
-			background-color: #ffffff;
-		    border: 1px solid #cccccc;
-		    border-radius: 5px;
-		    height: 40px;
-		    font-size: 14px;
-		    color: #777777;
-		    padding-left: 5px;
-		    float: left;
-		    width: 242px;
-		}
-		.by-span{
-			float: left;
-			margin: 8px 30px;
-		}
+        .summary-txt {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            height: 40px;
+            font-size: 14px;
+            color: #777777;
+            padding-left: 5px;
+            float: left;
+            width: 242px;
+        }
 
-		.settings-txt-time{
-			width: 100px;
-		}
-	}
+        .by-span {
+            float: left;
+            margin: 8px 30px;
+        }
 
-	.survey-info-box {
-		background-color: $white-color;
-		padding: 10px 25px;
-		border-top: 1px solid #cccccc;
-    	border-bottom: 1px solid #cccccc;
-
-		.custom-breadcrumbs{
-			font: $font-med-small;
-			color: #BABABA;
-			span {
-				color: #777777;
-				margin-right: 20px;
-			}
-			img{
-				margin-right: 20px;
-			}
-		}
-
-		.survey-detail{
-			width: 100%;
-			margin-bottom: 50px;
-			p {
-				font: $font-medium;
-				color: #4C4C4C;
-			}
-
-			.heading {
-				font: $font-heading;
-				color: #0DC3F3;
-			}
-			.survey-detail-box{
-				border-right: 1px solid #cccccc;
-			}
-			.span-txt {
-				font: $font-heading;
-				color: #CCCCCC;
-			}
-		}
-	}
-	.nav-tabs {
-    	border: none !important;
-	}
-	.nav-tabs > li > a {
-		font: $font-med-small;
-    	border: none !important;
-		cursor: pointer;
-		color: #777777;
-	}
-	
-	.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    	color: #000000 !important;
+        .settings-txt-time {
+            width: 100px;
+        }
     }
 
-	/*.tab-active {
-		font: $font-med-small;
+    .survey-info-box {
+        background-color: $white-color;
+        padding: 10px 25px;
+        border-top: 1px solid #cccccc;
+        border-bottom: 1px solid #cccccc;
 
-	}*/
+        .custom-breadcrumbs {
+            font: $font-med-small;
+            color: #BABABA;
 
-	.total-weight{
-		font: $font-medium-bold;
-		color: #4C4C4C;
-		padding: 50px 0 30px 0;
-		text-align: right;
-	
-	}
-	
-	.total-section-weight {
-		font: $font-medium-bold;
-		color: #4C4C4C;
-		padding: 50px 0 30px 0;
-		text-align: right;
-	}
-	
-	
-	
-	#total-section-weight {
-		padding-right: 66px;
-		padding-left: 24px;
-	}
-	
-	
-	
-	.total-question-weight{
-		font: $font-medium-bold;
-		color: #4C4C4C;
-		padding: 50px 0 30px 0;
-		text-align: right;
-	}
-	
-	span[id^='total-ques-']{
-    		margin-right: 50px !important;
-	}
-	
-	.percent-weight {
-				border: none !important;
-				background-color: #F3F3F3;
-				border-radius: 5px;
-				padding: 10px 13px;
-				width: 60px;
-				height: 28px;
-				font: $font-small;
-				color: #4C4C4C;
-				outline: none;
-			}
-	// do not use this class on other elements since this class is being used for calculating section total weight. can use only on section weight		
-	.section-percent-weight {
-				border: none !important;
-				background-color: #F3F3F3;
-				border-radius: 5px;
-				padding: 10px 13px;
-				width: 60px;
-				height: 28px;
-				font: $font-small;
-				color: #4C4C4C;
-				outline: none;
-	}
+            span {
+                color: #777777;
+                margin-right: 20px;
+            }
 
-	.section-box{
-		border-radius: $border-radius-5;
-		border: 1px solid #cccccc;
-		background-color: #F1F1F1;
-		
-		.section-title{
-			background-color: #1B8ECA;
-			color: #ffffff;
-			height: 50px;
-			line-height: 50px;
-			border-top-right-radius: 5px;
-			border-top-left-radius: 5px;
+            img {
+                margin-right: 20px;
+            }
+        }
 
-			span{
-				margin-right: 10px;
-			}
-			span.section-title-text{
-				font: $font-large;
-			}
-			span.percent-wrightage{
-				background-color: #F3F3F3;
-				border-radius: 5px;
-				padding: 10px 13px;
-				color: #000;
-			}
-			
-			.arrows{
-				height: 20px;
-				margin-top: -6px;
-			}
-		}
-		.section-body{
+        .survey-detail {
+            width: 100%;
+            margin-bottom: 50px;
 
-			.section-body-head{
-				padding: 10px 0;
+            p {
+                font: $font-medium;
+                color: #4C4C4C;
+            }
 
-				span{
-					margin-right: 10px;
-				}
-				span.total-weight{
-					font: $font-medium-bold;
-					color: #4C4C4C;
-					padding: 50px 0 30px 0;
-					text-align: right;
-				}
-			}
-			.section-body-body{
-				background-color: #ffffff;
-				border-radius: $border-radius-5;
-				border:1px solid #cccccc;
-				.survey-row-branching{
+            .heading {
+                font: $font-heading;
+                color: #0DC3F3;
+            }
 
-				}
-				.survey-row{
-					border-bottom: 1px solid #cccccc;
-					padding: 10px 0px 10px 0px;
-					
-					.arrows{
-						height: 20px;
-						margin-top: -6px;
-					}
+            .survey-detail-box {
+                border-right: 1px solid #cccccc;
+            }
 
-					.point-distribute-box{
-				        border-radius: 5px;
-					    border: 1px solid #cccccc;
-					    background-color: #F1F1F1;
-					    height: 30px;
-					    margin-top: 5px;
-					    line-height: 30px;
-					    padding-right: 5px;
-					}
+            .span-txt {
+                font: $font-heading;
+                color: #CCCCCC;
+            }
+        }
+    }
 
-					.question-label{
-						line-height:1;
-					}
-					.question-text{
-						line-height:1;
-					}
-				}
-				
-				.survey-row-hide {
-					background-color: #DEDDDD;
-					color: #4C4C4C !important;
-				}
-				
-				.survey-row-show {
-					background-color: #FFFFFF;
-					
-				}
-			}
-			.section-body-footer{
-				padding: 30px 0;
+    .nav-tabs {
+        border: none !important;
+    }
 
-			}
+    .nav-tabs > li > a {
+        font: $font-med-small;
+        border: none !important;
+        cursor: pointer;
+        color: #777777;
+    }
 
-		}
-	}
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        color: #000000 !important;
+    }
+
+    	/*.tab-active {
+    		font: $font-med-small;
+    
+    	}*/
+
+    .total-weight {
+        font: $font-medium-bold;
+        color: #4C4C4C;
+        padding: 50px 0 30px 0;
+        text-align: right;
+    }
+
+    .total-section-weight {
+        font: $font-medium-bold;
+        color: #4C4C4C;
+        padding: 50px 0 30px 0;
+        text-align: right;
+    }
+
+    #total-section-weight {
+        padding-right: 66px;
+        padding-left: 24px;
+    }
+
+    .total-question-weight {
+        font: $font-medium-bold;
+        color: #4C4C4C;
+        padding: 50px 0 30px 0;
+        text-align: right;
+    }
+
+    span[id^='total-ques-'] {
+        margin-right: 50px !important;
+    }
+
+    .percent-weight {
+        border: none !important;
+        background-color: #F3F3F3;
+        border-radius: 5px;
+        padding: 10px 13px;
+        width: 60px;
+        height: 28px;
+        font: $font-small;
+        color: #4C4C4C;
+        outline: none;
+    }
+
+    // do not use this class on other elements since this class is being used for calculating section total weight. can use only on section weight		
+    .section-percent-weight {
+        border: none !important;
+        background-color: #F3F3F3;
+        border-radius: 5px;
+        padding: 10px 13px;
+        width: 60px;
+        height: 28px;
+        font: $font-small;
+        color: #4C4C4C;
+        outline: none;
+    }
+
+    .section-box {
+        border-radius: $border-radius-5;
+        border: 1px solid #cccccc;
+        background-color: #F1F1F1;
+
+        .section-title {
+            background-color: #1B8ECA;
+            color: #ffffff;
+            height: 50px;
+            line-height: 50px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+
+            span {
+                margin-right: 10px;
+            }
+
+            span.section-title-text {
+                font: $font-large;
+            }
+
+            span.percent-wrightage {
+                background-color: #F3F3F3;
+                border-radius: 5px;
+                padding: 10px 13px;
+                color: #000;
+            }
+
+            .arrows {
+                height: 20px;
+                margin-top: -6px;
+            }
+        }
+
+        .section-body {
+            .section-body-head {
+                padding: 10px 0;
+
+                span {
+                    margin-right: 10px;
+                }
+
+                span.total-weight {
+                    font: $font-medium-bold;
+                    color: #4C4C4C;
+                    padding: 50px 0 30px 0;
+                    text-align: right;
+                }
+            }
+
+            .section-body-body {
+                background-color: #ffffff;
+                border-radius: $border-radius-5;
+                border: 1px solid #cccccc;
+
+                .survey-row-branching {}
+
+                .survey-row {
+                    border-bottom: 1px solid #cccccc;
+                    padding: 10px 0px 10px 0px;
+
+                    .arrows {
+                        height: 20px;
+                        margin-top: -6px;
+                    }
+
+                    .point-distribute-box {
+                        border-radius: 5px;
+                        border: 1px solid #cccccc;
+                        background-color: #F1F1F1;
+                        height: 30px;
+                        margin-top: 5px;
+                        line-height: 30px;
+                        padding-right: 5px;
+                    }
+
+                    .question-label {
+                        line-height: 1;
+                    }
+
+                    .question-text {
+                        line-height: 1;
+                    }
+                }
+
+                .survey-row-hide {
+                    background-color: #DEDDDD;
+                    color: #4C4C4C !important;
+                }
+
+                .survey-row-show {
+                    background-color: #FFFFFF;
+                }
+            }
+
+            .section-body-footer {
+                padding: 30px 0;
+            }
+        }
+    }
 }
 
 .survey-questions-modal .modal-dialog {
-	width: 808px;
-	height: 688px;
-	
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-	
-	.modal-body{
-		height: 500px;
-	
-		.heading {
-			font: $font-large;
-			color: #4C4C4C;
-		}
-		
-		.question-section {
-			font: $font-medium;
-			border: 1px solid #F6F6F6;
-			border-radius: 5px;
-			height: 432px;
-			overflow: scroll;
-			background-color: #F6F6F6;
-		}
-		
-		.radio { 
-			font: $font-medium;
-			font-color: #4C4C4C;
-			font-weight: normal;
-		}
-		
-		input[type="radio"] {
-			margin-top: 1px;
-			margin-left: -26px;
-		}
-		
-		p {
-			font: $font-med-small;
-		}
-		
-		span {
-			font: $font-small;
-			color: #777777;
-		}
-		
-		.txt-search {
-			 border: 1px solid #CCCCCC;
-			 font: $font-small;
-			 color: #BABABA;
-			 outline: none;
-		}
-		
-	}
+    width: 808px;
+    height: 688px;
+
+    .close-btn {
+        padding-top: 5px;
+        float: right;
+    }
+
+    .modal-body {
+        height: 500px;
+
+        .heading {
+            font: $font-large;
+            color: #4C4C4C;
+        }
+
+        .question-section {
+            font: $font-medium;
+            border: 1px solid #F6F6F6;
+            border-radius: 5px;
+            height: 432px;
+            overflow: scroll;
+            background-color: #F6F6F6;
+        }
+
+        .radio {
+            font: $font-medium;
+            font-color: #4C4C4C;
+            font-weight: normal;
+        }
+
+        input[type="radio"] {
+            margin-top: 1px;
+            margin-left: -26px;
+        }
+
+        p {
+            font: $font-med-small;
+        }
+
+        span {
+            font: $font-small;
+            color: #777777;
+        }
+
+        .txt-search {
+            border: 1px solid #CCCCCC;
+            font: $font-small;
+            color: #BABABA;
+            outline: none;
+        }
+    }
 }
 
-
-.quesGridOptions {    
-	position: absolute !important;
+.quesGridOptions {
+    position: absolute !important;
     top: 20px;
     left: -46px;
     background-color: #fff;
@@ -339,27 +344,29 @@
     height: 120px !important;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #cccccc;
-    z-index:9;
+    z-index: 9;
     display: none;
 
-    ul{
-    	list-style: none;
-    	margin: 0;
-    	padding: 0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-    	li{
-    		padding: 7px 0 9px 6px;
-    		text-align: right;
-    		padding-right: 10px;
-    		cursor: pointer;
+        li {
+            padding: 7px 0 9px 6px;
+            text-align: right;
+            padding-right: 10px;
+            cursor: pointer;
+        }
 
-    	}:hover{
-    		background-color: #F7F7F7;
-    	}
+        :hover {
+            background-color: #F7F7F7;
+        }
     }
 }
-.quesGridOptions-text {    
-	position: absolute !important;
+
+.quesGridOptions-text {
+    position: absolute !important;
     top: 20px;
     left: -46px;
     background-color: #fff;
@@ -368,28 +375,28 @@
     height: 80px !important;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #cccccc;
-    z-index:9;
+    z-index: 9;
     display: none;
 
-    ul{
-    	list-style: none;
-    	margin: 0;
-    	padding: 0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-    	li{
-    		padding: 7px 0 9px 6px;
-    		text-align: right;
-    		padding-right: 10px;
-    		cursor: pointer;
+        li {
+            padding: 7px 0 9px 6px;
+            text-align: right;
+            padding-right: 10px;
+            cursor: pointer;
+        }
 
-    	}:hover{
-    		background-color: #F7F7F7;
-    	}
+        :hover {
+            background-color: #F7F7F7;
+        }
     }
 }
 
-
-.gridOptions { 
-	height: 90px !important;
-	line-height:28px;
-} 
+.gridOptions {
+    height: 90px !important;
+    line-height: 28px;
+}

@@ -1,79 +1,80 @@
-.user-group-box{
-	width:288px;
-	height:auto;
-	background-color: $white-color;
-	text-align: center;
-	border-radius: $border-radius-5;
-	border: 1px solid #cccccc;
-	float:left;
-	margin-right: 19px;
-	margin-bottom: 25px;
+.user-group-box {
+    width: 288px;
+    height: auto;
+    background-color: $white-color;
+    text-align: center;
+    border-radius: $border-radius-5;
+    border: 1px solid #cccccc;
+    float: left;
+    margin-right: 19px;
+    margin-bottom: 25px;
 
-	&:nth-child(5n){
-		clear:both
-	}
-
-	.box-head{
-		background-color: #1B8ECA;
-		color: #FFFFFF;
-		height: 50px;
-		text-align: center;
-		border-top-right-radius: 5px;
-		border-top-left-radius: 5px;
-		padding: 10px 10px;;
-
-		h4{
-			@include font-family-medium;
-			font-weight: bold;
-			margin:0;
-		}
-		span{
-			@include font-family-small;
-		}
-
-		p {
-		    color: #FFFFFF;
-		}
-	}
-	.box-body{
-		text-align: center;
-		padding: 20px 10px 10px 20px;
-		p{
-			font-family: helvetica;
-			font-size: 14px;
-			color: #777777;
-
-		}
-	}
-	.box-manage-action-btn {
-    background-color: #FFFFFF;
-    color: #000000 !important;
-    border: 1px solid #cccccc !important;
-    font-size: 14px;
-    border-radius: 5px;
-    color: #FFFFFF;
-    font-family: helvetica;
-    font-size: 14px;
-    border: 0;
-    box-shadow: none;
-    width: 124px;
-    height: 30px;
+    &:nth-child(5n) {
+        clear: both;
     }
-	.box-footer{
-		text-align: center;
-		padding: 5px 10px 10px 10px;
 
-		.edit-btn{
-			float: left;
-		    text-align: center;
-		    width: 88%;
-		}
-		.menu-section{
-			position: relative;
+    .box-head {
+        background-color: #1B8ECA;
+        color: #FFFFFF;
+        height: 50px;
+        text-align: center;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        padding: 10px 10px;
 
-			img{
-				cursor:pointer;
-			}
-		}
-	}
+        h4 {
+            font: $font-medium-bold;
+            margin: 0;
+        }
+
+        span {
+            font: $font-med-small;
+        }
+
+        p {
+            color: #FFFFFF;
+        }
+    }
+
+    .box-body {
+        text-align: center;
+        padding: 20px 10px 10px 20px;
+
+        p {
+            font: $font-med-small;
+            color: #777777;
+        }
+    }
+
+    .box-manage-action-btn {
+        background-color: #FFFFFF;
+        color: #000000 !important;
+        border: 1px solid #cccccc !important;
+        font: $font-med-small;
+        border-radius: 5px;
+        color: #FFFFFF;
+        border: 0;
+        box-shadow: none;
+        width: 124px;
+        height: 30px;
+    }
+
+    .box-footer {
+        text-align: center;
+        padding: 5px 10px 10px 10px;
+
+        .edit-btn {
+            float: left;
+            text-align: center;
+            width: 88%;
+        }
+
+        .menu-section {
+            position: relative;
+
+            img {
+                cursor: pointer;
+            }
+        }
+    }
 }
