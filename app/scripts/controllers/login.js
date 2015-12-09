@@ -22,16 +22,6 @@ angular.module('sureAuditAdminApp')
 		});
     };
     
-  /*  scope.$watch('loginData', function(newVal, oldVal){
-    	scope.loginData.userName = newVal.userName===undefined? '' : newVal.userName;
-    	scope.loginData.password = newVal.password===undefined? '' : newVal.password;
-    	scope.loginData.customerId = newVal.customerId===undefined? '' : newVal.customerId;
-    	if (!angular.equals(self.loginDataCopy,scope.loginData)) {
-    		self.disableLoginBtn = false;
-    	}else {
-    		self.disableLoginBtn = true;
-    	}
-    },true);*/
     
     self.update = function () {
     	if (!angular.equals(self.loginDataCopy,self.loginData)) {

@@ -1,4 +1,16 @@
 @font-face {
+    font-family: 'HelveticaNeue';
+
+    /*src: url('/fonts/IranSans.eot');  IE9 Compat Modes */
+    /*src: url('/fonts/IranSans.eot?#iefix') format('embedded-opentype'),  IE6-IE8 */
+    /*url('/fonts/IranSans.woff') format('woff'),  Modern Browsers */
+    src: url("/fonts/HelveticaNeue.ttf") format("truetype");
+
+    /* Safari, Android, iOS */
+    /*url('/fonts/IranSans.svg') format('svg');  Legacy iOS */
+}
+
+@font-face {
     font-family: 'HelveticaNeue-Bold';
 
     /*src: url('/fonts/IranSans.eot');  IE9 Compat Modes */
