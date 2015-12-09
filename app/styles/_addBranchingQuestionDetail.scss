@@ -1,5 +1,4 @@
 .survey-branquestiondetail-modal .modal-dialog {
-<<<<<<< HEAD
     width: 808px;
     height: 688px;
     color: #4C4C4C;
@@ -26,29 +25,6 @@
             position: relative;
         }
 
-=======
-	width: 808px;
-	height: 688px;
-	color: #4C4C4C;
-	overflow-y: initial !important;
-	.close-btn {
-		padding-top: 5px;
-		float: right;
-	}
-  	.modal-header{
-    	font: $font-heading;
-  	}
-	.modal-body{
-		height: 500px;
-		overflow-y: auto;
-		.heading {
-			font: $font-large;
-		}
-
-		.rating{
-    		position:relative;
-		}
->>>>>>> parent of 8341c8e... css files commit
         .wrapper-rating div.rating span {
             position: absolute;
             display: inline-block;
