@@ -14,16 +14,10 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		
-		init();
-
-
-		self.goHome = function(){
-			$state.go('home');
-		};
-
 		self.navigate = function (type) {
 			$state.go(type);
 		};
-
-
-	});
+		
+		init();
+	
+});

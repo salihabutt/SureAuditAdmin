@@ -1,16 +1,15 @@
 'use strict';
 
 angular.module('sureAuditAdminApp')
-  .controller('MasterQuestion', function ($http, $uibModal, masterQuestionService, lookupService) {
+  .controller('MasterQuestion', function ($http, $uibModal, masterQuestionService) {
 	  var self = this,
   		init = function () {
-		  //initialize lookup data
 			self.data = {};
-		  	lookupService.questionTypes();
 		  	self.getQuestions();
+		  	self.predicate = 'Text';
+			self.reverse = false;
 		};
-
-		
+	
 		self.getQuestions = function () {
 			masterQuestionService.getData().then(function (response){
 				self.data = response;
@@ -19,9 +18,6 @@ angular.module('sureAuditAdminApp')
 			});
 		};
 		
-		self.predicate = 'Text';
-		self.reverse = false;
-
 		self.order = function(predicate) {
 			self.reverse = (self.predicate === predicate) ? !self.reverse : true;
 			self.predicate = predicate;
@@ -61,19 +57,21 @@ angular.module('sureAuditAdminApp')
 		  });
 	  };
 
-	  self.deleteMasterQuestion = function (id) {
-	  	
+	  self.deleteMasterQuestion = function (id) {	  	
 		  $uibModal.open({
-			  animation: true,
-			  templateUrl: 'deleteMasterQuestion.html',
-			  controller: 'deleteMasterQuestionCtrl',
-			  windowClass: 'questions-modal-delete',
-			  controllerAs: 'qmModal',
+				animation: true,
+				templateUrl: 'views/deleteWarning.html',
+				controller: 'delWarningCtrl',
+				windowClass: 'changes-warning-modal',
+				controllerAs: 'dwModal',
+				resolve: {
+					msg: function () {
+						return 'Are you sure you want to delete the master question? The master question will not be available to use in new audits.';
+					}
+				}
 		  }).result.then(function(){ 
 			masterQuestionService.deleteQuestion(id).then(function (response){
 				if(response.Error === null){
-					//to do : check the performance issue plus cross browser compatibility
-					//var idx = _.chain(self.data.Data).pluck(Id).indexOf(response.Id).value();
 					var index = self.data.Data.map(function(x) {return x.Id; }).indexOf(id);
 					self.data.Data[index].Status = "Deleted";
 				}
@@ -111,7 +109,7 @@ angular.module('sureAuditAdminApp')
 	  		self.subject = "Edit Master Question";
 			self.masterQuestionModel = angular.copy(item.question);
 		  	self.masterQuestionClone = angular.copy(item.question);
-		  	if(item.question.Status === 'InUse'){
+		  	if(item.question.Status.toUpperCase() === 'INUSE'){
 		  		self.isInSurvey = true;
 		  	}
 		  	self.optionItems=[];

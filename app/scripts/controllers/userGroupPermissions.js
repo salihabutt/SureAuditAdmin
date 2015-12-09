@@ -61,7 +61,7 @@ angular.module('sureAuditAdminApp')
 				controllerAs: 'dwModal',
 				resolve: {
 					msg: function () {
-						return 'Are you sure you want to delete the user group permission';
+						return 'Are you sure you want to delete the user group permission?';
 					}
 				}
 			}).result.then(function(){
