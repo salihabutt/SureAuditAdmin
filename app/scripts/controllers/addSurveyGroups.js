@@ -45,7 +45,7 @@ angular.module('sureAuditAdminApp')
 
 						self.getAllAudits = response.Data;
 						
-						for (var b = 0 ; b < self.getAllAudits.length; i++) {
+						for (var b = 0 ; b < self.getAllAudits.length; b++) {
 							self.getAllAudits[b].checked = false;
 							self.getAllAudits[b].showInList = true;
 						}
@@ -194,16 +194,4 @@ angular.module('sureAuditAdminApp')
 		};
 		
 		init();
-}).controller('delWarningCtrl', function ($uibModalInstance){
-	var self = this;
-	
-	self.ok = function () {
-		$uibModalInstance.close();
-	};
-	
-	self.cancel = function () {
-		$uibModalInstance.dismiss('cancel');
-	};
-	
-	
 });

@@ -28,9 +28,7 @@ angular.module('sureAuditAdminApp')
 				
 			},function () {
 				// ERROR BLOCK
-			});
-		
-			
+			});		
 		};
 		
 		self.order = function(val) {
@@ -69,6 +67,7 @@ angular.module('sureAuditAdminApp')
 			}).result.then(function(){
 				//delete user group permission
 				userGroupService.deleteUserGroupAssociation(id).then(function (response) {
+					console.log(response);
 					var index = self.userPermissionsList.map(function(x){return x.Id;}).indexOf(id);
 					self.userPermissionsList.splice(index,1);
 					self.count--;
@@ -184,11 +183,11 @@ angular.module('sureAuditAdminApp')
 		
 		self.next = function () {
 			self.state = 'surgroup';
-		}
+		};
 		
 		self.back = function () {
 			self.state = 'subgroup';
-		}
+		};
 
 		init();
   }) ;
